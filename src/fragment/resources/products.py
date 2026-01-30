@@ -1,0 +1,327 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+import httpx
+
+from ..types import product_create_params
+from .._types import Body, Query, Headers, NotGiven, not_given
+from .._utils import maybe_transform, async_maybe_transform
+from .._compat import cached_property
+from .._resource import SyncAPIResource, AsyncAPIResource
+from .._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from .._base_client import make_request_options
+from ..types.product_list_response import ProductListResponse
+from ..types.product_create_response import ProductCreateResponse
+from ..types.product_retrieve_response import ProductRetrieveResponse
+
+__all__ = ["ProductsResource", "AsyncProductsResource"]
+
+
+class ProductsResource(SyncAPIResource):
+    @cached_property
+    def with_raw_response(self) -> ProductsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/stainless-sdks/fragment-python#accessing-raw-response-data-eg-headers
+        """
+        return ProductsResourceWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> ProductsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/stainless-sdks/fragment-python#with_streaming_response
+        """
+        return ProductsResourceWithStreamingResponse(self)
+
+    def create(
+        self,
+        *,
+        code: str,
+        description: str,
+        seller: product_create_params.Seller,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ProductCreateResponse:
+        """
+        Creates a new product
+
+        Args:
+          code: Product code (unique identifier)
+
+          description: Description of the product
+
+          seller: Seller information
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/products",
+            body=maybe_transform(
+                {
+                    "code": code,
+                    "description": description,
+                    "seller": seller,
+                },
+                product_create_params.ProductCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ProductCreateResponse,
+        )
+
+    def retrieve(
+        self,
+        code: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ProductRetrieveResponse:
+        """
+        Gets a product by code
+
+        Args:
+          code: Product code
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not code:
+            raise ValueError(f"Expected a non-empty value for `code` but received {code!r}")
+        return self._get(
+            f"/products/{code}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ProductRetrieveResponse,
+        )
+
+    def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ProductListResponse:
+        """Lists all products for the workspace"""
+        return self._get(
+            "/products",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ProductListResponse,
+        )
+
+
+class AsyncProductsResource(AsyncAPIResource):
+    @cached_property
+    def with_raw_response(self) -> AsyncProductsResourceWithRawResponse:
+        """
+        This property can be used as a prefix for any HTTP method call to return
+        the raw response object instead of the parsed content.
+
+        For more information, see https://www.github.com/stainless-sdks/fragment-python#accessing-raw-response-data-eg-headers
+        """
+        return AsyncProductsResourceWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncProductsResourceWithStreamingResponse:
+        """
+        An alternative to `.with_raw_response` that doesn't eagerly read the response body.
+
+        For more information, see https://www.github.com/stainless-sdks/fragment-python#with_streaming_response
+        """
+        return AsyncProductsResourceWithStreamingResponse(self)
+
+    async def create(
+        self,
+        *,
+        code: str,
+        description: str,
+        seller: product_create_params.Seller,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ProductCreateResponse:
+        """
+        Creates a new product
+
+        Args:
+          code: Product code (unique identifier)
+
+          description: Description of the product
+
+          seller: Seller information
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/products",
+            body=await async_maybe_transform(
+                {
+                    "code": code,
+                    "description": description,
+                    "seller": seller,
+                },
+                product_create_params.ProductCreateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ProductCreateResponse,
+        )
+
+    async def retrieve(
+        self,
+        code: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ProductRetrieveResponse:
+        """
+        Gets a product by code
+
+        Args:
+          code: Product code
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not code:
+            raise ValueError(f"Expected a non-empty value for `code` but received {code!r}")
+        return await self._get(
+            f"/products/{code}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ProductRetrieveResponse,
+        )
+
+    async def list(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ProductListResponse:
+        """Lists all products for the workspace"""
+        return await self._get(
+            "/products",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=ProductListResponse,
+        )
+
+
+class ProductsResourceWithRawResponse:
+    def __init__(self, products: ProductsResource) -> None:
+        self._products = products
+
+        self.create = to_raw_response_wrapper(
+            products.create,
+        )
+        self.retrieve = to_raw_response_wrapper(
+            products.retrieve,
+        )
+        self.list = to_raw_response_wrapper(
+            products.list,
+        )
+
+
+class AsyncProductsResourceWithRawResponse:
+    def __init__(self, products: AsyncProductsResource) -> None:
+        self._products = products
+
+        self.create = async_to_raw_response_wrapper(
+            products.create,
+        )
+        self.retrieve = async_to_raw_response_wrapper(
+            products.retrieve,
+        )
+        self.list = async_to_raw_response_wrapper(
+            products.list,
+        )
+
+
+class ProductsResourceWithStreamingResponse:
+    def __init__(self, products: ProductsResource) -> None:
+        self._products = products
+
+        self.create = to_streamed_response_wrapper(
+            products.create,
+        )
+        self.retrieve = to_streamed_response_wrapper(
+            products.retrieve,
+        )
+        self.list = to_streamed_response_wrapper(
+            products.list,
+        )
+
+
+class AsyncProductsResourceWithStreamingResponse:
+    def __init__(self, products: AsyncProductsResource) -> None:
+        self._products = products
+
+        self.create = async_to_streamed_response_wrapper(
+            products.create,
+        )
+        self.retrieve = async_to_streamed_response_wrapper(
+            products.retrieve,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            products.list,
+        )
