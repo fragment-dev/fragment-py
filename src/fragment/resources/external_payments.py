@@ -32,7 +32,7 @@ class ExternalPaymentsResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/fragment-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/fragment-dev/fragment-py#accessing-raw-response-data-eg-headers
         """
         return ExternalPaymentsResourceWithRawResponse(self)
 
@@ -41,7 +41,7 @@ class ExternalPaymentsResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/fragment-python#with_streaming_response
+        For more information, see https://www.github.com/fragment-dev/fragment-py#with_streaming_response
         """
         return ExternalPaymentsResourceWithStreamingResponse(self)
 
@@ -342,7 +342,7 @@ class AsyncExternalPaymentsResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/fragment-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/fragment-dev/fragment-py#accessing-raw-response-data-eg-headers
         """
         return AsyncExternalPaymentsResourceWithRawResponse(self)
 
@@ -351,7 +351,7 @@ class AsyncExternalPaymentsResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/fragment-python#with_streaming_response
+        For more information, see https://www.github.com/fragment-dev/fragment-py#with_streaming_response
         """
         return AsyncExternalPaymentsResourceWithStreamingResponse(self)
 
