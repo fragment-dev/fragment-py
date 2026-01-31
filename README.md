@@ -1,7 +1,7 @@
 # Fragment Python API library
 
 <!-- prettier-ignore -->
-[![PyPI version](https://img.shields.io/pypi/v/fragment.svg?label=pypi%20(stable))](https://pypi.org/project/fragment/)
+[![PyPI version](https://img.shields.io/pypi/v/fragment-py.svg?label=pypi%20(stable))](https://pypi.org/project/fragment-py/)
 
 The Fragment Python library provides convenient access to the Fragment REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
@@ -16,12 +16,9 @@ The full API of this library can be found in [api.md](api.md).
 ## Installation
 
 ```sh
-# install from the production repo
-pip install git+ssh://git@github.com/fragment-dev/fragment-py.git
+# install from PyPI
+pip install fragment-py
 ```
-
-> [!NOTE]
-> Once this package is [published to PyPI](https://www.stainless.com/docs/guides/publish), this will become: `pip install fragment`
 
 ## Usage
 
@@ -78,8 +75,8 @@ By default, the async client uses `httpx` for HTTP requests. However, for improv
 You can enable this by installing `aiohttp`:
 
 ```sh
-# install from the production repo
-pip install 'fragment[aiohttp] @ git+ssh://git@github.com/fragment-dev/fragment-py.git'
+# install from PyPI
+pip install fragment-py[aiohttp]
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
