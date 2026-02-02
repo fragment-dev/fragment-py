@@ -1,4 +1,4 @@
-from fragment._utils import deepcopy_minimal
+from fragment_py._utils import deepcopy_minimal
 
 
 def assert_different_identities(obj1: object, obj2: object) -> None:

@@ -25,19 +25,25 @@ pip install fragment-py
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-from fragment import Fragment
+from fragment_py import Fragment
 
 client = Fragment()
 
-external_payment = client.external_payments.create(
-    account_reference="ACC-001",
-    amount="50000",
-    counterparty_id="party_123",
-    currency_code="USD",
-    invoice_id="inv_123",
-    transaction_id="txn_example",
+invoice = client.invoices.create(
+    buyer_user="user_ext_789",
+    invoice_id="invoice_2024_001",
+    line_items=[
+        {
+            "payout_user": {"platform": True},
+            "product_id": "prod_1234567890",
+            "amount": "1000",
+            "currency_code": "USD",
+            "description": "Professional services for January 2026",
+        }
+    ],
+    status="active",
 )
-print(external_payment.data)
+print(invoice.data)
 ```
 
 ## Async usage
@@ -46,21 +52,27 @@ Simply import `AsyncFragment` instead of `Fragment` and use `await` with each AP
 
 ```python
 import asyncio
-from fragment import AsyncFragment
+from fragment_py import AsyncFragment
 
 client = AsyncFragment()
 
 
 async def main() -> None:
-    external_payment = await client.external_payments.create(
-        account_reference="ACC-001",
-        amount="50000",
-        counterparty_id="party_123",
-        currency_code="USD",
-        invoice_id="inv_123",
-        transaction_id="txn_example",
+    invoice = await client.invoices.create(
+        buyer_user="user_ext_789",
+        invoice_id="invoice_2024_001",
+        line_items=[
+            {
+                "payout_user": {"platform": True},
+                "product_id": "prod_1234567890",
+                "amount": "1000",
+                "currency_code": "USD",
+                "description": "Professional services for January 2026",
+            }
+        ],
+        status="active",
     )
-    print(external_payment.data)
+    print(invoice.data)
 
 
 asyncio.run(main())
@@ -83,23 +95,29 @@ Then you can enable it by instantiating the client with `http_client=DefaultAioH
 
 ```python
 import asyncio
-from fragment import DefaultAioHttpClient
-from fragment import AsyncFragment
+from fragment_py import DefaultAioHttpClient
+from fragment_py import AsyncFragment
 
 
 async def main() -> None:
     async with AsyncFragment(
         http_client=DefaultAioHttpClient(),
     ) as client:
-        external_payment = await client.external_payments.create(
-            account_reference="ACC-001",
-            amount="50000",
-            counterparty_id="party_123",
-            currency_code="USD",
-            invoice_id="inv_123",
-            transaction_id="txn_example",
+        invoice = await client.invoices.create(
+            buyer_user="user_ext_789",
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "payout_user": {"platform": True},
+                    "product_id": "prod_1234567890",
+                    "amount": "1000",
+                    "currency_code": "USD",
+                    "description": "Professional services for January 2026",
+                }
+            ],
+            status="active",
         )
-        print(external_payment.data)
+        print(invoice.data)
 
 
 asyncio.run(main())
@@ -116,34 +134,40 @@ Typed requests and responses provide autocomplete and documentation within your 
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `fragment.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `fragment_py.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `fragment.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `fragment_py.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `fragment.APIError`.
+All errors inherit from `fragment_py.APIError`.
 
 ```python
-import fragment
-from fragment import Fragment
+import fragment_py
+from fragment_py import Fragment
 
 client = Fragment()
 
 try:
-    client.external_payments.create(
-        account_reference="ACC-001",
-        amount="50000",
-        counterparty_id="party_123",
-        currency_code="USD",
-        invoice_id="inv_123",
-        transaction_id="txn_example",
+    client.invoices.create(
+        buyer_user="user_ext_789",
+        invoice_id="invoice_2024_001",
+        line_items=[
+            {
+                "payout_user": {"platform": True},
+                "product_id": "prod_1234567890",
+                "amount": "1000",
+                "currency_code": "USD",
+                "description": "Professional services for January 2026",
+            }
+        ],
+        status="active",
     )
-except fragment.APIConnectionError as e:
+except fragment_py.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except fragment.RateLimitError as e:
+except fragment_py.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except fragment.APIStatusError as e:
+except fragment_py.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -171,7 +195,7 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from fragment import Fragment
+from fragment_py import Fragment
 
 # Configure the default for all requests:
 client = Fragment(
@@ -180,13 +204,19 @@ client = Fragment(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).external_payments.create(
-    account_reference="ACC-001",
-    amount="50000",
-    counterparty_id="party_123",
-    currency_code="USD",
-    invoice_id="inv_123",
-    transaction_id="txn_example",
+client.with_options(max_retries=5).invoices.create(
+    buyer_user="user_ext_789",
+    invoice_id="invoice_2024_001",
+    line_items=[
+        {
+            "payout_user": {"platform": True},
+            "product_id": "prod_1234567890",
+            "amount": "1000",
+            "currency_code": "USD",
+            "description": "Professional services for January 2026",
+        }
+    ],
+    status="active",
 )
 ```
 
@@ -196,7 +226,7 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
-from fragment import Fragment
+from fragment_py import Fragment
 
 # Configure the default for all requests:
 client = Fragment(
@@ -210,13 +240,19 @@ client = Fragment(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).external_payments.create(
-    account_reference="ACC-001",
-    amount="50000",
-    counterparty_id="party_123",
-    currency_code="USD",
-    invoice_id="inv_123",
-    transaction_id="txn_example",
+client.with_options(timeout=5.0).invoices.create(
+    buyer_user="user_ext_789",
+    invoice_id="invoice_2024_001",
+    line_items=[
+        {
+            "payout_user": {"platform": True},
+            "product_id": "prod_1234567890",
+            "amount": "1000",
+            "currency_code": "USD",
+            "description": "Professional services for January 2026",
+        }
+    ],
+    status="active",
 )
 ```
 
@@ -255,26 +291,32 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from fragment import Fragment
+from fragment_py import Fragment
 
 client = Fragment()
-response = client.external_payments.with_raw_response.create(
-    account_reference="ACC-001",
-    amount="50000",
-    counterparty_id="party_123",
-    currency_code="USD",
-    invoice_id="inv_123",
-    transaction_id="txn_example",
+response = client.invoices.with_raw_response.create(
+    buyer_user="user_ext_789",
+    invoice_id="invoice_2024_001",
+    line_items=[{
+        "payout_user": {
+            "platform": True
+        },
+        "product_id": "prod_1234567890",
+        "amount": "1000",
+        "currency_code": "USD",
+        "description": "Professional services for January 2026",
+    }],
+    status="active",
 )
 print(response.headers.get('X-My-Header'))
 
-external_payment = response.parse()  # get the object that `external_payments.create()` would have returned
-print(external_payment.data)
+invoice = response.parse()  # get the object that `invoices.create()` would have returned
+print(invoice.data)
 ```
 
-These methods return an [`APIResponse`](https://github.com/fragment-dev/fragment-py/tree/main/src/fragment/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/fragment-dev/fragment-py/tree/main/src/fragment_py/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/fragment-dev/fragment-py/tree/main/src/fragment/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/fragment-dev/fragment-py/tree/main/src/fragment_py/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -283,13 +325,19 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.external_payments.with_streaming_response.create(
-    account_reference="ACC-001",
-    amount="50000",
-    counterparty_id="party_123",
-    currency_code="USD",
-    invoice_id="inv_123",
-    transaction_id="txn_example",
+with client.invoices.with_streaming_response.create(
+    buyer_user="user_ext_789",
+    invoice_id="invoice_2024_001",
+    line_items=[
+        {
+            "payout_user": {"platform": True},
+            "product_id": "prod_1234567890",
+            "amount": "1000",
+            "currency_code": "USD",
+            "description": "Professional services for January 2026",
+        }
+    ],
+    status="active",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
@@ -343,7 +391,7 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from fragment import Fragment, DefaultHttpxClient
+from fragment_py import Fragment, DefaultHttpxClient
 
 client = Fragment(
     # Or use the `FRAGMENT_BASE_URL` env var
@@ -366,7 +414,7 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from fragment import Fragment
+from fragment_py import Fragment
 
 with Fragment() as client:
   # make requests here
@@ -394,8 +442,8 @@ If you've upgraded to the latest version but aren't seeing any new features you 
 You can determine the version that is being used at runtime with:
 
 ```py
-import fragment
-print(fragment.__version__)
+import fragment_py
+print(fragment_py.__version__)
 ```
 
 ## Requirements

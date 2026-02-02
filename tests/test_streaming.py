@@ -5,8 +5,8 @@ from typing import Iterator, AsyncIterator
 import httpx
 import pytest
 
-from fragment import Fragment, AsyncFragment
-from fragment._streaming import Stream, AsyncStream, ServerSentEvent
+from fragment_py import Fragment, AsyncFragment
+from fragment_py._streaming import Stream, AsyncStream, ServerSentEvent
 
 
 @pytest.mark.asyncio
