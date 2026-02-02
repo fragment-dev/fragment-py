@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from fragment_py import Fragment, AsyncFragment
+from fragment import Fragment, AsyncFragment
 from tests.utils import assert_matches_type
-from fragment_py.types import ProductListResponse, ProductCreateResponse, ProductRetrieveResponse
+from fragment.types import ProductListResponse, ProductCreateResponse, ProductRetrieveResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

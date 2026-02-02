@@ -6,8 +6,8 @@ import httpx
 import pytest
 import pydantic
 
-from fragment_py import Fragment, BaseModel, AsyncFragment
-from fragment_py._response import (
+from fragment import Fragment, BaseModel, AsyncFragment
+from fragment._response import (
     APIResponse,
     BaseAPIResponse,
     AsyncAPIResponse,
@@ -15,8 +15,8 @@ from fragment_py._response import (
     AsyncBinaryAPIResponse,
     extract_response_type,
 )
-from fragment_py._streaming import Stream
-from fragment_py._base_client import FinalRequestOptions
+from fragment._streaming import Stream
+from fragment._base_client import FinalRequestOptions
 
 
 class ConcreteBaseAPIResponse(APIResponse[bytes]): ...
@@ -37,7 +37,7 @@ def test_extract_response_type_direct_classes() -> None:
 def test_extract_response_type_direct_class_missing_type_arg() -> None:
     with pytest.raises(
         RuntimeError,
-        match="Expected type <class 'fragment_py._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
+        match="Expected type <class 'fragment._response.AsyncAPIResponse'> to have a type argument at index 0 but it did not",
     ):
         extract_response_type(AsyncAPIResponse)
 
@@ -68,7 +68,7 @@ def test_response_parse_mismatched_basemodel(client: Fragment) -> None:
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from fragment_py import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from fragment import BaseModel`",
     ):
         response.parse(to=PydanticModel)
 
@@ -86,7 +86,7 @@ async def test_async_response_parse_mismatched_basemodel(async_client: AsyncFrag
 
     with pytest.raises(
         TypeError,
-        match="Pydantic models must subclass our base model type, e.g. `from fragment_py import BaseModel`",
+        match="Pydantic models must subclass our base model type, e.g. `from fragment import BaseModel`",
     ):
         await response.parse(to=PydanticModel)
 
