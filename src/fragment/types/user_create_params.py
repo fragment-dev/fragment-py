@@ -6,12 +6,12 @@ from typing_extensions import Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["PartyCreateParams"]
+__all__ = ["UserCreateParams"]
 
 
-class PartyCreateParams(TypedDict, total=False):
+class UserCreateParams(TypedDict, total=False):
     external_id: Required[Annotated[str, PropertyInfo(alias="externalId")]]
-    """External ID for the party"""
+    """External ID for the user"""
 
-    type: str
-    """Type of the counterparty (e.g., buyer, seller)"""
+    role: Required[str]
+    """Role of the user"""

@@ -8,7 +8,7 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["ProductCreateResponse", "Data", "DataSeller", "DataSellerPlatformSeller", "DataSellerCounterpartySeller"]
+__all__ = ["ProductCreateResponse", "Data", "DataSeller", "DataSellerPlatformSeller", "DataSellerUserSeller"]
 
 
 class DataSellerPlatformSeller(BaseModel):
@@ -16,15 +16,15 @@ class DataSellerPlatformSeller(BaseModel):
     """Indicates the product is sold by the platform"""
 
 
-class DataSellerCounterpartySeller(BaseModel):
-    counterparty_type: str = FieldInfo(alias="counterpartyType")
-    """Type of the counterparty seller"""
+class DataSellerUserSeller(BaseModel):
+    role: str
+    """Role of the user"""
 
     sold_by_platform: Literal[False] = FieldInfo(alias="soldByPlatform")
-    """Indicates the product is sold by a counterparty"""
+    """Indicates the product is sold by a user"""
 
 
-DataSeller: TypeAlias = Union[DataSellerPlatformSeller, DataSellerCounterpartySeller]
+DataSeller: TypeAlias = Union[DataSellerPlatformSeller, DataSellerUserSeller]
 
 
 class Data(BaseModel):

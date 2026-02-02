@@ -10,15 +10,15 @@ from .._utils import PropertyInfo
 __all__ = [
     "InvoiceCreateParams",
     "LineItem",
-    "LineItemPayoutParty",
-    "LineItemPayoutPartyPlatformPayout",
-    "LineItemPayoutPartyCounterPartyPayout",
+    "LineItemPayoutUser",
+    "LineItemPayoutUserPlatformPayoutInput",
+    "LineItemPayoutUserUserPayoutInput",
 ]
 
 
 class InvoiceCreateParams(TypedDict, total=False):
-    buyer_party: Required[Annotated[str, PropertyInfo(alias="buyerParty")]]
-    """External ID of the buyer party"""
+    buyer_user: Required[Annotated[str, PropertyInfo(alias="buyerUser")]]
+    """External ID of the buyer user"""
 
     invoice_id: Required[Annotated[str, PropertyInfo(alias="invoiceId")]]
     """Unique identifier for the invoice.
@@ -26,33 +26,33 @@ class InvoiceCreateParams(TypedDict, total=False):
     Make this the canonical ID from your system for the transaction.
     """
 
-    line_items: Annotated[Iterable[LineItem], PropertyInfo(alias="lineItems")]
-    """Optional list of line items to create with the invoice"""
+    line_items: Required[Annotated[Iterable[LineItem], PropertyInfo(alias="lineItems")]]
+    """List of line items to create with the invoice"""
 
     status: Literal["draft", "active"]
     """Initial status of the invoice. Defaults to active if not specified."""
 
 
-class LineItemPayoutPartyPlatformPayout(TypedDict, total=False):
+class LineItemPayoutUserPlatformPayoutInput(TypedDict, total=False):
     platform: Required[Literal[True]]
     """Set to true for platform payout"""
 
 
-class LineItemPayoutPartyCounterPartyPayout(TypedDict, total=False):
-    party_id: Required[str]
-    """External ID of the party receiving payout"""
+class LineItemPayoutUserUserPayoutInput(TypedDict, total=False):
+    user_id: Required[str]
+    """External ID of the user receiving payout"""
 
     platform: Literal[False]
-    """Set to false or omit for counter-party payout"""
+    """Set to false or omit for user payout"""
 
 
-LineItemPayoutParty: TypeAlias = Union[LineItemPayoutPartyPlatformPayout, LineItemPayoutPartyCounterPartyPayout]
+LineItemPayoutUser: TypeAlias = Union[LineItemPayoutUserPlatformPayoutInput, LineItemPayoutUserUserPayoutInput]
 
 
 class LineItem(TypedDict, total=False):
     """Line item data for creating within an invoice.
 
-    The payInParty is automatically set to the invoice's buyerParty.
+    The payInUser is automatically set to the invoice's buyerUser.
     """
 
     amount: Required[str]
@@ -245,8 +245,8 @@ class LineItem(TypedDict, total=False):
     description: Required[str]
     """Description of the line item"""
 
-    payout_party: Required[LineItemPayoutParty]
-    """The party receiving payout - either platform or a counter-party"""
+    payout_user: Required[LineItemPayoutUser]
+    """The user receiving payout - either platform or a user"""
 
     product_id: Required[str]
     """ID of the product/catalog item"""

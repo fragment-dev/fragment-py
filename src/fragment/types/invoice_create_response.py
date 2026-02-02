@@ -12,27 +12,27 @@ __all__ = [
     "InvoiceCreateResponse",
     "Data",
     "DataLineItem",
-    "DataLineItemPayoutParty",
-    "DataLineItemPayoutPartyPlatformPayoutResponse",
-    "DataLineItemPayoutPartyCounterPartyPayoutResponse",
+    "DataLineItemPayoutUser",
+    "DataLineItemPayoutUserPlatformPayoutResponse",
+    "DataLineItemPayoutUserUserPayoutResponse",
 ]
 
 
-class DataLineItemPayoutPartyPlatformPayoutResponse(BaseModel):
+class DataLineItemPayoutUserPlatformPayoutResponse(BaseModel):
     platform: Literal[True]
     """Set to true for platform payout"""
 
 
-class DataLineItemPayoutPartyCounterPartyPayoutResponse(BaseModel):
-    party_id: str
-    """External ID of the party receiving payout"""
+class DataLineItemPayoutUserUserPayoutResponse(BaseModel):
+    user_id: str
+    """External ID of the user receiving payout"""
 
     platform: Optional[Literal[False]] = None
-    """Set to false or omit for counter-party payout"""
+    """Set to false or omit for user payout"""
 
 
-DataLineItemPayoutParty: TypeAlias = Union[
-    DataLineItemPayoutPartyPlatformPayoutResponse, DataLineItemPayoutPartyCounterPartyPayoutResponse
+DataLineItemPayoutUser: TypeAlias = Union[
+    DataLineItemPayoutUserPlatformPayoutResponse, DataLineItemPayoutUserUserPayoutResponse
 ]
 
 
@@ -227,8 +227,8 @@ class DataLineItem(BaseModel):
     description: str
     """Description of the line item"""
 
-    payout_party: DataLineItemPayoutParty
-    """The party receiving payout - either platform or a counter-party"""
+    payout_user: DataLineItemPayoutUser
+    """The user receiving payout - either platform or a user"""
 
     product_id: str
     """ID of the product/catalog item"""
@@ -240,8 +240,8 @@ class Data(BaseModel):
     id: str
     """Unique identifier for the invoice"""
 
-    buyer_party: str = FieldInfo(alias="buyerParty")
-    """External ID of the buyer party"""
+    buyer_user: str = FieldInfo(alias="buyerUser")
+    """External ID of the buyer user"""
 
     created: datetime
     """ISO 8601 timestamp when the invoice was created"""

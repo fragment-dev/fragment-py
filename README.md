@@ -1,7 +1,7 @@
 # Fragment Python API library
 
 <!-- prettier-ignore -->
-[![PyPI version](https://img.shields.io/pypi/v/fragment.svg?label=pypi%20(stable))](https://pypi.org/project/fragment/)
+[![PyPI version](https://img.shields.io/pypi/v/fragment-py.svg?label=pypi%20(stable))](https://pypi.org/project/fragment-py/)
 
 The Fragment Python library provides convenient access to the Fragment REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
@@ -16,12 +16,9 @@ The full API of this library can be found in [api.md](api.md).
 ## Installation
 
 ```sh
-# install from this staging repo
-pip install git+ssh://git@github.com/stainless-sdks/fragment-python.git
+# install from PyPI
+pip install fragment-py
 ```
-
-> [!NOTE]
-> Once this package is [published to PyPI](https://www.stainless.com/docs/guides/publish), this will become: `pip install fragment`
 
 ## Usage
 
@@ -32,15 +29,21 @@ from fragment import Fragment
 
 client = Fragment()
 
-external_payment = client.external_payments.create(
-    account_reference="ACC-001",
-    amount="50000",
-    counterparty_id="party_123",
-    currency_code="USD",
-    invoice_id="inv_123",
-    transaction_id="txn_example",
+invoice = client.invoices.create(
+    buyer_user="user_ext_789",
+    invoice_id="invoice_2024_001",
+    line_items=[
+        {
+            "payout_user": {"platform": True},
+            "product_id": "prod_1234567890",
+            "amount": "1000",
+            "currency_code": "USD",
+            "description": "Professional services for January 2026",
+        }
+    ],
+    status="active",
 )
-print(external_payment.data)
+print(invoice.data)
 ```
 
 ## Async usage
@@ -55,15 +58,21 @@ client = AsyncFragment()
 
 
 async def main() -> None:
-    external_payment = await client.external_payments.create(
-        account_reference="ACC-001",
-        amount="50000",
-        counterparty_id="party_123",
-        currency_code="USD",
-        invoice_id="inv_123",
-        transaction_id="txn_example",
+    invoice = await client.invoices.create(
+        buyer_user="user_ext_789",
+        invoice_id="invoice_2024_001",
+        line_items=[
+            {
+                "payout_user": {"platform": True},
+                "product_id": "prod_1234567890",
+                "amount": "1000",
+                "currency_code": "USD",
+                "description": "Professional services for January 2026",
+            }
+        ],
+        status="active",
     )
-    print(external_payment.data)
+    print(invoice.data)
 
 
 asyncio.run(main())
@@ -78,8 +87,8 @@ By default, the async client uses `httpx` for HTTP requests. However, for improv
 You can enable this by installing `aiohttp`:
 
 ```sh
-# install from this staging repo
-pip install 'fragment[aiohttp] @ git+ssh://git@github.com/stainless-sdks/fragment-python.git'
+# install from PyPI
+pip install fragment-py[aiohttp]
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
@@ -94,15 +103,21 @@ async def main() -> None:
     async with AsyncFragment(
         http_client=DefaultAioHttpClient(),
     ) as client:
-        external_payment = await client.external_payments.create(
-            account_reference="ACC-001",
-            amount="50000",
-            counterparty_id="party_123",
-            currency_code="USD",
-            invoice_id="inv_123",
-            transaction_id="txn_example",
+        invoice = await client.invoices.create(
+            buyer_user="user_ext_789",
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "payout_user": {"platform": True},
+                    "product_id": "prod_1234567890",
+                    "amount": "1000",
+                    "currency_code": "USD",
+                    "description": "Professional services for January 2026",
+                }
+            ],
+            status="active",
         )
-        print(external_payment.data)
+        print(invoice.data)
 
 
 asyncio.run(main())
@@ -133,13 +148,19 @@ from fragment import Fragment
 client = Fragment()
 
 try:
-    client.external_payments.create(
-        account_reference="ACC-001",
-        amount="50000",
-        counterparty_id="party_123",
-        currency_code="USD",
-        invoice_id="inv_123",
-        transaction_id="txn_example",
+    client.invoices.create(
+        buyer_user="user_ext_789",
+        invoice_id="invoice_2024_001",
+        line_items=[
+            {
+                "payout_user": {"platform": True},
+                "product_id": "prod_1234567890",
+                "amount": "1000",
+                "currency_code": "USD",
+                "description": "Professional services for January 2026",
+            }
+        ],
+        status="active",
     )
 except fragment.APIConnectionError as e:
     print("The server could not be reached")
@@ -183,13 +204,19 @@ client = Fragment(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).external_payments.create(
-    account_reference="ACC-001",
-    amount="50000",
-    counterparty_id="party_123",
-    currency_code="USD",
-    invoice_id="inv_123",
-    transaction_id="txn_example",
+client.with_options(max_retries=5).invoices.create(
+    buyer_user="user_ext_789",
+    invoice_id="invoice_2024_001",
+    line_items=[
+        {
+            "payout_user": {"platform": True},
+            "product_id": "prod_1234567890",
+            "amount": "1000",
+            "currency_code": "USD",
+            "description": "Professional services for January 2026",
+        }
+    ],
+    status="active",
 )
 ```
 
@@ -213,13 +240,19 @@ client = Fragment(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).external_payments.create(
-    account_reference="ACC-001",
-    amount="50000",
-    counterparty_id="party_123",
-    currency_code="USD",
-    invoice_id="inv_123",
-    transaction_id="txn_example",
+client.with_options(timeout=5.0).invoices.create(
+    buyer_user="user_ext_789",
+    invoice_id="invoice_2024_001",
+    line_items=[
+        {
+            "payout_user": {"platform": True},
+            "product_id": "prod_1234567890",
+            "amount": "1000",
+            "currency_code": "USD",
+            "description": "Professional services for January 2026",
+        }
+    ],
+    status="active",
 )
 ```
 
@@ -261,23 +294,29 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from fragment import Fragment
 
 client = Fragment()
-response = client.external_payments.with_raw_response.create(
-    account_reference="ACC-001",
-    amount="50000",
-    counterparty_id="party_123",
-    currency_code="USD",
-    invoice_id="inv_123",
-    transaction_id="txn_example",
+response = client.invoices.with_raw_response.create(
+    buyer_user="user_ext_789",
+    invoice_id="invoice_2024_001",
+    line_items=[{
+        "payout_user": {
+            "platform": True
+        },
+        "product_id": "prod_1234567890",
+        "amount": "1000",
+        "currency_code": "USD",
+        "description": "Professional services for January 2026",
+    }],
+    status="active",
 )
 print(response.headers.get('X-My-Header'))
 
-external_payment = response.parse()  # get the object that `external_payments.create()` would have returned
-print(external_payment.data)
+invoice = response.parse()  # get the object that `invoices.create()` would have returned
+print(invoice.data)
 ```
 
-These methods return an [`APIResponse`](https://github.com/stainless-sdks/fragment-python/tree/main/src/fragment/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/fragment-dev/fragment-py/tree/main/src/fragment/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/fragment-python/tree/main/src/fragment/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/fragment-dev/fragment-py/tree/main/src/fragment/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -286,13 +325,19 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.external_payments.with_streaming_response.create(
-    account_reference="ACC-001",
-    amount="50000",
-    counterparty_id="party_123",
-    currency_code="USD",
-    invoice_id="inv_123",
-    transaction_id="txn_example",
+with client.invoices.with_streaming_response.create(
+    buyer_user="user_ext_789",
+    invoice_id="invoice_2024_001",
+    line_items=[
+        {
+            "payout_user": {"platform": True},
+            "product_id": "prod_1234567890",
+            "amount": "1000",
+            "currency_code": "USD",
+            "description": "Professional services for January 2026",
+        }
+    ],
+    status="active",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
@@ -388,7 +433,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/fragment-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/fragment-dev/fragment-py/issues) with questions, bugs, or suggestions.
 
 ### Determining the installed version
 
