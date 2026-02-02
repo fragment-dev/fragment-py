@@ -5,8 +5,8 @@ from typing import Union
 
 import pydantic
 
-from fragment import _compat
-from fragment._utils._json import openapi_dumps
+from fragment_py import _compat
+from fragment_py._utils._json import openapi_dumps
 
 
 class TestOpenapiDumps:

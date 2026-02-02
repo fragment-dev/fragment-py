@@ -8,15 +8,15 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from fragment._types import Base64FileInput, omit, not_given
-from fragment._utils import (
+from fragment_py._types import Base64FileInput, omit, not_given
+from fragment_py._utils import (
     PropertyInfo,
     transform as _transform,
     parse_datetime,
     async_transform as _async_transform,
 )
-from fragment._compat import PYDANTIC_V1
-from fragment._models import BaseModel
+from fragment_py._compat import PYDANTIC_V1
+from fragment_py._models import BaseModel
 
 _T = TypeVar("_T")
 

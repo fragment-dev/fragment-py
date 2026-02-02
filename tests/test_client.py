@@ -19,12 +19,12 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from fragment import Fragment, AsyncFragment, APIResponseValidationError
-from fragment._types import Omit
-from fragment._utils import asyncify
-from fragment._models import BaseModel, FinalRequestOptions
-from fragment._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
-from fragment._base_client import (
+from fragment_py import Fragment, AsyncFragment, APIResponseValidationError
+from fragment_py._types import Omit
+from fragment_py._utils import asyncify
+from fragment_py._models import BaseModel, FinalRequestOptions
+from fragment_py._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from fragment_py._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
@@ -299,10 +299,10 @@ class TestFragment:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "fragment/_legacy_response.py",
-                        "fragment/_response.py",
+                        "fragment_py/_legacy_response.py",
+                        "fragment_py/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "fragment/_compat.py",
+                        "fragment_py/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -915,41 +915,51 @@ class TestFragment:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("fragment._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("fragment_py._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: Fragment) -> None:
-        respx_mock.post("/external-payments").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/invoices").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.external_payments.with_streaming_response.create(
-                account_reference="ACC-2024-001",
-                amount="50000",
-                counterparty_id="party_ext_789",
-                currency_code="USD",
-                invoice_id="inv_1234567890",
-                transaction_id="txn_external_123",
+            client.invoices.with_streaming_response.create(
+                buyer_user="user_ext_789",
+                invoice_id="invoice_2024_001",
+                line_items=[
+                    {
+                        "amount": "1000",
+                        "currency_code": "USD",
+                        "description": "Professional services for January 2026",
+                        "payout_user": {"platform": True},
+                        "product_id": "prod_1234567890",
+                    }
+                ],
             ).__enter__()
 
         assert _get_open_connections(client) == 0
 
-    @mock.patch("fragment._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("fragment_py._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: Fragment) -> None:
-        respx_mock.post("/external-payments").mock(return_value=httpx.Response(500))
+        respx_mock.post("/invoices").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.external_payments.with_streaming_response.create(
-                account_reference="ACC-2024-001",
-                amount="50000",
-                counterparty_id="party_ext_789",
-                currency_code="USD",
-                invoice_id="inv_1234567890",
-                transaction_id="txn_external_123",
+            client.invoices.with_streaming_response.create(
+                buyer_user="user_ext_789",
+                invoice_id="invoice_2024_001",
+                line_items=[
+                    {
+                        "amount": "1000",
+                        "currency_code": "USD",
+                        "description": "Professional services for January 2026",
+                        "payout_user": {"platform": True},
+                        "product_id": "prod_1234567890",
+                    }
+                ],
             ).__enter__()
         assert _get_open_connections(client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("fragment._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("fragment_py._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
@@ -972,22 +982,27 @@ class TestFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/external-payments").mock(side_effect=retry_handler)
+        respx_mock.post("/invoices").mock(side_effect=retry_handler)
 
-        response = client.external_payments.with_raw_response.create(
-            account_reference="ACC-2024-001",
-            amount="50000",
-            counterparty_id="party_ext_789",
-            currency_code="USD",
-            invoice_id="inv_1234567890",
-            transaction_id="txn_external_123",
+        response = client.invoices.with_raw_response.create(
+            buyer_user="user_ext_789",
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "amount": "1000",
+                    "currency_code": "USD",
+                    "description": "Professional services for January 2026",
+                    "payout_user": {"platform": True},
+                    "product_id": "prod_1234567890",
+                }
+            ],
         )
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("fragment._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("fragment_py._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_omit_retry_count_header(
         self, client: Fragment, failures_before_success: int, respx_mock: MockRouter
@@ -1003,22 +1018,27 @@ class TestFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/external-payments").mock(side_effect=retry_handler)
+        respx_mock.post("/invoices").mock(side_effect=retry_handler)
 
-        response = client.external_payments.with_raw_response.create(
-            account_reference="ACC-2024-001",
-            amount="50000",
-            counterparty_id="party_ext_789",
-            currency_code="USD",
-            invoice_id="inv_1234567890",
-            transaction_id="txn_external_123",
+        response = client.invoices.with_raw_response.create(
+            buyer_user="user_ext_789",
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "amount": "1000",
+                    "currency_code": "USD",
+                    "description": "Professional services for January 2026",
+                    "payout_user": {"platform": True},
+                    "product_id": "prod_1234567890",
+                }
+            ],
             extra_headers={"x-stainless-retry-count": Omit()},
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("fragment._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("fragment_py._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
         self, client: Fragment, failures_before_success: int, respx_mock: MockRouter
@@ -1034,15 +1054,20 @@ class TestFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/external-payments").mock(side_effect=retry_handler)
+        respx_mock.post("/invoices").mock(side_effect=retry_handler)
 
-        response = client.external_payments.with_raw_response.create(
-            account_reference="ACC-2024-001",
-            amount="50000",
-            counterparty_id="party_ext_789",
-            currency_code="USD",
-            invoice_id="inv_1234567890",
-            transaction_id="txn_external_123",
+        response = client.invoices.with_raw_response.create(
+            buyer_user="user_ext_789",
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "amount": "1000",
+                    "currency_code": "USD",
+                    "description": "Professional services for January 2026",
+                    "payout_user": {"platform": True},
+                    "product_id": "prod_1234567890",
+                }
+            ],
             extra_headers={"x-stainless-retry-count": "42"},
         )
 
@@ -1283,10 +1308,10 @@ class TestAsyncFragment:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "fragment/_legacy_response.py",
-                        "fragment/_response.py",
+                        "fragment_py/_legacy_response.py",
+                        "fragment_py/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "fragment/_compat.py",
+                        "fragment_py/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -1906,45 +1931,55 @@ class TestAsyncFragment:
         calculated = async_client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("fragment._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("fragment_py._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncFragment
     ) -> None:
-        respx_mock.post("/external-payments").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/invoices").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.external_payments.with_streaming_response.create(
-                account_reference="ACC-2024-001",
-                amount="50000",
-                counterparty_id="party_ext_789",
-                currency_code="USD",
-                invoice_id="inv_1234567890",
-                transaction_id="txn_external_123",
+            await async_client.invoices.with_streaming_response.create(
+                buyer_user="user_ext_789",
+                invoice_id="invoice_2024_001",
+                line_items=[
+                    {
+                        "amount": "1000",
+                        "currency_code": "USD",
+                        "description": "Professional services for January 2026",
+                        "payout_user": {"platform": True},
+                        "product_id": "prod_1234567890",
+                    }
+                ],
             ).__aenter__()
 
         assert _get_open_connections(async_client) == 0
 
-    @mock.patch("fragment._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("fragment_py._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncFragment
     ) -> None:
-        respx_mock.post("/external-payments").mock(return_value=httpx.Response(500))
+        respx_mock.post("/invoices").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.external_payments.with_streaming_response.create(
-                account_reference="ACC-2024-001",
-                amount="50000",
-                counterparty_id="party_ext_789",
-                currency_code="USD",
-                invoice_id="inv_1234567890",
-                transaction_id="txn_external_123",
+            await async_client.invoices.with_streaming_response.create(
+                buyer_user="user_ext_789",
+                invoice_id="invoice_2024_001",
+                line_items=[
+                    {
+                        "amount": "1000",
+                        "currency_code": "USD",
+                        "description": "Professional services for January 2026",
+                        "payout_user": {"platform": True},
+                        "product_id": "prod_1234567890",
+                    }
+                ],
             ).__aenter__()
         assert _get_open_connections(async_client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("fragment._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("fragment_py._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     async def test_retries_taken(
@@ -1967,22 +2002,27 @@ class TestAsyncFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/external-payments").mock(side_effect=retry_handler)
+        respx_mock.post("/invoices").mock(side_effect=retry_handler)
 
-        response = await client.external_payments.with_raw_response.create(
-            account_reference="ACC-2024-001",
-            amount="50000",
-            counterparty_id="party_ext_789",
-            currency_code="USD",
-            invoice_id="inv_1234567890",
-            transaction_id="txn_external_123",
+        response = await client.invoices.with_raw_response.create(
+            buyer_user="user_ext_789",
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "amount": "1000",
+                    "currency_code": "USD",
+                    "description": "Professional services for January 2026",
+                    "payout_user": {"platform": True},
+                    "product_id": "prod_1234567890",
+                }
+            ],
         )
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("fragment._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("fragment_py._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_omit_retry_count_header(
         self, async_client: AsyncFragment, failures_before_success: int, respx_mock: MockRouter
@@ -1998,22 +2038,27 @@ class TestAsyncFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/external-payments").mock(side_effect=retry_handler)
+        respx_mock.post("/invoices").mock(side_effect=retry_handler)
 
-        response = await client.external_payments.with_raw_response.create(
-            account_reference="ACC-2024-001",
-            amount="50000",
-            counterparty_id="party_ext_789",
-            currency_code="USD",
-            invoice_id="inv_1234567890",
-            transaction_id="txn_external_123",
+        response = await client.invoices.with_raw_response.create(
+            buyer_user="user_ext_789",
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "amount": "1000",
+                    "currency_code": "USD",
+                    "description": "Professional services for January 2026",
+                    "payout_user": {"platform": True},
+                    "product_id": "prod_1234567890",
+                }
+            ],
             extra_headers={"x-stainless-retry-count": Omit()},
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("fragment._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("fragment_py._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_overwrite_retry_count_header(
         self, async_client: AsyncFragment, failures_before_success: int, respx_mock: MockRouter
@@ -2029,15 +2074,20 @@ class TestAsyncFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/external-payments").mock(side_effect=retry_handler)
+        respx_mock.post("/invoices").mock(side_effect=retry_handler)
 
-        response = await client.external_payments.with_raw_response.create(
-            account_reference="ACC-2024-001",
-            amount="50000",
-            counterparty_id="party_ext_789",
-            currency_code="USD",
-            invoice_id="inv_1234567890",
-            transaction_id="txn_external_123",
+        response = await client.invoices.with_raw_response.create(
+            buyer_user="user_ext_789",
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "amount": "1000",
+                    "currency_code": "USD",
+                    "description": "Professional services for January 2026",
+                    "payout_user": {"platform": True},
+                    "product_id": "prod_1234567890",
+                }
+            ],
             extra_headers={"x-stainless-retry-count": "42"},
         )
 

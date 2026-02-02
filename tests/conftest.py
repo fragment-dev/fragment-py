@@ -10,15 +10,15 @@ import httpx
 import pytest
 from pytest_asyncio import is_async_test
 
-from fragment import Fragment, AsyncFragment, DefaultAioHttpClient
-from fragment._utils import is_dict
+from fragment_py import Fragment, AsyncFragment, DefaultAioHttpClient
+from fragment_py._utils import is_dict
 
 if TYPE_CHECKING:
     from _pytest.fixtures import FixtureRequest  # pyright: ignore[reportPrivateImportUsage]
 
 pytest.register_assert_rewrite("tests.utils")
 
-logging.getLogger("fragment").setLevel(logging.DEBUG)
+logging.getLogger("fragment_py").setLevel(logging.DEBUG)
 
 def _clear_oauth2_cache() -> None:
     from fragment._oauth2 import make_oauth2
