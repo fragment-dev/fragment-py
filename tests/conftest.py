@@ -48,6 +48,12 @@ def mock_oauth_token_for_respx(request: FixtureRequest) -> None:
     if "respx_mock" not in request.fixturenames:
         return
 
+    # Ensure a fresh OAuth2 client per test so the token request is made
+    # while respx is active and the route is counted as called.
+    from fragment._oauth2 import make_oauth2
+
+    make_oauth2.cache_clear()
+
     respx_mock = request.getfixturevalue("respx_mock")
     respx_mock.post("https://auth.us-west-2.fragment.dev/oauth2/token").mock(
         return_value=httpx.Response(200, json={"access_token": "test-token", "expires_in": 3600})
@@ -60,11 +66,16 @@ client_id = "My Client ID"
 client_secret = "My Client Secret"
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture()
 def client(request: FixtureRequest) -> Iterator[Fragment]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
+
+    if "respx_mock" in request.fixturenames:
+        from fragment._oauth2 import make_oauth2
+
+        make_oauth2.cache_clear()
 
     with Fragment(
         base_url=base_url, client_id=client_id, client_secret=client_secret, _strict_response_validation=strict
@@ -72,7 +83,7 @@ def client(request: FixtureRequest) -> Iterator[Fragment]:
         yield client
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture()
 async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncFragment]:
     param = getattr(request, "param", True)
 
@@ -91,6 +102,11 @@ async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncFragment]:
             http_client = DefaultAioHttpClient()
     else:
         raise TypeError(f"Unexpected fixture parameter type {type(param)}, expected bool or dict")
+
+    if "respx_mock" in request.fixturenames:
+        from fragment._oauth2 import make_oauth2
+
+        make_oauth2.cache_clear()
 
     async with AsyncFragment(
         base_url=base_url,
