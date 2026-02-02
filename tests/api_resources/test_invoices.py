@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from fragment_py import Fragment, AsyncFragment
+from fragment import Fragment, AsyncFragment
 from tests.utils import assert_matches_type
-from fragment_py.types import (
+from fragment.types import (
     InvoiceListResponse,
     InvoiceCreateResponse,
     InvoiceUpdateResponse,

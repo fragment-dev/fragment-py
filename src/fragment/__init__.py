@@ -91,12 +91,12 @@ _setup_logging()
 # Update the __module__ attribute for exported symbols so that
 # error messages point to this module instead of the module
 # it was originally defined in, e.g.
-# fragment_py._exceptions.NotFoundError -> fragment_py.NotFoundError
+# fragment._exceptions.NotFoundError -> fragment.NotFoundError
 __locals = locals()
 for __name in __all__:
     if not __name.startswith("__"):
         try:
-            __locals[__name].__module__ = "fragment_py"
+            __locals[__name].__module__ = "fragment"
         except (TypeError, AttributeError):
             # Some of our exported symbols are builtins which we can't set attributes for.
             pass
