@@ -2,61 +2,22 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = [
-    "InvoiceCreateParams",
-    "LineItem",
-    "LineItemPayoutParty",
-    "LineItemPayoutPartyPlatformPayout",
-    "LineItemPayoutPartyCounterPartyPayout",
-]
+__all__ = ["ExternalPaymentCreateParams"]
 
 
-class InvoiceCreateParams(TypedDict, total=False):
-    buyer_party: Required[Annotated[str, PropertyInfo(alias="buyerParty")]]
-    """External ID of the buyer party"""
-
-    invoice_id: Required[Annotated[str, PropertyInfo(alias="invoiceId")]]
-    """Unique identifier for the invoice.
-
-    Make this the canonical ID from your system for the transaction.
-    """
-
-    line_items: Annotated[Iterable[LineItem], PropertyInfo(alias="lineItems")]
-    """Optional list of line items to create with the invoice"""
-
-    status: Literal["draft", "active"]
-    """Initial status of the invoice. Defaults to active if not specified."""
-
-
-class LineItemPayoutPartyPlatformPayout(TypedDict, total=False):
-    platform: Required[Literal[True]]
-    """Set to true for platform payout"""
-
-
-class LineItemPayoutPartyCounterPartyPayout(TypedDict, total=False):
-    party_id: Required[str]
-    """External ID of the party receiving payout"""
-
-    platform: Literal[False]
-    """Set to false or omit for counter-party payout"""
-
-
-LineItemPayoutParty: TypeAlias = Union[LineItemPayoutPartyPlatformPayout, LineItemPayoutPartyCounterPartyPayout]
-
-
-class LineItem(TypedDict, total=False):
-    """Line item data for creating within an invoice.
-
-    The payInParty is automatically set to the invoice's buyerParty.
-    """
+class ExternalPaymentCreateParams(TypedDict, total=False):
+    account_reference: Required[Annotated[str, PropertyInfo(alias="accountReference")]]
+    """Reference to the external account"""
 
     amount: Required[str]
     """Amount in smallest currency unit (e.g., cents)"""
+
+    counterparty_id: Required[Annotated[str, PropertyInfo(alias="counterpartyId")]]
+    """External ID of the counterparty making the payment"""
 
     currency_code: Required[
         Annotated[
@@ -240,13 +201,10 @@ class LineItem(TypedDict, total=False):
             PropertyInfo(alias="currencyCode"),
         ]
     ]
-    """Currency code (ISO 4217 or crypto)"""
+    """Currency code for the payment (ISO 4217 or crypto)"""
 
-    description: Required[str]
-    """Description of the line item"""
+    invoice_id: Required[Annotated[str, PropertyInfo(alias="invoiceId")]]
+    """ID of the invoice this payment is for"""
 
-    payout_party: Required[LineItemPayoutParty]
-    """The party receiving payout - either platform or a counter-party"""
-
-    product_id: Required[str]
-    """ID of the product/catalog item"""
+    transaction_id: Required[Annotated[str, PropertyInfo(alias="transactionId")]]
+    """Transaction ID (used as idempotency key). Must be unique per workspace."""

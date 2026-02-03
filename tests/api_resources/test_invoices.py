@@ -14,7 +14,6 @@ from fragment.types import (
     InvoiceCreateResponse,
     InvoiceUpdateResponse,
     InvoiceRetrieveResponse,
-    InvoiceListHistoryResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -27,17 +26,8 @@ class TestInvoices:
     @parametrize
     def test_method_create(self, client: Fragment) -> None:
         invoice = client.invoices.create(
-            buyer_user="user_ext_789",
+            buyer_party="party_ext_789",
             invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
-                    "product_id": "prod_1234567890",
-                }
-            ],
         )
         assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
 
@@ -45,14 +35,14 @@ class TestInvoices:
     @parametrize
     def test_method_create_with_all_params(self, client: Fragment) -> None:
         invoice = client.invoices.create(
-            buyer_user="user_ext_789",
+            buyer_party="party_ext_789",
             invoice_id="invoice_2024_001",
             line_items=[
                 {
                     "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
+                    "payout_party": {"platform": True},
                     "product_id": "prod_1234567890",
                 }
             ],
@@ -64,17 +54,8 @@ class TestInvoices:
     @parametrize
     def test_raw_response_create(self, client: Fragment) -> None:
         response = client.invoices.with_raw_response.create(
-            buyer_user="user_ext_789",
+            buyer_party="party_ext_789",
             invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
-                    "product_id": "prod_1234567890",
-                }
-            ],
         )
 
         assert response.is_closed is True
@@ -86,17 +67,8 @@ class TestInvoices:
     @parametrize
     def test_streaming_response_create(self, client: Fragment) -> None:
         with client.invoices.with_streaming_response.create(
-            buyer_user="user_ext_789",
+            buyer_party="party_ext_789",
             invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
-                    "product_id": "prod_1234567890",
-                }
-            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -159,7 +131,7 @@ class TestInvoices:
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
-                    "payout_user": {"platform": True},
+                    "payout_party": {"platform": True},
                     "product_id": "prod_1234567890",
                 }
             ],
@@ -177,7 +149,7 @@ class TestInvoices:
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
-                    "payout_user": {"platform": True},
+                    "payout_party": {"platform": True},
                     "product_id": "prod_1234567890",
                 }
             ],
@@ -199,7 +171,7 @@ class TestInvoices:
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
-                    "payout_user": {"platform": True},
+                    "payout_party": {"platform": True},
                     "product_id": "prod_1234567890",
                 }
             ],
@@ -224,7 +196,7 @@ class TestInvoices:
                         "currency_code": "USD",
                         "description": "Professional services for January 2026",
                         "op": "add",
-                        "payout_user": {"platform": True},
+                        "payout_party": {"platform": True},
                         "product_id": "prod_1234567890",
                     }
                 ],
@@ -258,48 +230,6 @@ class TestInvoices:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_method_list_history(self, client: Fragment) -> None:
-        invoice = client.invoices.list_history(
-            "inv_1234567890",
-        )
-        assert_matches_type(InvoiceListHistoryResponse, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_raw_response_list_history(self, client: Fragment) -> None:
-        response = client.invoices.with_raw_response.list_history(
-            "inv_1234567890",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        invoice = response.parse()
-        assert_matches_type(InvoiceListHistoryResponse, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_streaming_response_list_history(self, client: Fragment) -> None:
-        with client.invoices.with_streaming_response.list_history(
-            "inv_1234567890",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            invoice = response.parse()
-            assert_matches_type(InvoiceListHistoryResponse, invoice, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    def test_path_params_list_history(self, client: Fragment) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            client.invoices.with_raw_response.list_history(
-                "",
-            )
-
 
 class TestAsyncInvoices:
     parametrize = pytest.mark.parametrize(
@@ -310,17 +240,8 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_create(self, async_client: AsyncFragment) -> None:
         invoice = await async_client.invoices.create(
-            buyer_user="user_ext_789",
+            buyer_party="party_ext_789",
             invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
-                    "product_id": "prod_1234567890",
-                }
-            ],
         )
         assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
 
@@ -328,14 +249,14 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncFragment) -> None:
         invoice = await async_client.invoices.create(
-            buyer_user="user_ext_789",
+            buyer_party="party_ext_789",
             invoice_id="invoice_2024_001",
             line_items=[
                 {
                     "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
+                    "payout_party": {"platform": True},
                     "product_id": "prod_1234567890",
                 }
             ],
@@ -347,17 +268,8 @@ class TestAsyncInvoices:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncFragment) -> None:
         response = await async_client.invoices.with_raw_response.create(
-            buyer_user="user_ext_789",
+            buyer_party="party_ext_789",
             invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
-                    "product_id": "prod_1234567890",
-                }
-            ],
         )
 
         assert response.is_closed is True
@@ -369,17 +281,8 @@ class TestAsyncInvoices:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncFragment) -> None:
         async with async_client.invoices.with_streaming_response.create(
-            buyer_user="user_ext_789",
+            buyer_party="party_ext_789",
             invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
-                    "product_id": "prod_1234567890",
-                }
-            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -442,7 +345,7 @@ class TestAsyncInvoices:
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
-                    "payout_user": {"platform": True},
+                    "payout_party": {"platform": True},
                     "product_id": "prod_1234567890",
                 }
             ],
@@ -460,7 +363,7 @@ class TestAsyncInvoices:
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
-                    "payout_user": {"platform": True},
+                    "payout_party": {"platform": True},
                     "product_id": "prod_1234567890",
                 }
             ],
@@ -482,7 +385,7 @@ class TestAsyncInvoices:
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
-                    "payout_user": {"platform": True},
+                    "payout_party": {"platform": True},
                     "product_id": "prod_1234567890",
                 }
             ],
@@ -507,7 +410,7 @@ class TestAsyncInvoices:
                         "currency_code": "USD",
                         "description": "Professional services for January 2026",
                         "op": "add",
-                        "payout_user": {"platform": True},
+                        "payout_party": {"platform": True},
                         "product_id": "prod_1234567890",
                     }
                 ],
@@ -540,45 +443,3 @@ class TestAsyncInvoices:
             assert_matches_type(InvoiceListResponse, invoice, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_list_history(self, async_client: AsyncFragment) -> None:
-        invoice = await async_client.invoices.list_history(
-            "inv_1234567890",
-        )
-        assert_matches_type(InvoiceListHistoryResponse, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_raw_response_list_history(self, async_client: AsyncFragment) -> None:
-        response = await async_client.invoices.with_raw_response.list_history(
-            "inv_1234567890",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        invoice = await response.parse()
-        assert_matches_type(InvoiceListHistoryResponse, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_streaming_response_list_history(self, async_client: AsyncFragment) -> None:
-        async with async_client.invoices.with_streaming_response.list_history(
-            "inv_1234567890",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            invoice = await response.parse()
-            assert_matches_type(InvoiceListHistoryResponse, invoice, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_path_params_list_history(self, async_client: AsyncFragment) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            await async_client.invoices.with_raw_response.list_history(
-                "",
-            )

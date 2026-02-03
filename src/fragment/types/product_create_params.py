@@ -7,7 +7,7 @@ from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["ProductCreateParams", "Seller", "SellerPlatformSeller", "SellerUserSeller"]
+__all__ = ["ProductCreateParams", "Seller", "SellerPlatformSeller", "SellerCounterpartySeller"]
 
 
 class ProductCreateParams(TypedDict, total=False):
@@ -26,12 +26,12 @@ class SellerPlatformSeller(TypedDict, total=False):
     """Indicates the product is sold by the platform"""
 
 
-class SellerUserSeller(TypedDict, total=False):
-    role: Required[str]
-    """Role of the user"""
+class SellerCounterpartySeller(TypedDict, total=False):
+    counterparty_type: Required[Annotated[str, PropertyInfo(alias="counterpartyType")]]
+    """Type of the counterparty seller"""
 
     sold_by_platform: Required[Annotated[Literal[False], PropertyInfo(alias="soldByPlatform")]]
-    """Indicates the product is sold by a user"""
+    """Indicates the product is sold by a counterparty"""
 
 
-Seller: TypeAlias = Union[SellerPlatformSeller, SellerUserSeller]
+Seller: TypeAlias = Union[SellerPlatformSeller, SellerCounterpartySeller]

@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import product_create_params
-from .._types import Body, Query, Headers, NotGiven, not_given
+from ..types import party_create_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -16,55 +16,52 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.product_list_response import ProductListResponse
-from ..types.product_create_response import ProductCreateResponse
-from ..types.product_retrieve_response import ProductRetrieveResponse
+from ..types.party_list_response import PartyListResponse
+from ..types.party_create_response import PartyCreateResponse
+from ..types.party_retrieve_response import PartyRetrieveResponse
 
-__all__ = ["ProductsResource", "AsyncProductsResource"]
+__all__ = ["PartiesResource", "AsyncPartiesResource"]
 
 
-class ProductsResource(SyncAPIResource):
+class PartiesResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> ProductsResourceWithRawResponse:
+    def with_raw_response(self) -> PartiesResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/fragment-python#accessing-raw-response-data-eg-headers
         """
-        return ProductsResourceWithRawResponse(self)
+        return PartiesResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> ProductsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> PartiesResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/fragment-python#with_streaming_response
         """
-        return ProductsResourceWithStreamingResponse(self)
+        return PartiesResourceWithStreamingResponse(self)
 
     def create(
         self,
         *,
-        code: str,
-        description: str,
-        seller: product_create_params.Seller,
+        external_id: str,
+        type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProductCreateResponse:
+    ) -> PartyCreateResponse:
         """
-        Creates a new product
+        Creates a new party
 
         Args:
-          code: Product code (unique identifier)
+          external_id: External ID for the party
 
-          description: Description of the product
-
-          seller: Seller information
+          type: Type of the counterparty (e.g., buyer, seller)
 
           extra_headers: Send extra headers
 
@@ -75,24 +72,23 @@ class ProductsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/products",
+            "/parties",
             body=maybe_transform(
                 {
-                    "code": code,
-                    "description": description,
-                    "seller": seller,
+                    "external_id": external_id,
+                    "type": type,
                 },
-                product_create_params.ProductCreateParams,
+                party_create_params.PartyCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ProductCreateResponse,
+            cast_to=PartyCreateResponse,
         )
 
     def retrieve(
         self,
-        code: str,
+        external_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -100,12 +96,12 @@ class ProductsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProductRetrieveResponse:
+    ) -> PartyRetrieveResponse:
         """
-        Gets a product by code
+        Gets a party by external ID
 
         Args:
-          code: Product code
+          external_id: External ID of the party
 
           extra_headers: Send extra headers
 
@@ -115,14 +111,14 @@ class ProductsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not code:
-            raise ValueError(f"Expected a non-empty value for `code` but received {code!r}")
+        if not external_id:
+            raise ValueError(f"Expected a non-empty value for `external_id` but received {external_id!r}")
         return self._get(
-            f"/products/{code}",
+            f"/parties/{external_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ProductRetrieveResponse,
+            cast_to=PartyRetrieveResponse,
         )
 
     def list(
@@ -134,59 +130,56 @@ class ProductsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProductListResponse:
-        """Lists all products for the workspace"""
+    ) -> PartyListResponse:
+        """Lists all parties for the workspace"""
         return self._get(
-            "/products",
+            "/parties",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ProductListResponse,
+            cast_to=PartyListResponse,
         )
 
 
-class AsyncProductsResource(AsyncAPIResource):
+class AsyncPartiesResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncProductsResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncPartiesResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/stainless-sdks/fragment-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncProductsResourceWithRawResponse(self)
+        return AsyncPartiesResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncProductsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncPartiesResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/stainless-sdks/fragment-python#with_streaming_response
         """
-        return AsyncProductsResourceWithStreamingResponse(self)
+        return AsyncPartiesResourceWithStreamingResponse(self)
 
     async def create(
         self,
         *,
-        code: str,
-        description: str,
-        seller: product_create_params.Seller,
+        external_id: str,
+        type: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProductCreateResponse:
+    ) -> PartyCreateResponse:
         """
-        Creates a new product
+        Creates a new party
 
         Args:
-          code: Product code (unique identifier)
+          external_id: External ID for the party
 
-          description: Description of the product
-
-          seller: Seller information
+          type: Type of the counterparty (e.g., buyer, seller)
 
           extra_headers: Send extra headers
 
@@ -197,24 +190,23 @@ class AsyncProductsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/products",
+            "/parties",
             body=await async_maybe_transform(
                 {
-                    "code": code,
-                    "description": description,
-                    "seller": seller,
+                    "external_id": external_id,
+                    "type": type,
                 },
-                product_create_params.ProductCreateParams,
+                party_create_params.PartyCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ProductCreateResponse,
+            cast_to=PartyCreateResponse,
         )
 
     async def retrieve(
         self,
-        code: str,
+        external_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -222,12 +214,12 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProductRetrieveResponse:
+    ) -> PartyRetrieveResponse:
         """
-        Gets a product by code
+        Gets a party by external ID
 
         Args:
-          code: Product code
+          external_id: External ID of the party
 
           extra_headers: Send extra headers
 
@@ -237,14 +229,14 @@ class AsyncProductsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not code:
-            raise ValueError(f"Expected a non-empty value for `code` but received {code!r}")
+        if not external_id:
+            raise ValueError(f"Expected a non-empty value for `external_id` but received {external_id!r}")
         return await self._get(
-            f"/products/{code}",
+            f"/parties/{external_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ProductRetrieveResponse,
+            cast_to=PartyRetrieveResponse,
         )
 
     async def list(
@@ -256,72 +248,72 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ProductListResponse:
-        """Lists all products for the workspace"""
+    ) -> PartyListResponse:
+        """Lists all parties for the workspace"""
         return await self._get(
-            "/products",
+            "/parties",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=ProductListResponse,
+            cast_to=PartyListResponse,
         )
 
 
-class ProductsResourceWithRawResponse:
-    def __init__(self, products: ProductsResource) -> None:
-        self._products = products
+class PartiesResourceWithRawResponse:
+    def __init__(self, parties: PartiesResource) -> None:
+        self._parties = parties
 
         self.create = to_raw_response_wrapper(
-            products.create,
+            parties.create,
         )
         self.retrieve = to_raw_response_wrapper(
-            products.retrieve,
+            parties.retrieve,
         )
         self.list = to_raw_response_wrapper(
-            products.list,
+            parties.list,
         )
 
 
-class AsyncProductsResourceWithRawResponse:
-    def __init__(self, products: AsyncProductsResource) -> None:
-        self._products = products
+class AsyncPartiesResourceWithRawResponse:
+    def __init__(self, parties: AsyncPartiesResource) -> None:
+        self._parties = parties
 
         self.create = async_to_raw_response_wrapper(
-            products.create,
+            parties.create,
         )
         self.retrieve = async_to_raw_response_wrapper(
-            products.retrieve,
+            parties.retrieve,
         )
         self.list = async_to_raw_response_wrapper(
-            products.list,
+            parties.list,
         )
 
 
-class ProductsResourceWithStreamingResponse:
-    def __init__(self, products: ProductsResource) -> None:
-        self._products = products
+class PartiesResourceWithStreamingResponse:
+    def __init__(self, parties: PartiesResource) -> None:
+        self._parties = parties
 
         self.create = to_streamed_response_wrapper(
-            products.create,
+            parties.create,
         )
         self.retrieve = to_streamed_response_wrapper(
-            products.retrieve,
+            parties.retrieve,
         )
         self.list = to_streamed_response_wrapper(
-            products.list,
+            parties.list,
         )
 
 
-class AsyncProductsResourceWithStreamingResponse:
-    def __init__(self, products: AsyncProductsResource) -> None:
-        self._products = products
+class AsyncPartiesResourceWithStreamingResponse:
+    def __init__(self, parties: AsyncPartiesResource) -> None:
+        self._parties = parties
 
         self.create = async_to_streamed_response_wrapper(
-            products.create,
+            parties.create,
         )
         self.retrieve = async_to_streamed_response_wrapper(
-            products.retrieve,
+            parties.retrieve,
         )
         self.list = async_to_streamed_response_wrapper(
-            products.list,
+            parties.list,
         )

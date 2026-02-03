@@ -23,7 +23,6 @@ from ..types.invoice_list_response import InvoiceListResponse
 from ..types.invoice_create_response import InvoiceCreateResponse
 from ..types.invoice_update_response import InvoiceUpdateResponse
 from ..types.invoice_retrieve_response import InvoiceRetrieveResponse
-from ..types.invoice_list_history_response import InvoiceListHistoryResponse
 
 __all__ = ["InvoicesResource", "AsyncInvoicesResource"]
 
@@ -35,7 +34,7 @@ class InvoicesResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/fragment-dev/fragment-py#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/stainless-sdks/fragment-python#accessing-raw-response-data-eg-headers
         """
         return InvoicesResourceWithRawResponse(self)
 
@@ -44,16 +43,16 @@ class InvoicesResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/fragment-dev/fragment-py#with_streaming_response
+        For more information, see https://www.github.com/stainless-sdks/fragment-python#with_streaming_response
         """
         return InvoicesResourceWithStreamingResponse(self)
 
     def create(
         self,
         *,
-        buyer_user: str,
+        buyer_party: str,
         invoice_id: str,
-        line_items: Iterable[invoice_create_params.LineItem],
+        line_items: Iterable[invoice_create_params.LineItem] | Omit = omit,
         status: Literal["draft", "active"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -66,12 +65,12 @@ class InvoicesResource(SyncAPIResource):
         Creates a new invoice
 
         Args:
-          buyer_user: External ID of the buyer user
+          buyer_party: External ID of the buyer party
 
           invoice_id: Unique identifier for the invoice. Make this the canonical ID from your system
               for the transaction.
 
-          line_items: List of line items to create with the invoice
+          line_items: Optional list of line items to create with the invoice
 
           status: Initial status of the invoice. Defaults to active if not specified.
 
@@ -87,7 +86,7 @@ class InvoicesResource(SyncAPIResource):
             "/invoices",
             body=maybe_transform(
                 {
-                    "buyer_user": buyer_user,
+                    "buyer_party": buyer_party,
                     "invoice_id": invoice_id,
                     "line_items": line_items,
                     "status": status,
@@ -193,41 +192,6 @@ class InvoicesResource(SyncAPIResource):
             cast_to=InvoiceListResponse,
         )
 
-    def list_history(
-        self,
-        id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceListHistoryResponse:
-        """
-        Gets the version history of an invoice
-
-        Args:
-          id: Invoice ID
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._get(
-            f"/invoices/{id}/history",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=InvoiceListHistoryResponse,
-        )
-
 
 class AsyncInvoicesResource(AsyncAPIResource):
     @cached_property
@@ -236,7 +200,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/fragment-dev/fragment-py#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/stainless-sdks/fragment-python#accessing-raw-response-data-eg-headers
         """
         return AsyncInvoicesResourceWithRawResponse(self)
 
@@ -245,16 +209,16 @@ class AsyncInvoicesResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/fragment-dev/fragment-py#with_streaming_response
+        For more information, see https://www.github.com/stainless-sdks/fragment-python#with_streaming_response
         """
         return AsyncInvoicesResourceWithStreamingResponse(self)
 
     async def create(
         self,
         *,
-        buyer_user: str,
+        buyer_party: str,
         invoice_id: str,
-        line_items: Iterable[invoice_create_params.LineItem],
+        line_items: Iterable[invoice_create_params.LineItem] | Omit = omit,
         status: Literal["draft", "active"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -267,12 +231,12 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Creates a new invoice
 
         Args:
-          buyer_user: External ID of the buyer user
+          buyer_party: External ID of the buyer party
 
           invoice_id: Unique identifier for the invoice. Make this the canonical ID from your system
               for the transaction.
 
-          line_items: List of line items to create with the invoice
+          line_items: Optional list of line items to create with the invoice
 
           status: Initial status of the invoice. Defaults to active if not specified.
 
@@ -288,7 +252,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
             "/invoices",
             body=await async_maybe_transform(
                 {
-                    "buyer_user": buyer_user,
+                    "buyer_party": buyer_party,
                     "invoice_id": invoice_id,
                     "line_items": line_items,
                     "status": status,
@@ -396,41 +360,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
             cast_to=InvoiceListResponse,
         )
 
-    async def list_history(
-        self,
-        id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> InvoiceListHistoryResponse:
-        """
-        Gets the version history of an invoice
-
-        Args:
-          id: Invoice ID
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._get(
-            f"/invoices/{id}/history",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=InvoiceListHistoryResponse,
-        )
-
 
 class InvoicesResourceWithRawResponse:
     def __init__(self, invoices: InvoicesResource) -> None:
@@ -447,9 +376,6 @@ class InvoicesResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             invoices.list,
-        )
-        self.list_history = to_raw_response_wrapper(
-            invoices.list_history,
         )
 
 
@@ -469,9 +395,6 @@ class AsyncInvoicesResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             invoices.list,
         )
-        self.list_history = async_to_raw_response_wrapper(
-            invoices.list_history,
-        )
 
 
 class InvoicesResourceWithStreamingResponse:
@@ -490,9 +413,6 @@ class InvoicesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             invoices.list,
         )
-        self.list_history = to_streamed_response_wrapper(
-            invoices.list_history,
-        )
 
 
 class AsyncInvoicesResourceWithStreamingResponse:
@@ -510,7 +430,4 @@ class AsyncInvoicesResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             invoices.list,
-        )
-        self.list_history = async_to_streamed_response_wrapper(
-            invoices.list_history,
         )

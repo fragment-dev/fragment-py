@@ -1,12 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .users import (
-    UsersResource,
-    AsyncUsersResource,
-    UsersResourceWithRawResponse,
-    AsyncUsersResourceWithRawResponse,
-    UsersResourceWithStreamingResponse,
-    AsyncUsersResourceWithStreamingResponse,
+from .parties import (
+    PartiesResource,
+    AsyncPartiesResource,
+    PartiesResourceWithRawResponse,
+    AsyncPartiesResourceWithRawResponse,
+    PartiesResourceWithStreamingResponse,
+    AsyncPartiesResourceWithStreamingResponse,
 )
 from .invoices import (
     InvoicesResource,
@@ -32,14 +32,34 @@ from .products import (
     ProductsResourceWithStreamingResponse,
     AsyncProductsResourceWithStreamingResponse,
 )
+from .external_payments import (
+    ExternalPaymentsResource,
+    AsyncExternalPaymentsResource,
+    ExternalPaymentsResourceWithRawResponse,
+    AsyncExternalPaymentsResourceWithRawResponse,
+    ExternalPaymentsResourceWithStreamingResponse,
+    AsyncExternalPaymentsResourceWithStreamingResponse,
+)
 
 __all__ = [
+    "ExternalPaymentsResource",
+    "AsyncExternalPaymentsResource",
+    "ExternalPaymentsResourceWithRawResponse",
+    "AsyncExternalPaymentsResourceWithRawResponse",
+    "ExternalPaymentsResourceWithStreamingResponse",
+    "AsyncExternalPaymentsResourceWithStreamingResponse",
     "InvoicesResource",
     "AsyncInvoicesResource",
     "InvoicesResourceWithRawResponse",
     "AsyncInvoicesResourceWithRawResponse",
     "InvoicesResourceWithStreamingResponse",
     "AsyncInvoicesResourceWithStreamingResponse",
+    "PartiesResource",
+    "AsyncPartiesResource",
+    "PartiesResourceWithRawResponse",
+    "AsyncPartiesResourceWithRawResponse",
+    "PartiesResourceWithStreamingResponse",
+    "AsyncPartiesResourceWithStreamingResponse",
     "PlatformResource",
     "AsyncPlatformResource",
     "PlatformResourceWithRawResponse",
@@ -52,10 +72,4 @@ __all__ = [
     "AsyncProductsResourceWithRawResponse",
     "ProductsResourceWithStreamingResponse",
     "AsyncProductsResourceWithStreamingResponse",
-    "UsersResource",
-    "AsyncUsersResource",
-    "UsersResourceWithRawResponse",
-    "AsyncUsersResourceWithRawResponse",
-    "UsersResourceWithStreamingResponse",
-    "AsyncUsersResourceWithStreamingResponse",
 ]

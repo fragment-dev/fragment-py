@@ -1,49 +1,30 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
+from typing import Optional
 from datetime import datetime
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = [
-    "InvoiceRetrieveResponse",
-    "Data",
-    "DataLineItem",
-    "DataLineItemPayoutParty",
-    "DataLineItemPayoutPartyPlatformPayoutResponse",
-    "DataLineItemPayoutPartyCounterPartyPayoutResponse",
-]
+__all__ = ["ExternalPaymentRetrieveResponse", "Data"]
 
 
-class DataLineItemPayoutPartyPlatformPayoutResponse(BaseModel):
-    platform: Literal[True]
-    """Set to true for platform payout"""
+class Data(BaseModel):
+    """External payment object"""
 
-
-class DataLineItemPayoutPartyCounterPartyPayoutResponse(BaseModel):
-    party_id: str
-    """External ID of the party receiving payout"""
-
-    platform: Optional[Literal[False]] = None
-    """Set to false or omit for counter-party payout"""
-
-
-DataLineItemPayoutParty: TypeAlias = Union[
-    DataLineItemPayoutPartyPlatformPayoutResponse, DataLineItemPayoutPartyCounterPartyPayoutResponse
-]
-
-
-class DataLineItem(BaseModel):
-    """Invoice line item object"""
-
-    id: str
-    """Unique identifier for the line item"""
+    account_reference: str = FieldInfo(alias="accountReference")
+    """Reference to the external account"""
 
     amount: str
     """Amount in smallest currency unit (represented as string for bigint)"""
+
+    counterparty_id: str = FieldInfo(alias="counterpartyId")
+    """External ID of the counterparty making the payment"""
+
+    created: datetime
+    """ISO 8601 timestamp when the payment was created"""
 
     currency_code: Literal[
         "ADA",
@@ -222,43 +203,21 @@ class DataLineItem(BaseModel):
         "LOGICAL",
         "CUSTOM",
     ] = FieldInfo(alias="currencyCode")
-    """Currency code (ISO 4217 or crypto)"""
+    """Currency code for the payment (ISO 4217 or crypto)"""
 
-    description: str
-    """Description of the line item"""
+    invoice_id: str = FieldInfo(alias="invoiceId")
+    """ID of the invoice this payment is for"""
 
-    payout_party: DataLineItemPayoutParty
-    """The party receiving payout - either platform or a counter-party"""
-
-    product_id: str
-    """ID of the product/catalog item"""
-
-
-class Data(BaseModel):
-    """Invoice object"""
-
-    id: str
-    """Unique identifier for the invoice"""
-
-    buyer_party: str = FieldInfo(alias="buyerParty")
-    """External ID of the buyer party"""
-
-    created: datetime
-    """ISO 8601 timestamp when the invoice was created"""
-
-    status: Literal["draft", "active", "closed", "void", "failed"]
-    """The status of the invoice"""
+    transaction_id: str = FieldInfo(alias="transactionId")
+    """Transaction ID (idempotency key)"""
 
     workspace_id: str = FieldInfo(alias="workspaceId")
-    """Workspace ID this invoice belongs to"""
-
-    line_items: Optional[List[DataLineItem]] = FieldInfo(alias="lineItems", default=None)
-    """List of line items associated with this invoice"""
+    """Workspace ID this payment belongs to"""
 
     modified: Optional[datetime] = None
-    """ISO 8601 timestamp when the invoice was last modified"""
+    """ISO 8601 timestamp when the payment was last modified"""
 
 
-class InvoiceRetrieveResponse(BaseModel):
+class ExternalPaymentRetrieveResponse(BaseModel):
     data: Data
-    """Invoice object"""
+    """External payment object"""

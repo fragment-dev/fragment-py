@@ -9,9 +9,9 @@ __all__ = [
     "InvoiceUpdateParams",
     "LineItemsUpdate",
     "LineItemsUpdateAddLineItemOperation",
-    "LineItemsUpdateAddLineItemOperationPayoutUser",
-    "LineItemsUpdateAddLineItemOperationPayoutUserPlatformPayoutInput",
-    "LineItemsUpdateAddLineItemOperationPayoutUserUserPayoutInput",
+    "LineItemsUpdateAddLineItemOperationPayoutParty",
+    "LineItemsUpdateAddLineItemOperationPayoutPartyPlatformPayout",
+    "LineItemsUpdateAddLineItemOperationPayoutPartyCounterPartyPayout",
     "LineItemsUpdateUpdateLineItemOperation",
     "LineItemsUpdateDeleteLineItemOperation",
 ]
@@ -22,22 +22,22 @@ class InvoiceUpdateParams(TypedDict, total=False):
     """List of line item operations to apply to the invoice"""
 
 
-class LineItemsUpdateAddLineItemOperationPayoutUserPlatformPayoutInput(TypedDict, total=False):
+class LineItemsUpdateAddLineItemOperationPayoutPartyPlatformPayout(TypedDict, total=False):
     platform: Required[Literal[True]]
     """Set to true for platform payout"""
 
 
-class LineItemsUpdateAddLineItemOperationPayoutUserUserPayoutInput(TypedDict, total=False):
-    user_id: Required[str]
-    """External ID of the user receiving payout"""
+class LineItemsUpdateAddLineItemOperationPayoutPartyCounterPartyPayout(TypedDict, total=False):
+    party_id: Required[str]
+    """External ID of the party receiving payout"""
 
     platform: Literal[False]
-    """Set to false or omit for user payout"""
+    """Set to false or omit for counter-party payout"""
 
 
-LineItemsUpdateAddLineItemOperationPayoutUser: TypeAlias = Union[
-    LineItemsUpdateAddLineItemOperationPayoutUserPlatformPayoutInput,
-    LineItemsUpdateAddLineItemOperationPayoutUserUserPayoutInput,
+LineItemsUpdateAddLineItemOperationPayoutParty: TypeAlias = Union[
+    LineItemsUpdateAddLineItemOperationPayoutPartyPlatformPayout,
+    LineItemsUpdateAddLineItemOperationPayoutPartyCounterPartyPayout,
 ]
 
 
@@ -234,8 +234,8 @@ class LineItemsUpdateAddLineItemOperation(TypedDict, total=False):
     op: Required[Literal["add"]]
     """Operation type - add a new line item"""
 
-    payout_user: Required[LineItemsUpdateAddLineItemOperationPayoutUser]
-    """The user receiving payout - either platform or a user"""
+    payout_party: Required[LineItemsUpdateAddLineItemOperationPayoutParty]
+    """The party receiving payout - either platform or a counter-party"""
 
     product_id: Required[str]
     """ID of the product/catalog item"""
