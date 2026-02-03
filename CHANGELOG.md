@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.0 (2026-02-03)
+
+Full Changelog: [v0.1.0...v0.2.0](https://github.com/fragment-dev/fragment-py/compare/v0.1.0...v0.2.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless ([#4](https://github.com/fragment-dev/fragment-py/issues/4)) ([6dd1723](https://github.com/fragment-dev/fragment-py/commit/6dd17231504a28f7a5008d5c54c7eabff8910a16))
+
 ## 0.1.0 (2026-02-02)
 
 Full Changelog: [v0.0.1...v0.1.0](https://github.com/fragment-dev/fragment-py/compare/v0.0.1...v0.1.0)
