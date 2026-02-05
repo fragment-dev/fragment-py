@@ -1,39 +1,14 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
+from typing import List, Optional
 from datetime import datetime
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = [
-    "InvoiceCreateResponse",
-    "Data",
-    "DataLineItem",
-    "DataLineItemPayoutUser",
-    "DataLineItemPayoutUserPlatformPayoutResponse",
-    "DataLineItemPayoutUserUserPayoutResponse",
-]
-
-
-class DataLineItemPayoutUserPlatformPayoutResponse(BaseModel):
-    platform: Literal[True]
-    """Set to true for platform payout"""
-
-
-class DataLineItemPayoutUserUserPayoutResponse(BaseModel):
-    user_id: str
-    """External ID of the user receiving payout"""
-
-    platform: Optional[Literal[False]] = None
-    """Set to false or omit for user payout"""
-
-
-DataLineItemPayoutUser: TypeAlias = Union[
-    DataLineItemPayoutUserPlatformPayoutResponse, DataLineItemPayoutUserUserPayoutResponse
-]
+__all__ = ["InvoiceCreateResponse", "Data", "DataLineItem"]
 
 
 class DataLineItem(BaseModel):
@@ -227,11 +202,14 @@ class DataLineItem(BaseModel):
     description: str
     """Description of the line item"""
 
-    payout_user: DataLineItemPayoutUser
-    """The user receiving payout - either platform or a user"""
-
     product_id: str
     """ID of the product/catalog item"""
+
+    type: Literal["payin", "payout"]
+    """The type of the line item"""
+
+    user_id: str
+    """External ID of the user associated with this line item"""
 
 
 class Data(BaseModel):
@@ -239,9 +217,6 @@ class Data(BaseModel):
 
     id: str
     """Unique identifier for the invoice"""
-
-    buyer_user: str = FieldInfo(alias="buyerUser")
-    """External ID of the buyer user"""
 
     created: datetime
     """ISO 8601 timestamp when the invoice was created"""

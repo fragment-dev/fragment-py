@@ -30,15 +30,15 @@ from fragment import Fragment
 client = Fragment()
 
 invoice = client.invoices.create(
-    buyer_user="user_ext_789",
     invoice_id="invoice_2024_001",
     line_items=[
         {
-            "payout_user": {"platform": True},
+            "type": "payout",
             "product_id": "prod_1234567890",
             "amount": "1000",
             "currency_code": "USD",
             "description": "Professional services for January 2026",
+            "user_id": "user_ext_456",
         }
     ],
     status="active",
@@ -59,15 +59,15 @@ client = AsyncFragment()
 
 async def main() -> None:
     invoice = await client.invoices.create(
-        buyer_user="user_ext_789",
         invoice_id="invoice_2024_001",
         line_items=[
             {
-                "payout_user": {"platform": True},
+                "type": "payout",
                 "product_id": "prod_1234567890",
                 "amount": "1000",
                 "currency_code": "USD",
                 "description": "Professional services for January 2026",
+                "user_id": "user_ext_456",
             }
         ],
         status="active",
@@ -104,15 +104,15 @@ async def main() -> None:
         http_client=DefaultAioHttpClient(),
     ) as client:
         invoice = await client.invoices.create(
-            buyer_user="user_ext_789",
             invoice_id="invoice_2024_001",
             line_items=[
                 {
-                    "payout_user": {"platform": True},
+                    "type": "payout",
                     "product_id": "prod_1234567890",
                     "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
+                    "user_id": "user_ext_456",
                 }
             ],
             status="active",
@@ -149,15 +149,15 @@ client = Fragment()
 
 try:
     client.invoices.create(
-        buyer_user="user_ext_789",
         invoice_id="invoice_2024_001",
         line_items=[
             {
-                "payout_user": {"platform": True},
+                "type": "payout",
                 "product_id": "prod_1234567890",
                 "amount": "1000",
                 "currency_code": "USD",
                 "description": "Professional services for January 2026",
+                "user_id": "user_ext_456",
             }
         ],
         status="active",
@@ -205,15 +205,15 @@ client = Fragment(
 
 # Or, configure per-request:
 client.with_options(max_retries=5).invoices.create(
-    buyer_user="user_ext_789",
     invoice_id="invoice_2024_001",
     line_items=[
         {
-            "payout_user": {"platform": True},
+            "type": "payout",
             "product_id": "prod_1234567890",
             "amount": "1000",
             "currency_code": "USD",
             "description": "Professional services for January 2026",
+            "user_id": "user_ext_456",
         }
     ],
     status="active",
@@ -241,15 +241,15 @@ client = Fragment(
 
 # Override per-request:
 client.with_options(timeout=5.0).invoices.create(
-    buyer_user="user_ext_789",
     invoice_id="invoice_2024_001",
     line_items=[
         {
-            "payout_user": {"platform": True},
+            "type": "payout",
             "product_id": "prod_1234567890",
             "amount": "1000",
             "currency_code": "USD",
             "description": "Professional services for January 2026",
+            "user_id": "user_ext_456",
         }
     ],
     status="active",
@@ -295,16 +295,14 @@ from fragment import Fragment
 
 client = Fragment()
 response = client.invoices.with_raw_response.create(
-    buyer_user="user_ext_789",
     invoice_id="invoice_2024_001",
     line_items=[{
-        "payout_user": {
-            "platform": True
-        },
+        "type": "payout",
         "product_id": "prod_1234567890",
         "amount": "1000",
         "currency_code": "USD",
         "description": "Professional services for January 2026",
+        "user_id": "user_ext_456",
     }],
     status="active",
 )
@@ -326,15 +324,15 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 
 ```python
 with client.invoices.with_streaming_response.create(
-    buyer_user="user_ext_789",
     invoice_id="invoice_2024_001",
     line_items=[
         {
-            "payout_user": {"platform": True},
+            "type": "payout",
             "product_id": "prod_1234567890",
             "amount": "1000",
             "currency_code": "USD",
             "description": "Professional services for January 2026",
+            "user_id": "user_ext_456",
         }
     ],
     status="active",

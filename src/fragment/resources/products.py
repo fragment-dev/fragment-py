@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Iterable
+
 import httpx
 
 from ..types import product_create_params
-from .._types import Body, Query, Headers, NotGiven, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -48,7 +50,8 @@ class ProductsResource(SyncAPIResource):
         *,
         code: str,
         description: str,
-        seller: product_create_params.Seller,
+        paid_by_roles: Iterable[product_create_params.PaidByRole] | Omit = omit,
+        paid_to_roles: Iterable[product_create_params.PaidToRole] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -64,7 +67,11 @@ class ProductsResource(SyncAPIResource):
 
           description: Description of the product
 
-          seller: Seller information
+          paid_by_roles: Roles that can pay for this product. Reference roles by id or name. At least one
+              of paid_by_roles or paid_to_roles must be provided.
+
+          paid_to_roles: Roles that receive payment for this product. Reference roles by id or name. At
+              least one of paid_by_roles or paid_to_roles must be provided.
 
           extra_headers: Send extra headers
 
@@ -80,7 +87,8 @@ class ProductsResource(SyncAPIResource):
                 {
                     "code": code,
                     "description": description,
-                    "seller": seller,
+                    "paid_by_roles": paid_by_roles,
+                    "paid_to_roles": paid_to_roles,
                 },
                 product_create_params.ProductCreateParams,
             ),
@@ -170,7 +178,8 @@ class AsyncProductsResource(AsyncAPIResource):
         *,
         code: str,
         description: str,
-        seller: product_create_params.Seller,
+        paid_by_roles: Iterable[product_create_params.PaidByRole] | Omit = omit,
+        paid_to_roles: Iterable[product_create_params.PaidToRole] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -186,7 +195,11 @@ class AsyncProductsResource(AsyncAPIResource):
 
           description: Description of the product
 
-          seller: Seller information
+          paid_by_roles: Roles that can pay for this product. Reference roles by id or name. At least one
+              of paid_by_roles or paid_to_roles must be provided.
+
+          paid_to_roles: Roles that receive payment for this product. Reference roles by id or name. At
+              least one of paid_by_roles or paid_to_roles must be provided.
 
           extra_headers: Send extra headers
 
@@ -202,7 +215,8 @@ class AsyncProductsResource(AsyncAPIResource):
                 {
                     "code": code,
                     "description": description,
-                    "seller": seller,
+                    "paid_by_roles": paid_by_roles,
+                    "paid_to_roles": paid_to_roles,
                 },
                 product_create_params.ProductCreateParams,
             ),

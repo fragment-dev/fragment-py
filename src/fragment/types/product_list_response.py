@@ -1,37 +1,43 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union
+from typing import List
 from datetime import datetime
-from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["ProductListResponse", "Data", "DataSeller", "DataSellerPlatformSeller", "DataSellerUserSeller"]
+__all__ = ["ProductListResponse", "Data", "DataPaidByRole", "DataPaidToRole"]
 
 
-class DataSellerPlatformSeller(BaseModel):
-    sold_by_platform: Literal[True] = FieldInfo(alias="soldByPlatform")
-    """Indicates the product is sold by the platform"""
+class DataPaidByRole(BaseModel):
+    """Reference to a role by its unique ID"""
+
+    id: str
+    """The unique ID of the role"""
+
+    name: str
+    """The name of the role"""
 
 
-class DataSellerUserSeller(BaseModel):
-    role: str
-    """Role of the user"""
+class DataPaidToRole(BaseModel):
+    """Reference to a role by its unique ID"""
 
-    sold_by_platform: Literal[False] = FieldInfo(alias="soldByPlatform")
-    """Indicates the product is sold by a user"""
+    id: str
+    """The unique ID of the role"""
 
-
-DataSeller: TypeAlias = Union[DataSellerPlatformSeller, DataSellerUserSeller]
+    name: str
+    """The name of the role"""
 
 
 class Data(BaseModel):
     """Product object"""
 
+    id: str
+    """Unique identifier for the product"""
+
     code: str
-    """Product code (unique identifier)"""
+    """User-defined product identifier."""
 
     created: datetime
     """ISO 8601 timestamp when the product was created"""
@@ -39,8 +45,11 @@ class Data(BaseModel):
     description: str
     """Description of the product"""
 
-    seller: DataSeller
-    """Seller information"""
+    paid_by_roles: List[DataPaidByRole]
+    """User roles that can pay for this product"""
+
+    paid_to_roles: List[DataPaidToRole]
+    """User roles that receive payment for this product"""
 
     update_version: float = FieldInfo(alias="updateVersion")
     """Version number for optimistic locking"""
