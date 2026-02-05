@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0 (2026-02-05)
+
+Full Changelog: [v0.2.0...v0.3.0](https://github.com/fragment-dev/fragment-py/compare/v0.2.0...v0.3.0)
+
+### Features
+
+* **api:** breaking API changes ([4a6e374](https://github.com/fragment-dev/fragment-py/commit/4a6e3749f2d98bddf436e07ba849d2e2c7073dc6))
+
 ## 0.2.0 (2026-02-03)
 
 Full Changelog: [v0.1.0...v0.2.0](https://github.com/fragment-dev/fragment-py/compare/v0.1.0...v0.2.0)
