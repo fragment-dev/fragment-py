@@ -23,7 +23,17 @@ class TestProducts:
         product = client.products.create(
             code="PROD_001",
             description="Premium subscription service",
-            seller={"sold_by_platform": True},
+        )
+        assert_matches_type(ProductCreateResponse, product, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params(self, client: Fragment) -> None:
+        product = client.products.create(
+            code="PROD_001",
+            description="Premium subscription service",
+            paid_by_roles=[{"name": "buyer"}],
+            paid_to_roles=[{"name": "seller"}],
         )
         assert_matches_type(ProductCreateResponse, product, path=["response"])
 
@@ -33,7 +43,6 @@ class TestProducts:
         response = client.products.with_raw_response.create(
             code="PROD_001",
             description="Premium subscription service",
-            seller={"sold_by_platform": True},
         )
 
         assert response.is_closed is True
@@ -47,7 +56,6 @@ class TestProducts:
         with client.products.with_streaming_response.create(
             code="PROD_001",
             description="Premium subscription service",
-            seller={"sold_by_platform": True},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -139,7 +147,17 @@ class TestAsyncProducts:
         product = await async_client.products.create(
             code="PROD_001",
             description="Premium subscription service",
-            seller={"sold_by_platform": True},
+        )
+        assert_matches_type(ProductCreateResponse, product, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncFragment) -> None:
+        product = await async_client.products.create(
+            code="PROD_001",
+            description="Premium subscription service",
+            paid_by_roles=[{"name": "buyer"}],
+            paid_to_roles=[{"name": "seller"}],
         )
         assert_matches_type(ProductCreateResponse, product, path=["response"])
 
@@ -149,7 +167,6 @@ class TestAsyncProducts:
         response = await async_client.products.with_raw_response.create(
             code="PROD_001",
             description="Premium subscription service",
-            seller={"sold_by_platform": True},
         )
 
         assert response.is_closed is True
@@ -163,7 +180,6 @@ class TestAsyncProducts:
         async with async_client.products.with_streaming_response.create(
             code="PROD_001",
             description="Premium subscription service",
-            seller={"sold_by_platform": True},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

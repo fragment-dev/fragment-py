@@ -14,37 +14,10 @@ __all__ = [
     "DataDiff",
     "DataDiffAddDiffEntry",
     "DataDiffAddDiffEntryItem",
-    "DataDiffAddDiffEntryItemPayoutUser",
-    "DataDiffAddDiffEntryItemPayoutUserPlatformPayoutResponse",
-    "DataDiffAddDiffEntryItemPayoutUserUserPayoutResponse",
     "DataDiffUpdateDiffEntry",
     "DataDiffDeleteDiffEntry",
     "DataDiffDeleteDiffEntryItem",
-    "DataDiffDeleteDiffEntryItemPayoutUser",
-    "DataDiffDeleteDiffEntryItemPayoutUserPlatformPayoutResponse",
-    "DataDiffDeleteDiffEntryItemPayoutUserUserPayoutResponse",
     "DataLineItem",
-    "DataLineItemPayoutUser",
-    "DataLineItemPayoutUserPlatformPayoutResponse",
-    "DataLineItemPayoutUserUserPayoutResponse",
-]
-
-
-class DataDiffAddDiffEntryItemPayoutUserPlatformPayoutResponse(BaseModel):
-    platform: Literal[True]
-    """Set to true for platform payout"""
-
-
-class DataDiffAddDiffEntryItemPayoutUserUserPayoutResponse(BaseModel):
-    user_id: str
-    """External ID of the user receiving payout"""
-
-    platform: Optional[Literal[False]] = None
-    """Set to false or omit for user payout"""
-
-
-DataDiffAddDiffEntryItemPayoutUser: TypeAlias = Union[
-    DataDiffAddDiffEntryItemPayoutUserPlatformPayoutResponse, DataDiffAddDiffEntryItemPayoutUserUserPayoutResponse
 ]
 
 
@@ -239,11 +212,14 @@ class DataDiffAddDiffEntryItem(BaseModel):
     description: str
     """Description of the line item"""
 
-    payout_user: DataDiffAddDiffEntryItemPayoutUser
-    """The user receiving payout - either platform or a user"""
-
     product_id: str
     """ID of the product/catalog item"""
+
+    type: Literal["payin", "payout"]
+    """The type of the line item"""
+
+    user_id: str
+    """External ID of the user associated with this line item"""
 
 
 class DataDiffAddDiffEntry(BaseModel):
@@ -263,24 +239,6 @@ class DataDiffUpdateDiffEntry(BaseModel):
 
     op: Literal["update"]
     """A line item was updated"""
-
-
-class DataDiffDeleteDiffEntryItemPayoutUserPlatformPayoutResponse(BaseModel):
-    platform: Literal[True]
-    """Set to true for platform payout"""
-
-
-class DataDiffDeleteDiffEntryItemPayoutUserUserPayoutResponse(BaseModel):
-    user_id: str
-    """External ID of the user receiving payout"""
-
-    platform: Optional[Literal[False]] = None
-    """Set to false or omit for user payout"""
-
-
-DataDiffDeleteDiffEntryItemPayoutUser: TypeAlias = Union[
-    DataDiffDeleteDiffEntryItemPayoutUserPlatformPayoutResponse, DataDiffDeleteDiffEntryItemPayoutUserUserPayoutResponse
-]
 
 
 class DataDiffDeleteDiffEntryItem(BaseModel):
@@ -474,11 +432,14 @@ class DataDiffDeleteDiffEntryItem(BaseModel):
     description: str
     """Description of the line item"""
 
-    payout_user: DataDiffDeleteDiffEntryItemPayoutUser
-    """The user receiving payout - either platform or a user"""
-
     product_id: str
     """ID of the product/catalog item"""
+
+    type: Literal["payin", "payout"]
+    """The type of the line item"""
+
+    user_id: str
+    """External ID of the user associated with this line item"""
 
 
 class DataDiffDeleteDiffEntry(BaseModel):
@@ -490,24 +451,6 @@ class DataDiffDeleteDiffEntry(BaseModel):
 
 
 DataDiff: TypeAlias = Union[DataDiffAddDiffEntry, DataDiffUpdateDiffEntry, DataDiffDeleteDiffEntry]
-
-
-class DataLineItemPayoutUserPlatformPayoutResponse(BaseModel):
-    platform: Literal[True]
-    """Set to true for platform payout"""
-
-
-class DataLineItemPayoutUserUserPayoutResponse(BaseModel):
-    user_id: str
-    """External ID of the user receiving payout"""
-
-    platform: Optional[Literal[False]] = None
-    """Set to false or omit for user payout"""
-
-
-DataLineItemPayoutUser: TypeAlias = Union[
-    DataLineItemPayoutUserPlatformPayoutResponse, DataLineItemPayoutUserUserPayoutResponse
-]
 
 
 class DataLineItem(BaseModel):
@@ -701,11 +644,14 @@ class DataLineItem(BaseModel):
     description: str
     """Description of the line item"""
 
-    payout_user: DataLineItemPayoutUser
-    """The user receiving payout - either platform or a user"""
-
     product_id: str
     """ID of the product/catalog item"""
+
+    type: Literal["payin", "payout"]
+    """The type of the line item"""
+
+    user_id: str
+    """External ID of the user associated with this line item"""
 
 
 class Data(BaseModel):
@@ -713,9 +659,6 @@ class Data(BaseModel):
 
     id: str
     """Unique identifier for the invoice"""
-
-    buyer_user: str = FieldInfo(alias="buyerUser")
-    """External ID of the buyer user"""
 
     created: datetime
     """ISO 8601 timestamp when the invoice was created"""

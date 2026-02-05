@@ -2,24 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing import Iterable
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = [
-    "InvoiceCreateParams",
-    "LineItem",
-    "LineItemPayoutUser",
-    "LineItemPayoutUserPlatformPayoutInput",
-    "LineItemPayoutUserUserPayoutInput",
-]
+__all__ = ["InvoiceCreateParams", "LineItem"]
 
 
 class InvoiceCreateParams(TypedDict, total=False):
-    buyer_user: Required[Annotated[str, PropertyInfo(alias="buyerUser")]]
-    """External ID of the buyer user"""
-
     invoice_id: Required[Annotated[str, PropertyInfo(alias="invoiceId")]]
     """Unique identifier for the invoice.
 
@@ -33,27 +24,8 @@ class InvoiceCreateParams(TypedDict, total=False):
     """Initial status of the invoice. Defaults to active if not specified."""
 
 
-class LineItemPayoutUserPlatformPayoutInput(TypedDict, total=False):
-    platform: Required[Literal[True]]
-    """Set to true for platform payout"""
-
-
-class LineItemPayoutUserUserPayoutInput(TypedDict, total=False):
-    user_id: Required[str]
-    """External ID of the user receiving payout"""
-
-    platform: Literal[False]
-    """Set to false or omit for user payout"""
-
-
-LineItemPayoutUser: TypeAlias = Union[LineItemPayoutUserPlatformPayoutInput, LineItemPayoutUserUserPayoutInput]
-
-
 class LineItem(TypedDict, total=False):
-    """Line item data for creating within an invoice.
-
-    The payInUser is automatically set to the invoice's buyerUser.
-    """
+    """Line item data for creating within an invoice."""
 
     amount: Required[str]
     """Amount in smallest currency unit (e.g., cents)"""
@@ -245,8 +217,11 @@ class LineItem(TypedDict, total=False):
     description: Required[str]
     """Description of the line item"""
 
-    payout_user: Required[LineItemPayoutUser]
-    """The user receiving payout - either platform or a user"""
-
     product_id: Required[str]
     """ID of the product/catalog item"""
+
+    type: Required[Literal["payin", "payout"]]
+    """The type of the line item"""
+
+    user_id: Required[str]
+    """External ID of the user associated with this line item"""

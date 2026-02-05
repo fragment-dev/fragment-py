@@ -9,9 +9,6 @@ __all__ = [
     "InvoiceUpdateParams",
     "LineItemsUpdate",
     "LineItemsUpdateAddLineItemOperation",
-    "LineItemsUpdateAddLineItemOperationPayoutUser",
-    "LineItemsUpdateAddLineItemOperationPayoutUserPlatformPayoutInput",
-    "LineItemsUpdateAddLineItemOperationPayoutUserUserPayoutInput",
     "LineItemsUpdateUpdateLineItemOperation",
     "LineItemsUpdateDeleteLineItemOperation",
 ]
@@ -20,25 +17,6 @@ __all__ = [
 class InvoiceUpdateParams(TypedDict, total=False):
     line_items_update: Required[Iterable[LineItemsUpdate]]
     """List of line item operations to apply to the invoice"""
-
-
-class LineItemsUpdateAddLineItemOperationPayoutUserPlatformPayoutInput(TypedDict, total=False):
-    platform: Required[Literal[True]]
-    """Set to true for platform payout"""
-
-
-class LineItemsUpdateAddLineItemOperationPayoutUserUserPayoutInput(TypedDict, total=False):
-    user_id: Required[str]
-    """External ID of the user receiving payout"""
-
-    platform: Literal[False]
-    """Set to false or omit for user payout"""
-
-
-LineItemsUpdateAddLineItemOperationPayoutUser: TypeAlias = Union[
-    LineItemsUpdateAddLineItemOperationPayoutUserPlatformPayoutInput,
-    LineItemsUpdateAddLineItemOperationPayoutUserUserPayoutInput,
-]
 
 
 class LineItemsUpdateAddLineItemOperation(TypedDict, total=False):
@@ -234,11 +212,14 @@ class LineItemsUpdateAddLineItemOperation(TypedDict, total=False):
     op: Required[Literal["add"]]
     """Operation type - add a new line item"""
 
-    payout_user: Required[LineItemsUpdateAddLineItemOperationPayoutUser]
-    """The user receiving payout - either platform or a user"""
-
     product_id: Required[str]
     """ID of the product/catalog item"""
+
+    type: Required[Literal["payin", "payout"]]
+    """The type of the line item"""
+
+    user_id: Required[str]
+    """External ID of the user associated with this line item"""
 
 
 class LineItemsUpdateUpdateLineItemOperation(TypedDict, total=False):
