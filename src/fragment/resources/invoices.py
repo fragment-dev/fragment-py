@@ -51,7 +51,6 @@ class InvoicesResource(SyncAPIResource):
     def create(
         self,
         *,
-        buyer_user: str,
         invoice_id: str,
         line_items: Iterable[invoice_create_params.LineItem],
         status: Literal["draft", "active"] | Omit = omit,
@@ -62,13 +61,12 @@ class InvoicesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceCreateResponse:
-        """
-        Creates a new invoice
+        """Creates a new invoice
 
         Args:
-          buyer_user: External ID of the buyer user
+          invoice_id: Unique identifier for the invoice.
 
-          invoice_id: Unique identifier for the invoice. Make this the canonical ID from your system
+        Make this the canonical ID from your system
               for the transaction.
 
           line_items: List of line items to create with the invoice
@@ -87,7 +85,6 @@ class InvoicesResource(SyncAPIResource):
             "/invoices",
             body=maybe_transform(
                 {
-                    "buyer_user": buyer_user,
                     "invoice_id": invoice_id,
                     "line_items": line_items,
                     "status": status,
@@ -252,7 +249,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        buyer_user: str,
         invoice_id: str,
         line_items: Iterable[invoice_create_params.LineItem],
         status: Literal["draft", "active"] | Omit = omit,
@@ -263,13 +259,12 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceCreateResponse:
-        """
-        Creates a new invoice
+        """Creates a new invoice
 
         Args:
-          buyer_user: External ID of the buyer user
+          invoice_id: Unique identifier for the invoice.
 
-          invoice_id: Unique identifier for the invoice. Make this the canonical ID from your system
+        Make this the canonical ID from your system
               for the transaction.
 
           line_items: List of line items to create with the invoice
@@ -288,7 +283,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
             "/invoices",
             body=await async_maybe_transform(
                 {
-                    "buyer_user": buyer_user,
                     "invoice_id": invoice_id,
                     "line_items": line_items,
                     "status": status,

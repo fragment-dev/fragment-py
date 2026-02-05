@@ -27,15 +27,15 @@ class TestInvoices:
     @parametrize
     def test_method_create(self, client: Fragment) -> None:
         invoice = client.invoices.create(
-            buyer_user="user_ext_789",
             invoice_id="invoice_2024_001",
             line_items=[
                 {
                     "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
         )
@@ -45,15 +45,15 @@ class TestInvoices:
     @parametrize
     def test_method_create_with_all_params(self, client: Fragment) -> None:
         invoice = client.invoices.create(
-            buyer_user="user_ext_789",
             invoice_id="invoice_2024_001",
             line_items=[
                 {
                     "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
             status="active",
@@ -64,15 +64,15 @@ class TestInvoices:
     @parametrize
     def test_raw_response_create(self, client: Fragment) -> None:
         response = client.invoices.with_raw_response.create(
-            buyer_user="user_ext_789",
             invoice_id="invoice_2024_001",
             line_items=[
                 {
                     "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
         )
@@ -86,15 +86,15 @@ class TestInvoices:
     @parametrize
     def test_streaming_response_create(self, client: Fragment) -> None:
         with client.invoices.with_streaming_response.create(
-            buyer_user="user_ext_789",
             invoice_id="invoice_2024_001",
             line_items=[
                 {
                     "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
         ) as response:
@@ -159,8 +159,9 @@ class TestInvoices:
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
         )
@@ -177,8 +178,9 @@ class TestInvoices:
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
         )
@@ -199,8 +201,9 @@ class TestInvoices:
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
         ) as response:
@@ -224,8 +227,9 @@ class TestInvoices:
                         "currency_code": "USD",
                         "description": "Professional services for January 2026",
                         "op": "add",
-                        "payout_user": {"platform": True},
                         "product_id": "prod_1234567890",
+                        "type": "payout",
+                        "user_id": "user_ext_456",
                     }
                 ],
             )
@@ -310,15 +314,15 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_create(self, async_client: AsyncFragment) -> None:
         invoice = await async_client.invoices.create(
-            buyer_user="user_ext_789",
             invoice_id="invoice_2024_001",
             line_items=[
                 {
                     "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
         )
@@ -328,15 +332,15 @@ class TestAsyncInvoices:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncFragment) -> None:
         invoice = await async_client.invoices.create(
-            buyer_user="user_ext_789",
             invoice_id="invoice_2024_001",
             line_items=[
                 {
                     "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
             status="active",
@@ -347,15 +351,15 @@ class TestAsyncInvoices:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncFragment) -> None:
         response = await async_client.invoices.with_raw_response.create(
-            buyer_user="user_ext_789",
             invoice_id="invoice_2024_001",
             line_items=[
                 {
                     "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
         )
@@ -369,15 +373,15 @@ class TestAsyncInvoices:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncFragment) -> None:
         async with async_client.invoices.with_streaming_response.create(
-            buyer_user="user_ext_789",
             invoice_id="invoice_2024_001",
             line_items=[
                 {
                     "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
         ) as response:
@@ -442,8 +446,9 @@ class TestAsyncInvoices:
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
         )
@@ -460,8 +465,9 @@ class TestAsyncInvoices:
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
         )
@@ -482,8 +488,9 @@ class TestAsyncInvoices:
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
         ) as response:
@@ -507,8 +514,9 @@ class TestAsyncInvoices:
                         "currency_code": "USD",
                         "description": "Professional services for January 2026",
                         "op": "add",
-                        "payout_user": {"platform": True},
                         "product_id": "prod_1234567890",
+                        "type": "payout",
+                        "user_id": "user_ext_456",
                     }
                 ],
             )

@@ -922,15 +922,15 @@ class TestFragment:
 
         with pytest.raises(APITimeoutError):
             client.invoices.with_streaming_response.create(
-                buyer_user="user_ext_789",
                 invoice_id="invoice_2024_001",
                 line_items=[
                     {
                         "amount": "1000",
                         "currency_code": "USD",
                         "description": "Professional services for January 2026",
-                        "payout_user": {"platform": True},
                         "product_id": "prod_1234567890",
+                        "type": "payout",
+                        "user_id": "user_ext_456",
                     }
                 ],
             ).__enter__()
@@ -944,15 +944,15 @@ class TestFragment:
 
         with pytest.raises(APIStatusError):
             client.invoices.with_streaming_response.create(
-                buyer_user="user_ext_789",
                 invoice_id="invoice_2024_001",
                 line_items=[
                     {
                         "amount": "1000",
                         "currency_code": "USD",
                         "description": "Professional services for January 2026",
-                        "payout_user": {"platform": True},
                         "product_id": "prod_1234567890",
+                        "type": "payout",
+                        "user_id": "user_ext_456",
                     }
                 ],
             ).__enter__()
@@ -985,15 +985,15 @@ class TestFragment:
         respx_mock.post("/invoices").mock(side_effect=retry_handler)
 
         response = client.invoices.with_raw_response.create(
-            buyer_user="user_ext_789",
             invoice_id="invoice_2024_001",
             line_items=[
                 {
                     "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
         )
@@ -1021,15 +1021,15 @@ class TestFragment:
         respx_mock.post("/invoices").mock(side_effect=retry_handler)
 
         response = client.invoices.with_raw_response.create(
-            buyer_user="user_ext_789",
             invoice_id="invoice_2024_001",
             line_items=[
                 {
                     "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
             extra_headers={"x-stainless-retry-count": Omit()},
@@ -1057,15 +1057,15 @@ class TestFragment:
         respx_mock.post("/invoices").mock(side_effect=retry_handler)
 
         response = client.invoices.with_raw_response.create(
-            buyer_user="user_ext_789",
             invoice_id="invoice_2024_001",
             line_items=[
                 {
                     "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
             extra_headers={"x-stainless-retry-count": "42"},
@@ -1940,15 +1940,15 @@ class TestAsyncFragment:
 
         with pytest.raises(APITimeoutError):
             await async_client.invoices.with_streaming_response.create(
-                buyer_user="user_ext_789",
                 invoice_id="invoice_2024_001",
                 line_items=[
                     {
                         "amount": "1000",
                         "currency_code": "USD",
                         "description": "Professional services for January 2026",
-                        "payout_user": {"platform": True},
                         "product_id": "prod_1234567890",
+                        "type": "payout",
+                        "user_id": "user_ext_456",
                     }
                 ],
             ).__aenter__()
@@ -1964,15 +1964,15 @@ class TestAsyncFragment:
 
         with pytest.raises(APIStatusError):
             await async_client.invoices.with_streaming_response.create(
-                buyer_user="user_ext_789",
                 invoice_id="invoice_2024_001",
                 line_items=[
                     {
                         "amount": "1000",
                         "currency_code": "USD",
                         "description": "Professional services for January 2026",
-                        "payout_user": {"platform": True},
                         "product_id": "prod_1234567890",
+                        "type": "payout",
+                        "user_id": "user_ext_456",
                     }
                 ],
             ).__aenter__()
@@ -2005,15 +2005,15 @@ class TestAsyncFragment:
         respx_mock.post("/invoices").mock(side_effect=retry_handler)
 
         response = await client.invoices.with_raw_response.create(
-            buyer_user="user_ext_789",
             invoice_id="invoice_2024_001",
             line_items=[
                 {
                     "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
         )
@@ -2041,15 +2041,15 @@ class TestAsyncFragment:
         respx_mock.post("/invoices").mock(side_effect=retry_handler)
 
         response = await client.invoices.with_raw_response.create(
-            buyer_user="user_ext_789",
             invoice_id="invoice_2024_001",
             line_items=[
                 {
                     "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
             extra_headers={"x-stainless-retry-count": Omit()},
@@ -2077,15 +2077,15 @@ class TestAsyncFragment:
         respx_mock.post("/invoices").mock(side_effect=retry_handler)
 
         response = await client.invoices.with_raw_response.create(
-            buyer_user="user_ext_789",
             invoice_id="invoice_2024_001",
             line_items=[
                 {
                     "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
-                    "payout_user": {"platform": True},
                     "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user_id": "user_ext_456",
                 }
             ],
             extra_headers={"x-stainless-retry-count": "42"},
