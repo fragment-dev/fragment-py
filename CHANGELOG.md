@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.1 (2026-02-10)
+
+Full Changelog: [v0.3.0...v0.3.1](https://github.com/fragment-dev/fragment-py/compare/v0.3.0...v0.3.1)
+
+### Chores
+
+* **internal:** bump dependencies ([90b74c2](https://github.com/fragment-dev/fragment-py/commit/90b74c2b42c1edac4bb1a8aa693594e7e42d51e3))
+
 ## 0.3.0 (2026-02-05)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/fragment-dev/fragment-py/compare/v0.2.0...v0.3.0)
