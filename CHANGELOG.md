@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.2 (2026-02-13)
+
+Full Changelog: [v0.3.1...v0.3.2](https://github.com/fragment-dev/fragment-py/compare/v0.3.1...v0.3.2)
+
+### Chores
+
+* format all `api.md` files ([41b3e60](https://github.com/fragment-dev/fragment-py/commit/41b3e6015cb99db9be7aa990a5e6c63ab532f2e0))
+* **internal:** fix lint error on Python 3.14 ([4e8ff95](https://github.com/fragment-dev/fragment-py/commit/4e8ff95efc79d174acafd76e5cee4ff139530be1))
+
 ## 0.3.1 (2026-02-10)
 
 Full Changelog: [v0.3.0...v0.3.1](https://github.com/fragment-dev/fragment-py/compare/v0.3.0...v0.3.1)
