@@ -234,8 +234,11 @@ class DataDiffUpdateDiffEntry(BaseModel):
     id: str
     """ID of the updated line item"""
 
-    amount: str
+    new_amount: str
     """New amount after the update"""
+
+    old_amount: str
+    """Amount before the update"""
 
     op: Literal["update"]
     """A line item was updated"""
@@ -663,7 +666,7 @@ class Data(BaseModel):
     created: datetime
     """ISO 8601 timestamp when the invoice was created"""
 
-    status: Literal["draft", "active", "closed", "void", "failed"]
+    status: Literal["active"]
     """The status of the invoice"""
 
     version: float

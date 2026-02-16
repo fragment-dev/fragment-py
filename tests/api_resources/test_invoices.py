@@ -43,25 +43,6 @@ class TestInvoices:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: Fragment) -> None:
-        invoice = client.invoices.create(
-            invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                    "user_id": "user_ext_456",
-                }
-            ],
-            status="active",
-        )
-        assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
     def test_raw_response_create(self, client: Fragment) -> None:
         response = client.invoices.with_raw_response.create(
             invoice_id="invoice_2024_001",
@@ -164,6 +145,7 @@ class TestInvoices:
                     "user_id": "user_ext_456",
                 }
             ],
+            version=1,
         )
         assert_matches_type(InvoiceUpdateResponse, invoice, path=["response"])
 
@@ -183,6 +165,7 @@ class TestInvoices:
                     "user_id": "user_ext_456",
                 }
             ],
+            version=1,
         )
 
         assert response.is_closed is True
@@ -206,6 +189,7 @@ class TestInvoices:
                     "user_id": "user_ext_456",
                 }
             ],
+            version=1,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -232,6 +216,7 @@ class TestInvoices:
                         "user_id": "user_ext_456",
                     }
                 ],
+                version=1,
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
@@ -325,25 +310,6 @@ class TestAsyncInvoices:
                     "user_id": "user_ext_456",
                 }
             ],
-        )
-        assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
-
-    @pytest.mark.skip(reason="Prism tests are disabled")
-    @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncFragment) -> None:
-        invoice = await async_client.invoices.create(
-            invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                    "user_id": "user_ext_456",
-                }
-            ],
-            status="active",
         )
         assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
 
@@ -451,6 +417,7 @@ class TestAsyncInvoices:
                     "user_id": "user_ext_456",
                 }
             ],
+            version=1,
         )
         assert_matches_type(InvoiceUpdateResponse, invoice, path=["response"])
 
@@ -470,6 +437,7 @@ class TestAsyncInvoices:
                     "user_id": "user_ext_456",
                 }
             ],
+            version=1,
         )
 
         assert response.is_closed is True
@@ -493,6 +461,7 @@ class TestAsyncInvoices:
                     "user_id": "user_ext_456",
                 }
             ],
+            version=1,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -519,6 +488,7 @@ class TestAsyncInvoices:
                         "user_id": "user_ext_456",
                     }
                 ],
+                version=1,
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")

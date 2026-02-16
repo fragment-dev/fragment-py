@@ -221,8 +221,14 @@ class Data(BaseModel):
     created: datetime
     """ISO 8601 timestamp when the invoice was created"""
 
-    status: Literal["draft", "active", "closed", "void", "failed"]
+    status: Literal["active"]
     """The status of the invoice"""
+
+    version: float
+    """The current version of the invoice.
+
+    Pass this value when updating to ensure thread safety.
+    """
 
     workspace_id: str = FieldInfo(alias="workspaceId")
     """Workspace ID this invoice belongs to"""
