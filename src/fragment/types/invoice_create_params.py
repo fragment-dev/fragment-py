@@ -20,9 +20,6 @@ class InvoiceCreateParams(TypedDict, total=False):
     line_items: Required[Annotated[Iterable[LineItem], PropertyInfo(alias="lineItems")]]
     """List of line items to create with the invoice"""
 
-    status: Literal["draft", "active"]
-    """Initial status of the invoice. Defaults to active if not specified."""
-
 
 class LineItem(TypedDict, total=False):
     """Line item data for creating within an invoice."""

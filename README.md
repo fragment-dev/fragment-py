@@ -41,7 +41,6 @@ invoice = client.invoices.create(
             "user_id": "user_ext_456",
         }
     ],
-    status="active",
 )
 print(invoice.data)
 ```
@@ -70,7 +69,6 @@ async def main() -> None:
                 "user_id": "user_ext_456",
             }
         ],
-        status="active",
     )
     print(invoice.data)
 
@@ -115,7 +113,6 @@ async def main() -> None:
                     "user_id": "user_ext_456",
                 }
             ],
-            status="active",
         )
         print(invoice.data)
 
@@ -160,7 +157,6 @@ try:
                 "user_id": "user_ext_456",
             }
         ],
-        status="active",
     )
 except fragment.APIConnectionError as e:
     print("The server could not be reached")
@@ -216,7 +212,6 @@ client.with_options(max_retries=5).invoices.create(
             "user_id": "user_ext_456",
         }
     ],
-    status="active",
 )
 ```
 
@@ -252,7 +247,6 @@ client.with_options(timeout=5.0).invoices.create(
             "user_id": "user_ext_456",
         }
     ],
-    status="active",
 )
 ```
 
@@ -304,7 +298,6 @@ response = client.invoices.with_raw_response.create(
         "description": "Professional services for January 2026",
         "user_id": "user_ext_456",
     }],
-    status="active",
 )
 print(response.headers.get('X-My-Header'))
 
@@ -335,7 +328,6 @@ with client.invoices.with_streaming_response.create(
             "user_id": "user_ext_456",
         }
     ],
-    status="active",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

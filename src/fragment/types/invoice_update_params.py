@@ -18,6 +18,12 @@ class InvoiceUpdateParams(TypedDict, total=False):
     line_items_update: Required[Iterable[LineItemsUpdate]]
     """List of line item operations to apply to the invoice"""
 
+    version: Required[float]
+    """The version of the invoice being updated.
+
+    Must match the current version for the update to succeed.
+    """
+
 
 class LineItemsUpdateAddLineItemOperation(TypedDict, total=False):
     """Operation to add a new line item to an invoice"""

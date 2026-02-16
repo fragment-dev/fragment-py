@@ -47,6 +47,19 @@ Methods:
 - <code title="get /products/{code}">client.products.<a href="./src/fragment/resources/products.py">retrieve</a>(code) -> <a href="./src/fragment/types/product_retrieve_response.py">ProductRetrieveResponse</a></code>
 - <code title="get /products">client.products.<a href="./src/fragment/resources/products.py">list</a>() -> <a href="./src/fragment/types/product_list_response.py">ProductListResponse</a></code>
 
+# Roles
+
+Types:
+
+```python
+from fragment.types import RoleCreateResponse, RoleListResponse
+```
+
+Methods:
+
+- <code title="post /roles">client.roles.<a href="./src/fragment/resources/roles.py">create</a>(\*\*<a href="src/fragment/types/role_create_params.py">params</a>) -> <a href="./src/fragment/types/role_create_response.py">RoleCreateResponse</a></code>
+- <code title="get /roles">client.roles.<a href="./src/fragment/resources/roles.py">list</a>() -> <a href="./src/fragment/types/role_list_response.py">RoleListResponse</a></code>
+
 # Users
 
 Types:

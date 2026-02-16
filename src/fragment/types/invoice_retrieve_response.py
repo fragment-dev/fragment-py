@@ -8,7 +8,116 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["InvoiceRetrieveResponse", "Data", "DataLineItem"]
+__all__ = [
+    "InvoiceRetrieveResponse",
+    "Data",
+    "DataBalance",
+    "DataBalanceNet",
+    "DataBalancePayins",
+    "DataBalancePayouts",
+    "DataUser",
+    "DataUserBalance",
+    "DataUserBalanceNet",
+    "DataUserBalancePayins",
+    "DataUserBalancePayouts",
+    "DataLineItem",
+]
+
+
+class DataBalanceNet(BaseModel):
+    actual: str
+    """Actual amount (represented as string)"""
+
+    expected: str
+    """Expected amount (represented as string)"""
+
+    remaining: str
+    """Remaining amount (expected - actual, represented as string)"""
+
+
+class DataBalancePayins(BaseModel):
+    actual: str
+    """Actual amount (represented as string)"""
+
+    expected: str
+    """Expected amount (represented as string)"""
+
+    remaining: str
+    """Remaining amount (expected - actual, represented as string)"""
+
+
+class DataBalancePayouts(BaseModel):
+    actual: str
+    """Actual amount (represented as string)"""
+
+    expected: str
+    """Expected amount (represented as string)"""
+
+    remaining: str
+    """Remaining amount (expected - actual, represented as string)"""
+
+
+class DataBalance(BaseModel):
+    currency: str
+    """Currency code"""
+
+    net: DataBalanceNet
+
+    payins: DataBalancePayins
+
+    payouts: DataBalancePayouts
+
+
+class DataUserBalanceNet(BaseModel):
+    actual: str
+    """Actual amount (represented as string)"""
+
+    expected: str
+    """Expected amount (represented as string)"""
+
+    remaining: str
+    """Remaining amount (expected - actual, represented as string)"""
+
+
+class DataUserBalancePayins(BaseModel):
+    actual: str
+    """Actual amount (represented as string)"""
+
+    expected: str
+    """Expected amount (represented as string)"""
+
+    remaining: str
+    """Remaining amount (expected - actual, represented as string)"""
+
+
+class DataUserBalancePayouts(BaseModel):
+    actual: str
+    """Actual amount (represented as string)"""
+
+    expected: str
+    """Expected amount (represented as string)"""
+
+    remaining: str
+    """Remaining amount (expected - actual, represented as string)"""
+
+
+class DataUserBalance(BaseModel):
+    currency: str
+    """Currency code"""
+
+    net: DataUserBalanceNet
+
+    payins: DataUserBalancePayins
+
+    payouts: DataUserBalancePayouts
+
+
+class DataUser(BaseModel):
+    id: str
+    """User/party ID"""
+
+    balances: List[DataUserBalance]
+    """Per-currency balance breakdown for this user"""
 
 
 class DataLineItem(BaseModel):
@@ -213,16 +322,28 @@ class DataLineItem(BaseModel):
 
 
 class Data(BaseModel):
-    """Invoice object"""
+    """Invoice with balance details"""
 
     id: str
     """Unique identifier for the invoice"""
 
+    balances: List[DataBalance]
+    """Invoice-level balances by currency: payins, payouts, and net (payins - payouts)"""
+
     created: datetime
     """ISO 8601 timestamp when the invoice was created"""
 
-    status: Literal["draft", "active", "closed", "void", "failed"]
+    status: Literal["active"]
     """The status of the invoice"""
+
+    users: List[DataUser]
+    """Users/parties involved in the invoice"""
+
+    version: float
+    """The current version of the invoice.
+
+    Pass this value when updating to ensure thread safety.
+    """
 
     workspace_id: str = FieldInfo(alias="workspaceId")
     """Workspace ID this invoice belongs to"""
@@ -236,4 +357,4 @@ class Data(BaseModel):
 
 class InvoiceRetrieveResponse(BaseModel):
     data: Data
-    """Invoice object"""
+    """Invoice with balance details"""

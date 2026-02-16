@@ -3,12 +3,11 @@
 from __future__ import annotations
 
 from typing import Iterable
-from typing_extensions import Literal
 
 import httpx
 
 from ..types import invoice_create_params, invoice_update_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Query, Headers, NotGiven, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -53,7 +52,6 @@ class InvoicesResource(SyncAPIResource):
         *,
         invoice_id: str,
         line_items: Iterable[invoice_create_params.LineItem],
-        status: Literal["draft", "active"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -71,8 +69,6 @@ class InvoicesResource(SyncAPIResource):
 
           line_items: List of line items to create with the invoice
 
-          status: Initial status of the invoice. Defaults to active if not specified.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -87,7 +83,6 @@ class InvoicesResource(SyncAPIResource):
                 {
                     "invoice_id": invoice_id,
                     "line_items": line_items,
-                    "status": status,
                 },
                 invoice_create_params.InvoiceCreateParams,
             ),
@@ -109,7 +104,7 @@ class InvoicesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceRetrieveResponse:
         """
-        Gets an invoice by ID
+        Gets an invoice by ID with balance details
 
         Args:
           id: Invoice ID
@@ -137,6 +132,7 @@ class InvoicesResource(SyncAPIResource):
         id: str,
         *,
         line_items_update: Iterable[invoice_update_params.LineItemsUpdate],
+        version: float,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -152,6 +148,9 @@ class InvoicesResource(SyncAPIResource):
 
           line_items_update: List of line item operations to apply to the invoice
 
+          version: The version of the invoice being updated. Must match the current version for the
+              update to succeed.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -164,7 +163,13 @@ class InvoicesResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._post(
             f"/invoices/{id}",
-            body=maybe_transform({"line_items_update": line_items_update}, invoice_update_params.InvoiceUpdateParams),
+            body=maybe_transform(
+                {
+                    "line_items_update": line_items_update,
+                    "version": version,
+                },
+                invoice_update_params.InvoiceUpdateParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -251,7 +256,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
         *,
         invoice_id: str,
         line_items: Iterable[invoice_create_params.LineItem],
-        status: Literal["draft", "active"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -269,8 +273,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           line_items: List of line items to create with the invoice
 
-          status: Initial status of the invoice. Defaults to active if not specified.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -285,7 +287,6 @@ class AsyncInvoicesResource(AsyncAPIResource):
                 {
                     "invoice_id": invoice_id,
                     "line_items": line_items,
-                    "status": status,
                 },
                 invoice_create_params.InvoiceCreateParams,
             ),
@@ -307,7 +308,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceRetrieveResponse:
         """
-        Gets an invoice by ID
+        Gets an invoice by ID with balance details
 
         Args:
           id: Invoice ID
@@ -335,6 +336,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         id: str,
         *,
         line_items_update: Iterable[invoice_update_params.LineItemsUpdate],
+        version: float,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -350,6 +352,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           line_items_update: List of line item operations to apply to the invoice
 
+          version: The version of the invoice being updated. Must match the current version for the
+              update to succeed.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -363,7 +368,11 @@ class AsyncInvoicesResource(AsyncAPIResource):
         return await self._post(
             f"/invoices/{id}",
             body=await async_maybe_transform(
-                {"line_items_update": line_items_update}, invoice_update_params.InvoiceUpdateParams
+                {
+                    "line_items_update": line_items_update,
+                    "version": version,
+                },
+                invoice_update_params.InvoiceUpdateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
