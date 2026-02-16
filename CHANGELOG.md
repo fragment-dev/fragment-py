@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0 (2026-02-16)
+
+Full Changelog: [v0.3.2...v0.4.0](https://github.com/fragment-dev/fragment-py/compare/v0.3.2...v0.4.0)
+
+### Features
+
+* **api:** manual updates ([72bcc66](https://github.com/fragment-dev/fragment-py/commit/72bcc6626908a38f2156928796cb1bc8875e47e3))
+
 ## 0.3.2 (2026-02-13)
 
 Full Changelog: [v0.3.1...v0.3.2](https://github.com/fragment-dev/fragment-py/compare/v0.3.1...v0.3.2)
