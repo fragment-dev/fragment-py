@@ -32,7 +32,8 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import users, invoices, platform, products
+    from .resources import roles, users, invoices, platform, products
+    from .resources.roles import RolesResource, AsyncRolesResource
     from .resources.users import UsersResource, AsyncUsersResource
     from .resources.invoices import InvoicesResource, AsyncInvoicesResource
     from .resources.platform import PlatformResource, AsyncPlatformResource
@@ -126,6 +127,12 @@ class Fragment(SyncAPIClient):
         from .resources.products import ProductsResource
 
         return ProductsResource(self)
+
+    @cached_property
+    def roles(self) -> RolesResource:
+        from .resources.roles import RolesResource
+
+        return RolesResource(self)
 
     @cached_property
     def users(self) -> UsersResource:
@@ -341,6 +348,12 @@ class AsyncFragment(AsyncAPIClient):
         return AsyncProductsResource(self)
 
     @cached_property
+    def roles(self) -> AsyncRolesResource:
+        from .resources.roles import AsyncRolesResource
+
+        return AsyncRolesResource(self)
+
+    @cached_property
     def users(self) -> AsyncUsersResource:
         from .resources.users import AsyncUsersResource
 
@@ -501,6 +514,12 @@ class FragmentWithRawResponse:
         return ProductsResourceWithRawResponse(self._client.products)
 
     @cached_property
+    def roles(self) -> roles.RolesResourceWithRawResponse:
+        from .resources.roles import RolesResourceWithRawResponse
+
+        return RolesResourceWithRawResponse(self._client.roles)
+
+    @cached_property
     def users(self) -> users.UsersResourceWithRawResponse:
         from .resources.users import UsersResourceWithRawResponse
 
@@ -530,6 +549,12 @@ class AsyncFragmentWithRawResponse:
         from .resources.products import AsyncProductsResourceWithRawResponse
 
         return AsyncProductsResourceWithRawResponse(self._client.products)
+
+    @cached_property
+    def roles(self) -> roles.AsyncRolesResourceWithRawResponse:
+        from .resources.roles import AsyncRolesResourceWithRawResponse
+
+        return AsyncRolesResourceWithRawResponse(self._client.roles)
 
     @cached_property
     def users(self) -> users.AsyncUsersResourceWithRawResponse:
@@ -563,6 +588,12 @@ class FragmentWithStreamedResponse:
         return ProductsResourceWithStreamingResponse(self._client.products)
 
     @cached_property
+    def roles(self) -> roles.RolesResourceWithStreamingResponse:
+        from .resources.roles import RolesResourceWithStreamingResponse
+
+        return RolesResourceWithStreamingResponse(self._client.roles)
+
+    @cached_property
     def users(self) -> users.UsersResourceWithStreamingResponse:
         from .resources.users import UsersResourceWithStreamingResponse
 
@@ -592,6 +623,12 @@ class AsyncFragmentWithStreamedResponse:
         from .resources.products import AsyncProductsResourceWithStreamingResponse
 
         return AsyncProductsResourceWithStreamingResponse(self._client.products)
+
+    @cached_property
+    def roles(self) -> roles.AsyncRolesResourceWithStreamingResponse:
+        from .resources.roles import AsyncRolesResourceWithStreamingResponse
+
+        return AsyncRolesResourceWithStreamingResponse(self._client.roles)
 
     @cached_property
     def users(self) -> users.AsyncUsersResourceWithStreamingResponse:
