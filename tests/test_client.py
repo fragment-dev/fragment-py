@@ -918,21 +918,11 @@ class TestFragment:
     @mock.patch("fragment._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: Fragment) -> None:
-        respx_mock.post("/invoices").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/external-accounts").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.invoices.with_streaming_response.create(
-                invoice_id="invoice_2024_001",
-                line_items=[
-                    {
-                        "amount": "1000",
-                        "currency_code": "USD",
-                        "description": "Professional services for January 2026",
-                        "product_id": "prod_1234567890",
-                        "type": "payout",
-                        "user_id": "user_ext_456",
-                    }
-                ],
+            client.external_accounts.with_streaming_response.create(
+                external_id="ext_acc_123", name="Checking Account"
             ).__enter__()
 
         assert _get_open_connections(client) == 0
@@ -940,21 +930,11 @@ class TestFragment:
     @mock.patch("fragment._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: Fragment) -> None:
-        respx_mock.post("/invoices").mock(return_value=httpx.Response(500))
+        respx_mock.post("/external-accounts").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.invoices.with_streaming_response.create(
-                invoice_id="invoice_2024_001",
-                line_items=[
-                    {
-                        "amount": "1000",
-                        "currency_code": "USD",
-                        "description": "Professional services for January 2026",
-                        "product_id": "prod_1234567890",
-                        "type": "payout",
-                        "user_id": "user_ext_456",
-                    }
-                ],
+            client.external_accounts.with_streaming_response.create(
+                external_id="ext_acc_123", name="Checking Account"
             ).__enter__()
         assert _get_open_connections(client) == 0
 
@@ -982,21 +962,9 @@ class TestFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/invoices").mock(side_effect=retry_handler)
+        respx_mock.post("/external-accounts").mock(side_effect=retry_handler)
 
-        response = client.invoices.with_raw_response.create(
-            invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                    "user_id": "user_ext_456",
-                }
-            ],
-        )
+        response = client.external_accounts.with_raw_response.create(external_id="ext_acc_123", name="Checking Account")
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1018,21 +986,10 @@ class TestFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/invoices").mock(side_effect=retry_handler)
+        respx_mock.post("/external-accounts").mock(side_effect=retry_handler)
 
-        response = client.invoices.with_raw_response.create(
-            invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                    "user_id": "user_ext_456",
-                }
-            ],
-            extra_headers={"x-stainless-retry-count": Omit()},
+        response = client.external_accounts.with_raw_response.create(
+            external_id="ext_acc_123", name="Checking Account", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1054,21 +1011,10 @@ class TestFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/invoices").mock(side_effect=retry_handler)
+        respx_mock.post("/external-accounts").mock(side_effect=retry_handler)
 
-        response = client.invoices.with_raw_response.create(
-            invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                    "user_id": "user_ext_456",
-                }
-            ],
-            extra_headers={"x-stainless-retry-count": "42"},
+        response = client.external_accounts.with_raw_response.create(
+            external_id="ext_acc_123", name="Checking Account", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
@@ -1936,21 +1882,11 @@ class TestAsyncFragment:
     async def test_retrying_timeout_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncFragment
     ) -> None:
-        respx_mock.post("/invoices").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/external-accounts").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.invoices.with_streaming_response.create(
-                invoice_id="invoice_2024_001",
-                line_items=[
-                    {
-                        "amount": "1000",
-                        "currency_code": "USD",
-                        "description": "Professional services for January 2026",
-                        "product_id": "prod_1234567890",
-                        "type": "payout",
-                        "user_id": "user_ext_456",
-                    }
-                ],
+            await async_client.external_accounts.with_streaming_response.create(
+                external_id="ext_acc_123", name="Checking Account"
             ).__aenter__()
 
         assert _get_open_connections(async_client) == 0
@@ -1960,21 +1896,11 @@ class TestAsyncFragment:
     async def test_retrying_status_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncFragment
     ) -> None:
-        respx_mock.post("/invoices").mock(return_value=httpx.Response(500))
+        respx_mock.post("/external-accounts").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.invoices.with_streaming_response.create(
-                invoice_id="invoice_2024_001",
-                line_items=[
-                    {
-                        "amount": "1000",
-                        "currency_code": "USD",
-                        "description": "Professional services for January 2026",
-                        "product_id": "prod_1234567890",
-                        "type": "payout",
-                        "user_id": "user_ext_456",
-                    }
-                ],
+            await async_client.external_accounts.with_streaming_response.create(
+                external_id="ext_acc_123", name="Checking Account"
             ).__aenter__()
         assert _get_open_connections(async_client) == 0
 
@@ -2002,20 +1928,10 @@ class TestAsyncFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/invoices").mock(side_effect=retry_handler)
+        respx_mock.post("/external-accounts").mock(side_effect=retry_handler)
 
-        response = await client.invoices.with_raw_response.create(
-            invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                    "user_id": "user_ext_456",
-                }
-            ],
+        response = await client.external_accounts.with_raw_response.create(
+            external_id="ext_acc_123", name="Checking Account"
         )
 
         assert response.retries_taken == failures_before_success
@@ -2038,21 +1954,10 @@ class TestAsyncFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/invoices").mock(side_effect=retry_handler)
+        respx_mock.post("/external-accounts").mock(side_effect=retry_handler)
 
-        response = await client.invoices.with_raw_response.create(
-            invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                    "user_id": "user_ext_456",
-                }
-            ],
-            extra_headers={"x-stainless-retry-count": Omit()},
+        response = await client.external_accounts.with_raw_response.create(
+            external_id="ext_acc_123", name="Checking Account", extra_headers={"x-stainless-retry-count": Omit()}
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -2074,21 +1979,10 @@ class TestAsyncFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/invoices").mock(side_effect=retry_handler)
+        respx_mock.post("/external-accounts").mock(side_effect=retry_handler)
 
-        response = await client.invoices.with_raw_response.create(
-            invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                    "user_id": "user_ext_456",
-                }
-            ],
-            extra_headers={"x-stainless-retry-count": "42"},
+        response = await client.external_accounts.with_raw_response.create(
+            external_id="ext_acc_123", name="Checking Account", extra_headers={"x-stainless-retry-count": "42"}
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
