@@ -1,26 +1,79 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import List, Union, Optional
 from datetime import datetime
-from typing_extensions import Literal
-
-from pydantic import Field as FieldInfo
+from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
 
-__all__ = ["InvoiceCreateResponse", "Data", "DataLineItem"]
+__all__ = [
+    "TransactionListResponse",
+    "Data",
+    "DataAccount",
+    "DataAllocation",
+    "DataAllocationUser",
+    "DataAllocationUserID",
+    "DataAllocationUserExternalID",
+]
 
 
-class DataLineItem(BaseModel):
-    """Invoice line item object"""
-
+class DataAccount(BaseModel):
     id: str
-    """Unique identifier for the line item"""
+    """User-facing encoded account ID."""
+
+    external_id: str
+    """External account reference ID."""
+
+
+class DataAllocationUserID(BaseModel):
+    id: str
+    """Internal user ID."""
+
+
+class DataAllocationUserExternalID(BaseModel):
+    external_id: str
+    """External user ID."""
+
+
+DataAllocationUser: TypeAlias = Union[DataAllocationUserID, DataAllocationUserExternalID]
+
+
+class DataAllocation(BaseModel):
+    """Transaction allocation against an invoice."""
 
     amount: str
-    """Amount in smallest currency unit (represented as string for bigint)"""
+    """Amount to allocate in smallest currency unit as stringified bigint."""
 
-    currency_code: Literal[
+    invoice_id: str
+    """The invoice to allocate against."""
+
+    type: Literal["invoice_payin", "invoice_payout"]
+    """The type of allocation."""
+
+    user: DataAllocationUser
+    """User reference. Provide either id or external_id."""
+
+
+class Data(BaseModel):
+    """Transaction object."""
+
+    id: str
+    """User-facing encoded transaction ID."""
+
+    account: DataAccount
+
+    allocations: List[DataAllocation]
+
+    amount: str
+    """
+    Amount in smallest currency unit as stringified bigint (can be positive or
+    negative).
+    """
+
+    created: datetime
+    """Creation timestamp."""
+
+    currency: Literal[
         "ADA",
         "BTC",
         "DAI",
@@ -200,50 +253,23 @@ class DataLineItem(BaseModel):
         "ZMW",
         "LOGICAL",
         "CUSTOM",
-    ] = FieldInfo(alias="currencyCode")
+    ]
     """Currency code (ISO 4217 or crypto)"""
 
-    description: str
-    """Description of the line item"""
+    external_id: str
+    """External idempotency key provided by the user."""
 
-    product_id: str
-    """ID of the product/catalog item"""
+    posted: datetime
+    """Posted timestamp in ISO 8601 format."""
 
-    type: Literal["payin", "payout"]
-    """The type of the line item"""
-
-    user_id: str
-    """External ID of the user associated with this line item"""
-
-
-class Data(BaseModel):
-    """Invoice object"""
-
-    id: str
-    """Unique identifier for the invoice"""
-
-    created: datetime
-    """ISO 8601 timestamp when the invoice was created"""
-
-    status: Literal["active"]
-    """The status of the invoice"""
-
-    version: float
-    """The current version of the invoice.
-
-    Pass this value when updating to ensure thread safety.
-    """
-
-    workspace_id: str = FieldInfo(alias="workspaceId")
-    """Workspace ID this invoice belongs to"""
-
-    line_items: Optional[List[DataLineItem]] = FieldInfo(alias="lineItems", default=None)
-    """List of line items associated with this invoice"""
+    unallocated_amount: str
+    """Read-only amount not yet allocated."""
 
     modified: Optional[datetime] = None
-    """ISO 8601 timestamp when the invoice was last modified"""
+    """Last modified timestamp."""
 
 
-class InvoiceCreateResponse(BaseModel):
-    data: Data
-    """Invoice object"""
+class TransactionListResponse(BaseModel):
+    """List of transactions"""
+
+    data: List[Data]

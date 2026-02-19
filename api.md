@@ -1,3 +1,16 @@
+# ExternalAccounts
+
+Types:
+
+```python
+from fragment.types import ExternalAccountCreateResponse, ExternalAccountListResponse
+```
+
+Methods:
+
+- <code title="post /external-accounts">client.external_accounts.<a href="./src/fragment/resources/external_accounts.py">create</a>(\*\*<a href="src/fragment/types/external_account_create_params.py">params</a>) -> <a href="./src/fragment/types/external_account_create_response.py">ExternalAccountCreateResponse</a></code>
+- <code title="get /external-accounts">client.external_accounts.<a href="./src/fragment/resources/external_accounts.py">list</a>() -> <a href="./src/fragment/types/external_account_list_response.py">ExternalAccountListResponse</a></code>
+
 # Invoices
 
 Types:
@@ -59,6 +72,19 @@ Methods:
 
 - <code title="post /roles">client.roles.<a href="./src/fragment/resources/roles.py">create</a>(\*\*<a href="src/fragment/types/role_create_params.py">params</a>) -> <a href="./src/fragment/types/role_create_response.py">RoleCreateResponse</a></code>
 - <code title="get /roles">client.roles.<a href="./src/fragment/resources/roles.py">list</a>() -> <a href="./src/fragment/types/role_list_response.py">RoleListResponse</a></code>
+
+# Transactions
+
+Types:
+
+```python
+from fragment.types import TransactionCreateResponse, TransactionListResponse
+```
+
+Methods:
+
+- <code title="post /transactions">client.transactions.<a href="./src/fragment/resources/transactions.py">create</a>(\*\*<a href="src/fragment/types/transaction_create_params.py">params</a>) -> <a href="./src/fragment/types/transaction_create_response.py">TransactionCreateResponse</a></code>
+- <code title="get /transactions">client.transactions.<a href="./src/fragment/resources/transactions.py">list</a>(\*\*<a href="src/fragment/types/transaction_list_params.py">params</a>) -> <a href="./src/fragment/types/transaction_list_response.py">TransactionListResponse</a></code>
 
 # Users
 

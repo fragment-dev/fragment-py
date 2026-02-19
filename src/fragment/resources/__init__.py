@@ -40,8 +40,30 @@ from .products import (
     ProductsResourceWithStreamingResponse,
     AsyncProductsResourceWithStreamingResponse,
 )
+from .transactions import (
+    TransactionsResource,
+    AsyncTransactionsResource,
+    TransactionsResourceWithRawResponse,
+    AsyncTransactionsResourceWithRawResponse,
+    TransactionsResourceWithStreamingResponse,
+    AsyncTransactionsResourceWithStreamingResponse,
+)
+from .external_accounts import (
+    ExternalAccountsResource,
+    AsyncExternalAccountsResource,
+    ExternalAccountsResourceWithRawResponse,
+    AsyncExternalAccountsResourceWithRawResponse,
+    ExternalAccountsResourceWithStreamingResponse,
+    AsyncExternalAccountsResourceWithStreamingResponse,
+)
 
 __all__ = [
+    "ExternalAccountsResource",
+    "AsyncExternalAccountsResource",
+    "ExternalAccountsResourceWithRawResponse",
+    "AsyncExternalAccountsResourceWithRawResponse",
+    "ExternalAccountsResourceWithStreamingResponse",
+    "AsyncExternalAccountsResourceWithStreamingResponse",
     "InvoicesResource",
     "AsyncInvoicesResource",
     "InvoicesResourceWithRawResponse",
@@ -66,6 +88,12 @@ __all__ = [
     "AsyncRolesResourceWithRawResponse",
     "RolesResourceWithStreamingResponse",
     "AsyncRolesResourceWithStreamingResponse",
+    "TransactionsResource",
+    "AsyncTransactionsResource",
+    "TransactionsResourceWithRawResponse",
+    "AsyncTransactionsResourceWithRawResponse",
+    "TransactionsResourceWithStreamingResponse",
+    "AsyncTransactionsResourceWithStreamingResponse",
     "UsersResource",
     "AsyncUsersResource",
     "UsersResourceWithRawResponse",

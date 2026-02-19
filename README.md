@@ -29,20 +29,11 @@ from fragment import Fragment
 
 client = Fragment()
 
-invoice = client.invoices.create(
-    invoice_id="invoice_2024_001",
-    line_items=[
-        {
-            "type": "payout",
-            "product_id": "prod_1234567890",
-            "amount": "1000",
-            "currency_code": "USD",
-            "description": "Professional services for January 2026",
-            "user_id": "user_ext_456",
-        }
-    ],
+external_account = client.external_accounts.create(
+    external_id="ext_acc_123",
+    name="Checking Account",
 )
-print(invoice.data)
+print(external_account.data)
 ```
 
 ## Async usage
@@ -57,20 +48,11 @@ client = AsyncFragment()
 
 
 async def main() -> None:
-    invoice = await client.invoices.create(
-        invoice_id="invoice_2024_001",
-        line_items=[
-            {
-                "type": "payout",
-                "product_id": "prod_1234567890",
-                "amount": "1000",
-                "currency_code": "USD",
-                "description": "Professional services for January 2026",
-                "user_id": "user_ext_456",
-            }
-        ],
+    external_account = await client.external_accounts.create(
+        external_id="ext_acc_123",
+        name="Checking Account",
     )
-    print(invoice.data)
+    print(external_account.data)
 
 
 asyncio.run(main())
@@ -101,20 +83,11 @@ async def main() -> None:
     async with AsyncFragment(
         http_client=DefaultAioHttpClient(),
     ) as client:
-        invoice = await client.invoices.create(
-            invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "type": "payout",
-                    "product_id": "prod_1234567890",
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "user_id": "user_ext_456",
-                }
-            ],
+        external_account = await client.external_accounts.create(
+            external_id="ext_acc_123",
+            name="Checking Account",
         )
-        print(invoice.data)
+        print(external_account.data)
 
 
 asyncio.run(main())
@@ -128,6 +101,35 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 - Converting to a dictionary, `model.to_dict()`
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
+
+from datetime import datetime
+
+## Nested params
+
+Nested parameters are dictionaries, typed using `TypedDict`, for example:
+
+```python
+from fragment import Fragment
+
+client = Fragment()
+
+transaction = client.transactions.create(
+    account={},
+    allocations=[
+        {
+            "amount": "1000",
+            "invoice_id": "inv_abc123",
+            "type": "invoice_payin",
+            "user": {"id": "user_abc123"},
+        }
+    ],
+    amount="-1000",
+    currency="USD",
+    external_id="bank_txn_123",
+    posted=datetime.fromisoformat("2026-02-12T00:00:00.000"),
+)
+print(transaction.account)
+```
 
 ## Handling errors
 
@@ -145,18 +147,9 @@ from fragment import Fragment
 client = Fragment()
 
 try:
-    client.invoices.create(
-        invoice_id="invoice_2024_001",
-        line_items=[
-            {
-                "type": "payout",
-                "product_id": "prod_1234567890",
-                "amount": "1000",
-                "currency_code": "USD",
-                "description": "Professional services for January 2026",
-                "user_id": "user_ext_456",
-            }
-        ],
+    client.external_accounts.create(
+        external_id="ext_acc_123",
+        name="Checking Account",
     )
 except fragment.APIConnectionError as e:
     print("The server could not be reached")
@@ -200,18 +193,9 @@ client = Fragment(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).invoices.create(
-    invoice_id="invoice_2024_001",
-    line_items=[
-        {
-            "type": "payout",
-            "product_id": "prod_1234567890",
-            "amount": "1000",
-            "currency_code": "USD",
-            "description": "Professional services for January 2026",
-            "user_id": "user_ext_456",
-        }
-    ],
+client.with_options(max_retries=5).external_accounts.create(
+    external_id="ext_acc_123",
+    name="Checking Account",
 )
 ```
 
@@ -235,18 +219,9 @@ client = Fragment(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).invoices.create(
-    invoice_id="invoice_2024_001",
-    line_items=[
-        {
-            "type": "payout",
-            "product_id": "prod_1234567890",
-            "amount": "1000",
-            "currency_code": "USD",
-            "description": "Professional services for January 2026",
-            "user_id": "user_ext_456",
-        }
-    ],
+client.with_options(timeout=5.0).external_accounts.create(
+    external_id="ext_acc_123",
+    name="Checking Account",
 )
 ```
 
@@ -288,21 +263,14 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from fragment import Fragment
 
 client = Fragment()
-response = client.invoices.with_raw_response.create(
-    invoice_id="invoice_2024_001",
-    line_items=[{
-        "type": "payout",
-        "product_id": "prod_1234567890",
-        "amount": "1000",
-        "currency_code": "USD",
-        "description": "Professional services for January 2026",
-        "user_id": "user_ext_456",
-    }],
+response = client.external_accounts.with_raw_response.create(
+    external_id="ext_acc_123",
+    name="Checking Account",
 )
 print(response.headers.get('X-My-Header'))
 
-invoice = response.parse()  # get the object that `invoices.create()` would have returned
-print(invoice.data)
+external_account = response.parse()  # get the object that `external_accounts.create()` would have returned
+print(external_account.data)
 ```
 
 These methods return an [`APIResponse`](https://github.com/fragment-dev/fragment-py/tree/main/src/fragment/_response.py) object.
@@ -316,18 +284,9 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.invoices.with_streaming_response.create(
-    invoice_id="invoice_2024_001",
-    line_items=[
-        {
-            "type": "payout",
-            "product_id": "prod_1234567890",
-            "amount": "1000",
-            "currency_code": "USD",
-            "description": "Professional services for January 2026",
-            "user_id": "user_ext_456",
-        }
-    ],
+with client.external_accounts.with_streaming_response.create(
+    external_id="ext_acc_123",
+    name="Checking Account",
 ) as response:
     print(response.headers.get("X-My-Header"))
 

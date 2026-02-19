@@ -3,35 +3,35 @@
 from __future__ import annotations
 
 from typing import Union, Iterable
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = [
-    "InvoiceUpdateParams",
-    "LineItemsUpdate",
-    "LineItemsUpdateAddLineItemOperation",
-    "LineItemsUpdateUpdateLineItemOperation",
-    "LineItemsUpdateDeleteLineItemOperation",
+    "TransactionCreateParams",
+    "Account",
+    "Allocation",
+    "AllocationUser",
+    "AllocationUserID",
+    "AllocationUserExternalID",
 ]
 
 
-class InvoiceUpdateParams(TypedDict, total=False):
-    line_items_update: Required[Iterable[LineItemsUpdate]]
-    """List of line item operations to apply to the invoice"""
+class TransactionCreateParams(TypedDict, total=False):
+    account: Required[Account]
+    """Account reference. Provide id, external_id, or both."""
 
-    version: Required[float]
-    """The version of the invoice being updated.
-
-    Must match the current version for the update to succeed.
-    """
-
-
-class LineItemsUpdateAddLineItemOperation(TypedDict, total=False):
-    """Operation to add a new line item to an invoice"""
+    allocations: Required[Iterable[Allocation]]
+    """Allocation entries for this transaction. Empty indicates unreconciled funds."""
 
     amount: Required[str]
-    """Amount in smallest currency unit (e.g., cents)"""
+    """
+    Amount in smallest currency unit as stringified bigint (can be positive or
+    negative).
+    """
 
-    currency_code: Required[
+    currency: Required[
         Literal[
             "ADA",
             "BTC",
@@ -216,45 +216,47 @@ class LineItemsUpdateAddLineItemOperation(TypedDict, total=False):
     ]
     """Currency code (ISO 4217 or crypto)"""
 
-    description: Required[str]
-    """Description of the line item"""
+    external_id: Required[str]
+    """External transaction ID used for idempotent sync."""
 
-    op: Required[Literal["add"]]
-    """Operation type - add a new line item"""
-
-    product_id: Required[str]
-    """ID of the product/catalog item"""
-
-    type: Required[Literal["payin", "payout"]]
-    """The type of the line item"""
-
-    user_id: Required[str]
-    """External ID of the user associated with this line item"""
+    posted: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
+    """Posted timestamp in ISO 8601 format."""
 
 
-class LineItemsUpdateUpdateLineItemOperation(TypedDict, total=False):
-    """Operation to update an existing line item amount"""
+class Account(TypedDict, total=False):
+    """Account reference. Provide id, external_id, or both."""
 
+    id: str
+    """User-facing encoded account ID."""
+
+    external_id: str
+    """External account reference ID."""
+
+
+class AllocationUserID(TypedDict, total=False):
     id: Required[str]
-    """ID of the line item to update"""
+    """Internal user ID."""
+
+
+class AllocationUserExternalID(TypedDict, total=False):
+    external_id: Required[str]
+    """External user ID."""
+
+
+AllocationUser: TypeAlias = Union[AllocationUserID, AllocationUserExternalID]
+
+
+class Allocation(TypedDict, total=False):
+    """Transaction allocation against an invoice."""
 
     amount: Required[str]
-    """New amount in smallest currency unit"""
+    """Amount to allocate in smallest currency unit as stringified bigint."""
 
-    op: Required[Literal["update"]]
-    """Operation type - update an existing line item"""
+    invoice_id: Required[str]
+    """The invoice to allocate against."""
 
+    type: Required[Literal["invoice_payin", "invoice_payout"]]
+    """The type of allocation."""
 
-class LineItemsUpdateDeleteLineItemOperation(TypedDict, total=False):
-    """Operation to delete a line item from an invoice"""
-
-    id: Required[str]
-    """ID of the line item to delete"""
-
-    op: Required[Literal["delete"]]
-    """Operation type - delete an existing line item"""
-
-
-LineItemsUpdate: TypeAlias = Union[
-    LineItemsUpdateAddLineItemOperation, LineItemsUpdateUpdateLineItemOperation, LineItemsUpdateDeleteLineItemOperation
-]
+    user: Required[AllocationUser]
+    """User reference. Provide either id or external_id."""
