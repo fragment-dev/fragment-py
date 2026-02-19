@@ -3,7 +3,11 @@
 Types:
 
 ```python
-from fragment.types import ExternalAccountCreateResponse, ExternalAccountListResponse
+from fragment.types import (
+    ExternalAccount,
+    ExternalAccountCreateResponse,
+    ExternalAccountListResponse,
+)
 ```
 
 Methods:
@@ -17,6 +21,7 @@ Types:
 
 ```python
 from fragment.types import (
+    Invoice,
     InvoiceCreateResponse,
     InvoiceRetrieveResponse,
     InvoiceUpdateResponse,
@@ -38,7 +43,7 @@ Methods:
 Types:
 
 ```python
-from fragment.types import PlatformRetrieveResponse, PlatformUpdateResponse
+from fragment.types import Platform, PlatformRetrieveResponse, PlatformUpdateResponse
 ```
 
 Methods:
@@ -51,7 +56,12 @@ Methods:
 Types:
 
 ```python
-from fragment.types import ProductCreateResponse, ProductRetrieveResponse, ProductListResponse
+from fragment.types import (
+    Product,
+    ProductCreateResponse,
+    ProductRetrieveResponse,
+    ProductListResponse,
+)
 ```
 
 Methods:
@@ -65,7 +75,7 @@ Methods:
 Types:
 
 ```python
-from fragment.types import RoleCreateResponse, RoleListResponse
+from fragment.types import Role, RoleCreateResponse, RoleListResponse
 ```
 
 Methods:
@@ -78,7 +88,7 @@ Methods:
 Types:
 
 ```python
-from fragment.types import TransactionCreateResponse, TransactionListResponse
+from fragment.types import Transaction, TransactionCreateResponse, TransactionListResponse
 ```
 
 Methods:
@@ -91,7 +101,7 @@ Methods:
 Types:
 
 ```python
-from fragment.types import UserCreateResponse, UserListResponse
+from fragment.types import User, UserCreateResponse, UserListResponse
 ```
 
 Methods:
