@@ -21,7 +21,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestTransactions:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Fragment) -> None:
         transaction = client.transactions.create(
@@ -41,7 +41,7 @@ class TestTransactions:
         )
         assert_matches_type(TransactionCreateResponse, transaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Fragment) -> None:
         transaction = client.transactions.create(
@@ -64,7 +64,7 @@ class TestTransactions:
         )
         assert_matches_type(TransactionCreateResponse, transaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Fragment) -> None:
         response = client.transactions.with_raw_response.create(
@@ -88,7 +88,7 @@ class TestTransactions:
         transaction = response.parse()
         assert_matches_type(TransactionCreateResponse, transaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Fragment) -> None:
         with client.transactions.with_streaming_response.create(
@@ -114,13 +114,13 @@ class TestTransactions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Fragment) -> None:
         transaction = client.transactions.list()
         assert_matches_type(TransactionListResponse, transaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: Fragment) -> None:
         transaction = client.transactions.list(
@@ -129,7 +129,7 @@ class TestTransactions:
         )
         assert_matches_type(TransactionListResponse, transaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Fragment) -> None:
         response = client.transactions.with_raw_response.list()
@@ -139,7 +139,7 @@ class TestTransactions:
         transaction = response.parse()
         assert_matches_type(TransactionListResponse, transaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Fragment) -> None:
         with client.transactions.with_streaming_response.list() as response:
@@ -157,7 +157,7 @@ class TestAsyncTransactions:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncFragment) -> None:
         transaction = await async_client.transactions.create(
@@ -177,7 +177,7 @@ class TestAsyncTransactions:
         )
         assert_matches_type(TransactionCreateResponse, transaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncFragment) -> None:
         transaction = await async_client.transactions.create(
@@ -200,7 +200,7 @@ class TestAsyncTransactions:
         )
         assert_matches_type(TransactionCreateResponse, transaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncFragment) -> None:
         response = await async_client.transactions.with_raw_response.create(
@@ -224,7 +224,7 @@ class TestAsyncTransactions:
         transaction = await response.parse()
         assert_matches_type(TransactionCreateResponse, transaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncFragment) -> None:
         async with async_client.transactions.with_streaming_response.create(
@@ -250,13 +250,13 @@ class TestAsyncTransactions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncFragment) -> None:
         transaction = await async_client.transactions.list()
         assert_matches_type(TransactionListResponse, transaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncFragment) -> None:
         transaction = await async_client.transactions.list(
@@ -265,7 +265,7 @@ class TestAsyncTransactions:
         )
         assert_matches_type(TransactionListResponse, transaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncFragment) -> None:
         response = await async_client.transactions.with_raw_response.list()
@@ -275,7 +275,7 @@ class TestAsyncTransactions:
         transaction = await response.parse()
         assert_matches_type(TransactionListResponse, transaction, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncFragment) -> None:
         async with async_client.transactions.with_streaming_response.list() as response:

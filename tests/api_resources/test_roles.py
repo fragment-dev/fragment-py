@@ -17,7 +17,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestRoles:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Fragment) -> None:
         role = client.roles.create(
@@ -25,7 +25,7 @@ class TestRoles:
         )
         assert_matches_type(RoleCreateResponse, role, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Fragment) -> None:
         response = client.roles.with_raw_response.create(
@@ -37,7 +37,7 @@ class TestRoles:
         role = response.parse()
         assert_matches_type(RoleCreateResponse, role, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Fragment) -> None:
         with client.roles.with_streaming_response.create(
@@ -51,13 +51,13 @@ class TestRoles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Fragment) -> None:
         role = client.roles.list()
         assert_matches_type(RoleListResponse, role, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Fragment) -> None:
         response = client.roles.with_raw_response.list()
@@ -67,7 +67,7 @@ class TestRoles:
         role = response.parse()
         assert_matches_type(RoleListResponse, role, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Fragment) -> None:
         with client.roles.with_streaming_response.list() as response:
@@ -85,7 +85,7 @@ class TestAsyncRoles:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncFragment) -> None:
         role = await async_client.roles.create(
@@ -93,7 +93,7 @@ class TestAsyncRoles:
         )
         assert_matches_type(RoleCreateResponse, role, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncFragment) -> None:
         response = await async_client.roles.with_raw_response.create(
@@ -105,7 +105,7 @@ class TestAsyncRoles:
         role = await response.parse()
         assert_matches_type(RoleCreateResponse, role, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncFragment) -> None:
         async with async_client.roles.with_streaming_response.create(
@@ -119,13 +119,13 @@ class TestAsyncRoles:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncFragment) -> None:
         role = await async_client.roles.list()
         assert_matches_type(RoleListResponse, role, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncFragment) -> None:
         response = await async_client.roles.with_raw_response.list()
@@ -135,7 +135,7 @@ class TestAsyncRoles:
         role = await response.parse()
         assert_matches_type(RoleListResponse, role, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncFragment) -> None:
         async with async_client.roles.with_streaming_response.list() as response:

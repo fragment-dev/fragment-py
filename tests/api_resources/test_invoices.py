@@ -23,7 +23,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestInvoices:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Fragment) -> None:
         invoice = client.invoices.create(
@@ -41,7 +41,7 @@ class TestInvoices:
         )
         assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Fragment) -> None:
         response = client.invoices.with_raw_response.create(
@@ -63,7 +63,7 @@ class TestInvoices:
         invoice = response.parse()
         assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Fragment) -> None:
         with client.invoices.with_streaming_response.create(
@@ -87,7 +87,7 @@ class TestInvoices:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Fragment) -> None:
         invoice = client.invoices.retrieve(
@@ -95,7 +95,7 @@ class TestInvoices:
         )
         assert_matches_type(InvoiceRetrieveResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Fragment) -> None:
         response = client.invoices.with_raw_response.retrieve(
@@ -107,7 +107,7 @@ class TestInvoices:
         invoice = response.parse()
         assert_matches_type(InvoiceRetrieveResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Fragment) -> None:
         with client.invoices.with_streaming_response.retrieve(
@@ -121,7 +121,7 @@ class TestInvoices:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Fragment) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -129,7 +129,7 @@ class TestInvoices:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update(self, client: Fragment) -> None:
         invoice = client.invoices.update(
@@ -149,7 +149,7 @@ class TestInvoices:
         )
         assert_matches_type(InvoiceUpdateResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Fragment) -> None:
         response = client.invoices.with_raw_response.update(
@@ -173,7 +173,7 @@ class TestInvoices:
         invoice = response.parse()
         assert_matches_type(InvoiceUpdateResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Fragment) -> None:
         with client.invoices.with_streaming_response.update(
@@ -199,7 +199,7 @@ class TestInvoices:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: Fragment) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -219,13 +219,13 @@ class TestInvoices:
                 version=1,
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Fragment) -> None:
         invoice = client.invoices.list()
         assert_matches_type(InvoiceListResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Fragment) -> None:
         response = client.invoices.with_raw_response.list()
@@ -235,7 +235,7 @@ class TestInvoices:
         invoice = response.parse()
         assert_matches_type(InvoiceListResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Fragment) -> None:
         with client.invoices.with_streaming_response.list() as response:
@@ -247,7 +247,7 @@ class TestInvoices:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_history(self, client: Fragment) -> None:
         invoice = client.invoices.list_history(
@@ -255,7 +255,7 @@ class TestInvoices:
         )
         assert_matches_type(InvoiceListHistoryResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list_history(self, client: Fragment) -> None:
         response = client.invoices.with_raw_response.list_history(
@@ -267,7 +267,7 @@ class TestInvoices:
         invoice = response.parse()
         assert_matches_type(InvoiceListHistoryResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list_history(self, client: Fragment) -> None:
         with client.invoices.with_streaming_response.list_history(
@@ -281,7 +281,7 @@ class TestInvoices:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_list_history(self, client: Fragment) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -295,7 +295,7 @@ class TestAsyncInvoices:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncFragment) -> None:
         invoice = await async_client.invoices.create(
@@ -313,7 +313,7 @@ class TestAsyncInvoices:
         )
         assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncFragment) -> None:
         response = await async_client.invoices.with_raw_response.create(
@@ -335,7 +335,7 @@ class TestAsyncInvoices:
         invoice = await response.parse()
         assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncFragment) -> None:
         async with async_client.invoices.with_streaming_response.create(
@@ -359,7 +359,7 @@ class TestAsyncInvoices:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncFragment) -> None:
         invoice = await async_client.invoices.retrieve(
@@ -367,7 +367,7 @@ class TestAsyncInvoices:
         )
         assert_matches_type(InvoiceRetrieveResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncFragment) -> None:
         response = await async_client.invoices.with_raw_response.retrieve(
@@ -379,7 +379,7 @@ class TestAsyncInvoices:
         invoice = await response.parse()
         assert_matches_type(InvoiceRetrieveResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncFragment) -> None:
         async with async_client.invoices.with_streaming_response.retrieve(
@@ -393,7 +393,7 @@ class TestAsyncInvoices:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncFragment) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -401,7 +401,7 @@ class TestAsyncInvoices:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncFragment) -> None:
         invoice = await async_client.invoices.update(
@@ -421,7 +421,7 @@ class TestAsyncInvoices:
         )
         assert_matches_type(InvoiceUpdateResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncFragment) -> None:
         response = await async_client.invoices.with_raw_response.update(
@@ -445,7 +445,7 @@ class TestAsyncInvoices:
         invoice = await response.parse()
         assert_matches_type(InvoiceUpdateResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncFragment) -> None:
         async with async_client.invoices.with_streaming_response.update(
@@ -471,7 +471,7 @@ class TestAsyncInvoices:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncFragment) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -491,13 +491,13 @@ class TestAsyncInvoices:
                 version=1,
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncFragment) -> None:
         invoice = await async_client.invoices.list()
         assert_matches_type(InvoiceListResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncFragment) -> None:
         response = await async_client.invoices.with_raw_response.list()
@@ -507,7 +507,7 @@ class TestAsyncInvoices:
         invoice = await response.parse()
         assert_matches_type(InvoiceListResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncFragment) -> None:
         async with async_client.invoices.with_streaming_response.list() as response:
@@ -519,7 +519,7 @@ class TestAsyncInvoices:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_history(self, async_client: AsyncFragment) -> None:
         invoice = await async_client.invoices.list_history(
@@ -527,7 +527,7 @@ class TestAsyncInvoices:
         )
         assert_matches_type(InvoiceListHistoryResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list_history(self, async_client: AsyncFragment) -> None:
         response = await async_client.invoices.with_raw_response.list_history(
@@ -539,7 +539,7 @@ class TestAsyncInvoices:
         invoice = await response.parse()
         assert_matches_type(InvoiceListHistoryResponse, invoice, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list_history(self, async_client: AsyncFragment) -> None:
         async with async_client.invoices.with_streaming_response.list_history(
@@ -553,7 +553,7 @@ class TestAsyncInvoices:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_list_history(self, async_client: AsyncFragment) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):

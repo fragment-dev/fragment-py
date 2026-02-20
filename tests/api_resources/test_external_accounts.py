@@ -17,7 +17,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestExternalAccounts:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Fragment) -> None:
         external_account = client.external_accounts.create(
@@ -26,7 +26,7 @@ class TestExternalAccounts:
         )
         assert_matches_type(ExternalAccountCreateResponse, external_account, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Fragment) -> None:
         response = client.external_accounts.with_raw_response.create(
@@ -39,7 +39,7 @@ class TestExternalAccounts:
         external_account = response.parse()
         assert_matches_type(ExternalAccountCreateResponse, external_account, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Fragment) -> None:
         with client.external_accounts.with_streaming_response.create(
@@ -54,13 +54,13 @@ class TestExternalAccounts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Fragment) -> None:
         external_account = client.external_accounts.list()
         assert_matches_type(ExternalAccountListResponse, external_account, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Fragment) -> None:
         response = client.external_accounts.with_raw_response.list()
@@ -70,7 +70,7 @@ class TestExternalAccounts:
         external_account = response.parse()
         assert_matches_type(ExternalAccountListResponse, external_account, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Fragment) -> None:
         with client.external_accounts.with_streaming_response.list() as response:
@@ -88,7 +88,7 @@ class TestAsyncExternalAccounts:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncFragment) -> None:
         external_account = await async_client.external_accounts.create(
@@ -97,7 +97,7 @@ class TestAsyncExternalAccounts:
         )
         assert_matches_type(ExternalAccountCreateResponse, external_account, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncFragment) -> None:
         response = await async_client.external_accounts.with_raw_response.create(
@@ -110,7 +110,7 @@ class TestAsyncExternalAccounts:
         external_account = await response.parse()
         assert_matches_type(ExternalAccountCreateResponse, external_account, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncFragment) -> None:
         async with async_client.external_accounts.with_streaming_response.create(
@@ -125,13 +125,13 @@ class TestAsyncExternalAccounts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncFragment) -> None:
         external_account = await async_client.external_accounts.list()
         assert_matches_type(ExternalAccountListResponse, external_account, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncFragment) -> None:
         response = await async_client.external_accounts.with_raw_response.list()
@@ -141,7 +141,7 @@ class TestAsyncExternalAccounts:
         external_account = await response.parse()
         assert_matches_type(ExternalAccountListResponse, external_account, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncFragment) -> None:
         async with async_client.external_accounts.with_streaming_response.list() as response:
