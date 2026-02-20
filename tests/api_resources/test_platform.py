@@ -17,13 +17,13 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestPlatform:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Fragment) -> None:
         platform = client.platform.retrieve()
         assert_matches_type(PlatformRetrieveResponse, platform, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Fragment) -> None:
         response = client.platform.with_raw_response.retrieve()
@@ -33,7 +33,7 @@ class TestPlatform:
         platform = response.parse()
         assert_matches_type(PlatformRetrieveResponse, platform, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Fragment) -> None:
         with client.platform.with_streaming_response.retrieve() as response:
@@ -45,7 +45,7 @@ class TestPlatform:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update(self, client: Fragment) -> None:
         platform = client.platform.update(
@@ -53,7 +53,7 @@ class TestPlatform:
         )
         assert_matches_type(PlatformUpdateResponse, platform, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: Fragment) -> None:
         response = client.platform.with_raw_response.update(
@@ -65,7 +65,7 @@ class TestPlatform:
         platform = response.parse()
         assert_matches_type(PlatformUpdateResponse, platform, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: Fragment) -> None:
         with client.platform.with_streaming_response.update(
@@ -85,13 +85,13 @@ class TestAsyncPlatform:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncFragment) -> None:
         platform = await async_client.platform.retrieve()
         assert_matches_type(PlatformRetrieveResponse, platform, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncFragment) -> None:
         response = await async_client.platform.with_raw_response.retrieve()
@@ -101,7 +101,7 @@ class TestAsyncPlatform:
         platform = await response.parse()
         assert_matches_type(PlatformRetrieveResponse, platform, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncFragment) -> None:
         async with async_client.platform.with_streaming_response.retrieve() as response:
@@ -113,7 +113,7 @@ class TestAsyncPlatform:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncFragment) -> None:
         platform = await async_client.platform.update(
@@ -121,7 +121,7 @@ class TestAsyncPlatform:
         )
         assert_matches_type(PlatformUpdateResponse, platform, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncFragment) -> None:
         response = await async_client.platform.with_raw_response.update(
@@ -133,7 +133,7 @@ class TestAsyncPlatform:
         platform = await response.parse()
         assert_matches_type(PlatformUpdateResponse, platform, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncFragment) -> None:
         async with async_client.platform.with_streaming_response.update(
