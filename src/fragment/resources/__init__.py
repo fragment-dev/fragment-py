@@ -24,14 +24,6 @@ from .invoices import (
     InvoicesResourceWithStreamingResponse,
     AsyncInvoicesResourceWithStreamingResponse,
 )
-from .platform import (
-    PlatformResource,
-    AsyncPlatformResource,
-    PlatformResourceWithRawResponse,
-    AsyncPlatformResourceWithRawResponse,
-    PlatformResourceWithStreamingResponse,
-    AsyncPlatformResourceWithStreamingResponse,
-)
 from .products import (
     ProductsResource,
     AsyncProductsResource,
@@ -70,12 +62,6 @@ __all__ = [
     "AsyncInvoicesResourceWithRawResponse",
     "InvoicesResourceWithStreamingResponse",
     "AsyncInvoicesResourceWithStreamingResponse",
-    "PlatformResource",
-    "AsyncPlatformResource",
-    "PlatformResourceWithRawResponse",
-    "AsyncPlatformResourceWithRawResponse",
-    "PlatformResourceWithStreamingResponse",
-    "AsyncPlatformResourceWithStreamingResponse",
     "ProductsResource",
     "AsyncProductsResource",
     "ProductsResourceWithRawResponse",

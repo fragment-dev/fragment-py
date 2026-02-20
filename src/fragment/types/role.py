@@ -1,11 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .role import Role
 from .._models import BaseModel
 
-__all__ = ["RoleCreateResponse"]
+__all__ = ["Role"]
 
 
-class RoleCreateResponse(BaseModel):
-    data: Role
+class Role(BaseModel):
     """Role object"""
+
+    id: str
+    """Unique role ID"""
+
+    role: str
+    """Name of the role"""
