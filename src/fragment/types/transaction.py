@@ -257,5 +257,8 @@ class Transaction(BaseModel):
     unallocated_amount: str
     """Read-only amount not yet allocated."""
 
+    version: int
+    """Current version of the transaction, used for optimistic concurrency control."""
+
     modified: Optional[datetime] = None
     """Last modified timestamp."""
