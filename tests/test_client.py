@@ -918,11 +918,23 @@ class TestFragment:
     @mock.patch("fragment._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: Fragment) -> None:
-        respx_mock.post("/external-accounts").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/transactions/txn_abc123/allocations").mock(
+            side_effect=httpx.TimeoutException("Test timeout error")
+        )
 
         with pytest.raises(APITimeoutError):
-            client.external_accounts.with_streaming_response.create(
-                external_id="ext_acc_123", name="Checking Account"
+            client.transactions.with_streaming_response.create_allocations(
+                id="txn_abc123",
+                allocation_updates=[
+                    {
+                        "amount": "1000",
+                        "invoice_id": "inv_abc123",
+                        "op": "add",
+                        "type": "invoice_payin",
+                        "user": {"id": "user_abc123"},
+                    }
+                ],
+                version=0,
             ).__enter__()
 
         assert _get_open_connections(client) == 0
@@ -930,11 +942,21 @@ class TestFragment:
     @mock.patch("fragment._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: Fragment) -> None:
-        respx_mock.post("/external-accounts").mock(return_value=httpx.Response(500))
+        respx_mock.post("/transactions/txn_abc123/allocations").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.external_accounts.with_streaming_response.create(
-                external_id="ext_acc_123", name="Checking Account"
+            client.transactions.with_streaming_response.create_allocations(
+                id="txn_abc123",
+                allocation_updates=[
+                    {
+                        "amount": "1000",
+                        "invoice_id": "inv_abc123",
+                        "op": "add",
+                        "type": "invoice_payin",
+                        "user": {"id": "user_abc123"},
+                    }
+                ],
+                version=0,
             ).__enter__()
         assert _get_open_connections(client) == 0
 
@@ -962,9 +984,21 @@ class TestFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/external-accounts").mock(side_effect=retry_handler)
+        respx_mock.post("/transactions/txn_abc123/allocations").mock(side_effect=retry_handler)
 
-        response = client.external_accounts.with_raw_response.create(external_id="ext_acc_123", name="Checking Account")
+        response = client.transactions.with_raw_response.create_allocations(
+            id="txn_abc123",
+            allocation_updates=[
+                {
+                    "amount": "1000",
+                    "invoice_id": "inv_abc123",
+                    "op": "add",
+                    "type": "invoice_payin",
+                    "user": {"id": "user_abc123"},
+                }
+            ],
+            version=0,
+        )
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -986,10 +1020,21 @@ class TestFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/external-accounts").mock(side_effect=retry_handler)
+        respx_mock.post("/transactions/txn_abc123/allocations").mock(side_effect=retry_handler)
 
-        response = client.external_accounts.with_raw_response.create(
-            external_id="ext_acc_123", name="Checking Account", extra_headers={"x-stainless-retry-count": Omit()}
+        response = client.transactions.with_raw_response.create_allocations(
+            id="txn_abc123",
+            allocation_updates=[
+                {
+                    "amount": "1000",
+                    "invoice_id": "inv_abc123",
+                    "op": "add",
+                    "type": "invoice_payin",
+                    "user": {"id": "user_abc123"},
+                }
+            ],
+            version=0,
+            extra_headers={"x-stainless-retry-count": Omit()},
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1011,10 +1056,21 @@ class TestFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/external-accounts").mock(side_effect=retry_handler)
+        respx_mock.post("/transactions/txn_abc123/allocations").mock(side_effect=retry_handler)
 
-        response = client.external_accounts.with_raw_response.create(
-            external_id="ext_acc_123", name="Checking Account", extra_headers={"x-stainless-retry-count": "42"}
+        response = client.transactions.with_raw_response.create_allocations(
+            id="txn_abc123",
+            allocation_updates=[
+                {
+                    "amount": "1000",
+                    "invoice_id": "inv_abc123",
+                    "op": "add",
+                    "type": "invoice_payin",
+                    "user": {"id": "user_abc123"},
+                }
+            ],
+            version=0,
+            extra_headers={"x-stainless-retry-count": "42"},
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
@@ -1882,11 +1938,23 @@ class TestAsyncFragment:
     async def test_retrying_timeout_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncFragment
     ) -> None:
-        respx_mock.post("/external-accounts").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/transactions/txn_abc123/allocations").mock(
+            side_effect=httpx.TimeoutException("Test timeout error")
+        )
 
         with pytest.raises(APITimeoutError):
-            await async_client.external_accounts.with_streaming_response.create(
-                external_id="ext_acc_123", name="Checking Account"
+            await async_client.transactions.with_streaming_response.create_allocations(
+                id="txn_abc123",
+                allocation_updates=[
+                    {
+                        "amount": "1000",
+                        "invoice_id": "inv_abc123",
+                        "op": "add",
+                        "type": "invoice_payin",
+                        "user": {"id": "user_abc123"},
+                    }
+                ],
+                version=0,
             ).__aenter__()
 
         assert _get_open_connections(async_client) == 0
@@ -1896,11 +1964,21 @@ class TestAsyncFragment:
     async def test_retrying_status_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncFragment
     ) -> None:
-        respx_mock.post("/external-accounts").mock(return_value=httpx.Response(500))
+        respx_mock.post("/transactions/txn_abc123/allocations").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.external_accounts.with_streaming_response.create(
-                external_id="ext_acc_123", name="Checking Account"
+            await async_client.transactions.with_streaming_response.create_allocations(
+                id="txn_abc123",
+                allocation_updates=[
+                    {
+                        "amount": "1000",
+                        "invoice_id": "inv_abc123",
+                        "op": "add",
+                        "type": "invoice_payin",
+                        "user": {"id": "user_abc123"},
+                    }
+                ],
+                version=0,
             ).__aenter__()
         assert _get_open_connections(async_client) == 0
 
@@ -1928,10 +2006,20 @@ class TestAsyncFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/external-accounts").mock(side_effect=retry_handler)
+        respx_mock.post("/transactions/txn_abc123/allocations").mock(side_effect=retry_handler)
 
-        response = await client.external_accounts.with_raw_response.create(
-            external_id="ext_acc_123", name="Checking Account"
+        response = await client.transactions.with_raw_response.create_allocations(
+            id="txn_abc123",
+            allocation_updates=[
+                {
+                    "amount": "1000",
+                    "invoice_id": "inv_abc123",
+                    "op": "add",
+                    "type": "invoice_payin",
+                    "user": {"id": "user_abc123"},
+                }
+            ],
+            version=0,
         )
 
         assert response.retries_taken == failures_before_success
@@ -1954,10 +2042,21 @@ class TestAsyncFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/external-accounts").mock(side_effect=retry_handler)
+        respx_mock.post("/transactions/txn_abc123/allocations").mock(side_effect=retry_handler)
 
-        response = await client.external_accounts.with_raw_response.create(
-            external_id="ext_acc_123", name="Checking Account", extra_headers={"x-stainless-retry-count": Omit()}
+        response = await client.transactions.with_raw_response.create_allocations(
+            id="txn_abc123",
+            allocation_updates=[
+                {
+                    "amount": "1000",
+                    "invoice_id": "inv_abc123",
+                    "op": "add",
+                    "type": "invoice_payin",
+                    "user": {"id": "user_abc123"},
+                }
+            ],
+            version=0,
+            extra_headers={"x-stainless-retry-count": Omit()},
         )
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
@@ -1979,10 +2078,21 @@ class TestAsyncFragment:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/external-accounts").mock(side_effect=retry_handler)
+        respx_mock.post("/transactions/txn_abc123/allocations").mock(side_effect=retry_handler)
 
-        response = await client.external_accounts.with_raw_response.create(
-            external_id="ext_acc_123", name="Checking Account", extra_headers={"x-stainless-retry-count": "42"}
+        response = await client.transactions.with_raw_response.create_allocations(
+            id="txn_abc123",
+            allocation_updates=[
+                {
+                    "amount": "1000",
+                    "invoice_id": "inv_abc123",
+                    "op": "add",
+                    "type": "invoice_payin",
+                    "user": {"id": "user_abc123"},
+                }
+            ],
+            version=0,
+            extra_headers={"x-stainless-retry-count": "42"},
         )
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"

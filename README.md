@@ -29,11 +29,20 @@ from fragment import Fragment
 
 client = Fragment()
 
-external_account = client.external_accounts.create(
-    external_id="ext_acc_123",
-    name="Checking Account",
+response = client.transactions.create_allocations(
+    id="txn_abc123",
+    allocation_updates=[
+        {
+            "amount": "1000",
+            "invoice_id": "inv_abc123",
+            "op": "add",
+            "type": "invoice_payin",
+            "user": {"id": "user_abc123"},
+        }
+    ],
+    version=1,
 )
-print(external_account.data)
+print(response.data)
 ```
 
 ## Async usage
@@ -48,11 +57,20 @@ client = AsyncFragment()
 
 
 async def main() -> None:
-    external_account = await client.external_accounts.create(
-        external_id="ext_acc_123",
-        name="Checking Account",
+    response = await client.transactions.create_allocations(
+        id="txn_abc123",
+        allocation_updates=[
+            {
+                "amount": "1000",
+                "invoice_id": "inv_abc123",
+                "op": "add",
+                "type": "invoice_payin",
+                "user": {"id": "user_abc123"},
+            }
+        ],
+        version=1,
     )
-    print(external_account.data)
+    print(response.data)
 
 
 asyncio.run(main())
@@ -83,11 +101,20 @@ async def main() -> None:
     async with AsyncFragment(
         http_client=DefaultAioHttpClient(),
     ) as client:
-        external_account = await client.external_accounts.create(
-            external_id="ext_acc_123",
-            name="Checking Account",
+        response = await client.transactions.create_allocations(
+            id="txn_abc123",
+            allocation_updates=[
+                {
+                    "amount": "1000",
+                    "invoice_id": "inv_abc123",
+                    "op": "add",
+                    "type": "invoice_payin",
+                    "user": {"id": "user_abc123"},
+                }
+            ],
+            version=1,
         )
-        print(external_account.data)
+        print(response.data)
 
 
 asyncio.run(main())
@@ -147,9 +174,18 @@ from fragment import Fragment
 client = Fragment()
 
 try:
-    client.external_accounts.create(
-        external_id="ext_acc_123",
-        name="Checking Account",
+    client.transactions.create_allocations(
+        id="txn_abc123",
+        allocation_updates=[
+            {
+                "amount": "1000",
+                "invoice_id": "inv_abc123",
+                "op": "add",
+                "type": "invoice_payin",
+                "user": {"id": "user_abc123"},
+            }
+        ],
+        version=1,
     )
 except fragment.APIConnectionError as e:
     print("The server could not be reached")
@@ -193,9 +229,18 @@ client = Fragment(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).external_accounts.create(
-    external_id="ext_acc_123",
-    name="Checking Account",
+client.with_options(max_retries=5).transactions.create_allocations(
+    id="txn_abc123",
+    allocation_updates=[
+        {
+            "amount": "1000",
+            "invoice_id": "inv_abc123",
+            "op": "add",
+            "type": "invoice_payin",
+            "user": {"id": "user_abc123"},
+        }
+    ],
+    version=1,
 )
 ```
 
@@ -219,9 +264,18 @@ client = Fragment(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).external_accounts.create(
-    external_id="ext_acc_123",
-    name="Checking Account",
+client.with_options(timeout=5.0).transactions.create_allocations(
+    id="txn_abc123",
+    allocation_updates=[
+        {
+            "amount": "1000",
+            "invoice_id": "inv_abc123",
+            "op": "add",
+            "type": "invoice_payin",
+            "user": {"id": "user_abc123"},
+        }
+    ],
+    version=1,
 )
 ```
 
@@ -263,14 +317,23 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from fragment import Fragment
 
 client = Fragment()
-response = client.external_accounts.with_raw_response.create(
-    external_id="ext_acc_123",
-    name="Checking Account",
+response = client.transactions.with_raw_response.create_allocations(
+    id="txn_abc123",
+    allocation_updates=[{
+        "amount": "1000",
+        "invoice_id": "inv_abc123",
+        "op": "add",
+        "type": "invoice_payin",
+        "user": {
+            "id": "user_abc123"
+        },
+    }],
+    version=1,
 )
 print(response.headers.get('X-My-Header'))
 
-external_account = response.parse()  # get the object that `external_accounts.create()` would have returned
-print(external_account.data)
+transaction = response.parse()  # get the object that `transactions.create_allocations()` would have returned
+print(transaction.data)
 ```
 
 These methods return an [`APIResponse`](https://github.com/fragment-dev/fragment-py/tree/main/src/fragment/_response.py) object.
@@ -284,9 +347,18 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.external_accounts.with_streaming_response.create(
-    external_id="ext_acc_123",
-    name="Checking Account",
+with client.transactions.with_streaming_response.create_allocations(
+    id="txn_abc123",
+    allocation_updates=[
+        {
+            "amount": "1000",
+            "invoice_id": "inv_abc123",
+            "op": "add",
+            "type": "invoice_payin",
+            "user": {"id": "user_abc123"},
+        }
+    ],
+    version=1,
 ) as response:
     print(response.headers.get("X-My-Header"))
 

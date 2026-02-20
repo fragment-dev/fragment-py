@@ -80,6 +80,7 @@ from fragment.types import (
     TransactionCreateResponse,
     TransactionRetrieveResponse,
     TransactionListResponse,
+    TransactionCreateAllocationsResponse,
 )
 ```
 
@@ -88,6 +89,7 @@ Methods:
 - <code title="post /transactions">client.transactions.<a href="./src/fragment/resources/transactions.py">create</a>(\*\*<a href="src/fragment/types/transaction_create_params.py">params</a>) -> <a href="./src/fragment/types/transaction_create_response.py">TransactionCreateResponse</a></code>
 - <code title="get /transactions/{id}">client.transactions.<a href="./src/fragment/resources/transactions.py">retrieve</a>(id) -> <a href="./src/fragment/types/transaction_retrieve_response.py">TransactionRetrieveResponse</a></code>
 - <code title="get /transactions">client.transactions.<a href="./src/fragment/resources/transactions.py">list</a>(\*\*<a href="src/fragment/types/transaction_list_params.py">params</a>) -> <a href="./src/fragment/types/transaction_list_response.py">TransactionListResponse</a></code>
+- <code title="post /transactions/{id}/allocations">client.transactions.<a href="./src/fragment/resources/transactions.py">create_allocations</a>(id, \*\*<a href="src/fragment/types/transaction_create_allocations_params.py">params</a>) -> <a href="./src/fragment/types/transaction_create_allocations_response.py">TransactionCreateAllocationsResponse</a></code>
 
 # Users
 

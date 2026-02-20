@@ -33,3 +33,9 @@ from .transaction_retrieve_response import TransactionRetrieveResponse as Transa
 from .external_account_create_params import ExternalAccountCreateParams as ExternalAccountCreateParams
 from .external_account_list_response import ExternalAccountListResponse as ExternalAccountListResponse
 from .external_account_create_response import ExternalAccountCreateResponse as ExternalAccountCreateResponse
+from .transaction_create_allocations_params import (
+    TransactionCreateAllocationsParams as TransactionCreateAllocationsParams,
+)
+from .transaction_create_allocations_response import (
+    TransactionCreateAllocationsResponse as TransactionCreateAllocationsResponse,
+)
