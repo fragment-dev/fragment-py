@@ -3,9 +3,9 @@
 from .._models import BaseModel
 from .transaction import Transaction
 
-__all__ = ["TransactionCreateResponse"]
+__all__ = ["TransactionRetrieveResponse"]
 
 
-class TransactionCreateResponse(BaseModel):
+class TransactionRetrieveResponse(BaseModel):
     data: Transaction
     """Transaction object."""

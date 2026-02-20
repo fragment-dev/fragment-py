@@ -3,7 +3,11 @@
 Types:
 
 ```python
-from fragment.types import ExternalAccountCreateResponse, ExternalAccountListResponse
+from fragment.types import (
+    ExternalAccount,
+    ExternalAccountCreateResponse,
+    ExternalAccountListResponse,
+)
 ```
 
 Methods:
@@ -17,6 +21,7 @@ Types:
 
 ```python
 from fragment.types import (
+    Invoice,
     InvoiceCreateResponse,
     InvoiceRetrieveResponse,
     InvoiceUpdateResponse,
@@ -33,25 +38,17 @@ Methods:
 - <code title="get /invoices">client.invoices.<a href="./src/fragment/resources/invoices.py">list</a>() -> <a href="./src/fragment/types/invoice_list_response.py">InvoiceListResponse</a></code>
 - <code title="get /invoices/{id}/history">client.invoices.<a href="./src/fragment/resources/invoices.py">list_history</a>(id) -> <a href="./src/fragment/types/invoice_list_history_response.py">InvoiceListHistoryResponse</a></code>
 
-# Platform
-
-Types:
-
-```python
-from fragment.types import PlatformRetrieveResponse, PlatformUpdateResponse
-```
-
-Methods:
-
-- <code title="get /platform">client.platform.<a href="./src/fragment/resources/platform.py">retrieve</a>() -> <a href="./src/fragment/types/platform_retrieve_response.py">PlatformRetrieveResponse</a></code>
-- <code title="post /platform">client.platform.<a href="./src/fragment/resources/platform.py">update</a>(\*\*<a href="src/fragment/types/platform_update_params.py">params</a>) -> <a href="./src/fragment/types/platform_update_response.py">PlatformUpdateResponse</a></code>
-
 # Products
 
 Types:
 
 ```python
-from fragment.types import ProductCreateResponse, ProductRetrieveResponse, ProductListResponse
+from fragment.types import (
+    Product,
+    ProductCreateResponse,
+    ProductRetrieveResponse,
+    ProductListResponse,
+)
 ```
 
 Methods:
@@ -65,7 +62,7 @@ Methods:
 Types:
 
 ```python
-from fragment.types import RoleCreateResponse, RoleListResponse
+from fragment.types import Role, RoleCreateResponse, RoleListResponse
 ```
 
 Methods:
@@ -78,12 +75,18 @@ Methods:
 Types:
 
 ```python
-from fragment.types import TransactionCreateResponse, TransactionListResponse
+from fragment.types import (
+    Transaction,
+    TransactionCreateResponse,
+    TransactionRetrieveResponse,
+    TransactionListResponse,
+)
 ```
 
 Methods:
 
 - <code title="post /transactions">client.transactions.<a href="./src/fragment/resources/transactions.py">create</a>(\*\*<a href="src/fragment/types/transaction_create_params.py">params</a>) -> <a href="./src/fragment/types/transaction_create_response.py">TransactionCreateResponse</a></code>
+- <code title="get /transactions/{id}">client.transactions.<a href="./src/fragment/resources/transactions.py">retrieve</a>(id) -> <a href="./src/fragment/types/transaction_retrieve_response.py">TransactionRetrieveResponse</a></code>
 - <code title="get /transactions">client.transactions.<a href="./src/fragment/resources/transactions.py">list</a>(\*\*<a href="src/fragment/types/transaction_list_params.py">params</a>) -> <a href="./src/fragment/types/transaction_list_response.py">TransactionListResponse</a></code>
 
 # Users
@@ -91,7 +94,7 @@ Methods:
 Types:
 
 ```python
-from fragment.types import UserCreateResponse, UserListResponse
+from fragment.types import User, UserCreateResponse, UserListResponse
 ```
 
 Methods:
