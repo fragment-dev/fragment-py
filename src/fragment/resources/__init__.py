@@ -24,14 +24,6 @@ from .invoices import (
     InvoicesResourceWithStreamingResponse,
     AsyncInvoicesResourceWithStreamingResponse,
 )
-from .platform import (
-    PlatformResource,
-    AsyncPlatformResource,
-    PlatformResourceWithRawResponse,
-    AsyncPlatformResourceWithRawResponse,
-    PlatformResourceWithStreamingResponse,
-    AsyncPlatformResourceWithStreamingResponse,
-)
 from .products import (
     ProductsResource,
     AsyncProductsResource,
@@ -40,20 +32,36 @@ from .products import (
     ProductsResourceWithStreamingResponse,
     AsyncProductsResourceWithStreamingResponse,
 )
+from .transactions import (
+    TransactionsResource,
+    AsyncTransactionsResource,
+    TransactionsResourceWithRawResponse,
+    AsyncTransactionsResourceWithRawResponse,
+    TransactionsResourceWithStreamingResponse,
+    AsyncTransactionsResourceWithStreamingResponse,
+)
+from .external_accounts import (
+    ExternalAccountsResource,
+    AsyncExternalAccountsResource,
+    ExternalAccountsResourceWithRawResponse,
+    AsyncExternalAccountsResourceWithRawResponse,
+    ExternalAccountsResourceWithStreamingResponse,
+    AsyncExternalAccountsResourceWithStreamingResponse,
+)
 
 __all__ = [
+    "ExternalAccountsResource",
+    "AsyncExternalAccountsResource",
+    "ExternalAccountsResourceWithRawResponse",
+    "AsyncExternalAccountsResourceWithRawResponse",
+    "ExternalAccountsResourceWithStreamingResponse",
+    "AsyncExternalAccountsResourceWithStreamingResponse",
     "InvoicesResource",
     "AsyncInvoicesResource",
     "InvoicesResourceWithRawResponse",
     "AsyncInvoicesResourceWithRawResponse",
     "InvoicesResourceWithStreamingResponse",
     "AsyncInvoicesResourceWithStreamingResponse",
-    "PlatformResource",
-    "AsyncPlatformResource",
-    "PlatformResourceWithRawResponse",
-    "AsyncPlatformResourceWithRawResponse",
-    "PlatformResourceWithStreamingResponse",
-    "AsyncPlatformResourceWithStreamingResponse",
     "ProductsResource",
     "AsyncProductsResource",
     "ProductsResourceWithRawResponse",
@@ -66,6 +74,12 @@ __all__ = [
     "AsyncRolesResourceWithRawResponse",
     "RolesResourceWithStreamingResponse",
     "AsyncRolesResourceWithStreamingResponse",
+    "TransactionsResource",
+    "AsyncTransactionsResource",
+    "TransactionsResourceWithRawResponse",
+    "AsyncTransactionsResourceWithRawResponse",
+    "TransactionsResourceWithStreamingResponse",
+    "AsyncTransactionsResourceWithStreamingResponse",
     "UsersResource",
     "AsyncUsersResource",
     "UsersResourceWithRawResponse",

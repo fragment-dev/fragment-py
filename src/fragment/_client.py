@@ -32,12 +32,13 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import roles, users, invoices, platform, products
+    from .resources import roles, users, invoices, products, transactions, external_accounts
     from .resources.roles import RolesResource, AsyncRolesResource
     from .resources.users import UsersResource, AsyncUsersResource
     from .resources.invoices import InvoicesResource, AsyncInvoicesResource
-    from .resources.platform import PlatformResource, AsyncPlatformResource
     from .resources.products import ProductsResource, AsyncProductsResource
+    from .resources.transactions import TransactionsResource, AsyncTransactionsResource
+    from .resources.external_accounts import ExternalAccountsResource, AsyncExternalAccountsResource
 
 __all__ = [
     "Timeout",
@@ -111,16 +112,16 @@ class Fragment(SyncAPIClient):
         )
 
     @cached_property
+    def external_accounts(self) -> ExternalAccountsResource:
+        from .resources.external_accounts import ExternalAccountsResource
+
+        return ExternalAccountsResource(self)
+
+    @cached_property
     def invoices(self) -> InvoicesResource:
         from .resources.invoices import InvoicesResource
 
         return InvoicesResource(self)
-
-    @cached_property
-    def platform(self) -> PlatformResource:
-        from .resources.platform import PlatformResource
-
-        return PlatformResource(self)
 
     @cached_property
     def products(self) -> ProductsResource:
@@ -133,6 +134,12 @@ class Fragment(SyncAPIClient):
         from .resources.roles import RolesResource
 
         return RolesResource(self)
+
+    @cached_property
+    def transactions(self) -> TransactionsResource:
+        from .resources.transactions import TransactionsResource
+
+        return TransactionsResource(self)
 
     @cached_property
     def users(self) -> UsersResource:
@@ -330,16 +337,16 @@ class AsyncFragment(AsyncAPIClient):
         )
 
     @cached_property
+    def external_accounts(self) -> AsyncExternalAccountsResource:
+        from .resources.external_accounts import AsyncExternalAccountsResource
+
+        return AsyncExternalAccountsResource(self)
+
+    @cached_property
     def invoices(self) -> AsyncInvoicesResource:
         from .resources.invoices import AsyncInvoicesResource
 
         return AsyncInvoicesResource(self)
-
-    @cached_property
-    def platform(self) -> AsyncPlatformResource:
-        from .resources.platform import AsyncPlatformResource
-
-        return AsyncPlatformResource(self)
 
     @cached_property
     def products(self) -> AsyncProductsResource:
@@ -352,6 +359,12 @@ class AsyncFragment(AsyncAPIClient):
         from .resources.roles import AsyncRolesResource
 
         return AsyncRolesResource(self)
+
+    @cached_property
+    def transactions(self) -> AsyncTransactionsResource:
+        from .resources.transactions import AsyncTransactionsResource
+
+        return AsyncTransactionsResource(self)
 
     @cached_property
     def users(self) -> AsyncUsersResource:
@@ -496,16 +509,16 @@ class FragmentWithRawResponse:
         self._client = client
 
     @cached_property
+    def external_accounts(self) -> external_accounts.ExternalAccountsResourceWithRawResponse:
+        from .resources.external_accounts import ExternalAccountsResourceWithRawResponse
+
+        return ExternalAccountsResourceWithRawResponse(self._client.external_accounts)
+
+    @cached_property
     def invoices(self) -> invoices.InvoicesResourceWithRawResponse:
         from .resources.invoices import InvoicesResourceWithRawResponse
 
         return InvoicesResourceWithRawResponse(self._client.invoices)
-
-    @cached_property
-    def platform(self) -> platform.PlatformResourceWithRawResponse:
-        from .resources.platform import PlatformResourceWithRawResponse
-
-        return PlatformResourceWithRawResponse(self._client.platform)
 
     @cached_property
     def products(self) -> products.ProductsResourceWithRawResponse:
@@ -518,6 +531,12 @@ class FragmentWithRawResponse:
         from .resources.roles import RolesResourceWithRawResponse
 
         return RolesResourceWithRawResponse(self._client.roles)
+
+    @cached_property
+    def transactions(self) -> transactions.TransactionsResourceWithRawResponse:
+        from .resources.transactions import TransactionsResourceWithRawResponse
+
+        return TransactionsResourceWithRawResponse(self._client.transactions)
 
     @cached_property
     def users(self) -> users.UsersResourceWithRawResponse:
@@ -533,16 +552,16 @@ class AsyncFragmentWithRawResponse:
         self._client = client
 
     @cached_property
+    def external_accounts(self) -> external_accounts.AsyncExternalAccountsResourceWithRawResponse:
+        from .resources.external_accounts import AsyncExternalAccountsResourceWithRawResponse
+
+        return AsyncExternalAccountsResourceWithRawResponse(self._client.external_accounts)
+
+    @cached_property
     def invoices(self) -> invoices.AsyncInvoicesResourceWithRawResponse:
         from .resources.invoices import AsyncInvoicesResourceWithRawResponse
 
         return AsyncInvoicesResourceWithRawResponse(self._client.invoices)
-
-    @cached_property
-    def platform(self) -> platform.AsyncPlatformResourceWithRawResponse:
-        from .resources.platform import AsyncPlatformResourceWithRawResponse
-
-        return AsyncPlatformResourceWithRawResponse(self._client.platform)
 
     @cached_property
     def products(self) -> products.AsyncProductsResourceWithRawResponse:
@@ -555,6 +574,12 @@ class AsyncFragmentWithRawResponse:
         from .resources.roles import AsyncRolesResourceWithRawResponse
 
         return AsyncRolesResourceWithRawResponse(self._client.roles)
+
+    @cached_property
+    def transactions(self) -> transactions.AsyncTransactionsResourceWithRawResponse:
+        from .resources.transactions import AsyncTransactionsResourceWithRawResponse
+
+        return AsyncTransactionsResourceWithRawResponse(self._client.transactions)
 
     @cached_property
     def users(self) -> users.AsyncUsersResourceWithRawResponse:
@@ -570,16 +595,16 @@ class FragmentWithStreamedResponse:
         self._client = client
 
     @cached_property
+    def external_accounts(self) -> external_accounts.ExternalAccountsResourceWithStreamingResponse:
+        from .resources.external_accounts import ExternalAccountsResourceWithStreamingResponse
+
+        return ExternalAccountsResourceWithStreamingResponse(self._client.external_accounts)
+
+    @cached_property
     def invoices(self) -> invoices.InvoicesResourceWithStreamingResponse:
         from .resources.invoices import InvoicesResourceWithStreamingResponse
 
         return InvoicesResourceWithStreamingResponse(self._client.invoices)
-
-    @cached_property
-    def platform(self) -> platform.PlatformResourceWithStreamingResponse:
-        from .resources.platform import PlatformResourceWithStreamingResponse
-
-        return PlatformResourceWithStreamingResponse(self._client.platform)
 
     @cached_property
     def products(self) -> products.ProductsResourceWithStreamingResponse:
@@ -592,6 +617,12 @@ class FragmentWithStreamedResponse:
         from .resources.roles import RolesResourceWithStreamingResponse
 
         return RolesResourceWithStreamingResponse(self._client.roles)
+
+    @cached_property
+    def transactions(self) -> transactions.TransactionsResourceWithStreamingResponse:
+        from .resources.transactions import TransactionsResourceWithStreamingResponse
+
+        return TransactionsResourceWithStreamingResponse(self._client.transactions)
 
     @cached_property
     def users(self) -> users.UsersResourceWithStreamingResponse:
@@ -607,16 +638,16 @@ class AsyncFragmentWithStreamedResponse:
         self._client = client
 
     @cached_property
+    def external_accounts(self) -> external_accounts.AsyncExternalAccountsResourceWithStreamingResponse:
+        from .resources.external_accounts import AsyncExternalAccountsResourceWithStreamingResponse
+
+        return AsyncExternalAccountsResourceWithStreamingResponse(self._client.external_accounts)
+
+    @cached_property
     def invoices(self) -> invoices.AsyncInvoicesResourceWithStreamingResponse:
         from .resources.invoices import AsyncInvoicesResourceWithStreamingResponse
 
         return AsyncInvoicesResourceWithStreamingResponse(self._client.invoices)
-
-    @cached_property
-    def platform(self) -> platform.AsyncPlatformResourceWithStreamingResponse:
-        from .resources.platform import AsyncPlatformResourceWithStreamingResponse
-
-        return AsyncPlatformResourceWithStreamingResponse(self._client.platform)
 
     @cached_property
     def products(self) -> products.AsyncProductsResourceWithStreamingResponse:
@@ -629,6 +660,12 @@ class AsyncFragmentWithStreamedResponse:
         from .resources.roles import AsyncRolesResourceWithStreamingResponse
 
         return AsyncRolesResourceWithStreamingResponse(self._client.roles)
+
+    @cached_property
+    def transactions(self) -> transactions.AsyncTransactionsResourceWithStreamingResponse:
+        from .resources.transactions import AsyncTransactionsResourceWithStreamingResponse
+
+        return AsyncTransactionsResourceWithStreamingResponse(self._client.transactions)
 
     @cached_property
     def users(self) -> users.AsyncUsersResourceWithStreamingResponse:

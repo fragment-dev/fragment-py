@@ -2,6 +2,12 @@
 
 from __future__ import annotations
 
+from .role import Role as Role
+from .user import User as User
+from .invoice import Invoice as Invoice
+from .product import Product as Product
+from .transaction import Transaction as Transaction
+from .external_account import ExternalAccount as ExternalAccount
 from .role_create_params import RoleCreateParams as RoleCreateParams
 from .role_list_response import RoleListResponse as RoleListResponse
 from .user_create_params import UserCreateParams as UserCreateParams
@@ -13,12 +19,23 @@ from .invoice_list_response import InvoiceListResponse as InvoiceListResponse
 from .invoice_update_params import InvoiceUpdateParams as InvoiceUpdateParams
 from .product_create_params import ProductCreateParams as ProductCreateParams
 from .product_list_response import ProductListResponse as ProductListResponse
-from .platform_update_params import PlatformUpdateParams as PlatformUpdateParams
 from .invoice_create_response import InvoiceCreateResponse as InvoiceCreateResponse
 from .invoice_update_response import InvoiceUpdateResponse as InvoiceUpdateResponse
 from .product_create_response import ProductCreateResponse as ProductCreateResponse
-from .platform_update_response import PlatformUpdateResponse as PlatformUpdateResponse
+from .transaction_list_params import TransactionListParams as TransactionListParams
 from .invoice_retrieve_response import InvoiceRetrieveResponse as InvoiceRetrieveResponse
 from .product_retrieve_response import ProductRetrieveResponse as ProductRetrieveResponse
-from .platform_retrieve_response import PlatformRetrieveResponse as PlatformRetrieveResponse
+from .transaction_create_params import TransactionCreateParams as TransactionCreateParams
+from .transaction_list_response import TransactionListResponse as TransactionListResponse
+from .transaction_create_response import TransactionCreateResponse as TransactionCreateResponse
 from .invoice_list_history_response import InvoiceListHistoryResponse as InvoiceListHistoryResponse
+from .transaction_retrieve_response import TransactionRetrieveResponse as TransactionRetrieveResponse
+from .external_account_create_params import ExternalAccountCreateParams as ExternalAccountCreateParams
+from .external_account_list_response import ExternalAccountListResponse as ExternalAccountListResponse
+from .external_account_create_response import ExternalAccountCreateResponse as ExternalAccountCreateResponse
+from .transaction_create_allocations_params import (
+    TransactionCreateAllocationsParams as TransactionCreateAllocationsParams,
+)
+from .transaction_create_allocations_response import (
+    TransactionCreateAllocationsResponse as TransactionCreateAllocationsResponse,
+)

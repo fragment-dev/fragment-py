@@ -17,7 +17,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestProducts:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Fragment) -> None:
         product = client.products.create(
@@ -26,7 +26,7 @@ class TestProducts:
         )
         assert_matches_type(ProductCreateResponse, product, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Fragment) -> None:
         product = client.products.create(
@@ -37,7 +37,7 @@ class TestProducts:
         )
         assert_matches_type(ProductCreateResponse, product, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Fragment) -> None:
         response = client.products.with_raw_response.create(
@@ -50,7 +50,7 @@ class TestProducts:
         product = response.parse()
         assert_matches_type(ProductCreateResponse, product, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Fragment) -> None:
         with client.products.with_streaming_response.create(
@@ -65,7 +65,7 @@ class TestProducts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: Fragment) -> None:
         product = client.products.retrieve(
@@ -73,7 +73,7 @@ class TestProducts:
         )
         assert_matches_type(ProductRetrieveResponse, product, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: Fragment) -> None:
         response = client.products.with_raw_response.retrieve(
@@ -85,7 +85,7 @@ class TestProducts:
         product = response.parse()
         assert_matches_type(ProductRetrieveResponse, product, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: Fragment) -> None:
         with client.products.with_streaming_response.retrieve(
@@ -99,7 +99,7 @@ class TestProducts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Fragment) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `code` but received ''"):
@@ -107,13 +107,13 @@ class TestProducts:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: Fragment) -> None:
         product = client.products.list()
         assert_matches_type(ProductListResponse, product, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: Fragment) -> None:
         response = client.products.with_raw_response.list()
@@ -123,7 +123,7 @@ class TestProducts:
         product = response.parse()
         assert_matches_type(ProductListResponse, product, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: Fragment) -> None:
         with client.products.with_streaming_response.list() as response:
@@ -141,7 +141,7 @@ class TestAsyncProducts:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncFragment) -> None:
         product = await async_client.products.create(
@@ -150,7 +150,7 @@ class TestAsyncProducts:
         )
         assert_matches_type(ProductCreateResponse, product, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncFragment) -> None:
         product = await async_client.products.create(
@@ -161,7 +161,7 @@ class TestAsyncProducts:
         )
         assert_matches_type(ProductCreateResponse, product, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncFragment) -> None:
         response = await async_client.products.with_raw_response.create(
@@ -174,7 +174,7 @@ class TestAsyncProducts:
         product = await response.parse()
         assert_matches_type(ProductCreateResponse, product, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncFragment) -> None:
         async with async_client.products.with_streaming_response.create(
@@ -189,7 +189,7 @@ class TestAsyncProducts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncFragment) -> None:
         product = await async_client.products.retrieve(
@@ -197,7 +197,7 @@ class TestAsyncProducts:
         )
         assert_matches_type(ProductRetrieveResponse, product, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncFragment) -> None:
         response = await async_client.products.with_raw_response.retrieve(
@@ -209,7 +209,7 @@ class TestAsyncProducts:
         product = await response.parse()
         assert_matches_type(ProductRetrieveResponse, product, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncFragment) -> None:
         async with async_client.products.with_streaming_response.retrieve(
@@ -223,7 +223,7 @@ class TestAsyncProducts:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncFragment) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `code` but received ''"):
@@ -231,13 +231,13 @@ class TestAsyncProducts:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncFragment) -> None:
         product = await async_client.products.list()
         assert_matches_type(ProductListResponse, product, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncFragment) -> None:
         response = await async_client.products.with_raw_response.list()
@@ -247,7 +247,7 @@ class TestAsyncProducts:
         product = await response.parse()
         assert_matches_type(ProductListResponse, product, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncFragment) -> None:
         async with async_client.products.with_streaming_response.list() as response:

@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.5.0 (2026-02-20)
+
+Full Changelog: [v0.4.0...v0.5.0](https://github.com/fragment-dev/fragment-py/compare/v0.4.0...v0.5.0)
+
+### Features
+
+* **api:** update SDK from prod (02129bd3c8d07cabd99ba1849b1ce21f4a73c752) ([972d94a](https://github.com/fragment-dev/fragment-py/commit/972d94af4473fb8b59d1a7f27ab0ed8d55183464))
+* **api:** update SDK from prod (041a7148982b6eb68cdc510d139846bb9acf48f9) ([0e05896](https://github.com/fragment-dev/fragment-py/commit/0e058968554e5af724f0e208200cf4c419fe973a))
+* **api:** update SDK from prod (bafb7c5c7699ca57dac84e441c66bd40b1d9ba93) ([2eb8cb3](https://github.com/fragment-dev/fragment-py/commit/2eb8cb3f6fb25fdd07d1470f2890dcf47a7fa004))
+* **api:** update SDK from prod (dc1f471db694468a6bfd4a3b15c6af34a19fbc3e) ([8f139d0](https://github.com/fragment-dev/fragment-py/commit/8f139d0e8469e21372539338d464ce7c685ec37c))
+* **api:** update SDK from prod (f13cfc23ac55aaae9d293cb5cbb431e4fe2e98a4) ([cfbf9f9](https://github.com/fragment-dev/fragment-py/commit/cfbf9f9adb4186a1f76eac09f6843ba05ea29c3c))
+
+
+### Chores
+
+* **internal:** remove mock server code ([27c6f12](https://github.com/fragment-dev/fragment-py/commit/27c6f128118ba36cd3959eeb6be018f6948e96eb))
+* update mock server docs ([78dccf4](https://github.com/fragment-dev/fragment-py/commit/78dccf437bc05484bb55334e0d10f191b5408302))
+
 ## 0.4.0 (2026-02-16)
 
 Full Changelog: [v0.3.2...v0.4.0](https://github.com/fragment-dev/fragment-py/compare/v0.3.2...v0.4.0)
