@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import transaction_list_params, transaction_create_params
+from ..types import transaction_list_params, transaction_create_params, transaction_create_allocations_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -23,6 +23,7 @@ from .._base_client import make_request_options
 from ..types.transaction_list_response import TransactionListResponse
 from ..types.transaction_create_response import TransactionCreateResponse
 from ..types.transaction_retrieve_response import TransactionRetrieveResponse
+from ..types.transaction_create_allocations_response import TransactionCreateAllocationsResponse
 
 __all__ = ["TransactionsResource", "AsyncTransactionsResource"]
 
@@ -371,6 +372,54 @@ class TransactionsResource(SyncAPIResource):
             cast_to=TransactionListResponse,
         )
 
+    def create_allocations(
+        self,
+        id: str,
+        *,
+        allocation_updates: Iterable[transaction_create_allocations_params.AllocationUpdate],
+        version: int,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TransactionCreateAllocationsResponse:
+        """
+        Updates allocations on an existing transaction
+
+        Args:
+          id: Transaction ID
+
+          allocation_updates: Allocation operations to apply
+
+          version: Current transaction version for optimistic concurrency control
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            f"/transactions/{id}/allocations",
+            body=maybe_transform(
+                {
+                    "allocation_updates": allocation_updates,
+                    "version": version,
+                },
+                transaction_create_allocations_params.TransactionCreateAllocationsParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TransactionCreateAllocationsResponse,
+        )
+
 
 class AsyncTransactionsResource(AsyncAPIResource):
     @cached_property
@@ -716,6 +765,54 @@ class AsyncTransactionsResource(AsyncAPIResource):
             cast_to=TransactionListResponse,
         )
 
+    async def create_allocations(
+        self,
+        id: str,
+        *,
+        allocation_updates: Iterable[transaction_create_allocations_params.AllocationUpdate],
+        version: int,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TransactionCreateAllocationsResponse:
+        """
+        Updates allocations on an existing transaction
+
+        Args:
+          id: Transaction ID
+
+          allocation_updates: Allocation operations to apply
+
+          version: Current transaction version for optimistic concurrency control
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            f"/transactions/{id}/allocations",
+            body=await async_maybe_transform(
+                {
+                    "allocation_updates": allocation_updates,
+                    "version": version,
+                },
+                transaction_create_allocations_params.TransactionCreateAllocationsParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TransactionCreateAllocationsResponse,
+        )
+
 
 class TransactionsResourceWithRawResponse:
     def __init__(self, transactions: TransactionsResource) -> None:
@@ -729,6 +826,9 @@ class TransactionsResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             transactions.list,
+        )
+        self.create_allocations = to_raw_response_wrapper(
+            transactions.create_allocations,
         )
 
 
@@ -745,6 +845,9 @@ class AsyncTransactionsResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             transactions.list,
         )
+        self.create_allocations = async_to_raw_response_wrapper(
+            transactions.create_allocations,
+        )
 
 
 class TransactionsResourceWithStreamingResponse:
@@ -760,6 +863,9 @@ class TransactionsResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             transactions.list,
         )
+        self.create_allocations = to_streamed_response_wrapper(
+            transactions.create_allocations,
+        )
 
 
 class AsyncTransactionsResourceWithStreamingResponse:
@@ -774,4 +880,7 @@ class AsyncTransactionsResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             transactions.list,
+        )
+        self.create_allocations = async_to_streamed_response_wrapper(
+            transactions.create_allocations,
         )
