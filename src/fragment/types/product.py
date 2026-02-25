@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
+from typing import List, Optional
 from datetime import datetime
 
 from pydantic import Field as FieldInfo
@@ -42,9 +42,6 @@ class Product(BaseModel):
     created: datetime
     """ISO 8601 timestamp when the product was created"""
 
-    description: str
-    """Description of the product"""
-
     paid_by_roles: List[PaidByRole]
     """User roles that can pay for this product"""
 
@@ -56,3 +53,6 @@ class Product(BaseModel):
 
     workspace_id: str = FieldInfo(alias="workspaceId")
     """Workspace ID this product belongs to"""
+
+    description: Optional[str] = None
+    """Description of the product"""

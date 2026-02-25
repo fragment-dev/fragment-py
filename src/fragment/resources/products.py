@@ -49,7 +49,7 @@ class ProductsResource(SyncAPIResource):
         self,
         *,
         code: str,
-        description: str,
+        description: str | Omit = omit,
         paid_by_roles: Iterable[product_create_params.PaidByRole] | Omit = omit,
         paid_to_roles: Iterable[product_create_params.PaidToRole] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -177,7 +177,7 @@ class AsyncProductsResource(AsyncAPIResource):
         self,
         *,
         code: str,
-        description: str,
+        description: str | Omit = omit,
         paid_by_roles: Iterable[product_create_params.PaidByRole] | Omit = omit,
         paid_to_roles: Iterable[product_create_params.PaidToRole] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
