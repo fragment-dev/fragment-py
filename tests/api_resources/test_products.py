@@ -22,7 +22,6 @@ class TestProducts:
     def test_method_create(self, client: Fragment) -> None:
         product = client.products.create(
             code="PROD_001",
-            description="Premium subscription service",
         )
         assert_matches_type(ProductCreateResponse, product, path=["response"])
 
@@ -42,7 +41,6 @@ class TestProducts:
     def test_raw_response_create(self, client: Fragment) -> None:
         response = client.products.with_raw_response.create(
             code="PROD_001",
-            description="Premium subscription service",
         )
 
         assert response.is_closed is True
@@ -55,7 +53,6 @@ class TestProducts:
     def test_streaming_response_create(self, client: Fragment) -> None:
         with client.products.with_streaming_response.create(
             code="PROD_001",
-            description="Premium subscription service",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -146,7 +143,6 @@ class TestAsyncProducts:
     async def test_method_create(self, async_client: AsyncFragment) -> None:
         product = await async_client.products.create(
             code="PROD_001",
-            description="Premium subscription service",
         )
         assert_matches_type(ProductCreateResponse, product, path=["response"])
 
@@ -166,7 +162,6 @@ class TestAsyncProducts:
     async def test_raw_response_create(self, async_client: AsyncFragment) -> None:
         response = await async_client.products.with_raw_response.create(
             code="PROD_001",
-            description="Premium subscription service",
         )
 
         assert response.is_closed is True
@@ -179,7 +174,6 @@ class TestAsyncProducts:
     async def test_streaming_response_create(self, async_client: AsyncFragment) -> None:
         async with async_client.products.with_streaming_response.create(
             code="PROD_001",
-            description="Premium subscription service",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
