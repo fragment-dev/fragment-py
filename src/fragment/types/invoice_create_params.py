@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Iterable
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing import Union, Iterable
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["InvoiceCreateParams", "LineItem"]
+__all__ = ["InvoiceCreateParams", "LineItem", "LineItemUser", "LineItemUserID", "LineItemUserExternalID"]
 
 
 class InvoiceCreateParams(TypedDict, total=False):
@@ -21,8 +21,24 @@ class InvoiceCreateParams(TypedDict, total=False):
     """List of line items to create with the invoice"""
 
 
+class LineItemUserID(TypedDict, total=False):
+    id: Required[str]
+    """FRAGMENT generated ID of the user associated with this line item"""
+
+
+class LineItemUserExternalID(TypedDict, total=False):
+    external_id: Required[Annotated[str, PropertyInfo(alias="externalId")]]
+    """External ID of the user associated with this line item"""
+
+
+LineItemUser: TypeAlias = Union[LineItemUserID, LineItemUserExternalID]
+
+
 class LineItem(TypedDict, total=False):
-    """Line item data for creating within an invoice."""
+    """Line item data for creating within an invoice.
+
+    Exactly one of `user` or `user_id` must be provided. `user_id` is deprecated; use `user` instead.
+    """
 
     amount: Required[str]
     """Amount in smallest currency unit (e.g., cents)"""
@@ -224,5 +240,7 @@ class LineItem(TypedDict, total=False):
     type: Required[Literal["payin", "payout"]]
     """The type of the line item"""
 
-    user_id: Required[str]
+    user: LineItemUser
+
+    user_id: str
     """External ID of the user associated with this line item"""
