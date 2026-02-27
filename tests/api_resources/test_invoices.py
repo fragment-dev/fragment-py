@@ -35,7 +35,6 @@ class TestInvoices:
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
                 }
             ],
         )
@@ -53,7 +52,6 @@ class TestInvoices:
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
                 }
             ],
         )
@@ -75,7 +73,6 @@ class TestInvoices:
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
                 }
             ],
         ) as response:
@@ -307,7 +304,6 @@ class TestAsyncInvoices:
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
                 }
             ],
         )
@@ -325,7 +321,6 @@ class TestAsyncInvoices:
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
                 }
             ],
         )
@@ -347,7 +342,6 @@ class TestAsyncInvoices:
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
                 }
             ],
         ) as response:
