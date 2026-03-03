@@ -3,12 +3,17 @@
 from __future__ import annotations
 
 from typing import Union, Iterable
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = [
     "InvoiceUpdateParams",
     "LineItemsUpdate",
     "LineItemsUpdateAddLineItemOperation",
+    "LineItemsUpdateAddLineItemOperationUser",
+    "LineItemsUpdateAddLineItemOperationUserID",
+    "LineItemsUpdateAddLineItemOperationUserExternalID",
     "LineItemsUpdateUpdateLineItemOperation",
     "LineItemsUpdateDeleteLineItemOperation",
 ]
@@ -23,6 +28,21 @@ class InvoiceUpdateParams(TypedDict, total=False):
 
     Must match the current version for the update to succeed.
     """
+
+
+class LineItemsUpdateAddLineItemOperationUserID(TypedDict, total=False):
+    id: Required[str]
+    """FRAGMENT generated ID of the user associated with this line item"""
+
+
+class LineItemsUpdateAddLineItemOperationUserExternalID(TypedDict, total=False):
+    external_id: Required[Annotated[str, PropertyInfo(alias="externalId")]]
+    """External ID of the user associated with this line item"""
+
+
+LineItemsUpdateAddLineItemOperationUser: TypeAlias = Union[
+    LineItemsUpdateAddLineItemOperationUserID, LineItemsUpdateAddLineItemOperationUserExternalID
+]
 
 
 class LineItemsUpdateAddLineItemOperation(TypedDict, total=False):
@@ -228,7 +248,9 @@ class LineItemsUpdateAddLineItemOperation(TypedDict, total=False):
     type: Required[Literal["payin", "payout"]]
     """The type of the line item"""
 
-    user_id: Required[str]
+    user: LineItemsUpdateAddLineItemOperationUser
+
+    user_id: str
     """External ID of the user associated with this line item"""
 
 
