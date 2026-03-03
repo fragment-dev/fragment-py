@@ -139,7 +139,6 @@ class TestInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
                 }
             ],
             version=1,
@@ -159,7 +158,6 @@ class TestInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
                 }
             ],
             version=1,
@@ -183,7 +181,6 @@ class TestInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
                 }
             ],
             version=1,
@@ -210,7 +207,6 @@ class TestInvoices:
                         "op": "add",
                         "product_id": "prod_1234567890",
                         "type": "payout",
-                        "user_id": "user_ext_456",
                     }
                 ],
                 version=1,
@@ -408,7 +404,6 @@ class TestAsyncInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
                 }
             ],
             version=1,
@@ -428,7 +423,6 @@ class TestAsyncInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
                 }
             ],
             version=1,
@@ -452,7 +446,6 @@ class TestAsyncInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
                 }
             ],
             version=1,
@@ -479,7 +472,6 @@ class TestAsyncInvoices:
                         "op": "add",
                         "product_id": "prod_1234567890",
                         "type": "payout",
-                        "user_id": "user_ext_456",
                     }
                 ],
                 version=1,
