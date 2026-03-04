@@ -29,6 +29,8 @@ __all__ = ["TransactionsResource", "AsyncTransactionsResource"]
 
 
 class TransactionsResource(SyncAPIResource):
+    """Transaction sync operations"""
+
     @cached_property
     def with_raw_response(self) -> TransactionsResourceWithRawResponse:
         """
@@ -422,6 +424,8 @@ class TransactionsResource(SyncAPIResource):
 
 
 class AsyncTransactionsResource(AsyncAPIResource):
+    """Transaction sync operations"""
+
     @cached_property
     def with_raw_response(self) -> AsyncTransactionsResourceWithRawResponse:
         """

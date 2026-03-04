@@ -28,6 +28,8 @@ __all__ = ["InvoicesResource", "AsyncInvoicesResource"]
 
 
 class InvoicesResource(SyncAPIResource):
+    """Invoice management operations"""
+
     @cached_property
     def with_raw_response(self) -> InvoicesResourceWithRawResponse:
         """
@@ -232,6 +234,8 @@ class InvoicesResource(SyncAPIResource):
 
 
 class AsyncInvoicesResource(AsyncAPIResource):
+    """Invoice management operations"""
+
     @cached_property
     def with_raw_response(self) -> AsyncInvoicesResourceWithRawResponse:
         """
