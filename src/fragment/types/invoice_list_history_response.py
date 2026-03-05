@@ -14,10 +14,22 @@ __all__ = [
     "DataDiff",
     "DataDiffAddDiffEntry",
     "DataDiffAddDiffEntryItem",
+    "DataDiffAddDiffEntryItemTag",
     "DataDiffUpdateDiffEntry",
     "DataDiffDeleteDiffEntry",
     "DataDiffDeleteDiffEntryItem",
+    "DataDiffDeleteDiffEntryItemTag",
 ]
+
+
+class DataDiffAddDiffEntryItemTag(BaseModel):
+    """A key-value tag pair"""
+
+    key: str
+    """Tag key"""
+
+    value: str
+    """Tag value"""
 
 
 class DataDiffAddDiffEntryItem(BaseModel):
@@ -218,6 +230,9 @@ class DataDiffAddDiffEntryItem(BaseModel):
     product_id: str
     """ID of the product/catalog item"""
 
+    tags: List[DataDiffAddDiffEntryItemTag]
+    """Metadata tags for this line item"""
+
     type: Literal["payin", "payout"]
     """The type of the line item"""
 
@@ -245,6 +260,16 @@ class DataDiffUpdateDiffEntry(BaseModel):
 
     op: Literal["update"]
     """A line item was updated"""
+
+
+class DataDiffDeleteDiffEntryItemTag(BaseModel):
+    """A key-value tag pair"""
+
+    key: str
+    """Tag key"""
+
+    value: str
+    """Tag value"""
 
 
 class DataDiffDeleteDiffEntryItem(BaseModel):
@@ -444,6 +469,9 @@ class DataDiffDeleteDiffEntryItem(BaseModel):
 
     product_id: str
     """ID of the product/catalog item"""
+
+    tags: List[DataDiffDeleteDiffEntryItemTag]
+    """Metadata tags for this line item"""
 
     type: Literal["payin", "payout"]
     """The type of the line item"""

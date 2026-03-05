@@ -8,7 +8,27 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["Invoice", "LineItem"]
+__all__ = ["Invoice", "Tag", "LineItem", "LineItemTag"]
+
+
+class Tag(BaseModel):
+    """A key-value tag pair"""
+
+    key: str
+    """Tag key"""
+
+    value: str
+    """Tag value"""
+
+
+class LineItemTag(BaseModel):
+    """A key-value tag pair"""
+
+    key: str
+    """Tag key"""
+
+    value: str
+    """Tag value"""
 
 
 class LineItem(BaseModel):
@@ -209,6 +229,9 @@ class LineItem(BaseModel):
     product_id: str
     """ID of the product/catalog item"""
 
+    tags: List[LineItemTag]
+    """Metadata tags for this line item"""
+
     type: Literal["payin", "payout"]
     """The type of the line item"""
 
@@ -227,6 +250,9 @@ class Invoice(BaseModel):
 
     status: Literal["active"]
     """The status of the invoice"""
+
+    tags: List[Tag]
+    """Metadata tags for this invoice"""
 
     version: float
     """The current version of the invoice.

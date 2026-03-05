@@ -42,6 +42,37 @@ class TestInvoices:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_create_with_all_params(self, client: Fragment) -> None:
+        invoice = client.invoices.create(
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "amount": "1000",
+                    "currency_code": "USD",
+                    "description": "Professional services for January 2026",
+                    "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "tags": [
+                        {
+                            "key": "region",
+                            "value": "us-east",
+                        }
+                    ],
+                    "user": {"id": "user_abc123"},
+                    "user_id": "user_ext_456",
+                }
+            ],
+            tags=[
+                {
+                    "key": "region",
+                    "value": "us-east",
+                }
+            ],
+        )
+        assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_raw_response_create(self, client: Fragment) -> None:
         response = client.invoices.with_raw_response.create(
             invoice_id="invoice_2024_001",
@@ -300,6 +331,37 @@ class TestAsyncInvoices:
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
+                }
+            ],
+        )
+        assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncFragment) -> None:
+        invoice = await async_client.invoices.create(
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "amount": "1000",
+                    "currency_code": "USD",
+                    "description": "Professional services for January 2026",
+                    "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "tags": [
+                        {
+                            "key": "region",
+                            "value": "us-east",
+                        }
+                    ],
+                    "user": {"id": "user_abc123"},
+                    "user_id": "user_ext_456",
+                }
+            ],
+            tags=[
+                {
+                    "key": "region",
+                    "value": "us-east",
                 }
             ],
         )

@@ -7,7 +7,7 @@ from typing import Iterable
 import httpx
 
 from ..types import invoice_create_params, invoice_update_params
-from .._types import Body, Query, Headers, NotGiven, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -54,6 +54,7 @@ class InvoicesResource(SyncAPIResource):
         *,
         invoice_id: str,
         line_items: Iterable[invoice_create_params.LineItem],
+        tags: Iterable[invoice_create_params.Tag] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -71,6 +72,8 @@ class InvoicesResource(SyncAPIResource):
 
           line_items: List of line items to create with the invoice
 
+          tags: Optional metadata tags for this invoice
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -85,6 +88,7 @@ class InvoicesResource(SyncAPIResource):
                 {
                     "invoice_id": invoice_id,
                     "line_items": line_items,
+                    "tags": tags,
                 },
                 invoice_create_params.InvoiceCreateParams,
             ),
@@ -260,6 +264,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         *,
         invoice_id: str,
         line_items: Iterable[invoice_create_params.LineItem],
+        tags: Iterable[invoice_create_params.Tag] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -277,6 +282,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
 
           line_items: List of line items to create with the invoice
 
+          tags: Optional metadata tags for this invoice
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -291,6 +298,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
                 {
                     "invoice_id": invoice_id,
                     "line_items": line_items,
+                    "tags": tags,
                 },
                 invoice_create_params.InvoiceCreateParams,
             ),
