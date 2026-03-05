@@ -3,9 +3,7 @@
 from __future__ import annotations
 
 from typing import Union, Iterable
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 __all__ = [
     "InvoiceUpdateParams",
@@ -32,12 +30,12 @@ class InvoiceUpdateParams(TypedDict, total=False):
 
 class LineItemsUpdateAddLineItemOperationUserID(TypedDict, total=False):
     id: Required[str]
-    """FRAGMENT generated ID of the user associated with this line item"""
+    """FRAGMENT generated ID of the user"""
 
 
 class LineItemsUpdateAddLineItemOperationUserExternalID(TypedDict, total=False):
-    external_id: Required[Annotated[str, PropertyInfo(alias="externalId")]]
-    """External ID of the user associated with this line item"""
+    external_id: Required[str]
+    """External ID of the user"""
 
 
 LineItemsUpdateAddLineItemOperationUser: TypeAlias = Union[

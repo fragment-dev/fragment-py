@@ -23,12 +23,12 @@ class InvoiceCreateParams(TypedDict, total=False):
 
 class LineItemUserID(TypedDict, total=False):
     id: Required[str]
-    """FRAGMENT generated ID of the user associated with this line item"""
+    """FRAGMENT generated ID of the user"""
 
 
 class LineItemUserExternalID(TypedDict, total=False):
-    external_id: Required[Annotated[str, PropertyInfo(alias="externalId")]]
-    """External ID of the user associated with this line item"""
+    external_id: Required[str]
+    """External ID of the user"""
 
 
 LineItemUser: TypeAlias = Union[LineItemUserID, LineItemUserExternalID]

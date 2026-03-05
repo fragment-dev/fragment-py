@@ -1,12 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
+from typing import List, Optional
 from datetime import datetime
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["Transaction", "Account", "Allocation", "AllocationUser", "AllocationUserID", "AllocationUserExternalID"]
+__all__ = ["Transaction", "Account", "Allocation", "AllocationUser"]
 
 
 class Account(BaseModel):
@@ -17,17 +17,9 @@ class Account(BaseModel):
     """External account reference ID."""
 
 
-class AllocationUserID(BaseModel):
+class AllocationUser(BaseModel):
     id: str
-    """Internal user ID."""
-
-
-class AllocationUserExternalID(BaseModel):
-    external_id: str
-    """External user ID."""
-
-
-AllocationUser: TypeAlias = Union[AllocationUserID, AllocationUserExternalID]
+    """FRAGMENT generated ID of the user"""
 
 
 class Allocation(BaseModel):
@@ -43,7 +35,6 @@ class Allocation(BaseModel):
     """The type of allocation."""
 
     user: AllocationUser
-    """User reference. Provide either id or external_id."""
 
 
 class Transaction(BaseModel):
