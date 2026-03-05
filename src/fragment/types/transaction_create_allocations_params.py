@@ -26,12 +26,12 @@ class TransactionCreateAllocationsParams(TypedDict, total=False):
 
 class AllocationUpdateAddAllocationOperationUserID(TypedDict, total=False):
     id: Required[str]
-    """Internal user ID."""
+    """FRAGMENT generated ID of the user"""
 
 
 class AllocationUpdateAddAllocationOperationUserExternalID(TypedDict, total=False):
     external_id: Required[str]
-    """External user ID."""
+    """External ID of the user"""
 
 
 AllocationUpdateAddAllocationOperationUser: TypeAlias = Union[
@@ -53,7 +53,6 @@ class AllocationUpdateAddAllocationOperation(TypedDict, total=False):
     """The type of allocation."""
 
     user: Required[AllocationUpdateAddAllocationOperationUser]
-    """User reference. Provide either id or external_id."""
 
 
 class AllocationUpdateDeleteAllocationOperation(TypedDict, total=False):

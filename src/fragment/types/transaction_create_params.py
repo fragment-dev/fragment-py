@@ -235,12 +235,12 @@ class Account(TypedDict, total=False):
 
 class AllocationUserID(TypedDict, total=False):
     id: Required[str]
-    """Internal user ID."""
+    """FRAGMENT generated ID of the user"""
 
 
 class AllocationUserExternalID(TypedDict, total=False):
     external_id: Required[str]
-    """External user ID."""
+    """External ID of the user"""
 
 
 AllocationUser: TypeAlias = Union[AllocationUserID, AllocationUserExternalID]
@@ -259,4 +259,3 @@ class Allocation(TypedDict, total=False):
     """The type of allocation."""
 
     user: Required[AllocationUser]
-    """User reference. Provide either id or external_id."""
