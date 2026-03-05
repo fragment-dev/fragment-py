@@ -7,7 +7,15 @@ from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["InvoiceCreateParams", "LineItem", "LineItemUser", "LineItemUserID", "LineItemUserExternalID"]
+__all__ = [
+    "InvoiceCreateParams",
+    "LineItem",
+    "LineItemTag",
+    "LineItemUser",
+    "LineItemUserID",
+    "LineItemUserExternalID",
+    "Tag",
+]
 
 
 class InvoiceCreateParams(TypedDict, total=False):
@@ -19,6 +27,27 @@ class InvoiceCreateParams(TypedDict, total=False):
 
     line_items: Required[Annotated[Iterable[LineItem], PropertyInfo(alias="lineItems")]]
     """List of line items to create with the invoice"""
+
+    tags: Iterable[Tag]
+    """Optional metadata tags for this invoice"""
+
+
+class LineItemTag(TypedDict, total=False):
+    """A key-value tag pair for metadata"""
+
+    key: Required[str]
+    """Tag key.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 50
+    characters.
+    """
+
+    value: Required[str]
+    """Tag value.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 200
+    characters.
+    """
 
 
 class LineItemUserID(TypedDict, total=False):
@@ -240,7 +269,28 @@ class LineItem(TypedDict, total=False):
     type: Required[Literal["payin", "payout"]]
     """The type of the line item"""
 
+    tags: Iterable[LineItemTag]
+    """Optional metadata tags for this line item"""
+
     user: LineItemUser
 
     user_id: str
     """External ID of the user associated with this line item"""
+
+
+class Tag(TypedDict, total=False):
+    """A key-value tag pair for metadata"""
+
+    key: Required[str]
+    """Tag key.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 50
+    characters.
+    """
+
+    value: Required[str]
+    """Tag value.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 200
+    characters.
+    """
