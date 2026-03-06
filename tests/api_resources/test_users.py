@@ -21,8 +21,17 @@ class TestUsers:
     @parametrize
     def test_method_create(self, client: Fragment) -> None:
         user = client.users.create(
-            external_id="user_ext_123",
             role="admin",
+        )
+        assert_matches_type(UserCreateResponse, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params(self, client: Fragment) -> None:
+        user = client.users.create(
+            role="admin",
+            body_external_id_1="user_ext_123",
+            body_external_id_2="user_ext_123",
         )
         assert_matches_type(UserCreateResponse, user, path=["response"])
 
@@ -30,7 +39,6 @@ class TestUsers:
     @parametrize
     def test_raw_response_create(self, client: Fragment) -> None:
         response = client.users.with_raw_response.create(
-            external_id="user_ext_123",
             role="admin",
         )
 
@@ -43,7 +51,6 @@ class TestUsers:
     @parametrize
     def test_streaming_response_create(self, client: Fragment) -> None:
         with client.users.with_streaming_response.create(
-            external_id="user_ext_123",
             role="admin",
         ) as response:
             assert not response.is_closed
@@ -92,8 +99,17 @@ class TestAsyncUsers:
     @parametrize
     async def test_method_create(self, async_client: AsyncFragment) -> None:
         user = await async_client.users.create(
-            external_id="user_ext_123",
             role="admin",
+        )
+        assert_matches_type(UserCreateResponse, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncFragment) -> None:
+        user = await async_client.users.create(
+            role="admin",
+            body_external_id_1="user_ext_123",
+            body_external_id_2="user_ext_123",
         )
         assert_matches_type(UserCreateResponse, user, path=["response"])
 
@@ -101,7 +117,6 @@ class TestAsyncUsers:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncFragment) -> None:
         response = await async_client.users.with_raw_response.create(
-            external_id="user_ext_123",
             role="admin",
         )
 
@@ -114,7 +129,6 @@ class TestAsyncUsers:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncFragment) -> None:
         async with async_client.users.with_streaming_response.create(
-            external_id="user_ext_123",
             role="admin",
         ) as response:
             assert not response.is_closed

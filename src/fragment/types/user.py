@@ -13,6 +13,9 @@ class User(BaseModel):
     id: str
     """Unique user ID"""
 
+    external_id: str
+    """External ID for the user"""
+
     external_id: str = FieldInfo(alias="externalId")
     """External ID for the user"""
 
