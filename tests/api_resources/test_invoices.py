@@ -26,32 +26,41 @@ class TestInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Fragment) -> None:
-        invoice = client.invoices.create(
-            invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                }
-            ],
-        )
+        invoice = client.invoices.create()
         assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Fragment) -> None:
         invoice = client.invoices.create(
-            invoice_id="invoice_2024_001",
-            line_items=[
+            body_invoice_id_1="invoice_2024_001",
+            body_invoice_id_2="invoice_2024_001",
+            body_line_items_1=[
                 {
                     "amount": "1000",
-                    "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
+                    "currency_code": "USD",
+                    "currency_code": "USD",
+                    "tags": [
+                        {
+                            "key": "region",
+                            "value": "us-east",
+                        }
+                    ],
+                    "user": {"id": "user_abc123"},
+                    "user_id": "user_ext_456",
+                }
+            ],
+            body_line_items_2=[
+                {
+                    "amount": "1000",
+                    "description": "Professional services for January 2026",
+                    "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "currency_code": "USD",
+                    "currency_code": "USD",
                     "tags": [
                         {
                             "key": "region",
@@ -74,18 +83,7 @@ class TestInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Fragment) -> None:
-        response = client.invoices.with_raw_response.create(
-            invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                }
-            ],
-        )
+        response = client.invoices.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -95,18 +93,7 @@ class TestInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Fragment) -> None:
-        with client.invoices.with_streaming_response.create(
-            invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                }
-            ],
-        ) as response:
+        with client.invoices.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -322,32 +309,41 @@ class TestAsyncInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncFragment) -> None:
-        invoice = await async_client.invoices.create(
-            invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                }
-            ],
-        )
+        invoice = await async_client.invoices.create()
         assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncFragment) -> None:
         invoice = await async_client.invoices.create(
-            invoice_id="invoice_2024_001",
-            line_items=[
+            body_invoice_id_1="invoice_2024_001",
+            body_invoice_id_2="invoice_2024_001",
+            body_line_items_1=[
                 {
                     "amount": "1000",
-                    "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
+                    "currency_code": "USD",
+                    "currency_code": "USD",
+                    "tags": [
+                        {
+                            "key": "region",
+                            "value": "us-east",
+                        }
+                    ],
+                    "user": {"id": "user_abc123"},
+                    "user_id": "user_ext_456",
+                }
+            ],
+            body_line_items_2=[
+                {
+                    "amount": "1000",
+                    "description": "Professional services for January 2026",
+                    "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "currency_code": "USD",
+                    "currency_code": "USD",
                     "tags": [
                         {
                             "key": "region",
@@ -370,18 +366,7 @@ class TestAsyncInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncFragment) -> None:
-        response = await async_client.invoices.with_raw_response.create(
-            invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                }
-            ],
-        )
+        response = await async_client.invoices.with_raw_response.create()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -391,18 +376,7 @@ class TestAsyncInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncFragment) -> None:
-        async with async_client.invoices.with_streaming_response.create(
-            invoice_id="invoice_2024_001",
-            line_items=[
-                {
-                    "amount": "1000",
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                }
-            ],
-        ) as response:
+        async with async_client.invoices.with_streaming_response.create() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

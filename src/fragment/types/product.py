@@ -48,8 +48,14 @@ class Product(BaseModel):
     paid_to_roles: List[PaidToRole]
     """User roles that receive payment for this product"""
 
+    update_version: float
+    """Version number for optimistic locking"""
+
     update_version: float = FieldInfo(alias="updateVersion")
     """Version number for optimistic locking"""
+
+    workspace_id: str
+    """Workspace ID this product belongs to"""
 
     workspace_id: str = FieldInfo(alias="workspaceId")
     """Workspace ID this product belongs to"""

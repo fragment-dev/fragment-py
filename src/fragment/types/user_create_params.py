@@ -10,8 +10,11 @@ __all__ = ["UserCreateParams"]
 
 
 class UserCreateParams(TypedDict, total=False):
-    external_id: Required[Annotated[str, PropertyInfo(alias="externalId")]]
-    """External ID for the user"""
-
     role: Required[str]
     """Role of the user"""
+
+    body_external_id_1: Annotated[str, PropertyInfo(alias="external_id")]
+    """External ID for the user"""
+
+    body_external_id_2: Annotated[str, PropertyInfo(alias="externalId")]
+    """External ID for the user"""
