@@ -129,8 +129,6 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
 
-from datetime import datetime
-
 ## Nested params
 
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
@@ -140,22 +138,11 @@ from fragment import Fragment
 
 client = Fragment()
 
-transaction = client.transactions.create(
-    account={},
-    allocations=[
-        {
-            "amount": "1000",
-            "invoice_id": "inv_abc123",
-            "type": "invoice_payin",
-            "user": {"id": "user_abc123"},
-        }
-    ],
-    amount="-1000",
-    currency="USD",
-    external_id="bank_txn_123",
-    posted=datetime.fromisoformat("2026-02-12T00:00:00.000"),
+response = client.invoices.create_search(
+    filter={},
+    page_info={},
 )
-print(transaction.account)
+print(response.filter)
 ```
 
 ## Handling errors
