@@ -23,6 +23,7 @@ from .._base_client import make_request_options
 from ..types.transaction_list_response import TransactionListResponse
 from ..types.transaction_create_response import TransactionCreateResponse
 from ..types.transaction_retrieve_response import TransactionRetrieveResponse
+from ..types.transaction_list_history_response import TransactionListHistoryResponse
 from ..types.transaction_create_allocations_response import TransactionCreateAllocationsResponse
 
 __all__ = ["TransactionsResource", "AsyncTransactionsResource"]
@@ -422,6 +423,42 @@ class TransactionsResource(SyncAPIResource):
             cast_to=TransactionCreateAllocationsResponse,
         )
 
+    def list_history(
+        self,
+        transaction: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TransactionListHistoryResponse:
+        """
+        Gets the version history of a transaction
+
+        Args:
+          transaction: Transaction identifier. Accepts either an encoded Fragment ID (txn_xxx) or an
+              external ID.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not transaction:
+            raise ValueError(f"Expected a non-empty value for `transaction` but received {transaction!r}")
+        return self._get(
+            f"/transactions/{transaction}/history",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TransactionListHistoryResponse,
+        )
+
 
 class AsyncTransactionsResource(AsyncAPIResource):
     """Transaction sync operations"""
@@ -817,6 +854,42 @@ class AsyncTransactionsResource(AsyncAPIResource):
             cast_to=TransactionCreateAllocationsResponse,
         )
 
+    async def list_history(
+        self,
+        transaction: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TransactionListHistoryResponse:
+        """
+        Gets the version history of a transaction
+
+        Args:
+          transaction: Transaction identifier. Accepts either an encoded Fragment ID (txn_xxx) or an
+              external ID.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not transaction:
+            raise ValueError(f"Expected a non-empty value for `transaction` but received {transaction!r}")
+        return await self._get(
+            f"/transactions/{transaction}/history",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TransactionListHistoryResponse,
+        )
+
 
 class TransactionsResourceWithRawResponse:
     def __init__(self, transactions: TransactionsResource) -> None:
@@ -833,6 +906,9 @@ class TransactionsResourceWithRawResponse:
         )
         self.create_allocations = to_raw_response_wrapper(
             transactions.create_allocations,
+        )
+        self.list_history = to_raw_response_wrapper(
+            transactions.list_history,
         )
 
 
@@ -852,6 +928,9 @@ class AsyncTransactionsResourceWithRawResponse:
         self.create_allocations = async_to_raw_response_wrapper(
             transactions.create_allocations,
         )
+        self.list_history = async_to_raw_response_wrapper(
+            transactions.list_history,
+        )
 
 
 class TransactionsResourceWithStreamingResponse:
@@ -870,6 +949,9 @@ class TransactionsResourceWithStreamingResponse:
         self.create_allocations = to_streamed_response_wrapper(
             transactions.create_allocations,
         )
+        self.list_history = to_streamed_response_wrapper(
+            transactions.list_history,
+        )
 
 
 class AsyncTransactionsResourceWithStreamingResponse:
@@ -887,4 +969,7 @@ class AsyncTransactionsResourceWithStreamingResponse:
         )
         self.create_allocations = async_to_streamed_response_wrapper(
             transactions.create_allocations,
+        )
+        self.list_history = async_to_streamed_response_wrapper(
+            transactions.list_history,
         )

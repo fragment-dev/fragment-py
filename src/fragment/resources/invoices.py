@@ -6,7 +6,7 @@ from typing import Iterable
 
 import httpx
 
-from ..types import invoice_create_params, invoice_update_params
+from ..types import invoice_create_params, invoice_update_params, invoice_create_search_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -23,6 +23,7 @@ from ..types.invoice_create_response import InvoiceCreateResponse
 from ..types.invoice_update_response import InvoiceUpdateResponse
 from ..types.invoice_retrieve_response import InvoiceRetrieveResponse
 from ..types.invoice_list_history_response import InvoiceListHistoryResponse
+from ..types.invoice_create_search_response import InvoiceCreateSearchResponse
 
 __all__ = ["InvoicesResource", "AsyncInvoicesResource"]
 
@@ -207,6 +208,49 @@ class InvoicesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=InvoiceListResponse,
+        )
+
+    def create_search(
+        self,
+        *,
+        filter: invoice_create_search_params.Filter,
+        page_info: invoice_create_search_params.PageInfo,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceCreateSearchResponse:
+        """
+        Searches invoices
+
+        Args:
+          filter: Filter criteria for the search
+
+          page_info: Pagination parameters
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/invoices/search",
+            body=maybe_transform(
+                {
+                    "filter": filter,
+                    "page_info": page_info,
+                },
+                invoice_create_search_params.InvoiceCreateSearchParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceCreateSearchResponse,
         )
 
     def list_history(
@@ -427,6 +471,49 @@ class AsyncInvoicesResource(AsyncAPIResource):
             cast_to=InvoiceListResponse,
         )
 
+    async def create_search(
+        self,
+        *,
+        filter: invoice_create_search_params.Filter,
+        page_info: invoice_create_search_params.PageInfo,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceCreateSearchResponse:
+        """
+        Searches invoices
+
+        Args:
+          filter: Filter criteria for the search
+
+          page_info: Pagination parameters
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/invoices/search",
+            body=await async_maybe_transform(
+                {
+                    "filter": filter,
+                    "page_info": page_info,
+                },
+                invoice_create_search_params.InvoiceCreateSearchParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceCreateSearchResponse,
+        )
+
     async def list_history(
         self,
         id: str,
@@ -479,6 +566,9 @@ class InvoicesResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             invoices.list,
         )
+        self.create_search = to_raw_response_wrapper(
+            invoices.create_search,
+        )
         self.list_history = to_raw_response_wrapper(
             invoices.list_history,
         )
@@ -499,6 +589,9 @@ class AsyncInvoicesResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             invoices.list,
+        )
+        self.create_search = async_to_raw_response_wrapper(
+            invoices.create_search,
         )
         self.list_history = async_to_raw_response_wrapper(
             invoices.list_history,
@@ -521,6 +614,9 @@ class InvoicesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             invoices.list,
         )
+        self.create_search = to_streamed_response_wrapper(
+            invoices.create_search,
+        )
         self.list_history = to_streamed_response_wrapper(
             invoices.list_history,
         )
@@ -541,6 +637,9 @@ class AsyncInvoicesResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             invoices.list,
+        )
+        self.create_search = async_to_streamed_response_wrapper(
+            invoices.create_search,
         )
         self.list_history = async_to_streamed_response_wrapper(
             invoices.list_history,

@@ -15,6 +15,7 @@ from fragment.types import (
     InvoiceUpdateResponse,
     InvoiceRetrieveResponse,
     InvoiceListHistoryResponse,
+    InvoiceCreateSearchResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -255,6 +256,70 @@ class TestInvoices:
 
             invoice = response.parse()
             assert_matches_type(InvoiceListResponse, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_search(self, client: Fragment) -> None:
+        invoice = client.invoices.create_search(
+            filter={},
+            page_info={},
+        )
+        assert_matches_type(InvoiceCreateSearchResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_search_with_all_params(self, client: Fragment) -> None:
+        invoice = client.invoices.create_search(
+            filter={
+                "tags": {
+                    "all": [
+                        {
+                            "key": "env",
+                            "value": "prod",
+                        }
+                    ],
+                    "any": [
+                        {
+                            "key": "region",
+                            "value": "us-*",
+                        }
+                    ],
+                }
+            },
+            page_info={
+                "after": "after",
+                "limit": 20,
+            },
+        )
+        assert_matches_type(InvoiceCreateSearchResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create_search(self, client: Fragment) -> None:
+        response = client.invoices.with_raw_response.create_search(
+            filter={},
+            page_info={},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = response.parse()
+        assert_matches_type(InvoiceCreateSearchResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create_search(self, client: Fragment) -> None:
+        with client.invoices.with_streaming_response.create_search(
+            filter={},
+            page_info={},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = response.parse()
+            assert_matches_type(InvoiceCreateSearchResponse, invoice, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -538,6 +603,70 @@ class TestAsyncInvoices:
 
             invoice = await response.parse()
             assert_matches_type(InvoiceListResponse, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_search(self, async_client: AsyncFragment) -> None:
+        invoice = await async_client.invoices.create_search(
+            filter={},
+            page_info={},
+        )
+        assert_matches_type(InvoiceCreateSearchResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_search_with_all_params(self, async_client: AsyncFragment) -> None:
+        invoice = await async_client.invoices.create_search(
+            filter={
+                "tags": {
+                    "all": [
+                        {
+                            "key": "env",
+                            "value": "prod",
+                        }
+                    ],
+                    "any": [
+                        {
+                            "key": "region",
+                            "value": "us-*",
+                        }
+                    ],
+                }
+            },
+            page_info={
+                "after": "after",
+                "limit": 20,
+            },
+        )
+        assert_matches_type(InvoiceCreateSearchResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_create_search(self, async_client: AsyncFragment) -> None:
+        response = await async_client.invoices.with_raw_response.create_search(
+            filter={},
+            page_info={},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = await response.parse()
+        assert_matches_type(InvoiceCreateSearchResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_create_search(self, async_client: AsyncFragment) -> None:
+        async with async_client.invoices.with_streaming_response.create_search(
+            filter={},
+            page_info={},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = await response.parse()
+            assert_matches_type(InvoiceCreateSearchResponse, invoice, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

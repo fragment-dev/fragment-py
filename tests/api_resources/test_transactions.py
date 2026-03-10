@@ -13,6 +13,7 @@ from fragment.types import (
     TransactionListResponse,
     TransactionCreateResponse,
     TransactionRetrieveResponse,
+    TransactionListHistoryResponse,
     TransactionCreateAllocationsResponse,
 )
 from fragment._utils import parse_datetime
@@ -277,6 +278,48 @@ class TestTransactions:
                 version=0,
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_history(self, client: Fragment) -> None:
+        transaction = client.transactions.list_history(
+            "txn_abc123",
+        )
+        assert_matches_type(TransactionListHistoryResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_list_history(self, client: Fragment) -> None:
+        response = client.transactions.with_raw_response.list_history(
+            "txn_abc123",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        transaction = response.parse()
+        assert_matches_type(TransactionListHistoryResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_list_history(self, client: Fragment) -> None:
+        with client.transactions.with_streaming_response.list_history(
+            "txn_abc123",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            transaction = response.parse()
+            assert_matches_type(TransactionListHistoryResponse, transaction, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_list_history(self, client: Fragment) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction` but received ''"):
+            client.transactions.with_raw_response.list_history(
+                "",
+            )
+
 
 class TestAsyncTransactions:
     parametrize = pytest.mark.parametrize(
@@ -535,4 +578,46 @@ class TestAsyncTransactions:
                     }
                 ],
                 version=0,
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_history(self, async_client: AsyncFragment) -> None:
+        transaction = await async_client.transactions.list_history(
+            "txn_abc123",
+        )
+        assert_matches_type(TransactionListHistoryResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_list_history(self, async_client: AsyncFragment) -> None:
+        response = await async_client.transactions.with_raw_response.list_history(
+            "txn_abc123",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        transaction = await response.parse()
+        assert_matches_type(TransactionListHistoryResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_list_history(self, async_client: AsyncFragment) -> None:
+        async with async_client.transactions.with_streaming_response.list_history(
+            "txn_abc123",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            transaction = await response.parse()
+            assert_matches_type(TransactionListHistoryResponse, transaction, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_list_history(self, async_client: AsyncFragment) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction` but received ''"):
+            await async_client.transactions.with_raw_response.list_history(
+                "",
             )
