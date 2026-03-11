@@ -5,7 +5,7 @@ from typing import List, Optional
 from .invoice import Invoice
 from .._models import BaseModel
 
-__all__ = ["InvoiceCreateSearchResponse", "Data", "DataPageInfo"]
+__all__ = ["InvoiceSearchResponse", "Data", "DataPageInfo"]
 
 
 class DataPageInfo(BaseModel):
@@ -23,7 +23,7 @@ class Data(BaseModel):
     """Pagination cursors."""
 
 
-class InvoiceCreateSearchResponse(BaseModel):
+class InvoiceSearchResponse(BaseModel):
     """Response body for searching invoices"""
 
     data: Data

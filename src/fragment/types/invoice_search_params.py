@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Iterable
 from typing_extensions import Required, TypedDict
 
-__all__ = ["InvoiceCreateSearchParams", "Filter", "FilterTags", "FilterTagsAll", "FilterTagsAny", "PageInfo"]
+__all__ = ["InvoiceSearchParams", "Filter", "FilterTags", "FilterTagsAll", "FilterTagsAny", "PageInfo"]
 
 
-class InvoiceCreateSearchParams(TypedDict, total=False):
+class InvoiceSearchParams(TypedDict, total=False):
     filter: Required[Filter]
     """Filter criteria for the search"""
 

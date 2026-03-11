@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from fragment.types import (
     TransactionListResponse,
     TransactionCreateResponse,
+    TransactionSearchResponse,
     TransactionRetrieveResponse,
     TransactionListHistoryResponse,
     TransactionCreateAllocationsResponse,
@@ -320,6 +321,40 @@ class TestTransactions:
                 "",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_search(self, client: Fragment) -> None:
+        transaction = client.transactions.search(
+            filter={"invoice_id": {"any": ["inv_abc123"]}},
+        )
+        assert_matches_type(TransactionSearchResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_search(self, client: Fragment) -> None:
+        response = client.transactions.with_raw_response.search(
+            filter={"invoice_id": {"any": ["inv_abc123"]}},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        transaction = response.parse()
+        assert_matches_type(TransactionSearchResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_search(self, client: Fragment) -> None:
+        with client.transactions.with_streaming_response.search(
+            filter={"invoice_id": {"any": ["inv_abc123"]}},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            transaction = response.parse()
+            assert_matches_type(TransactionSearchResponse, transaction, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncTransactions:
     parametrize = pytest.mark.parametrize(
@@ -621,3 +656,37 @@ class TestAsyncTransactions:
             await async_client.transactions.with_raw_response.list_history(
                 "",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_search(self, async_client: AsyncFragment) -> None:
+        transaction = await async_client.transactions.search(
+            filter={"invoice_id": {"any": ["inv_abc123"]}},
+        )
+        assert_matches_type(TransactionSearchResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_search(self, async_client: AsyncFragment) -> None:
+        response = await async_client.transactions.with_raw_response.search(
+            filter={"invoice_id": {"any": ["inv_abc123"]}},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        transaction = await response.parse()
+        assert_matches_type(TransactionSearchResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_search(self, async_client: AsyncFragment) -> None:
+        async with async_client.transactions.with_streaming_response.search(
+            filter={"invoice_id": {"any": ["inv_abc123"]}},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            transaction = await response.parse()
+            assert_matches_type(TransactionSearchResponse, transaction, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
