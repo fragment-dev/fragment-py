@@ -138,7 +138,7 @@ from fragment import Fragment
 
 client = Fragment()
 
-response = client.invoices.create_search(
+response = client.invoices.search(
     filter={},
     page_info={},
 )

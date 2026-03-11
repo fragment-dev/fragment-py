@@ -8,7 +8,12 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..types import transaction_list_params, transaction_create_params, transaction_create_allocations_params
+from ..types import (
+    transaction_list_params,
+    transaction_create_params,
+    transaction_search_params,
+    transaction_create_allocations_params,
+)
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -22,6 +27,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.transaction_list_response import TransactionListResponse
 from ..types.transaction_create_response import TransactionCreateResponse
+from ..types.transaction_search_response import TransactionSearchResponse
 from ..types.transaction_retrieve_response import TransactionRetrieveResponse
 from ..types.transaction_list_history_response import TransactionListHistoryResponse
 from ..types.transaction_create_allocations_response import TransactionCreateAllocationsResponse
@@ -459,6 +465,40 @@ class TransactionsResource(SyncAPIResource):
             cast_to=TransactionListHistoryResponse,
         )
 
+    def search(
+        self,
+        *,
+        filter: transaction_search_params.Filter,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TransactionSearchResponse:
+        """
+        Searches transaction allocations by filter criteria
+
+        Args:
+          filter: Filter criteria for searching transaction allocations.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/transactions/allocations/search",
+            body=maybe_transform({"filter": filter}, transaction_search_params.TransactionSearchParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TransactionSearchResponse,
+        )
+
 
 class AsyncTransactionsResource(AsyncAPIResource):
     """Transaction sync operations"""
@@ -890,6 +930,40 @@ class AsyncTransactionsResource(AsyncAPIResource):
             cast_to=TransactionListHistoryResponse,
         )
 
+    async def search(
+        self,
+        *,
+        filter: transaction_search_params.Filter,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TransactionSearchResponse:
+        """
+        Searches transaction allocations by filter criteria
+
+        Args:
+          filter: Filter criteria for searching transaction allocations.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/transactions/allocations/search",
+            body=await async_maybe_transform({"filter": filter}, transaction_search_params.TransactionSearchParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TransactionSearchResponse,
+        )
+
 
 class TransactionsResourceWithRawResponse:
     def __init__(self, transactions: TransactionsResource) -> None:
@@ -909,6 +983,9 @@ class TransactionsResourceWithRawResponse:
         )
         self.list_history = to_raw_response_wrapper(
             transactions.list_history,
+        )
+        self.search = to_raw_response_wrapper(
+            transactions.search,
         )
 
 
@@ -931,6 +1008,9 @@ class AsyncTransactionsResourceWithRawResponse:
         self.list_history = async_to_raw_response_wrapper(
             transactions.list_history,
         )
+        self.search = async_to_raw_response_wrapper(
+            transactions.search,
+        )
 
 
 class TransactionsResourceWithStreamingResponse:
@@ -952,6 +1032,9 @@ class TransactionsResourceWithStreamingResponse:
         self.list_history = to_streamed_response_wrapper(
             transactions.list_history,
         )
+        self.search = to_streamed_response_wrapper(
+            transactions.search,
+        )
 
 
 class AsyncTransactionsResourceWithStreamingResponse:
@@ -972,4 +1055,7 @@ class AsyncTransactionsResourceWithStreamingResponse:
         )
         self.list_history = async_to_streamed_response_wrapper(
             transactions.list_history,
+        )
+        self.search = async_to_streamed_response_wrapper(
+            transactions.search,
         )
