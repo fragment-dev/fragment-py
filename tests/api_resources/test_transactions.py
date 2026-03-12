@@ -156,7 +156,7 @@ class TestTransactions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: Fragment) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction_ref` but received ''"):
             client.transactions.with_raw_response.retrieve(
                 "",
             )
@@ -202,7 +202,7 @@ class TestTransactions:
     @parametrize
     def test_method_create_allocations(self, client: Fragment) -> None:
         transaction = client.transactions.create_allocations(
-            id="txn_abc123",
+            transaction_ref="txn_abc123",
             allocation_updates=[
                 {
                     "amount": "1000",
@@ -220,7 +220,7 @@ class TestTransactions:
     @parametrize
     def test_raw_response_create_allocations(self, client: Fragment) -> None:
         response = client.transactions.with_raw_response.create_allocations(
-            id="txn_abc123",
+            transaction_ref="txn_abc123",
             allocation_updates=[
                 {
                     "amount": "1000",
@@ -242,7 +242,7 @@ class TestTransactions:
     @parametrize
     def test_streaming_response_create_allocations(self, client: Fragment) -> None:
         with client.transactions.with_streaming_response.create_allocations(
-            id="txn_abc123",
+            transaction_ref="txn_abc123",
             allocation_updates=[
                 {
                     "amount": "1000",
@@ -265,9 +265,9 @@ class TestTransactions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_create_allocations(self, client: Fragment) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction_ref` but received ''"):
             client.transactions.with_raw_response.create_allocations(
-                id="",
+                transaction_ref="",
                 allocation_updates=[
                     {
                         "amount": "1000",
@@ -317,7 +317,7 @@ class TestTransactions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_list_history(self, client: Fragment) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction_ref` but received ''"):
             client.transactions.with_raw_response.list_history(
                 "",
             )
@@ -526,7 +526,7 @@ class TestAsyncTransactions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncFragment) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction_ref` but received ''"):
             await async_client.transactions.with_raw_response.retrieve(
                 "",
             )
@@ -572,7 +572,7 @@ class TestAsyncTransactions:
     @parametrize
     async def test_method_create_allocations(self, async_client: AsyncFragment) -> None:
         transaction = await async_client.transactions.create_allocations(
-            id="txn_abc123",
+            transaction_ref="txn_abc123",
             allocation_updates=[
                 {
                     "amount": "1000",
@@ -590,7 +590,7 @@ class TestAsyncTransactions:
     @parametrize
     async def test_raw_response_create_allocations(self, async_client: AsyncFragment) -> None:
         response = await async_client.transactions.with_raw_response.create_allocations(
-            id="txn_abc123",
+            transaction_ref="txn_abc123",
             allocation_updates=[
                 {
                     "amount": "1000",
@@ -612,7 +612,7 @@ class TestAsyncTransactions:
     @parametrize
     async def test_streaming_response_create_allocations(self, async_client: AsyncFragment) -> None:
         async with async_client.transactions.with_streaming_response.create_allocations(
-            id="txn_abc123",
+            transaction_ref="txn_abc123",
             allocation_updates=[
                 {
                     "amount": "1000",
@@ -635,9 +635,9 @@ class TestAsyncTransactions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_create_allocations(self, async_client: AsyncFragment) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction_ref` but received ''"):
             await async_client.transactions.with_raw_response.create_allocations(
-                id="",
+                transaction_ref="",
                 allocation_updates=[
                     {
                         "amount": "1000",
@@ -687,7 +687,7 @@ class TestAsyncTransactions:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_list_history(self, async_client: AsyncFragment) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction_ref` but received ''"):
             await async_client.transactions.with_raw_response.list_history(
                 "",
             )

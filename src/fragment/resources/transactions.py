@@ -301,7 +301,7 @@ class TransactionsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        id: str,
+        transaction_ref: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -311,10 +311,11 @@ class TransactionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionRetrieveResponse:
         """
-        Gets a transaction by ID
+        Gets a transaction by ID or external ID
 
         Args:
-          id: Transaction ID
+          transaction_ref: Transaction reference. Accepts either an encoded Fragment ID (txn_xxx) or an
+              external ID.
 
           extra_headers: Send extra headers
 
@@ -324,10 +325,10 @@ class TransactionsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not transaction_ref:
+            raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
         return self._get(
-            f"/transactions/{id}",
+            f"/transactions/{transaction_ref}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -385,7 +386,7 @@ class TransactionsResource(SyncAPIResource):
 
     def create_allocations(
         self,
-        id: str,
+        transaction_ref: str,
         *,
         allocation_updates: Iterable[transaction_create_allocations_params.AllocationUpdate],
         version: int,
@@ -400,7 +401,8 @@ class TransactionsResource(SyncAPIResource):
         Updates allocations on an existing transaction
 
         Args:
-          id: Transaction ID
+          transaction_ref: Transaction reference. Accepts either an encoded Fragment ID (txn_xxx) or an
+              external ID.
 
           allocation_updates: Allocation operations to apply
 
@@ -414,10 +416,10 @@ class TransactionsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not transaction_ref:
+            raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
         return self._post(
-            f"/transactions/{id}/allocations",
+            f"/transactions/{transaction_ref}/allocations",
             body=maybe_transform(
                 {
                     "allocation_updates": allocation_updates,
@@ -433,7 +435,7 @@ class TransactionsResource(SyncAPIResource):
 
     def list_history(
         self,
-        transaction: str,
+        transaction_ref: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -446,7 +448,7 @@ class TransactionsResource(SyncAPIResource):
         Gets the version history of a transaction
 
         Args:
-          transaction: Transaction identifier. Accepts either an encoded Fragment ID (txn_xxx) or an
+          transaction_ref: Transaction reference. Accepts either an encoded Fragment ID (txn_xxx) or an
               external ID.
 
           extra_headers: Send extra headers
@@ -457,10 +459,10 @@ class TransactionsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not transaction:
-            raise ValueError(f"Expected a non-empty value for `transaction` but received {transaction!r}")
+        if not transaction_ref:
+            raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
         return self._get(
-            f"/transactions/{transaction}/history",
+            f"/transactions/{transaction_ref}/history",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -802,7 +804,7 @@ class AsyncTransactionsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        id: str,
+        transaction_ref: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -812,10 +814,11 @@ class AsyncTransactionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionRetrieveResponse:
         """
-        Gets a transaction by ID
+        Gets a transaction by ID or external ID
 
         Args:
-          id: Transaction ID
+          transaction_ref: Transaction reference. Accepts either an encoded Fragment ID (txn_xxx) or an
+              external ID.
 
           extra_headers: Send extra headers
 
@@ -825,10 +828,10 @@ class AsyncTransactionsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not transaction_ref:
+            raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
         return await self._get(
-            f"/transactions/{id}",
+            f"/transactions/{transaction_ref}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -886,7 +889,7 @@ class AsyncTransactionsResource(AsyncAPIResource):
 
     async def create_allocations(
         self,
-        id: str,
+        transaction_ref: str,
         *,
         allocation_updates: Iterable[transaction_create_allocations_params.AllocationUpdate],
         version: int,
@@ -901,7 +904,8 @@ class AsyncTransactionsResource(AsyncAPIResource):
         Updates allocations on an existing transaction
 
         Args:
-          id: Transaction ID
+          transaction_ref: Transaction reference. Accepts either an encoded Fragment ID (txn_xxx) or an
+              external ID.
 
           allocation_updates: Allocation operations to apply
 
@@ -915,10 +919,10 @@ class AsyncTransactionsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not transaction_ref:
+            raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
         return await self._post(
-            f"/transactions/{id}/allocations",
+            f"/transactions/{transaction_ref}/allocations",
             body=await async_maybe_transform(
                 {
                     "allocation_updates": allocation_updates,
@@ -934,7 +938,7 @@ class AsyncTransactionsResource(AsyncAPIResource):
 
     async def list_history(
         self,
-        transaction: str,
+        transaction_ref: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -947,7 +951,7 @@ class AsyncTransactionsResource(AsyncAPIResource):
         Gets the version history of a transaction
 
         Args:
-          transaction: Transaction identifier. Accepts either an encoded Fragment ID (txn_xxx) or an
+          transaction_ref: Transaction reference. Accepts either an encoded Fragment ID (txn_xxx) or an
               external ID.
 
           extra_headers: Send extra headers
@@ -958,10 +962,10 @@ class AsyncTransactionsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not transaction:
-            raise ValueError(f"Expected a non-empty value for `transaction` but received {transaction!r}")
+        if not transaction_ref:
+            raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
         return await self._get(
-            f"/transactions/{transaction}/history",
+            f"/transactions/{transaction_ref}/history",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
