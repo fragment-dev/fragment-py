@@ -23,6 +23,9 @@ class DataDiffAddAllocationDiffEntryItemUser(BaseModel):
     id: str
     """FRAGMENT generated ID of the user"""
 
+    external_id: Optional[str] = None
+    """External ID of the user"""
+
 
 class DataDiffAddAllocationDiffEntryItem(BaseModel):
     """Transaction allocation against an invoice."""
@@ -50,6 +53,9 @@ class DataDiffAddAllocationDiffEntry(BaseModel):
 class DataDiffDeleteAllocationDiffEntryItemUser(BaseModel):
     id: str
     """FRAGMENT generated ID of the user"""
+
+    external_id: Optional[str] = None
+    """External ID of the user"""
 
 
 class DataDiffDeleteAllocationDiffEntryItem(BaseModel):
