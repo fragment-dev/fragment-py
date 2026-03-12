@@ -21,6 +21,9 @@ class AllocationUser(BaseModel):
     id: str
     """FRAGMENT generated ID of the user"""
 
+    external_id: Optional[str] = None
+    """External ID of the user"""
+
 
 class Allocation(BaseModel):
     """Transaction allocation against an invoice."""

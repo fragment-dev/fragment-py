@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
+from typing import List, Optional
 from typing_extensions import Literal
 
 from .._models import BaseModel
@@ -21,6 +21,9 @@ class DataTransaction(BaseModel):
 class DataUser(BaseModel):
     id: str
     """FRAGMENT generated ID of the user"""
+
+    external_id: Optional[str] = None
+    """External ID of the user"""
 
 
 class Data(BaseModel):
