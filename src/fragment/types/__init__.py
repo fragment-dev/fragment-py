@@ -41,6 +41,12 @@ from .transaction_list_history_response import TransactionListHistoryResponse as
 from .transaction_create_allocations_params import (
     TransactionCreateAllocationsParams as TransactionCreateAllocationsParams,
 )
+from .transaction_search_allocations_params import (
+    TransactionSearchAllocationsParams as TransactionSearchAllocationsParams,
+)
 from .transaction_create_allocations_response import (
     TransactionCreateAllocationsResponse as TransactionCreateAllocationsResponse,
+)
+from .transaction_search_allocations_response import (
+    TransactionSearchAllocationsResponse as TransactionSearchAllocationsResponse,
 )
