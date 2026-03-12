@@ -2,24 +2,33 @@
 
 from __future__ import annotations
 
+from typing import Iterable
 from typing_extensions import Required, TypedDict
 
-from .._types import SequenceNotStr
-
-__all__ = ["TransactionSearchParams", "Filter", "FilterInvoiceID"]
+__all__ = ["TransactionSearchParams", "Filter", "FilterAccount", "FilterAccountAny"]
 
 
 class TransactionSearchParams(TypedDict, total=False):
     filter: Required[Filter]
-    """Filter criteria for searching transaction allocations."""
+    """Filter criteria for searching transactions."""
 
 
-class FilterInvoiceID(TypedDict, total=False):
-    any: Required[SequenceNotStr[str]]
-    """Match allocations where invoice_id is any of these values (OR)."""
+class FilterAccountAny(TypedDict, total=False):
+    """Account reference. Provide id, external_id, or both."""
+
+    id: str
+    """User-facing encoded account ID."""
+
+    external_id: str
+    """External account reference ID."""
+
+
+class FilterAccount(TypedDict, total=False):
+    any: Required[Iterable[FilterAccountAny]]
+    """Match transactions belonging to any of these accounts (OR)."""
 
 
 class Filter(TypedDict, total=False):
-    """Filter criteria for searching transaction allocations."""
+    """Filter criteria for searching transactions."""
 
-    invoice_id: Required[FilterInvoiceID]
+    account: Required[FilterAccount]

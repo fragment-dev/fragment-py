@@ -85,6 +85,7 @@ from fragment.types import (
     TransactionCreateAllocationsResponse,
     TransactionListHistoryResponse,
     TransactionSearchResponse,
+    TransactionSearchAllocationsResponse,
 )
 ```
 
@@ -95,7 +96,8 @@ Methods:
 - <code title="get /transactions">client.transactions.<a href="./src/fragment/resources/transactions.py">list</a>(\*\*<a href="src/fragment/types/transaction_list_params.py">params</a>) -> <a href="./src/fragment/types/transaction_list_response.py">TransactionListResponse</a></code>
 - <code title="post /transactions/{id}/allocations">client.transactions.<a href="./src/fragment/resources/transactions.py">create_allocations</a>(id, \*\*<a href="src/fragment/types/transaction_create_allocations_params.py">params</a>) -> <a href="./src/fragment/types/transaction_create_allocations_response.py">TransactionCreateAllocationsResponse</a></code>
 - <code title="get /transactions/{transaction}/history">client.transactions.<a href="./src/fragment/resources/transactions.py">list_history</a>(transaction) -> <a href="./src/fragment/types/transaction_list_history_response.py">TransactionListHistoryResponse</a></code>
-- <code title="post /transactions/allocations/search">client.transactions.<a href="./src/fragment/resources/transactions.py">search</a>(\*\*<a href="src/fragment/types/transaction_search_params.py">params</a>) -> <a href="./src/fragment/types/transaction_search_response.py">TransactionSearchResponse</a></code>
+- <code title="post /transactions/search">client.transactions.<a href="./src/fragment/resources/transactions.py">search</a>(\*\*<a href="src/fragment/types/transaction_search_params.py">params</a>) -> <a href="./src/fragment/types/transaction_search_response.py">TransactionSearchResponse</a></code>
+- <code title="post /transactions/allocations/search">client.transactions.<a href="./src/fragment/resources/transactions.py">search_allocations</a>(\*\*<a href="src/fragment/types/transaction_search_allocations_params.py">params</a>) -> <a href="./src/fragment/types/transaction_search_allocations_response.py">TransactionSearchAllocationsResponse</a></code>
 
 # Users
 
