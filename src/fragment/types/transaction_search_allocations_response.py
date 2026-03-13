@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 from .._models import BaseModel
@@ -37,6 +38,9 @@ class Data(BaseModel):
 
     invoice_id: str
     """The invoice to allocate against."""
+
+    posted: datetime
+    """Posted timestamp of the parent transaction in ISO 8601 format."""
 
     transaction: DataTransaction
     """Reference to the parent transaction."""
