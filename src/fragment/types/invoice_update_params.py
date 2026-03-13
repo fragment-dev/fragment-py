@@ -9,10 +9,10 @@ __all__ = [
     "InvoiceUpdateParams",
     "LineItemsUpdate",
     "LineItemsUpdateAddLineItemOperation",
-    "LineItemsUpdateAddLineItemOperationTag",
     "LineItemsUpdateAddLineItemOperationUser",
     "LineItemsUpdateAddLineItemOperationUserID",
     "LineItemsUpdateAddLineItemOperationUserExternalID",
+    "LineItemsUpdateAddLineItemOperationTag",
     "LineItemsUpdateUpdateLineItemOperation",
     "LineItemsUpdateDeleteLineItemOperation",
 ]
@@ -27,6 +27,21 @@ class InvoiceUpdateParams(TypedDict, total=False):
 
     Must match the current version for the update to succeed.
     """
+
+
+class LineItemsUpdateAddLineItemOperationUserID(TypedDict, total=False):
+    id: Required[str]
+    """FRAGMENT generated ID of the user"""
+
+
+class LineItemsUpdateAddLineItemOperationUserExternalID(TypedDict, total=False):
+    external_id: Required[str]
+    """External ID of the user"""
+
+
+LineItemsUpdateAddLineItemOperationUser: TypeAlias = Union[
+    LineItemsUpdateAddLineItemOperationUserID, LineItemsUpdateAddLineItemOperationUserExternalID
+]
 
 
 class LineItemsUpdateAddLineItemOperationTag(TypedDict, total=False):
@@ -45,21 +60,6 @@ class LineItemsUpdateAddLineItemOperationTag(TypedDict, total=False):
     Must be a valid safe string (no special characters like #, /, :). Max 200
     characters.
     """
-
-
-class LineItemsUpdateAddLineItemOperationUserID(TypedDict, total=False):
-    id: Required[str]
-    """FRAGMENT generated ID of the user"""
-
-
-class LineItemsUpdateAddLineItemOperationUserExternalID(TypedDict, total=False):
-    external_id: Required[str]
-    """External ID of the user"""
-
-
-LineItemsUpdateAddLineItemOperationUser: TypeAlias = Union[
-    LineItemsUpdateAddLineItemOperationUserID, LineItemsUpdateAddLineItemOperationUserExternalID
-]
 
 
 class LineItemsUpdateAddLineItemOperation(TypedDict, total=False):
@@ -265,13 +265,10 @@ class LineItemsUpdateAddLineItemOperation(TypedDict, total=False):
     type: Required[Literal["payin", "payout"]]
     """The type of the line item"""
 
+    user: Required[LineItemsUpdateAddLineItemOperationUser]
+
     tags: Iterable[LineItemsUpdateAddLineItemOperationTag]
     """Optional metadata tags for this line item"""
-
-    user: LineItemsUpdateAddLineItemOperationUser
-
-    user_id: str
-    """External ID of the user associated with this line item"""
 
 
 class LineItemsUpdateUpdateLineItemOperation(TypedDict, total=False):

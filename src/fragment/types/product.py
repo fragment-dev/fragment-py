@@ -3,8 +3,6 @@
 from typing import List, Optional
 from datetime import datetime
 
-from pydantic import Field as FieldInfo
-
 from .._models import BaseModel
 
 __all__ = ["Product", "PaidByRole", "PaidToRole"]
@@ -51,13 +49,7 @@ class Product(BaseModel):
     update_version: float
     """Version number for optimistic locking"""
 
-    update_version: float = FieldInfo(alias="updateVersion")
-    """Version number for optimistic locking"""
-
     workspace_id: str
-    """Workspace ID this product belongs to"""
-
-    workspace_id: str = FieldInfo(alias="workspaceId")
     """Workspace ID this product belongs to"""
 
     description: Optional[str] = None

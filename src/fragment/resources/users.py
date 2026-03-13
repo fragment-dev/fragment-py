@@ -5,7 +5,7 @@ from __future__ import annotations
 import httpx
 
 from ..types import user_create_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Query, Headers, NotGiven, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -45,9 +45,8 @@ class UsersResource(SyncAPIResource):
     def create(
         self,
         *,
+        external_id: str,
         role: str,
-        body_external_id_1: str | Omit = omit,
-        body_external_id_2: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -59,11 +58,9 @@ class UsersResource(SyncAPIResource):
         Creates a new user
 
         Args:
+          external_id: External ID for the user
+
           role: Role of the user
-
-          body_external_id_1: External ID for the user
-
-          body_external_id_2: External ID for the user
 
           extra_headers: Send extra headers
 
@@ -77,9 +74,8 @@ class UsersResource(SyncAPIResource):
             "/users",
             body=maybe_transform(
                 {
+                    "external_id": external_id,
                     "role": role,
-                    "body_external_id_1": body_external_id_1,
-                    "body_external_id_2": body_external_id_2,
                 },
                 user_create_params.UserCreateParams,
             ),
@@ -132,9 +128,8 @@ class AsyncUsersResource(AsyncAPIResource):
     async def create(
         self,
         *,
+        external_id: str,
         role: str,
-        body_external_id_1: str | Omit = omit,
-        body_external_id_2: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -146,11 +141,9 @@ class AsyncUsersResource(AsyncAPIResource):
         Creates a new user
 
         Args:
+          external_id: External ID for the user
+
           role: Role of the user
-
-          body_external_id_1: External ID for the user
-
-          body_external_id_2: External ID for the user
 
           extra_headers: Send extra headers
 
@@ -164,9 +157,8 @@ class AsyncUsersResource(AsyncAPIResource):
             "/users",
             body=await async_maybe_transform(
                 {
+                    "external_id": external_id,
                     "role": role,
-                    "body_external_id_1": body_external_id_1,
-                    "body_external_id_2": body_external_id_2,
                 },
                 user_create_params.UserCreateParams,
             ),
