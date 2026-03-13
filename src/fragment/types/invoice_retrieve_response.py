@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from datetime import datetime
 from typing_extensions import Literal
 
 from .invoice import Invoice
@@ -272,6 +273,9 @@ class DataPayment(BaseModel):
         "CUSTOM",
     ]
     """Currency code (ISO 4217 or crypto)"""
+
+    posted: datetime
+    """Posted timestamp of the parent transaction in ISO 8601 format."""
 
     transaction: DataPaymentTransaction
 
