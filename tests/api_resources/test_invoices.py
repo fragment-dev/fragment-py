@@ -27,22 +27,32 @@ class TestInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: Fragment) -> None:
-        invoice = client.invoices.create()
+        invoice = client.invoices.create(
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "amount": "1000",
+                    "description": "Professional services for January 2026",
+                    "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user": {"id": "user_abc123"},
+                }
+            ],
+        )
         assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: Fragment) -> None:
         invoice = client.invoices.create(
-            body_invoice_id_1="invoice_2024_001",
-            body_invoice_id_2="invoice_2024_001",
-            body_line_items_1=[
+            invoice_id="invoice_2024_001",
+            line_items=[
                 {
                     "amount": "1000",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "currency_code": "USD",
+                    "user": {"id": "user_abc123"},
                     "currency_code": "USD",
                     "tags": [
                         {
@@ -50,26 +60,6 @@ class TestInvoices:
                             "value": "us-east",
                         }
                     ],
-                    "user": {"id": "user_abc123"},
-                    "user_id": "user_ext_456",
-                }
-            ],
-            body_line_items_2=[
-                {
-                    "amount": "1000",
-                    "description": "Professional services for January 2026",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                    "currency_code": "USD",
-                    "currency_code": "USD",
-                    "tags": [
-                        {
-                            "key": "region",
-                            "value": "us-east",
-                        }
-                    ],
-                    "user": {"id": "user_abc123"},
-                    "user_id": "user_ext_456",
                 }
             ],
             tags=[
@@ -84,7 +74,18 @@ class TestInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: Fragment) -> None:
-        response = client.invoices.with_raw_response.create()
+        response = client.invoices.with_raw_response.create(
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "amount": "1000",
+                    "description": "Professional services for January 2026",
+                    "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user": {"id": "user_abc123"},
+                }
+            ],
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -94,7 +95,18 @@ class TestInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: Fragment) -> None:
-        with client.invoices.with_streaming_response.create() as response:
+        with client.invoices.with_streaming_response.create(
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "amount": "1000",
+                    "description": "Professional services for January 2026",
+                    "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user": {"id": "user_abc123"},
+                }
+            ],
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -158,6 +170,7 @@ class TestInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
+                    "user": {"id": "user_abc123"},
                 }
             ],
             version=1,
@@ -177,6 +190,7 @@ class TestInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
+                    "user": {"id": "user_abc123"},
                 }
             ],
             version=1,
@@ -200,6 +214,7 @@ class TestInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
+                    "user": {"id": "user_abc123"},
                 }
             ],
             version=1,
@@ -226,6 +241,7 @@ class TestInvoices:
                         "op": "add",
                         "product_id": "prod_1234567890",
                         "type": "payout",
+                        "user": {"id": "user_abc123"},
                     }
                 ],
                 version=1,
@@ -374,22 +390,32 @@ class TestAsyncInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncFragment) -> None:
-        invoice = await async_client.invoices.create()
+        invoice = await async_client.invoices.create(
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "amount": "1000",
+                    "description": "Professional services for January 2026",
+                    "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user": {"id": "user_abc123"},
+                }
+            ],
+        )
         assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncFragment) -> None:
         invoice = await async_client.invoices.create(
-            body_invoice_id_1="invoice_2024_001",
-            body_invoice_id_2="invoice_2024_001",
-            body_line_items_1=[
+            invoice_id="invoice_2024_001",
+            line_items=[
                 {
                     "amount": "1000",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "currency_code": "USD",
+                    "user": {"id": "user_abc123"},
                     "currency_code": "USD",
                     "tags": [
                         {
@@ -397,26 +423,6 @@ class TestAsyncInvoices:
                             "value": "us-east",
                         }
                     ],
-                    "user": {"id": "user_abc123"},
-                    "user_id": "user_ext_456",
-                }
-            ],
-            body_line_items_2=[
-                {
-                    "amount": "1000",
-                    "description": "Professional services for January 2026",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                    "currency_code": "USD",
-                    "currency_code": "USD",
-                    "tags": [
-                        {
-                            "key": "region",
-                            "value": "us-east",
-                        }
-                    ],
-                    "user": {"id": "user_abc123"},
-                    "user_id": "user_ext_456",
                 }
             ],
             tags=[
@@ -431,7 +437,18 @@ class TestAsyncInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncFragment) -> None:
-        response = await async_client.invoices.with_raw_response.create()
+        response = await async_client.invoices.with_raw_response.create(
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "amount": "1000",
+                    "description": "Professional services for January 2026",
+                    "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user": {"id": "user_abc123"},
+                }
+            ],
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -441,7 +458,18 @@ class TestAsyncInvoices:
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncFragment) -> None:
-        async with async_client.invoices.with_streaming_response.create() as response:
+        async with async_client.invoices.with_streaming_response.create(
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "amount": "1000",
+                    "description": "Professional services for January 2026",
+                    "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user": {"id": "user_abc123"},
+                }
+            ],
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -505,6 +533,7 @@ class TestAsyncInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
+                    "user": {"id": "user_abc123"},
                 }
             ],
             version=1,
@@ -524,6 +553,7 @@ class TestAsyncInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
+                    "user": {"id": "user_abc123"},
                 }
             ],
             version=1,
@@ -547,6 +577,7 @@ class TestAsyncInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
+                    "user": {"id": "user_abc123"},
                 }
             ],
             version=1,
@@ -573,6 +604,7 @@ class TestAsyncInvoices:
                         "op": "add",
                         "product_id": "prod_1234567890",
                         "type": "payout",
+                        "user": {"id": "user_abc123"},
                     }
                 ],
                 version=1,

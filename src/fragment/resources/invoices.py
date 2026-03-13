@@ -53,10 +53,8 @@ class InvoicesResource(SyncAPIResource):
     def create(
         self,
         *,
-        body_invoice_id_1: str | Omit = omit,
-        body_invoice_id_2: str | Omit = omit,
-        body_line_items_1: Iterable[invoice_create_params.LineItem] | Omit = omit,
-        body_line_items_2: Iterable[invoice_create_params.LineItem] | Omit = omit,
+        invoice_id: str,
+        line_items: Iterable[invoice_create_params.LineItem],
         tags: Iterable[invoice_create_params.Tag] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -65,19 +63,15 @@ class InvoicesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceCreateResponse:
-        """
-        Creates a new invoice
+        """Creates a new invoice
 
         Args:
-          body_invoice_id_1: Unique identifier for the invoice. Make this the canonical ID from your system
+          invoice_id: Unique identifier for the invoice.
+
+        Make this the canonical ID from your system
               for the transaction.
 
-          body_invoice_id_2: Unique identifier for the invoice. Make this the canonical ID from your system
-              for the transaction.
-
-          body_line_items_1: List of line items to create with the invoice
-
-          body_line_items_2: List of line items to create with the invoice
+          line_items: List of line items to create with the invoice
 
           tags: Optional metadata tags for this invoice
 
@@ -93,10 +87,8 @@ class InvoicesResource(SyncAPIResource):
             "/invoices",
             body=maybe_transform(
                 {
-                    "body_invoice_id_1": body_invoice_id_1,
-                    "body_invoice_id_2": body_invoice_id_2,
-                    "body_line_items_1": body_line_items_1,
-                    "body_line_items_2": body_line_items_2,
+                    "invoice_id": invoice_id,
+                    "line_items": line_items,
                     "tags": tags,
                 },
                 invoice_create_params.InvoiceCreateParams,
@@ -314,10 +306,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        body_invoice_id_1: str | Omit = omit,
-        body_invoice_id_2: str | Omit = omit,
-        body_line_items_1: Iterable[invoice_create_params.LineItem] | Omit = omit,
-        body_line_items_2: Iterable[invoice_create_params.LineItem] | Omit = omit,
+        invoice_id: str,
+        line_items: Iterable[invoice_create_params.LineItem],
         tags: Iterable[invoice_create_params.Tag] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -326,19 +316,15 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceCreateResponse:
-        """
-        Creates a new invoice
+        """Creates a new invoice
 
         Args:
-          body_invoice_id_1: Unique identifier for the invoice. Make this the canonical ID from your system
+          invoice_id: Unique identifier for the invoice.
+
+        Make this the canonical ID from your system
               for the transaction.
 
-          body_invoice_id_2: Unique identifier for the invoice. Make this the canonical ID from your system
-              for the transaction.
-
-          body_line_items_1: List of line items to create with the invoice
-
-          body_line_items_2: List of line items to create with the invoice
+          line_items: List of line items to create with the invoice
 
           tags: Optional metadata tags for this invoice
 
@@ -354,10 +340,8 @@ class AsyncInvoicesResource(AsyncAPIResource):
             "/invoices",
             body=await async_maybe_transform(
                 {
-                    "body_invoice_id_1": body_invoice_id_1,
-                    "body_invoice_id_2": body_invoice_id_2,
-                    "body_line_items_1": body_line_items_1,
-                    "body_line_items_2": body_line_items_2,
+                    "invoice_id": invoice_id,
+                    "line_items": line_items,
                     "tags": tags,
                 },
                 invoice_create_params.InvoiceCreateParams,
