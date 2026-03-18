@@ -37,7 +37,7 @@ class DataDiffAddDiffEntryItem(BaseModel):
     """Unique identifier for the line item"""
 
     amount: str
-    """Amount in smallest currency unit (represented as string for bigint)"""
+    """Total amount in smallest currency unit (represented as string for bigint)"""
 
     currency_code: Literal[
         "ADA",
@@ -228,11 +228,17 @@ class DataDiffAddDiffEntryItem(BaseModel):
     product_id: str
     """ID of the product/catalog item"""
 
+    quantity: int
+    """Quantity of units for this line item"""
+
     tags: List[DataDiffAddDiffEntryItemTag]
     """Metadata tags for this line item"""
 
     type: Literal["payin", "payout"]
     """The type of the line item"""
+
+    unit_price: str
+    """Unit price in smallest currency unit (represented as string for bigint)"""
 
     user_id: str
     """External ID of the user associated with this line item"""
@@ -253,8 +259,20 @@ class DataDiffUpdateDiffEntry(BaseModel):
     new_amount: str
     """New amount after the update"""
 
+    new_quantity: int
+    """New quantity after the update"""
+
+    new_unit_price: str
+    """New unit price after the update"""
+
     old_amount: str
     """Amount before the update"""
+
+    old_quantity: int
+    """Quantity before the update"""
+
+    old_unit_price: str
+    """Unit price before the update"""
 
     op: Literal["update"]
     """A line item was updated"""
@@ -277,7 +295,7 @@ class DataDiffDeleteDiffEntryItem(BaseModel):
     """Unique identifier for the line item"""
 
     amount: str
-    """Amount in smallest currency unit (represented as string for bigint)"""
+    """Total amount in smallest currency unit (represented as string for bigint)"""
 
     currency_code: Literal[
         "ADA",
@@ -468,11 +486,17 @@ class DataDiffDeleteDiffEntryItem(BaseModel):
     product_id: str
     """ID of the product/catalog item"""
 
+    quantity: int
+    """Quantity of units for this line item"""
+
     tags: List[DataDiffDeleteDiffEntryItemTag]
     """Metadata tags for this line item"""
 
     type: Literal["payin", "payout"]
     """The type of the line item"""
+
+    unit_price: str
+    """Unit price in smallest currency unit (represented as string for bigint)"""
 
     user_id: str
     """External ID of the user associated with this line item"""
