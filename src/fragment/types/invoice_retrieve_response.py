@@ -16,6 +16,7 @@ __all__ = [
     "DataBalancePayouts",
     "DataPayment",
     "DataPaymentTransaction",
+    "DataPaymentTransactionTag",
     "DataPaymentUser",
     "DataUser",
     "DataUserBalance",
@@ -69,12 +70,25 @@ class DataBalance(BaseModel):
     payouts: DataBalancePayouts
 
 
+class DataPaymentTransactionTag(BaseModel):
+    """A key-value tag pair"""
+
+    key: str
+    """Tag key"""
+
+    value: str
+    """Tag value"""
+
+
 class DataPaymentTransaction(BaseModel):
     id: str
     """Encoded transaction ID."""
 
     external_id: str
     """External transaction ID."""
+
+    tags: List[DataPaymentTransactionTag]
+    """Metadata tags from the parent transaction."""
 
 
 class DataPaymentUser(BaseModel):
