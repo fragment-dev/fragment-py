@@ -36,7 +36,7 @@ class LineItem(BaseModel):
     """Unique identifier for the line item"""
 
     amount: str
-    """Amount in smallest currency unit (represented as string for bigint)"""
+    """Total amount in smallest currency unit (represented as string for bigint)"""
 
     currency_code: Literal[
         "ADA",
@@ -227,11 +227,17 @@ class LineItem(BaseModel):
     product_id: str
     """ID of the product/catalog item"""
 
+    quantity: int
+    """Quantity of units for this line item"""
+
     tags: List[LineItemTag]
     """Metadata tags for this line item"""
 
     type: Literal["payin", "payout"]
     """The type of the line item"""
+
+    unit_price: str
+    """Unit price in smallest currency unit (represented as string for bigint)"""
 
     user_id: str
     """External ID of the user associated with this line item"""
