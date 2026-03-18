@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["Transaction", "Account", "Allocation", "AllocationUser"]
+__all__ = ["Transaction", "Account", "Allocation", "AllocationUser", "Tag"]
 
 
 class Account(BaseModel):
@@ -38,6 +38,16 @@ class Allocation(BaseModel):
     """The type of allocation."""
 
     user: AllocationUser
+
+
+class Tag(BaseModel):
+    """A key-value tag pair"""
+
+    key: str
+    """Tag key"""
+
+    value: str
+    """Tag value"""
 
 
 class Transaction(BaseModel):
@@ -247,6 +257,9 @@ class Transaction(BaseModel):
 
     posted: datetime
     """Posted timestamp in ISO 8601 format."""
+
+    tags: List[Tag]
+    """Metadata tags associated with this transaction."""
 
     unallocated_amount: str
     """Read-only amount not yet allocated."""
