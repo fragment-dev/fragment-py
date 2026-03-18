@@ -66,6 +66,12 @@ class TestTransactions:
             currency="USD",
             external_id="bank_txn_123",
             posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            tags=[
+                {
+                    "key": "region",
+                    "value": "us-east",
+                }
+            ],
         )
         assert_matches_type(TransactionCreateResponse, transaction, path=["response"])
 
@@ -436,6 +442,12 @@ class TestAsyncTransactions:
             currency="USD",
             external_id="bank_txn_123",
             posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            tags=[
+                {
+                    "key": "region",
+                    "value": "us-east",
+                }
+            ],
         )
         assert_matches_type(TransactionCreateResponse, transaction, path=["response"])
 

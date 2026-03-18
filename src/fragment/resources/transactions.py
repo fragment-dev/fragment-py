@@ -248,6 +248,7 @@ class TransactionsResource(SyncAPIResource):
         ],
         external_id: str,
         posted: Union[str, datetime],
+        tags: Iterable[transaction_create_params.Tag] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -272,6 +273,8 @@ class TransactionsResource(SyncAPIResource):
 
           posted: Posted timestamp in ISO 8601 format.
 
+          tags: Optional metadata tags for this transaction
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -290,6 +293,7 @@ class TransactionsResource(SyncAPIResource):
                     "currency": currency,
                     "external_id": external_id,
                     "posted": posted,
+                    "tags": tags,
                 },
                 transaction_create_params.TransactionCreateParams,
             ),
@@ -751,6 +755,7 @@ class AsyncTransactionsResource(AsyncAPIResource):
         ],
         external_id: str,
         posted: Union[str, datetime],
+        tags: Iterable[transaction_create_params.Tag] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -775,6 +780,8 @@ class AsyncTransactionsResource(AsyncAPIResource):
 
           posted: Posted timestamp in ISO 8601 format.
 
+          tags: Optional metadata tags for this transaction
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -793,6 +800,7 @@ class AsyncTransactionsResource(AsyncAPIResource):
                     "currency": currency,
                     "external_id": external_id,
                     "posted": posted,
+                    "tags": tags,
                 },
                 transaction_create_params.TransactionCreateParams,
             ),
