@@ -21,14 +21,6 @@ pytest.register_assert_rewrite("tests.utils")
 
 logging.getLogger("fragment").setLevel(logging.DEBUG)
 
-def _clear_oauth2_cache() -> None:
-    from fragment._oauth2 import make_oauth2
-
-    cache_clear = getattr(make_oauth2, "cache_clear", None)
-    if callable(cache_clear):
-        cache_clear()
-
-
 # automatically add `pytest.mark.asyncio()` to all of our async tests
 # so we don't have to add that boilerplate everywhere
 def pytest_collection_modifyitems(items: list[pytest.Function]) -> None:
@@ -51,21 +43,6 @@ def pytest_collection_modifyitems(items: list[pytest.Function]) -> None:
             item.add_marker(pytest.mark.skip(reason="aiohttp client is not compatible with respx_mock"))
 
 
-@pytest.fixture(autouse=True)
-def mock_oauth_token_for_respx(request: FixtureRequest) -> None:
-    if "respx_mock" not in request.fixturenames:
-        return
-
-    # Ensure a fresh OAuth2 client per test so the token request is made
-    # while respx is active and the route is counted as called.
-    _clear_oauth2_cache()
-
-    respx_mock = request.getfixturevalue("respx_mock")
-    respx_mock.post("https://auth.us-west-2.fragment.dev/oauth2/token").mock(
-        return_value=httpx.Response(200, json={"access_token": "test-token", "expires_in": 3600})
-    )
-
-
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 client_id = "My Client ID"
@@ -77,9 +54,6 @@ def client(request: FixtureRequest) -> Iterator[Fragment]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
-
-    if "respx_mock" in request.fixturenames:
-        _clear_oauth2_cache()
 
     with Fragment(
         base_url=base_url, client_id=client_id, client_secret=client_secret, _strict_response_validation=strict
@@ -106,9 +80,6 @@ async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncFragment]:
             http_client = DefaultAioHttpClient()
     else:
         raise TypeError(f"Unexpected fixture parameter type {type(param)}, expected bool or dict")
-
-    if "respx_mock" in request.fixturenames:
-        _clear_oauth2_cache()
 
     async with AsyncFragment(
         base_url=base_url,
