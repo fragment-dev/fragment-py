@@ -6,7 +6,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["Invoice", "Tag", "LineItem", "LineItemTag"]
+__all__ = ["Invoice", "Tag", "LineItem", "LineItemPrice", "LineItemTag"]
 
 
 class Tag(BaseModel):
@@ -17,6 +17,19 @@ class Tag(BaseModel):
 
     value: str
     """Tag value"""
+
+
+class LineItemPrice(BaseModel):
+    """Price breakdown containing amount, unit price, and quantity"""
+
+    amount: str
+    """Total amount in smallest currency unit (represented as string for bigint)"""
+
+    quantity: int
+    """Quantity of units for this line item"""
+
+    unit_price: str
+    """Unit price in smallest currency unit (represented as string for bigint)"""
 
 
 class LineItemTag(BaseModel):
@@ -36,7 +49,10 @@ class LineItem(BaseModel):
     """Unique identifier for the line item"""
 
     amount: str
-    """Total amount in smallest currency unit (represented as string for bigint)"""
+    """Deprecated: use price.amount instead.
+
+    Total amount in smallest currency unit (represented as string for bigint)
+    """
 
     currency_code: Literal[
         "ADA",
@@ -224,20 +240,17 @@ class LineItem(BaseModel):
     description: str
     """Description of the line item"""
 
+    price: LineItemPrice
+    """Price breakdown containing amount, unit price, and quantity"""
+
     product_id: str
     """ID of the product/catalog item"""
-
-    quantity: int
-    """Quantity of units for this line item"""
 
     tags: List[LineItemTag]
     """Metadata tags for this line item"""
 
     type: Literal["payin", "payout"]
     """The type of the line item"""
-
-    unit_price: str
-    """Unit price in smallest currency unit (represented as string for bigint)"""
 
     user_id: str
     """External ID of the user associated with this line item"""
