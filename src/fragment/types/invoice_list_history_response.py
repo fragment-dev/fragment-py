@@ -12,12 +12,29 @@ __all__ = [
     "DataDiff",
     "DataDiffAddDiffEntry",
     "DataDiffAddDiffEntryItem",
+    "DataDiffAddDiffEntryItemPrice",
     "DataDiffAddDiffEntryItemTag",
     "DataDiffUpdateDiffEntry",
+    "DataDiffUpdateDiffEntryNewPrice",
+    "DataDiffUpdateDiffEntryOldPrice",
     "DataDiffDeleteDiffEntry",
     "DataDiffDeleteDiffEntryItem",
+    "DataDiffDeleteDiffEntryItemPrice",
     "DataDiffDeleteDiffEntryItemTag",
 ]
+
+
+class DataDiffAddDiffEntryItemPrice(BaseModel):
+    """Price breakdown containing amount, unit price, and quantity"""
+
+    amount: str
+    """Total amount in smallest currency unit (represented as string for bigint)"""
+
+    quantity: int
+    """Quantity of units for this line item"""
+
+    unit_price: str
+    """Unit price in smallest currency unit (represented as string for bigint)"""
 
 
 class DataDiffAddDiffEntryItemTag(BaseModel):
@@ -37,7 +54,10 @@ class DataDiffAddDiffEntryItem(BaseModel):
     """Unique identifier for the line item"""
 
     amount: str
-    """Total amount in smallest currency unit (represented as string for bigint)"""
+    """Deprecated: use price.amount instead.
+
+    Total amount in smallest currency unit (represented as string for bigint)
+    """
 
     currency_code: Literal[
         "ADA",
@@ -225,20 +245,17 @@ class DataDiffAddDiffEntryItem(BaseModel):
     description: str
     """Description of the line item"""
 
+    price: DataDiffAddDiffEntryItemPrice
+    """Price breakdown containing amount, unit price, and quantity"""
+
     product_id: str
     """ID of the product/catalog item"""
-
-    quantity: int
-    """Quantity of units for this line item"""
 
     tags: List[DataDiffAddDiffEntryItemTag]
     """Metadata tags for this line item"""
 
     type: Literal["payin", "payout"]
     """The type of the line item"""
-
-    unit_price: str
-    """Unit price in smallest currency unit (represented as string for bigint)"""
 
     user_id: str
     """External ID of the user associated with this line item"""
@@ -252,30 +269,63 @@ class DataDiffAddDiffEntry(BaseModel):
     """A line item was added"""
 
 
+class DataDiffUpdateDiffEntryNewPrice(BaseModel):
+    """Price breakdown containing amount, unit price, and quantity"""
+
+    amount: str
+    """Total amount in smallest currency unit (represented as string for bigint)"""
+
+    quantity: int
+    """Quantity of units for this line item"""
+
+    unit_price: str
+    """Unit price in smallest currency unit (represented as string for bigint)"""
+
+
+class DataDiffUpdateDiffEntryOldPrice(BaseModel):
+    """Price breakdown containing amount, unit price, and quantity"""
+
+    amount: str
+    """Total amount in smallest currency unit (represented as string for bigint)"""
+
+    quantity: int
+    """Quantity of units for this line item"""
+
+    unit_price: str
+    """Unit price in smallest currency unit (represented as string for bigint)"""
+
+
 class DataDiffUpdateDiffEntry(BaseModel):
     id: str
     """ID of the updated line item"""
 
     new_amount: str
-    """New amount after the update"""
+    """Deprecated: use new_price.amount instead. New amount after the update"""
 
-    new_quantity: int
-    """New quantity after the update"""
-
-    new_unit_price: str
-    """New unit price after the update"""
+    new_price: DataDiffUpdateDiffEntryNewPrice
+    """Price breakdown containing amount, unit price, and quantity"""
 
     old_amount: str
-    """Amount before the update"""
+    """Deprecated: use old_price.amount instead. Amount before the update"""
 
-    old_quantity: int
-    """Quantity before the update"""
-
-    old_unit_price: str
-    """Unit price before the update"""
+    old_price: DataDiffUpdateDiffEntryOldPrice
+    """Price breakdown containing amount, unit price, and quantity"""
 
     op: Literal["update"]
     """A line item was updated"""
+
+
+class DataDiffDeleteDiffEntryItemPrice(BaseModel):
+    """Price breakdown containing amount, unit price, and quantity"""
+
+    amount: str
+    """Total amount in smallest currency unit (represented as string for bigint)"""
+
+    quantity: int
+    """Quantity of units for this line item"""
+
+    unit_price: str
+    """Unit price in smallest currency unit (represented as string for bigint)"""
 
 
 class DataDiffDeleteDiffEntryItemTag(BaseModel):
@@ -295,7 +345,10 @@ class DataDiffDeleteDiffEntryItem(BaseModel):
     """Unique identifier for the line item"""
 
     amount: str
-    """Total amount in smallest currency unit (represented as string for bigint)"""
+    """Deprecated: use price.amount instead.
+
+    Total amount in smallest currency unit (represented as string for bigint)
+    """
 
     currency_code: Literal[
         "ADA",
@@ -483,20 +536,17 @@ class DataDiffDeleteDiffEntryItem(BaseModel):
     description: str
     """Description of the line item"""
 
+    price: DataDiffDeleteDiffEntryItemPrice
+    """Price breakdown containing amount, unit price, and quantity"""
+
     product_id: str
     """ID of the product/catalog item"""
-
-    quantity: int
-    """Quantity of units for this line item"""
 
     tags: List[DataDiffDeleteDiffEntryItemTag]
     """Metadata tags for this line item"""
 
     type: Literal["payin", "payout"]
     """The type of the line item"""
-
-    unit_price: str
-    """Unit price in smallest currency unit (represented as string for bigint)"""
 
     user_id: str
     """External ID of the user associated with this line item"""
