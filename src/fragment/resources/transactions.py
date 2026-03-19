@@ -16,7 +16,7 @@ from ..types import (
     transaction_search_allocations_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -332,7 +332,7 @@ class TransactionsResource(SyncAPIResource):
         if not transaction_ref:
             raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
         return self._get(
-            f"/transactions/{transaction_ref}",
+            path_template("/transactions/{transaction_ref}", transaction_ref=transaction_ref),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -423,7 +423,7 @@ class TransactionsResource(SyncAPIResource):
         if not transaction_ref:
             raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
         return self._post(
-            f"/transactions/{transaction_ref}/allocations",
+            path_template("/transactions/{transaction_ref}/allocations", transaction_ref=transaction_ref),
             body=maybe_transform(
                 {
                     "allocation_updates": allocation_updates,
@@ -466,7 +466,7 @@ class TransactionsResource(SyncAPIResource):
         if not transaction_ref:
             raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
         return self._get(
-            f"/transactions/{transaction_ref}/history",
+            path_template("/transactions/{transaction_ref}/history", transaction_ref=transaction_ref),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -839,7 +839,7 @@ class AsyncTransactionsResource(AsyncAPIResource):
         if not transaction_ref:
             raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
         return await self._get(
-            f"/transactions/{transaction_ref}",
+            path_template("/transactions/{transaction_ref}", transaction_ref=transaction_ref),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -930,7 +930,7 @@ class AsyncTransactionsResource(AsyncAPIResource):
         if not transaction_ref:
             raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
         return await self._post(
-            f"/transactions/{transaction_ref}/allocations",
+            path_template("/transactions/{transaction_ref}/allocations", transaction_ref=transaction_ref),
             body=await async_maybe_transform(
                 {
                     "allocation_updates": allocation_updates,
@@ -973,7 +973,7 @@ class AsyncTransactionsResource(AsyncAPIResource):
         if not transaction_ref:
             raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
         return await self._get(
-            f"/transactions/{transaction_ref}/history",
+            path_template("/transactions/{transaction_ref}/history", transaction_ref=transaction_ref),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
