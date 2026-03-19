@@ -1,5 +1,49 @@
 # Changelog
 
+## 0.7.0 (2026-03-19)
+
+Full Changelog: [v0.6.0...v0.7.0](https://github.com/fragment-dev/fragment-py/compare/v0.6.0...v0.7.0)
+
+### Features
+
+* **api:** update SDK from prod (05bf1df4cca252f534c40121ea46dfa01d2f376d) ([db5669a](https://github.com/fragment-dev/fragment-py/commit/db5669a9ff9a5be7fb6649459e46fcb25d8de902))
+* **api:** update SDK from prod (125ed953796b4ee57adf8ed0e798e76381593713) ([d31c65c](https://github.com/fragment-dev/fragment-py/commit/d31c65c179e82675872c8304c8501115003b8778))
+* **api:** update SDK from prod (1b76bfcb7da068f20abd5c64ea192f91ab0d22e3) ([e2135e2](https://github.com/fragment-dev/fragment-py/commit/e2135e2731be79eeb1c7f5f1c2fe3384cb64067f))
+* **api:** update SDK from prod (1c845e9cebd1bd4a20412a587d5da0b2b2297932) ([51e872a](https://github.com/fragment-dev/fragment-py/commit/51e872a22172cd0370b48bf73c02d63543a6855c))
+* **api:** update SDK from prod (1ece54d1e3c816fc1a22c91c85ec64ff88cb2281) ([3a3c9e5](https://github.com/fragment-dev/fragment-py/commit/3a3c9e5d0c08fbcbc6f317929aee3b53480e618c))
+* **api:** update SDK from prod (220e8ac65390cfb3ecb02c0782f6fdc487330eb6) ([0662cac](https://github.com/fragment-dev/fragment-py/commit/0662cacee6b8cdb1cfd7b4db9eac7bee515161ba))
+* **api:** update SDK from prod (28557dc7a7816a62fb63945cd9d2b04ac2cf0b78) ([e2403ec](https://github.com/fragment-dev/fragment-py/commit/e2403ec02a7a7d9fcdedccd24d47c53122c96383))
+* **api:** update SDK from prod (5e74af7746e480f849a4ce975e055c18e363ae3c) ([734309f](https://github.com/fragment-dev/fragment-py/commit/734309faefb6c6fc82dd786e6e2155f93978fee8))
+* **api:** update SDK from prod (65cfb437aa5042cd51b31d52af3960c3d7821658) ([2f550dc](https://github.com/fragment-dev/fragment-py/commit/2f550dc86b9e68ec9698e213653cc0da62b854a4))
+* **api:** update SDK from prod (6ac170e37ed0ad105f0c6d0c38aa504a78b0be06) ([f901d01](https://github.com/fragment-dev/fragment-py/commit/f901d01266ee04da18596801912f41a3895e356f))
+* **api:** update SDK from prod (77121392df161dccc09b4aa751c8b0331da2abfa) ([459bfe5](https://github.com/fragment-dev/fragment-py/commit/459bfe5ad6f36d6f63c9c716838bb4c8d75bbdd4))
+* **api:** update SDK from prod (85a20f53715da2d6cac9bd99aed04dc0d926085a) ([6028591](https://github.com/fragment-dev/fragment-py/commit/602859161e4aff70185a9e35cb1550f33c1c30ea))
+* **api:** update SDK from prod (9924c80a76e93623f97868eed66329e7b59f86a1) ([c2bc590](https://github.com/fragment-dev/fragment-py/commit/c2bc590c684393dfad2d213ec89c798bd70adebb))
+* **api:** update SDK from prod (9c162134866788931d5ab6bc81c47ca2bbf4140f) ([fdaa2ee](https://github.com/fragment-dev/fragment-py/commit/fdaa2eedfd424603b0f701e021c6b55cedf9d7fa))
+* **api:** update SDK from prod (b30e63af1a25df1c73581c71d53ebd4e73d9cbfc) ([37ee421](https://github.com/fragment-dev/fragment-py/commit/37ee4217eb838397af533d238a5498b6db65223b))
+* **api:** update SDK from prod (ce1a36c617a4b73d16f930c0eedd9168e7c180fe) ([999b2af](https://github.com/fragment-dev/fragment-py/commit/999b2afa0c2f1e6aeb5ccce504f9fa144896dc57))
+* **api:** update SDK from prod (d4499f29205b1835d41b782c54dad258b705f2c3) ([3f7a555](https://github.com/fragment-dev/fragment-py/commit/3f7a5554cf1afc6b4b3bf431377a5db5f1a179b7))
+* **api:** update SDK from prod (ddaba31becc06a3281d77f308b37e78a26d8ec41) ([9d45f5f](https://github.com/fragment-dev/fragment-py/commit/9d45f5ff466bef577c47106448f1ff1402b1bab2))
+
+
+### Bug Fixes
+
+* **deps:** bump minimum typing-extensions version ([8060146](https://github.com/fragment-dev/fragment-py/commit/8060146f88308b19660568bb98e37293007dcf61))
+* **pydantic:** do not pass `by_alias` unless set ([a8ce80a](https://github.com/fragment-dev/fragment-py/commit/a8ce80a6af94406095bb4703b7995d044767780f))
+* sanitize endpoint path params ([e5f8ca3](https://github.com/fragment-dev/fragment-py/commit/e5f8ca35e8d5d8d1c99f829b706a2051a3c3f059))
+* **tests:** correct setup of OAuth 2 Client Credentials tests ([ea5906b](https://github.com/fragment-dev/fragment-py/commit/ea5906b39a1e18045d3732af981f191ccf4d7428))
+
+
+### Chores
+
+* **ci:** bump uv version ([616ff04](https://github.com/fragment-dev/fragment-py/commit/616ff04fc54466d66c8749c13bd0fcf1d9ca0ab2))
+* **ci:** skip uploading artifacts on stainless-internal branches ([8843bee](https://github.com/fragment-dev/fragment-py/commit/8843bee1a042db28d04bf94b2390d55a7a5ce057))
+* **internal:** add request options to SSE classes ([600df5c](https://github.com/fragment-dev/fragment-py/commit/600df5cec3cb697138162007caba79538f50a71a))
+* **internal:** codegen related update ([39db6c9](https://github.com/fragment-dev/fragment-py/commit/39db6c9a7d4b71860908bffdb684684ce540da6c))
+* **internal:** make `test_proxy_environment_variables` more resilient ([096a00d](https://github.com/fragment-dev/fragment-py/commit/096a00db68f11b5c7b77f075a9bde694cd4987e9))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([b97fb0d](https://github.com/fragment-dev/fragment-py/commit/b97fb0deb07e54b46fea6c9a43be0e97f873388e))
+* **internal:** tweak CI branches ([2e2c07f](https://github.com/fragment-dev/fragment-py/commit/2e2c07fff6706adac1469de385dd8cb0e6fe3c79))
+
 ## 0.6.0 (2026-02-20)
 
 Full Changelog: [v0.5.0...v0.6.0](https://github.com/fragment-dev/fragment-py/compare/v0.5.0...v0.6.0)

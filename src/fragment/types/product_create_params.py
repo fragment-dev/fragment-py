@@ -20,7 +20,7 @@ class ProductCreateParams(TypedDict, total=False):
     code: Required[str]
     """Product code (unique identifier)"""
 
-    description: Required[str]
+    description: str
     """Description of the product"""
 
     paid_by_roles: Iterable[PaidByRole]

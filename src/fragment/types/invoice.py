@@ -4,11 +4,42 @@ from typing import List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
-from pydantic import Field as FieldInfo
-
 from .._models import BaseModel
 
-__all__ = ["Invoice", "LineItem"]
+__all__ = ["Invoice", "Tag", "LineItem", "LineItemPrice", "LineItemTag"]
+
+
+class Tag(BaseModel):
+    """A key-value tag pair"""
+
+    key: str
+    """Tag key"""
+
+    value: str
+    """Tag value"""
+
+
+class LineItemPrice(BaseModel):
+    """Price breakdown containing amount, unit price, and quantity"""
+
+    amount: str
+    """Total amount in smallest currency unit (represented as string for bigint)"""
+
+    quantity: int
+    """Quantity of units for this line item"""
+
+    unit_price: str
+    """Unit price in smallest currency unit (represented as string for bigint)"""
+
+
+class LineItemTag(BaseModel):
+    """A key-value tag pair"""
+
+    key: str
+    """Tag key"""
+
+    value: str
+    """Tag value"""
 
 
 class LineItem(BaseModel):
@@ -18,7 +49,10 @@ class LineItem(BaseModel):
     """Unique identifier for the line item"""
 
     amount: str
-    """Amount in smallest currency unit (represented as string for bigint)"""
+    """Deprecated: use price.amount instead.
+
+    Total amount in smallest currency unit (represented as string for bigint)
+    """
 
     currency_code: Literal[
         "ADA",
@@ -200,14 +234,20 @@ class LineItem(BaseModel):
         "ZMW",
         "LOGICAL",
         "CUSTOM",
-    ] = FieldInfo(alias="currencyCode")
+    ]
     """Currency code (ISO 4217 or crypto)"""
 
     description: str
     """Description of the line item"""
 
+    price: LineItemPrice
+    """Price breakdown containing amount, unit price, and quantity"""
+
     product_id: str
     """ID of the product/catalog item"""
+
+    tags: List[LineItemTag]
+    """Metadata tags for this line item"""
 
     type: Literal["payin", "payout"]
     """The type of the line item"""
@@ -228,16 +268,19 @@ class Invoice(BaseModel):
     status: Literal["active"]
     """The status of the invoice"""
 
+    tags: List[Tag]
+    """Metadata tags for this invoice"""
+
     version: float
     """The current version of the invoice.
 
     Pass this value when updating to ensure thread safety.
     """
 
-    workspace_id: str = FieldInfo(alias="workspaceId")
+    workspace_id: str
     """Workspace ID this invoice belongs to"""
 
-    line_items: Optional[List[LineItem]] = FieldInfo(alias="lineItems", default=None)
+    line_items: Optional[List[LineItem]] = None
     """List of line items associated with this invoice"""
 
     modified: Optional[datetime] = None

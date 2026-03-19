@@ -1,12 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
+from typing import List, Optional
 from datetime import datetime
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["Transaction", "Account", "Allocation", "AllocationUser", "AllocationUserID", "AllocationUserExternalID"]
+__all__ = ["Transaction", "Account", "Allocation", "AllocationUser", "Tag"]
 
 
 class Account(BaseModel):
@@ -17,17 +17,12 @@ class Account(BaseModel):
     """External account reference ID."""
 
 
-class AllocationUserID(BaseModel):
+class AllocationUser(BaseModel):
     id: str
-    """Internal user ID."""
+    """FRAGMENT generated ID of the user"""
 
-
-class AllocationUserExternalID(BaseModel):
-    external_id: str
-    """External user ID."""
-
-
-AllocationUser: TypeAlias = Union[AllocationUserID, AllocationUserExternalID]
+    external_id: Optional[str] = None
+    """External ID of the user"""
 
 
 class Allocation(BaseModel):
@@ -43,7 +38,16 @@ class Allocation(BaseModel):
     """The type of allocation."""
 
     user: AllocationUser
-    """User reference. Provide either id or external_id."""
+
+
+class Tag(BaseModel):
+    """A key-value tag pair"""
+
+    key: str
+    """Tag key"""
+
+    value: str
+    """Tag value"""
 
 
 class Transaction(BaseModel):
@@ -253,6 +257,9 @@ class Transaction(BaseModel):
 
     posted: datetime
     """Posted timestamp in ISO 8601 format."""
+
+    tags: List[Tag]
+    """Metadata tags associated with this transaction."""
 
     unallocated_amount: str
     """Read-only amount not yet allocated."""

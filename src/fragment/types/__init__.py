@@ -16,10 +16,12 @@ from .role_create_response import RoleCreateResponse as RoleCreateResponse
 from .user_create_response import UserCreateResponse as UserCreateResponse
 from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
 from .invoice_list_response import InvoiceListResponse as InvoiceListResponse
+from .invoice_search_params import InvoiceSearchParams as InvoiceSearchParams
 from .invoice_update_params import InvoiceUpdateParams as InvoiceUpdateParams
 from .product_create_params import ProductCreateParams as ProductCreateParams
 from .product_list_response import ProductListResponse as ProductListResponse
 from .invoice_create_response import InvoiceCreateResponse as InvoiceCreateResponse
+from .invoice_search_response import InvoiceSearchResponse as InvoiceSearchResponse
 from .invoice_update_response import InvoiceUpdateResponse as InvoiceUpdateResponse
 from .product_create_response import ProductCreateResponse as ProductCreateResponse
 from .transaction_list_params import TransactionListParams as TransactionListParams
@@ -27,15 +29,24 @@ from .invoice_retrieve_response import InvoiceRetrieveResponse as InvoiceRetriev
 from .product_retrieve_response import ProductRetrieveResponse as ProductRetrieveResponse
 from .transaction_create_params import TransactionCreateParams as TransactionCreateParams
 from .transaction_list_response import TransactionListResponse as TransactionListResponse
+from .transaction_search_params import TransactionSearchParams as TransactionSearchParams
 from .transaction_create_response import TransactionCreateResponse as TransactionCreateResponse
+from .transaction_search_response import TransactionSearchResponse as TransactionSearchResponse
 from .invoice_list_history_response import InvoiceListHistoryResponse as InvoiceListHistoryResponse
 from .transaction_retrieve_response import TransactionRetrieveResponse as TransactionRetrieveResponse
 from .external_account_create_params import ExternalAccountCreateParams as ExternalAccountCreateParams
 from .external_account_list_response import ExternalAccountListResponse as ExternalAccountListResponse
 from .external_account_create_response import ExternalAccountCreateResponse as ExternalAccountCreateResponse
+from .transaction_list_history_response import TransactionListHistoryResponse as TransactionListHistoryResponse
 from .transaction_create_allocations_params import (
     TransactionCreateAllocationsParams as TransactionCreateAllocationsParams,
 )
+from .transaction_search_allocations_params import (
+    TransactionSearchAllocationsParams as TransactionSearchAllocationsParams,
+)
 from .transaction_create_allocations_response import (
     TransactionCreateAllocationsResponse as TransactionCreateAllocationsResponse,
+)
+from .transaction_search_allocations_response import (
+    TransactionSearchAllocationsResponse as TransactionSearchAllocationsResponse,
 )

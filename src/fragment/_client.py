@@ -119,24 +119,28 @@ class Fragment(SyncAPIClient):
 
     @cached_property
     def invoices(self) -> InvoicesResource:
+        """Invoice management operations"""
         from .resources.invoices import InvoicesResource
 
         return InvoicesResource(self)
 
     @cached_property
     def products(self) -> ProductsResource:
+        """Product management operations"""
         from .resources.products import ProductsResource
 
         return ProductsResource(self)
 
     @cached_property
     def roles(self) -> RolesResource:
+        """Role management operations"""
         from .resources.roles import RolesResource
 
         return RolesResource(self)
 
     @cached_property
     def transactions(self) -> TransactionsResource:
+        """Transaction sync operations"""
         from .resources.transactions import TransactionsResource
 
         return TransactionsResource(self)
@@ -344,24 +348,28 @@ class AsyncFragment(AsyncAPIClient):
 
     @cached_property
     def invoices(self) -> AsyncInvoicesResource:
+        """Invoice management operations"""
         from .resources.invoices import AsyncInvoicesResource
 
         return AsyncInvoicesResource(self)
 
     @cached_property
     def products(self) -> AsyncProductsResource:
+        """Product management operations"""
         from .resources.products import AsyncProductsResource
 
         return AsyncProductsResource(self)
 
     @cached_property
     def roles(self) -> AsyncRolesResource:
+        """Role management operations"""
         from .resources.roles import AsyncRolesResource
 
         return AsyncRolesResource(self)
 
     @cached_property
     def transactions(self) -> AsyncTransactionsResource:
+        """Transaction sync operations"""
         from .resources.transactions import AsyncTransactionsResource
 
         return AsyncTransactionsResource(self)
@@ -516,24 +524,28 @@ class FragmentWithRawResponse:
 
     @cached_property
     def invoices(self) -> invoices.InvoicesResourceWithRawResponse:
+        """Invoice management operations"""
         from .resources.invoices import InvoicesResourceWithRawResponse
 
         return InvoicesResourceWithRawResponse(self._client.invoices)
 
     @cached_property
     def products(self) -> products.ProductsResourceWithRawResponse:
+        """Product management operations"""
         from .resources.products import ProductsResourceWithRawResponse
 
         return ProductsResourceWithRawResponse(self._client.products)
 
     @cached_property
     def roles(self) -> roles.RolesResourceWithRawResponse:
+        """Role management operations"""
         from .resources.roles import RolesResourceWithRawResponse
 
         return RolesResourceWithRawResponse(self._client.roles)
 
     @cached_property
     def transactions(self) -> transactions.TransactionsResourceWithRawResponse:
+        """Transaction sync operations"""
         from .resources.transactions import TransactionsResourceWithRawResponse
 
         return TransactionsResourceWithRawResponse(self._client.transactions)
@@ -559,24 +571,28 @@ class AsyncFragmentWithRawResponse:
 
     @cached_property
     def invoices(self) -> invoices.AsyncInvoicesResourceWithRawResponse:
+        """Invoice management operations"""
         from .resources.invoices import AsyncInvoicesResourceWithRawResponse
 
         return AsyncInvoicesResourceWithRawResponse(self._client.invoices)
 
     @cached_property
     def products(self) -> products.AsyncProductsResourceWithRawResponse:
+        """Product management operations"""
         from .resources.products import AsyncProductsResourceWithRawResponse
 
         return AsyncProductsResourceWithRawResponse(self._client.products)
 
     @cached_property
     def roles(self) -> roles.AsyncRolesResourceWithRawResponse:
+        """Role management operations"""
         from .resources.roles import AsyncRolesResourceWithRawResponse
 
         return AsyncRolesResourceWithRawResponse(self._client.roles)
 
     @cached_property
     def transactions(self) -> transactions.AsyncTransactionsResourceWithRawResponse:
+        """Transaction sync operations"""
         from .resources.transactions import AsyncTransactionsResourceWithRawResponse
 
         return AsyncTransactionsResourceWithRawResponse(self._client.transactions)
@@ -602,24 +618,28 @@ class FragmentWithStreamedResponse:
 
     @cached_property
     def invoices(self) -> invoices.InvoicesResourceWithStreamingResponse:
+        """Invoice management operations"""
         from .resources.invoices import InvoicesResourceWithStreamingResponse
 
         return InvoicesResourceWithStreamingResponse(self._client.invoices)
 
     @cached_property
     def products(self) -> products.ProductsResourceWithStreamingResponse:
+        """Product management operations"""
         from .resources.products import ProductsResourceWithStreamingResponse
 
         return ProductsResourceWithStreamingResponse(self._client.products)
 
     @cached_property
     def roles(self) -> roles.RolesResourceWithStreamingResponse:
+        """Role management operations"""
         from .resources.roles import RolesResourceWithStreamingResponse
 
         return RolesResourceWithStreamingResponse(self._client.roles)
 
     @cached_property
     def transactions(self) -> transactions.TransactionsResourceWithStreamingResponse:
+        """Transaction sync operations"""
         from .resources.transactions import TransactionsResourceWithStreamingResponse
 
         return TransactionsResourceWithStreamingResponse(self._client.transactions)
@@ -645,24 +665,28 @@ class AsyncFragmentWithStreamedResponse:
 
     @cached_property
     def invoices(self) -> invoices.AsyncInvoicesResourceWithStreamingResponse:
+        """Invoice management operations"""
         from .resources.invoices import AsyncInvoicesResourceWithStreamingResponse
 
         return AsyncInvoicesResourceWithStreamingResponse(self._client.invoices)
 
     @cached_property
     def products(self) -> products.AsyncProductsResourceWithStreamingResponse:
+        """Product management operations"""
         from .resources.products import AsyncProductsResourceWithStreamingResponse
 
         return AsyncProductsResourceWithStreamingResponse(self._client.products)
 
     @cached_property
     def roles(self) -> roles.AsyncRolesResourceWithStreamingResponse:
+        """Role management operations"""
         from .resources.roles import AsyncRolesResourceWithStreamingResponse
 
         return AsyncRolesResourceWithStreamingResponse(self._client.roles)
 
     @cached_property
     def transactions(self) -> transactions.AsyncTransactionsResourceWithStreamingResponse:
+        """Transaction sync operations"""
         from .resources.transactions import AsyncTransactionsResourceWithStreamingResponse
 
         return AsyncTransactionsResourceWithStreamingResponse(self._client.transactions)

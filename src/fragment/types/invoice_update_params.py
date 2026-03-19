@@ -9,6 +9,10 @@ __all__ = [
     "InvoiceUpdateParams",
     "LineItemsUpdate",
     "LineItemsUpdateAddLineItemOperation",
+    "LineItemsUpdateAddLineItemOperationUser",
+    "LineItemsUpdateAddLineItemOperationUserID",
+    "LineItemsUpdateAddLineItemOperationUserExternalID",
+    "LineItemsUpdateAddLineItemOperationTag",
     "LineItemsUpdateUpdateLineItemOperation",
     "LineItemsUpdateDeleteLineItemOperation",
 ]
@@ -22,6 +26,39 @@ class InvoiceUpdateParams(TypedDict, total=False):
     """The version of the invoice being updated.
 
     Must match the current version for the update to succeed.
+    """
+
+
+class LineItemsUpdateAddLineItemOperationUserID(TypedDict, total=False):
+    id: Required[str]
+    """FRAGMENT generated ID of the user"""
+
+
+class LineItemsUpdateAddLineItemOperationUserExternalID(TypedDict, total=False):
+    external_id: Required[str]
+    """External ID of the user"""
+
+
+LineItemsUpdateAddLineItemOperationUser: TypeAlias = Union[
+    LineItemsUpdateAddLineItemOperationUserID, LineItemsUpdateAddLineItemOperationUserExternalID
+]
+
+
+class LineItemsUpdateAddLineItemOperationTag(TypedDict, total=False):
+    """A key-value tag pair for metadata"""
+
+    key: Required[str]
+    """Tag key.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 50
+    characters.
+    """
+
+    value: Required[str]
+    """Tag value.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 200
+    characters.
     """
 
 
@@ -228,8 +265,10 @@ class LineItemsUpdateAddLineItemOperation(TypedDict, total=False):
     type: Required[Literal["payin", "payout"]]
     """The type of the line item"""
 
-    user_id: Required[str]
-    """External ID of the user associated with this line item"""
+    user: Required[LineItemsUpdateAddLineItemOperationUser]
+
+    tags: Iterable[LineItemsUpdateAddLineItemOperationTag]
+    """Optional metadata tags for this line item"""
 
 
 class LineItemsUpdateUpdateLineItemOperation(TypedDict, total=False):

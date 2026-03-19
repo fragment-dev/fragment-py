@@ -8,7 +8,7 @@ import httpx
 
 from ..types import product_create_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -26,6 +26,8 @@ __all__ = ["ProductsResource", "AsyncProductsResource"]
 
 
 class ProductsResource(SyncAPIResource):
+    """Product management operations"""
+
     @cached_property
     def with_raw_response(self) -> ProductsResourceWithRawResponse:
         """
@@ -49,7 +51,7 @@ class ProductsResource(SyncAPIResource):
         self,
         *,
         code: str,
-        description: str,
+        description: str | Omit = omit,
         paid_by_roles: Iterable[product_create_params.PaidByRole] | Omit = omit,
         paid_to_roles: Iterable[product_create_params.PaidToRole] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -126,7 +128,7 @@ class ProductsResource(SyncAPIResource):
         if not code:
             raise ValueError(f"Expected a non-empty value for `code` but received {code!r}")
         return self._get(
-            f"/products/{code}",
+            path_template("/products/{code}", code=code),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -154,6 +156,8 @@ class ProductsResource(SyncAPIResource):
 
 
 class AsyncProductsResource(AsyncAPIResource):
+    """Product management operations"""
+
     @cached_property
     def with_raw_response(self) -> AsyncProductsResourceWithRawResponse:
         """
@@ -177,7 +181,7 @@ class AsyncProductsResource(AsyncAPIResource):
         self,
         *,
         code: str,
-        description: str,
+        description: str | Omit = omit,
         paid_by_roles: Iterable[product_create_params.PaidByRole] | Omit = omit,
         paid_to_roles: Iterable[product_create_params.PaidToRole] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -254,7 +258,7 @@ class AsyncProductsResource(AsyncAPIResource):
         if not code:
             raise ValueError(f"Expected a non-empty value for `code` but received {code!r}")
         return await self._get(
-            f"/products/{code}",
+            path_template("/products/{code}", code=code),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

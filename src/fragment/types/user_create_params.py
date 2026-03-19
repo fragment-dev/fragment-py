@@ -2,15 +2,13 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, Annotated, TypedDict
-
-from .._utils import PropertyInfo
+from typing_extensions import Required, TypedDict
 
 __all__ = ["UserCreateParams"]
 
 
 class UserCreateParams(TypedDict, total=False):
-    external_id: Required[Annotated[str, PropertyInfo(alias="externalId")]]
+    external_id: Required[str]
     """External ID for the user"""
 
     role: Required[str]

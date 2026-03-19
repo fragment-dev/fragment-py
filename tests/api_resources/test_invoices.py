@@ -12,6 +12,7 @@ from tests.utils import assert_matches_type
 from fragment.types import (
     InvoiceListResponse,
     InvoiceCreateResponse,
+    InvoiceSearchResponse,
     InvoiceUpdateResponse,
     InvoiceRetrieveResponse,
     InvoiceListHistoryResponse,
@@ -31,11 +32,40 @@ class TestInvoices:
             line_items=[
                 {
                     "amount": "1000",
-                    "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
+                    "user": {"id": "user_abc123"},
+                }
+            ],
+        )
+        assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params(self, client: Fragment) -> None:
+        invoice = client.invoices.create(
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "amount": "1000",
+                    "description": "Professional services for January 2026",
+                    "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user": {"id": "user_abc123"},
+                    "currency_code": "USD",
+                    "tags": [
+                        {
+                            "key": "region",
+                            "value": "us-east",
+                        }
+                    ],
+                }
+            ],
+            tags=[
+                {
+                    "key": "region",
+                    "value": "us-east",
                 }
             ],
         )
@@ -49,11 +79,10 @@ class TestInvoices:
             line_items=[
                 {
                     "amount": "1000",
-                    "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
+                    "user": {"id": "user_abc123"},
                 }
             ],
         )
@@ -71,11 +100,10 @@ class TestInvoices:
             line_items=[
                 {
                     "amount": "1000",
-                    "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
+                    "user": {"id": "user_abc123"},
                 }
             ],
         ) as response:
@@ -142,7 +170,7 @@ class TestInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
+                    "user": {"id": "user_abc123"},
                 }
             ],
             version=1,
@@ -162,7 +190,7 @@ class TestInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
+                    "user": {"id": "user_abc123"},
                 }
             ],
             version=1,
@@ -186,7 +214,7 @@ class TestInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
+                    "user": {"id": "user_abc123"},
                 }
             ],
             version=1,
@@ -213,7 +241,7 @@ class TestInvoices:
                         "op": "add",
                         "product_id": "prod_1234567890",
                         "type": "payout",
-                        "user_id": "user_ext_456",
+                        "user": {"id": "user_abc123"},
                     }
                 ],
                 version=1,
@@ -289,6 +317,70 @@ class TestInvoices:
                 "",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_search(self, client: Fragment) -> None:
+        invoice = client.invoices.search(
+            filter={},
+            page_info={},
+        )
+        assert_matches_type(InvoiceSearchResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_search_with_all_params(self, client: Fragment) -> None:
+        invoice = client.invoices.search(
+            filter={
+                "tags": {
+                    "all": [
+                        {
+                            "key": "env",
+                            "value": "prod",
+                        }
+                    ],
+                    "any": [
+                        {
+                            "key": "region",
+                            "value": "us-*",
+                        }
+                    ],
+                }
+            },
+            page_info={
+                "after": "after",
+                "limit": 20,
+            },
+        )
+        assert_matches_type(InvoiceSearchResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_search(self, client: Fragment) -> None:
+        response = client.invoices.with_raw_response.search(
+            filter={},
+            page_info={},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = response.parse()
+        assert_matches_type(InvoiceSearchResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_search(self, client: Fragment) -> None:
+        with client.invoices.with_streaming_response.search(
+            filter={},
+            page_info={},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = response.parse()
+            assert_matches_type(InvoiceSearchResponse, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncInvoices:
     parametrize = pytest.mark.parametrize(
@@ -303,11 +395,40 @@ class TestAsyncInvoices:
             line_items=[
                 {
                     "amount": "1000",
-                    "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
+                    "user": {"id": "user_abc123"},
+                }
+            ],
+        )
+        assert_matches_type(InvoiceCreateResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncFragment) -> None:
+        invoice = await async_client.invoices.create(
+            invoice_id="invoice_2024_001",
+            line_items=[
+                {
+                    "amount": "1000",
+                    "description": "Professional services for January 2026",
+                    "product_id": "prod_1234567890",
+                    "type": "payout",
+                    "user": {"id": "user_abc123"},
+                    "currency_code": "USD",
+                    "tags": [
+                        {
+                            "key": "region",
+                            "value": "us-east",
+                        }
+                    ],
+                }
+            ],
+            tags=[
+                {
+                    "key": "region",
+                    "value": "us-east",
                 }
             ],
         )
@@ -321,11 +442,10 @@ class TestAsyncInvoices:
             line_items=[
                 {
                     "amount": "1000",
-                    "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
+                    "user": {"id": "user_abc123"},
                 }
             ],
         )
@@ -343,11 +463,10 @@ class TestAsyncInvoices:
             line_items=[
                 {
                     "amount": "1000",
-                    "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
+                    "user": {"id": "user_abc123"},
                 }
             ],
         ) as response:
@@ -414,7 +533,7 @@ class TestAsyncInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
+                    "user": {"id": "user_abc123"},
                 }
             ],
             version=1,
@@ -434,7 +553,7 @@ class TestAsyncInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
+                    "user": {"id": "user_abc123"},
                 }
             ],
             version=1,
@@ -458,7 +577,7 @@ class TestAsyncInvoices:
                     "op": "add",
                     "product_id": "prod_1234567890",
                     "type": "payout",
-                    "user_id": "user_ext_456",
+                    "user": {"id": "user_abc123"},
                 }
             ],
             version=1,
@@ -485,7 +604,7 @@ class TestAsyncInvoices:
                         "op": "add",
                         "product_id": "prod_1234567890",
                         "type": "payout",
-                        "user_id": "user_ext_456",
+                        "user": {"id": "user_abc123"},
                     }
                 ],
                 version=1,
@@ -560,3 +679,67 @@ class TestAsyncInvoices:
             await async_client.invoices.with_raw_response.list_history(
                 "",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_search(self, async_client: AsyncFragment) -> None:
+        invoice = await async_client.invoices.search(
+            filter={},
+            page_info={},
+        )
+        assert_matches_type(InvoiceSearchResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_search_with_all_params(self, async_client: AsyncFragment) -> None:
+        invoice = await async_client.invoices.search(
+            filter={
+                "tags": {
+                    "all": [
+                        {
+                            "key": "env",
+                            "value": "prod",
+                        }
+                    ],
+                    "any": [
+                        {
+                            "key": "region",
+                            "value": "us-*",
+                        }
+                    ],
+                }
+            },
+            page_info={
+                "after": "after",
+                "limit": 20,
+            },
+        )
+        assert_matches_type(InvoiceSearchResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_search(self, async_client: AsyncFragment) -> None:
+        response = await async_client.invoices.with_raw_response.search(
+            filter={},
+            page_info={},
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = await response.parse()
+        assert_matches_type(InvoiceSearchResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_search(self, async_client: AsyncFragment) -> None:
+        async with async_client.invoices.with_streaming_response.search(
+            filter={},
+            page_info={},
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = await response.parse()
+            assert_matches_type(InvoiceSearchResponse, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True

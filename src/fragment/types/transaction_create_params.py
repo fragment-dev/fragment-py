@@ -15,6 +15,7 @@ __all__ = [
     "AllocationUser",
     "AllocationUserID",
     "AllocationUserExternalID",
+    "Tag",
 ]
 
 
@@ -222,6 +223,9 @@ class TransactionCreateParams(TypedDict, total=False):
     posted: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """Posted timestamp in ISO 8601 format."""
 
+    tags: Iterable[Tag]
+    """Optional metadata tags for this transaction"""
+
 
 class Account(TypedDict, total=False):
     """Account reference. Provide id, external_id, or both."""
@@ -235,12 +239,12 @@ class Account(TypedDict, total=False):
 
 class AllocationUserID(TypedDict, total=False):
     id: Required[str]
-    """Internal user ID."""
+    """FRAGMENT generated ID of the user"""
 
 
 class AllocationUserExternalID(TypedDict, total=False):
     external_id: Required[str]
-    """External user ID."""
+    """External ID of the user"""
 
 
 AllocationUser: TypeAlias = Union[AllocationUserID, AllocationUserExternalID]
@@ -259,4 +263,21 @@ class Allocation(TypedDict, total=False):
     """The type of allocation."""
 
     user: Required[AllocationUser]
-    """User reference. Provide either id or external_id."""
+
+
+class Tag(TypedDict, total=False):
+    """A key-value tag pair for metadata"""
+
+    key: Required[str]
+    """Tag key.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 50
+    characters.
+    """
+
+    value: Required[str]
+    """Tag value.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 200
+    characters.
+    """
