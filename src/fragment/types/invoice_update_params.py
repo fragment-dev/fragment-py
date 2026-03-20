@@ -12,8 +12,10 @@ __all__ = [
     "LineItemsUpdateAddLineItemOperationUser",
     "LineItemsUpdateAddLineItemOperationUserID",
     "LineItemsUpdateAddLineItemOperationUserExternalID",
+    "LineItemsUpdateAddLineItemOperationPrice",
     "LineItemsUpdateAddLineItemOperationTag",
     "LineItemsUpdateUpdateLineItemOperation",
+    "LineItemsUpdateUpdateLineItemOperationPrice",
     "LineItemsUpdateDeleteLineItemOperation",
 ]
 
@@ -44,6 +46,22 @@ LineItemsUpdateAddLineItemOperationUser: TypeAlias = Union[
 ]
 
 
+class LineItemsUpdateAddLineItemOperationPrice(TypedDict, total=False):
+    """Price breakdown. Provide amount, or unit_price + quantity, or all three."""
+
+    amount: str
+    """Total amount in smallest currency unit.
+
+    Required if unit_price and quantity are not provided.
+    """
+
+    quantity: int
+    """Number of units for this line item."""
+
+    unit_price: str
+    """Price per unit in smallest currency unit."""
+
+
 class LineItemsUpdateAddLineItemOperationTag(TypedDict, total=False):
     """A key-value tag pair for metadata"""
 
@@ -64,9 +82,6 @@ class LineItemsUpdateAddLineItemOperationTag(TypedDict, total=False):
 
 class LineItemsUpdateAddLineItemOperation(TypedDict, total=False):
     """Operation to add a new line item to an invoice"""
-
-    amount: Required[str]
-    """Amount in smallest currency unit (e.g., cents)"""
 
     currency_code: Required[
         Literal[
@@ -267,21 +282,46 @@ class LineItemsUpdateAddLineItemOperation(TypedDict, total=False):
 
     user: Required[LineItemsUpdateAddLineItemOperationUser]
 
+    amount: str
+    """Deprecated: use price instead. Total amount in smallest currency unit."""
+
+    price: LineItemsUpdateAddLineItemOperationPrice
+    """Price breakdown. Provide amount, or unit_price + quantity, or all three."""
+
     tags: Iterable[LineItemsUpdateAddLineItemOperationTag]
     """Optional metadata tags for this line item"""
 
 
+class LineItemsUpdateUpdateLineItemOperationPrice(TypedDict, total=False):
+    """Price breakdown. Provide amount, or unit_price + quantity, or all three."""
+
+    amount: str
+    """Total amount in smallest currency unit.
+
+    Required if unit_price and quantity are not provided.
+    """
+
+    quantity: int
+    """Number of units for this line item."""
+
+    unit_price: str
+    """Price per unit in smallest currency unit."""
+
+
 class LineItemsUpdateUpdateLineItemOperation(TypedDict, total=False):
-    """Operation to update an existing line item amount"""
+    """Operation to update an existing line item pricing"""
 
     id: Required[str]
     """ID of the line item to update"""
 
-    amount: Required[str]
-    """New amount in smallest currency unit"""
-
     op: Required[Literal["update"]]
     """Operation type - update an existing line item"""
+
+    amount: str
+    """Deprecated: use price instead. Total amount in smallest currency unit."""
+
+    price: LineItemsUpdateUpdateLineItemOperationPrice
+    """Price breakdown. Provide amount, or unit_price + quantity, or all three."""
 
 
 class LineItemsUpdateDeleteLineItemOperation(TypedDict, total=False):
