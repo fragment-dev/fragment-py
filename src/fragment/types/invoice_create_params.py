@@ -11,6 +11,7 @@ __all__ = [
     "LineItemUser",
     "LineItemUserID",
     "LineItemUserExternalID",
+    "LineItemPrice",
     "LineItemTag",
     "Tag",
 ]
@@ -43,6 +44,22 @@ class LineItemUserExternalID(TypedDict, total=False):
 LineItemUser: TypeAlias = Union[LineItemUserID, LineItemUserExternalID]
 
 
+class LineItemPrice(TypedDict, total=False):
+    """Price breakdown. Provide amount, or unit_price + quantity, or all three."""
+
+    amount: str
+    """Total amount in smallest currency unit.
+
+    Required if unit_price and quantity are not provided.
+    """
+
+    quantity: int
+    """Number of units for this line item."""
+
+    unit_price: str
+    """Price per unit in smallest currency unit."""
+
+
 class LineItemTag(TypedDict, total=False):
     """A key-value tag pair for metadata"""
 
@@ -64,9 +81,6 @@ class LineItemTag(TypedDict, total=False):
 class LineItem(TypedDict, total=False):
     """Line item data for creating within an invoice."""
 
-    amount: Required[str]
-    """Amount in smallest currency unit (e.g., cents)"""
-
     description: Required[str]
     """Description of the line item"""
 
@@ -77,6 +91,9 @@ class LineItem(TypedDict, total=False):
     """The type of the line item"""
 
     user: Required[LineItemUser]
+
+    amount: str
+    """Deprecated: use price instead. Total amount in smallest currency unit."""
 
     currency_code: Literal[
         "ADA",
@@ -260,6 +277,9 @@ class LineItem(TypedDict, total=False):
         "CUSTOM",
     ]
     """Currency code (ISO 4217 or crypto)"""
+
+    price: LineItemPrice
+    """Price breakdown. Provide amount, or unit_price + quantity, or all three."""
 
     tags: Iterable[LineItemTag]
     """Optional metadata tags for this line item"""

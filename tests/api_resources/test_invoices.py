@@ -31,7 +31,6 @@ class TestInvoices:
             invoice_id="invoice_2024_001",
             line_items=[
                 {
-                    "amount": "1000",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
@@ -48,12 +47,17 @@ class TestInvoices:
             invoice_id="invoice_2024_001",
             line_items=[
                 {
-                    "amount": "1000",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
                     "user": {"id": "user_abc123"},
+                    "amount": "1000",
                     "currency_code": "USD",
+                    "price": {
+                        "amount": "1000",
+                        "quantity": 2,
+                        "unit_price": "500",
+                    },
                     "tags": [
                         {
                             "key": "region",
@@ -78,7 +82,6 @@ class TestInvoices:
             invoice_id="invoice_2024_001",
             line_items=[
                 {
-                    "amount": "1000",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
@@ -99,7 +102,6 @@ class TestInvoices:
             invoice_id="invoice_2024_001",
             line_items=[
                 {
-                    "amount": "1000",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
@@ -164,7 +166,6 @@ class TestInvoices:
             id="inv_1234567890",
             line_items_update=[
                 {
-                    "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
@@ -184,7 +185,6 @@ class TestInvoices:
             id="inv_1234567890",
             line_items_update=[
                 {
-                    "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
@@ -208,7 +208,6 @@ class TestInvoices:
             id="inv_1234567890",
             line_items_update=[
                 {
-                    "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
@@ -235,7 +234,6 @@ class TestInvoices:
                 id="",
                 line_items_update=[
                     {
-                        "amount": "1000",
                         "currency_code": "USD",
                         "description": "Professional services for January 2026",
                         "op": "add",
@@ -394,7 +392,6 @@ class TestAsyncInvoices:
             invoice_id="invoice_2024_001",
             line_items=[
                 {
-                    "amount": "1000",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
@@ -411,12 +408,17 @@ class TestAsyncInvoices:
             invoice_id="invoice_2024_001",
             line_items=[
                 {
-                    "amount": "1000",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
                     "user": {"id": "user_abc123"},
+                    "amount": "1000",
                     "currency_code": "USD",
+                    "price": {
+                        "amount": "1000",
+                        "quantity": 2,
+                        "unit_price": "500",
+                    },
                     "tags": [
                         {
                             "key": "region",
@@ -441,7 +443,6 @@ class TestAsyncInvoices:
             invoice_id="invoice_2024_001",
             line_items=[
                 {
-                    "amount": "1000",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
@@ -462,7 +463,6 @@ class TestAsyncInvoices:
             invoice_id="invoice_2024_001",
             line_items=[
                 {
-                    "amount": "1000",
                     "description": "Professional services for January 2026",
                     "product_id": "prod_1234567890",
                     "type": "payout",
@@ -527,7 +527,6 @@ class TestAsyncInvoices:
             id="inv_1234567890",
             line_items_update=[
                 {
-                    "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
@@ -547,7 +546,6 @@ class TestAsyncInvoices:
             id="inv_1234567890",
             line_items_update=[
                 {
-                    "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
@@ -571,7 +569,6 @@ class TestAsyncInvoices:
             id="inv_1234567890",
             line_items_update=[
                 {
-                    "amount": "1000",
                     "currency_code": "USD",
                     "description": "Professional services for January 2026",
                     "op": "add",
@@ -598,7 +595,6 @@ class TestAsyncInvoices:
                 id="",
                 line_items_update=[
                     {
-                        "amount": "1000",
                         "currency_code": "USD",
                         "description": "Professional services for January 2026",
                         "op": "add",

@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.8.0 (2026-03-20)
+
+Full Changelog: [v0.7.0...v0.8.0](https://github.com/fragment-dev/fragment-py/compare/v0.7.0...v0.8.0)
+
+### Features
+
+* **api:** update SDK from prod (53b45d453f41b1366df505c650638a5bc0772a9b) ([8f028ed](https://github.com/fragment-dev/fragment-py/commit/8f028ed1c3903c9e0c6666e025469a3d22964f04))
+* **api:** update SDK from prod (7939c0e32c1f9c777bb9a7ec9365aa0a4fd7a926) ([6b465f3](https://github.com/fragment-dev/fragment-py/commit/6b465f3f923c4435676b6ac89ca5501ff3db31c2))
+
 ## 0.7.0 (2026-03-19)
 
 Full Changelog: [v0.6.0...v0.7.0](https://github.com/fragment-dev/fragment-py/compare/v0.6.0...v0.7.0)
