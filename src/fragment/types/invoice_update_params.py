@@ -281,6 +281,7 @@ class LineItemsUpdateAddLineItemOperation(TypedDict, total=False):
     """The type of the line item"""
 
     user: Required[LineItemsUpdateAddLineItemOperationUser]
+    """Identifies a user by Fragment-generated id or external_id (request body)."""
 
     amount: str
     """Deprecated: use price instead. Total amount in smallest currency unit."""

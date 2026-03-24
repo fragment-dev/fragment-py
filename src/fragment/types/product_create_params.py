@@ -8,11 +8,11 @@ from typing_extensions import Required, TypeAlias, TypedDict
 __all__ = [
     "ProductCreateParams",
     "PaidByRole",
-    "PaidByRoleRoleMatchByID",
-    "PaidByRoleRoleMatchByName",
+    "PaidByRoleID",
+    "PaidByRoleName",
     "PaidToRole",
-    "PaidToRoleRoleMatchByID",
-    "PaidToRoleRoleMatchByName",
+    "PaidToRoleID",
+    "PaidToRoleName",
 ]
 
 
@@ -38,27 +38,27 @@ class ProductCreateParams(TypedDict, total=False):
     """
 
 
-class PaidByRoleRoleMatchByID(TypedDict, total=False):
+class PaidByRoleID(TypedDict, total=False):
     id: Required[str]
     """The unique ID of the role"""
 
 
-class PaidByRoleRoleMatchByName(TypedDict, total=False):
+class PaidByRoleName(TypedDict, total=False):
     name: Required[str]
     """The name of the role"""
 
 
-PaidByRole: TypeAlias = Union[PaidByRoleRoleMatchByID, PaidByRoleRoleMatchByName]
+PaidByRole: TypeAlias = Union[PaidByRoleID, PaidByRoleName]
 
 
-class PaidToRoleRoleMatchByID(TypedDict, total=False):
+class PaidToRoleID(TypedDict, total=False):
     id: Required[str]
     """The unique ID of the role"""
 
 
-class PaidToRoleRoleMatchByName(TypedDict, total=False):
+class PaidToRoleName(TypedDict, total=False):
     name: Required[str]
     """The name of the role"""
 
 
-PaidToRole: TypeAlias = Union[PaidToRoleRoleMatchByID, PaidToRoleRoleMatchByName]
+PaidToRole: TypeAlias = Union[PaidToRoleID, PaidToRoleName]

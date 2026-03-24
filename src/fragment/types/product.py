@@ -9,7 +9,7 @@ __all__ = ["Product", "PaidByRole", "PaidToRole"]
 
 
 class PaidByRole(BaseModel):
-    """Reference to a role by its unique ID"""
+    """Role reference in product API responses."""
 
     id: str
     """The unique ID of the role"""
@@ -19,7 +19,7 @@ class PaidByRole(BaseModel):
 
 
 class PaidToRole(BaseModel):
-    """Reference to a role by its unique ID"""
+    """Role reference in product API responses."""
 
     id: str
     """The unique ID of the role"""

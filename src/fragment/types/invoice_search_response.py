@@ -83,6 +83,8 @@ class DataInvoicePaymentTransactionTag(BaseModel):
 
 
 class DataInvoicePaymentTransaction(BaseModel):
+    """Reference to a transaction by encoded ID and external ID."""
+
     id: str
     """Encoded transaction ID."""
 
@@ -94,6 +96,8 @@ class DataInvoicePaymentTransaction(BaseModel):
 
 
 class DataInvoicePaymentUser(BaseModel):
+    """User reference in API responses: Fragment user id and optional external_id."""
+
     id: str
     """FRAGMENT generated ID of the user"""
 
@@ -294,11 +298,13 @@ class DataInvoicePayment(BaseModel):
     """Posted timestamp of the parent transaction in ISO 8601 format."""
 
     transaction: DataInvoicePaymentTransaction
+    """Reference to a transaction by encoded ID and external ID."""
 
     type: Literal["payin", "payout"]
     """The type of the payment."""
 
     user: DataInvoicePaymentUser
+    """User reference in API responses: Fragment user id and optional external_id."""
 
 
 class DataInvoiceUserBalanceNet(BaseModel):
