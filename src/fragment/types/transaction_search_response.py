@@ -20,6 +20,8 @@ __all__ = [
 
 
 class DataDiffAddAllocationDiffEntryItemUser(BaseModel):
+    """User reference in API responses: Fragment user id and optional external_id."""
+
     id: str
     """FRAGMENT generated ID of the user"""
 
@@ -40,6 +42,7 @@ class DataDiffAddAllocationDiffEntryItem(BaseModel):
     """The type of allocation."""
 
     user: DataDiffAddAllocationDiffEntryItemUser
+    """User reference in API responses: Fragment user id and optional external_id."""
 
 
 class DataDiffAddAllocationDiffEntry(BaseModel):
@@ -51,6 +54,8 @@ class DataDiffAddAllocationDiffEntry(BaseModel):
 
 
 class DataDiffDeleteAllocationDiffEntryItemUser(BaseModel):
+    """User reference in API responses: Fragment user id and optional external_id."""
+
     id: str
     """FRAGMENT generated ID of the user"""
 
@@ -71,6 +76,7 @@ class DataDiffDeleteAllocationDiffEntryItem(BaseModel):
     """The type of allocation."""
 
     user: DataDiffDeleteAllocationDiffEntryItemUser
+    """User reference in API responses: Fragment user id and optional external_id."""
 
 
 class DataDiffDeleteAllocationDiffEntry(BaseModel):

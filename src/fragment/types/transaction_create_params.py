@@ -263,6 +263,7 @@ class Allocation(TypedDict, total=False):
     """The type of allocation."""
 
     user: Required[AllocationUser]
+    """Identifies a user by Fragment-generated id or external_id (request body)."""
 
 
 class Tag(TypedDict, total=False):
