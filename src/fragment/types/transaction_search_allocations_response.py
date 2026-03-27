@@ -36,10 +36,10 @@ class Data(BaseModel):
     """Allocation ID."""
 
     amount: str
-    """Amount to allocate in smallest currency unit as stringified bigint."""
+    """Allocated amount in smallest currency unit as stringified bigint."""
 
     invoice_id: str
-    """The invoice to allocate against."""
+    """The invoice this allocation is applied against."""
 
     posted: datetime
     """Posted timestamp of the parent transaction in ISO 8601 format."""

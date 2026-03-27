@@ -12,6 +12,7 @@ from ..types import (
     transaction_list_params,
     transaction_create_params,
     transaction_search_params,
+    transaction_update_params,
     transaction_create_allocations_params,
     transaction_search_allocations_params,
 )
@@ -29,6 +30,7 @@ from .._base_client import make_request_options
 from ..types.transaction_list_response import TransactionListResponse
 from ..types.transaction_create_response import TransactionCreateResponse
 from ..types.transaction_search_response import TransactionSearchResponse
+from ..types.transaction_update_response import TransactionUpdateResponse
 from ..types.transaction_retrieve_response import TransactionRetrieveResponse
 from ..types.transaction_list_history_response import TransactionListHistoryResponse
 from ..types.transaction_create_allocations_response import TransactionCreateAllocationsResponse
@@ -337,6 +339,55 @@ class TransactionsResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=TransactionRetrieveResponse,
+        )
+
+    def update(
+        self,
+        transaction_ref: str,
+        *,
+        current_transaction_version: int,
+        allocations: transaction_update_params.Allocations | Omit = omit,
+        tags: transaction_update_params.Tags | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TransactionUpdateResponse:
+        """
+        Updates a transaction (tags, allocations, or both)
+
+        Args:
+          transaction_ref: Transaction reference. Accepts either an encoded Fragment ID (txn_xxx) or an
+              external ID.
+
+          current_transaction_version: Current transaction version for optimistic concurrency control.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not transaction_ref:
+            raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
+        return self._patch(
+            path_template("/transactions/{transaction_ref}", transaction_ref=transaction_ref),
+            body=maybe_transform(
+                {
+                    "current_transaction_version": current_transaction_version,
+                    "allocations": allocations,
+                    "tags": tags,
+                },
+                transaction_update_params.TransactionUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TransactionUpdateResponse,
         )
 
     def list(
@@ -846,6 +897,55 @@ class AsyncTransactionsResource(AsyncAPIResource):
             cast_to=TransactionRetrieveResponse,
         )
 
+    async def update(
+        self,
+        transaction_ref: str,
+        *,
+        current_transaction_version: int,
+        allocations: transaction_update_params.Allocations | Omit = omit,
+        tags: transaction_update_params.Tags | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TransactionUpdateResponse:
+        """
+        Updates a transaction (tags, allocations, or both)
+
+        Args:
+          transaction_ref: Transaction reference. Accepts either an encoded Fragment ID (txn_xxx) or an
+              external ID.
+
+          current_transaction_version: Current transaction version for optimistic concurrency control.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not transaction_ref:
+            raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
+        return await self._patch(
+            path_template("/transactions/{transaction_ref}", transaction_ref=transaction_ref),
+            body=await async_maybe_transform(
+                {
+                    "current_transaction_version": current_transaction_version,
+                    "allocations": allocations,
+                    "tags": tags,
+                },
+                transaction_update_params.TransactionUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TransactionUpdateResponse,
+        )
+
     async def list(
         self,
         *,
@@ -1061,6 +1161,9 @@ class TransactionsResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             transactions.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            transactions.update,
+        )
         self.list = to_raw_response_wrapper(
             transactions.list,
         )
@@ -1087,6 +1190,9 @@ class AsyncTransactionsResourceWithRawResponse:
         )
         self.retrieve = async_to_raw_response_wrapper(
             transactions.retrieve,
+        )
+        self.update = async_to_raw_response_wrapper(
+            transactions.update,
         )
         self.list = async_to_raw_response_wrapper(
             transactions.list,
@@ -1115,6 +1221,9 @@ class TransactionsResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             transactions.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            transactions.update,
+        )
         self.list = to_streamed_response_wrapper(
             transactions.list,
         )
@@ -1141,6 +1250,9 @@ class AsyncTransactionsResourceWithStreamingResponse:
         )
         self.retrieve = async_to_streamed_response_wrapper(
             transactions.retrieve,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            transactions.update,
         )
         self.list = async_to_streamed_response_wrapper(
             transactions.list,

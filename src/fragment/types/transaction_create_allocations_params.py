@@ -40,6 +40,8 @@ AllocationUpdateAddAllocationOperationUser: TypeAlias = Union[
 
 
 class AllocationUpdateAddAllocationOperation(TypedDict, total=False):
+    """Transaction allocation against an invoice."""
+
     amount: Required[str]
     """Amount to allocate in smallest currency unit as stringified bigint."""
 
