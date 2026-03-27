@@ -35,7 +35,7 @@ Methods:
 
 - <code title="post /invoices">client.invoices.<a href="./src/fragment/resources/invoices.py">create</a>(\*\*<a href="src/fragment/types/invoice_create_params.py">params</a>) -> <a href="./src/fragment/types/invoice_create_response.py">InvoiceCreateResponse</a></code>
 - <code title="get /invoices/{id}">client.invoices.<a href="./src/fragment/resources/invoices.py">retrieve</a>(id) -> <a href="./src/fragment/types/invoice_retrieve_response.py">InvoiceRetrieveResponse</a></code>
-- <code title="post /invoices/{id}">client.invoices.<a href="./src/fragment/resources/invoices.py">update</a>(id, \*\*<a href="src/fragment/types/invoice_update_params.py">params</a>) -> <a href="./src/fragment/types/invoice_update_response.py">InvoiceUpdateResponse</a></code>
+- <code title="patch /invoices/{id}">client.invoices.<a href="./src/fragment/resources/invoices.py">update</a>(id, \*\*<a href="src/fragment/types/invoice_update_params.py">params</a>) -> <a href="./src/fragment/types/invoice_update_response.py">InvoiceUpdateResponse</a></code>
 - <code title="get /invoices">client.invoices.<a href="./src/fragment/resources/invoices.py">list</a>() -> <a href="./src/fragment/types/invoice_list_response.py">InvoiceListResponse</a></code>
 - <code title="get /invoices/{id}/history">client.invoices.<a href="./src/fragment/resources/invoices.py">list_history</a>(id) -> <a href="./src/fragment/types/invoice_list_history_response.py">InvoiceListHistoryResponse</a></code>
 - <code title="post /invoices/search">client.invoices.<a href="./src/fragment/resources/invoices.py">search</a>(\*\*<a href="src/fragment/types/invoice_search_params.py">params</a>) -> <a href="./src/fragment/types/invoice_search_response.py">InvoiceSearchResponse</a></code>

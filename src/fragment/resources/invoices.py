@@ -138,8 +138,9 @@ class InvoicesResource(SyncAPIResource):
         self,
         id: str,
         *,
-        line_items_update: Iterable[invoice_update_params.LineItemsUpdate],
-        version: float,
+        current_invoice_version: float,
+        line_items: invoice_update_params.LineItems | Omit = omit,
+        tags: invoice_update_params.Tags | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -148,15 +149,13 @@ class InvoicesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceUpdateResponse:
         """
-        Updates an invoice with line item operations
+        Updates an invoice
 
         Args:
           id: Invoice ID
 
-          line_items_update: List of line item operations to apply to the invoice
-
-          version: The version of the invoice being updated. Must match the current version for the
-              update to succeed.
+          current_invoice_version: The current version of the invoice. Must match the stored version for the update
+              to succeed (optimistic concurrency).
 
           extra_headers: Send extra headers
 
@@ -168,12 +167,13 @@ class InvoicesResource(SyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return self._post(
+        return self._patch(
             path_template("/invoices/{id}", id=id),
             body=maybe_transform(
                 {
-                    "line_items_update": line_items_update,
-                    "version": version,
+                    "current_invoice_version": current_invoice_version,
+                    "line_items": line_items,
+                    "tags": tags,
                 },
                 invoice_update_params.InvoiceUpdateParams,
             ),
@@ -391,8 +391,9 @@ class AsyncInvoicesResource(AsyncAPIResource):
         self,
         id: str,
         *,
-        line_items_update: Iterable[invoice_update_params.LineItemsUpdate],
-        version: float,
+        current_invoice_version: float,
+        line_items: invoice_update_params.LineItems | Omit = omit,
+        tags: invoice_update_params.Tags | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -401,15 +402,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceUpdateResponse:
         """
-        Updates an invoice with line item operations
+        Updates an invoice
 
         Args:
           id: Invoice ID
 
-          line_items_update: List of line item operations to apply to the invoice
-
-          version: The version of the invoice being updated. Must match the current version for the
-              update to succeed.
+          current_invoice_version: The current version of the invoice. Must match the stored version for the update
+              to succeed (optimistic concurrency).
 
           extra_headers: Send extra headers
 
@@ -421,12 +420,13 @@ class AsyncInvoicesResource(AsyncAPIResource):
         """
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
-        return await self._post(
+        return await self._patch(
             path_template("/invoices/{id}", id=id),
             body=await async_maybe_transform(
                 {
-                    "line_items_update": line_items_update,
-                    "version": version,
+                    "current_invoice_version": current_invoice_version,
+                    "line_items": line_items,
+                    "tags": tags,
                 },
                 invoice_update_params.InvoiceUpdateParams,
             ),

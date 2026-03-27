@@ -79,7 +79,7 @@ class LineItemTag(TypedDict, total=False):
 
 
 class LineItem(TypedDict, total=False):
-    """Line item data for creating within an invoice."""
+    """Data to create a line item."""
 
     description: Required[str]
     """Description of the line item"""
