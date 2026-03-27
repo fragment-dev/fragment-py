@@ -266,7 +266,7 @@ class Invoice(BaseModel):
     """ISO 8601 timestamp when the invoice was created"""
 
     status: Literal["active"]
-    """The status of the invoice"""
+    """Deprecated: The status of the invoice"""
 
     tags: List[Tag]
     """Metadata tags for this invoice"""

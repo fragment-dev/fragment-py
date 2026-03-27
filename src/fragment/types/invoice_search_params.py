@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = ["InvoiceSearchParams", "Filter", "FilterTags", "FilterTagsAll", "FilterTagsAny", "PageInfo"]
 
@@ -61,6 +61,12 @@ class FilterTags(TypedDict, total=False):
 
 class Filter(TypedDict, total=False):
     """Filter criteria for the search"""
+
+    status: Literal["open"]
+    """Filter by invoice status.
+
+    `open` returns invoices with non-zero clearing account balances.
+    """
 
     tags: FilterTags
     """Tag-based filter criteria.
