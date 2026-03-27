@@ -16,6 +16,7 @@ __all__ = [
     "DataDiffDeleteAllocationDiffEntry",
     "DataDiffDeleteAllocationDiffEntryItem",
     "DataDiffDeleteAllocationDiffEntryItemUser",
+    "DataDiffUpdateAllocationDiffEntry",
 ]
 
 
@@ -33,10 +34,10 @@ class DataDiffAddAllocationDiffEntryItem(BaseModel):
     """Transaction allocation against an invoice."""
 
     amount: str
-    """Amount to allocate in smallest currency unit as stringified bigint."""
+    """Allocated amount in smallest currency unit as stringified bigint."""
 
     invoice_id: str
-    """The invoice to allocate against."""
+    """The invoice this allocation is applied against."""
 
     type: Literal["invoice_payin", "invoice_payout"]
     """The type of allocation."""
@@ -67,10 +68,10 @@ class DataDiffDeleteAllocationDiffEntryItem(BaseModel):
     """Transaction allocation against an invoice."""
 
     amount: str
-    """Amount to allocate in smallest currency unit as stringified bigint."""
+    """Allocated amount in smallest currency unit as stringified bigint."""
 
     invoice_id: str
-    """The invoice to allocate against."""
+    """The invoice this allocation is applied against."""
 
     type: Literal["invoice_payin", "invoice_payout"]
     """The type of allocation."""
@@ -87,7 +88,23 @@ class DataDiffDeleteAllocationDiffEntry(BaseModel):
     """An allocation was deleted"""
 
 
-DataDiff: TypeAlias = Union[DataDiffAddAllocationDiffEntry, DataDiffDeleteAllocationDiffEntry]
+class DataDiffUpdateAllocationDiffEntry(BaseModel):
+    id: str
+    """The ID of the updated allocation."""
+
+    new_amount: str
+    """New amount in smallest currency unit as stringified bigint."""
+
+    old_amount: str
+    """Previous amount in smallest currency unit as stringified bigint."""
+
+    op: Literal["update"]
+    """An allocation was updated"""
+
+
+DataDiff: TypeAlias = Union[
+    DataDiffAddAllocationDiffEntry, DataDiffDeleteAllocationDiffEntry, DataDiffUpdateAllocationDiffEntry
+]
 
 
 class Data(Transaction):

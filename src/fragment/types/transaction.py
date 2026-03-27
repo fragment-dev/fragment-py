@@ -33,10 +33,10 @@ class Allocation(BaseModel):
     """Transaction allocation against an invoice."""
 
     amount: str
-    """Amount to allocate in smallest currency unit as stringified bigint."""
+    """Allocated amount in smallest currency unit as stringified bigint."""
 
     invoice_id: str
-    """The invoice to allocate against."""
+    """The invoice this allocation is applied against."""
 
     type: Literal["invoice_payin", "invoice_payout"]
     """The type of allocation."""

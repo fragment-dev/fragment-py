@@ -13,6 +13,7 @@ from fragment.types import (
     TransactionListResponse,
     TransactionCreateResponse,
     TransactionSearchResponse,
+    TransactionUpdateResponse,
     TransactionRetrieveResponse,
     TransactionListHistoryResponse,
     TransactionCreateAllocationsResponse,
@@ -165,6 +166,92 @@ class TestTransactions:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction_ref` but received ''"):
             client.transactions.with_raw_response.retrieve(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_update(self, client: Fragment) -> None:
+        transaction = client.transactions.update(
+            transaction_ref="txn_abc123",
+            current_transaction_version=0,
+        )
+        assert_matches_type(TransactionUpdateResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_update_with_all_params(self, client: Fragment) -> None:
+        transaction = client.transactions.update(
+            transaction_ref="txn_abc123",
+            current_transaction_version=0,
+            allocations={
+                "create": [
+                    {
+                        "amount": "1000",
+                        "invoice_id": "inv_abc123",
+                        "type": "invoice_payin",
+                        "user": {"id": "user_abc123"},
+                    }
+                ],
+                "update": [
+                    {
+                        "id": "alloc_abc123",
+                        "amount": "2000",
+                    }
+                ],
+            },
+            tags={
+                "create": [
+                    {
+                        "key": "region",
+                        "value": "us-east",
+                    }
+                ],
+                "delete": [{"key": "key"}],
+                "update": [
+                    {
+                        "key": "region",
+                        "value": "eu-west-1",
+                    }
+                ],
+            },
+        )
+        assert_matches_type(TransactionUpdateResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_update(self, client: Fragment) -> None:
+        response = client.transactions.with_raw_response.update(
+            transaction_ref="txn_abc123",
+            current_transaction_version=0,
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        transaction = response.parse()
+        assert_matches_type(TransactionUpdateResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_update(self, client: Fragment) -> None:
+        with client.transactions.with_streaming_response.update(
+            transaction_ref="txn_abc123",
+            current_transaction_version=0,
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            transaction = response.parse()
+            assert_matches_type(TransactionUpdateResponse, transaction, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_update(self, client: Fragment) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction_ref` but received ''"):
+            client.transactions.with_raw_response.update(
+                transaction_ref="",
+                current_transaction_version=0,
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -541,6 +628,92 @@ class TestAsyncTransactions:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction_ref` but received ''"):
             await async_client.transactions.with_raw_response.retrieve(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_update(self, async_client: AsyncFragment) -> None:
+        transaction = await async_client.transactions.update(
+            transaction_ref="txn_abc123",
+            current_transaction_version=0,
+        )
+        assert_matches_type(TransactionUpdateResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncFragment) -> None:
+        transaction = await async_client.transactions.update(
+            transaction_ref="txn_abc123",
+            current_transaction_version=0,
+            allocations={
+                "create": [
+                    {
+                        "amount": "1000",
+                        "invoice_id": "inv_abc123",
+                        "type": "invoice_payin",
+                        "user": {"id": "user_abc123"},
+                    }
+                ],
+                "update": [
+                    {
+                        "id": "alloc_abc123",
+                        "amount": "2000",
+                    }
+                ],
+            },
+            tags={
+                "create": [
+                    {
+                        "key": "region",
+                        "value": "us-east",
+                    }
+                ],
+                "delete": [{"key": "key"}],
+                "update": [
+                    {
+                        "key": "region",
+                        "value": "eu-west-1",
+                    }
+                ],
+            },
+        )
+        assert_matches_type(TransactionUpdateResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_update(self, async_client: AsyncFragment) -> None:
+        response = await async_client.transactions.with_raw_response.update(
+            transaction_ref="txn_abc123",
+            current_transaction_version=0,
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        transaction = await response.parse()
+        assert_matches_type(TransactionUpdateResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_update(self, async_client: AsyncFragment) -> None:
+        async with async_client.transactions.with_streaming_response.update(
+            transaction_ref="txn_abc123",
+            current_transaction_version=0,
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            transaction = await response.parse()
+            assert_matches_type(TransactionUpdateResponse, transaction, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_update(self, async_client: AsyncFragment) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction_ref` but received ''"):
+            await async_client.transactions.with_raw_response.update(
+                transaction_ref="",
+                current_transaction_version=0,
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
