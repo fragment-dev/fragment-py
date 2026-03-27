@@ -363,6 +363,7 @@ class TestInvoices:
     def test_method_search_with_all_params(self, client: Fragment) -> None:
         invoice = client.invoices.search(
             filter={
+                "status": "open",
                 "tags": {
                     "all": [
                         {
@@ -376,7 +377,7 @@ class TestInvoices:
                             "value": "us-*",
                         }
                     ],
-                }
+                },
             },
             page_info={
                 "after": "after",
@@ -758,6 +759,7 @@ class TestAsyncInvoices:
     async def test_method_search_with_all_params(self, async_client: AsyncFragment) -> None:
         invoice = await async_client.invoices.search(
             filter={
+                "status": "open",
                 "tags": {
                     "all": [
                         {
@@ -771,7 +773,7 @@ class TestAsyncInvoices:
                             "value": "us-*",
                         }
                     ],
-                }
+                },
             },
             page_info={
                 "after": "after",
