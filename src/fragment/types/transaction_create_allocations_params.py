@@ -53,6 +53,7 @@ class AllocationUpdateAddAllocationOperation(TypedDict, total=False):
     """The type of allocation."""
 
     user: Required[AllocationUpdateAddAllocationOperationUser]
+    """Identifies a user by Fragment-generated id or external_id (request body)."""
 
 
 class AllocationUpdateDeleteAllocationOperation(TypedDict, total=False):

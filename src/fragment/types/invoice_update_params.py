@@ -7,46 +7,54 @@ from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 __all__ = [
     "InvoiceUpdateParams",
+    "LineItems",
+    "LineItemsCreate",
+    "LineItemsCreateUser",
+    "LineItemsCreateUserID",
+    "LineItemsCreateUserExternalID",
+    "LineItemsCreatePrice",
+    "LineItemsCreateTag",
+    "LineItemsDelete",
     "LineItemsUpdate",
-    "LineItemsUpdateAddLineItemOperation",
-    "LineItemsUpdateAddLineItemOperationUser",
-    "LineItemsUpdateAddLineItemOperationUserID",
-    "LineItemsUpdateAddLineItemOperationUserExternalID",
-    "LineItemsUpdateAddLineItemOperationPrice",
-    "LineItemsUpdateAddLineItemOperationTag",
-    "LineItemsUpdateUpdateLineItemOperation",
-    "LineItemsUpdateUpdateLineItemOperationPrice",
-    "LineItemsUpdateDeleteLineItemOperation",
+    "LineItemsUpdatePrice",
+    "LineItemsUpdateTags",
+    "LineItemsUpdateTagsCreate",
+    "LineItemsUpdateTagsDelete",
+    "LineItemsUpdateTagsUpdate",
+    "Tags",
+    "TagsCreate",
+    "TagsDelete",
+    "TagsUpdate",
 ]
 
 
 class InvoiceUpdateParams(TypedDict, total=False):
-    line_items_update: Required[Iterable[LineItemsUpdate]]
-    """List of line item operations to apply to the invoice"""
+    current_invoice_version: Required[float]
+    """The current version of the invoice.
 
-    version: Required[float]
-    """The version of the invoice being updated.
-
-    Must match the current version for the update to succeed.
+    Must match the stored version for the update to succeed (optimistic
+    concurrency).
     """
 
+    line_items: LineItems
 
-class LineItemsUpdateAddLineItemOperationUserID(TypedDict, total=False):
+    tags: Tags
+
+
+class LineItemsCreateUserID(TypedDict, total=False):
     id: Required[str]
     """FRAGMENT generated ID of the user"""
 
 
-class LineItemsUpdateAddLineItemOperationUserExternalID(TypedDict, total=False):
+class LineItemsCreateUserExternalID(TypedDict, total=False):
     external_id: Required[str]
     """External ID of the user"""
 
 
-LineItemsUpdateAddLineItemOperationUser: TypeAlias = Union[
-    LineItemsUpdateAddLineItemOperationUserID, LineItemsUpdateAddLineItemOperationUserExternalID
-]
+LineItemsCreateUser: TypeAlias = Union[LineItemsCreateUserID, LineItemsCreateUserExternalID]
 
 
-class LineItemsUpdateAddLineItemOperationPrice(TypedDict, total=False):
+class LineItemsCreatePrice(TypedDict, total=False):
     """Price breakdown. Provide amount, or unit_price + quantity, or all three."""
 
     amount: str
@@ -62,7 +70,7 @@ class LineItemsUpdateAddLineItemOperationPrice(TypedDict, total=False):
     """Price per unit in smallest currency unit."""
 
 
-class LineItemsUpdateAddLineItemOperationTag(TypedDict, total=False):
+class LineItemsCreateTag(TypedDict, total=False):
     """A key-value tag pair for metadata"""
 
     key: Required[str]
@@ -80,199 +88,11 @@ class LineItemsUpdateAddLineItemOperationTag(TypedDict, total=False):
     """
 
 
-class LineItemsUpdateAddLineItemOperation(TypedDict, total=False):
-    """Operation to add a new line item to an invoice"""
-
-    currency_code: Required[
-        Literal[
-            "ADA",
-            "BTC",
-            "DAI",
-            "ETH",
-            "SOL",
-            "USDC",
-            "USDT",
-            "USDG",
-            "EURC",
-            "CADC",
-            "CADT",
-            "XLM",
-            "UNI",
-            "BCH",
-            "LTC",
-            "AAVE",
-            "LINK",
-            "MATIC",
-            "PTS",
-            "AED",
-            "AFN",
-            "ALL",
-            "AMD",
-            "ANG",
-            "AOA",
-            "ARS",
-            "AUD",
-            "AWG",
-            "AZN",
-            "BAM",
-            "BBD",
-            "BDT",
-            "BGN",
-            "BHD",
-            "BIF",
-            "BMD",
-            "BND",
-            "BOB",
-            "BRL",
-            "BSD",
-            "BTN",
-            "BWP",
-            "BYR",
-            "BZD",
-            "CAD",
-            "CDF",
-            "CHF",
-            "CLP",
-            "CNY",
-            "COP",
-            "CRC",
-            "CUC",
-            "CUP",
-            "CVE",
-            "CZK",
-            "DJF",
-            "DKK",
-            "DOP",
-            "DZD",
-            "EGP",
-            "ERN",
-            "ETB",
-            "EUR",
-            "FJD",
-            "FKP",
-            "GBP",
-            "GEL",
-            "GGP",
-            "GHS",
-            "GIP",
-            "GMD",
-            "GNF",
-            "GTQ",
-            "GYD",
-            "HKD",
-            "HNL",
-            "HRK",
-            "HTG",
-            "HUF",
-            "IDR",
-            "ILS",
-            "IMP",
-            "INR",
-            "IQD",
-            "IRR",
-            "ISK",
-            "JMD",
-            "JOD",
-            "JPY",
-            "KES",
-            "KGS",
-            "KHR",
-            "KMF",
-            "KPW",
-            "KRW",
-            "KWD",
-            "KYD",
-            "KZT",
-            "LAK",
-            "LBP",
-            "LKR",
-            "LRD",
-            "LSL",
-            "LYD",
-            "MAD",
-            "MDL",
-            "MGA",
-            "MKD",
-            "MMK",
-            "MNT",
-            "MOP",
-            "MUR",
-            "MVR",
-            "MWK",
-            "MXN",
-            "MYR",
-            "MZN",
-            "NAD",
-            "NGN",
-            "NIO",
-            "NOK",
-            "NPR",
-            "NZD",
-            "OMR",
-            "PAB",
-            "PEN",
-            "PGK",
-            "PHP",
-            "PKR",
-            "PLN",
-            "PYG",
-            "QAR",
-            "RON",
-            "RSD",
-            "RUB",
-            "RWF",
-            "SAR",
-            "SBD",
-            "SCR",
-            "SDG",
-            "SEK",
-            "SGD",
-            "SHP",
-            "SLL",
-            "SOS",
-            "SPL",
-            "SRD",
-            "SVC",
-            "SYP",
-            "STN",
-            "SZL",
-            "THB",
-            "TJS",
-            "TMT",
-            "TND",
-            "TOP",
-            "TRY",
-            "TTD",
-            "TVD",
-            "TWD",
-            "TZS",
-            "UAH",
-            "UGX",
-            "USD",
-            "UYU",
-            "UZS",
-            "VEF",
-            "VND",
-            "VUV",
-            "WST",
-            "XAF",
-            "XCD",
-            "XOF",
-            "XPF",
-            "YER",
-            "ZAR",
-            "ZMW",
-            "LOGICAL",
-            "CUSTOM",
-        ]
-    ]
-    """Currency code (ISO 4217 or crypto)"""
+class LineItemsCreate(TypedDict, total=False):
+    """Data to create a line item."""
 
     description: Required[str]
     """Description of the line item"""
-
-    op: Required[Literal["add"]]
-    """Operation type - add a new line item"""
 
     product_id: Required[str]
     """ID of the product/catalog item"""
@@ -280,60 +100,347 @@ class LineItemsUpdateAddLineItemOperation(TypedDict, total=False):
     type: Required[Literal["payin", "payout"]]
     """The type of the line item"""
 
-    user: Required[LineItemsUpdateAddLineItemOperationUser]
+    user: Required[LineItemsCreateUser]
+    """Identifies a user by Fragment-generated id or external_id (request body)."""
 
     amount: str
     """Deprecated: use price instead. Total amount in smallest currency unit."""
 
-    price: LineItemsUpdateAddLineItemOperationPrice
+    currency_code: Literal[
+        "ADA",
+        "BTC",
+        "DAI",
+        "ETH",
+        "SOL",
+        "USDC",
+        "USDT",
+        "USDG",
+        "EURC",
+        "CADC",
+        "CADT",
+        "XLM",
+        "UNI",
+        "BCH",
+        "LTC",
+        "AAVE",
+        "LINK",
+        "MATIC",
+        "PTS",
+        "AED",
+        "AFN",
+        "ALL",
+        "AMD",
+        "ANG",
+        "AOA",
+        "ARS",
+        "AUD",
+        "AWG",
+        "AZN",
+        "BAM",
+        "BBD",
+        "BDT",
+        "BGN",
+        "BHD",
+        "BIF",
+        "BMD",
+        "BND",
+        "BOB",
+        "BRL",
+        "BSD",
+        "BTN",
+        "BWP",
+        "BYR",
+        "BZD",
+        "CAD",
+        "CDF",
+        "CHF",
+        "CLP",
+        "CNY",
+        "COP",
+        "CRC",
+        "CUC",
+        "CUP",
+        "CVE",
+        "CZK",
+        "DJF",
+        "DKK",
+        "DOP",
+        "DZD",
+        "EGP",
+        "ERN",
+        "ETB",
+        "EUR",
+        "FJD",
+        "FKP",
+        "GBP",
+        "GEL",
+        "GGP",
+        "GHS",
+        "GIP",
+        "GMD",
+        "GNF",
+        "GTQ",
+        "GYD",
+        "HKD",
+        "HNL",
+        "HRK",
+        "HTG",
+        "HUF",
+        "IDR",
+        "ILS",
+        "IMP",
+        "INR",
+        "IQD",
+        "IRR",
+        "ISK",
+        "JMD",
+        "JOD",
+        "JPY",
+        "KES",
+        "KGS",
+        "KHR",
+        "KMF",
+        "KPW",
+        "KRW",
+        "KWD",
+        "KYD",
+        "KZT",
+        "LAK",
+        "LBP",
+        "LKR",
+        "LRD",
+        "LSL",
+        "LYD",
+        "MAD",
+        "MDL",
+        "MGA",
+        "MKD",
+        "MMK",
+        "MNT",
+        "MOP",
+        "MUR",
+        "MVR",
+        "MWK",
+        "MXN",
+        "MYR",
+        "MZN",
+        "NAD",
+        "NGN",
+        "NIO",
+        "NOK",
+        "NPR",
+        "NZD",
+        "OMR",
+        "PAB",
+        "PEN",
+        "PGK",
+        "PHP",
+        "PKR",
+        "PLN",
+        "PYG",
+        "QAR",
+        "RON",
+        "RSD",
+        "RUB",
+        "RWF",
+        "SAR",
+        "SBD",
+        "SCR",
+        "SDG",
+        "SEK",
+        "SGD",
+        "SHP",
+        "SLL",
+        "SOS",
+        "SPL",
+        "SRD",
+        "SVC",
+        "SYP",
+        "STN",
+        "SZL",
+        "THB",
+        "TJS",
+        "TMT",
+        "TND",
+        "TOP",
+        "TRY",
+        "TTD",
+        "TVD",
+        "TWD",
+        "TZS",
+        "UAH",
+        "UGX",
+        "USD",
+        "UYU",
+        "UZS",
+        "VEF",
+        "VND",
+        "VUV",
+        "WST",
+        "XAF",
+        "XCD",
+        "XOF",
+        "XPF",
+        "YER",
+        "ZAR",
+        "ZMW",
+        "LOGICAL",
+        "CUSTOM",
+    ]
+    """Currency code (ISO 4217 or crypto)"""
+
+    price: LineItemsCreatePrice
     """Price breakdown. Provide amount, or unit_price + quantity, or all three."""
 
-    tags: Iterable[LineItemsUpdateAddLineItemOperationTag]
+    tags: Iterable[LineItemsCreateTag]
     """Optional metadata tags for this line item"""
 
 
-class LineItemsUpdateUpdateLineItemOperationPrice(TypedDict, total=False):
-    """Price breakdown. Provide amount, or unit_price + quantity, or all three."""
+class LineItemsDelete(TypedDict, total=False):
+    id: Required[str]
+    """ID of the line item to delete"""
 
-    amount: str
-    """Total amount in smallest currency unit.
 
-    Required if unit_price and quantity are not provided.
-    """
-
-    quantity: int
+class LineItemsUpdatePrice(TypedDict, total=False):
+    quantity: Required[int]
     """Number of units for this line item."""
 
-    unit_price: str
+    unit_price: Required[str]
     """Price per unit in smallest currency unit."""
 
+    amount: str
+    """Total amount in smallest currency unit."""
 
-class LineItemsUpdateUpdateLineItemOperation(TypedDict, total=False):
-    """Operation to update an existing line item pricing"""
+
+class LineItemsUpdateTagsCreate(TypedDict, total=False):
+    """A key-value tag pair for metadata"""
+
+    key: Required[str]
+    """Tag key.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 50
+    characters.
+    """
+
+    value: Required[str]
+    """Tag value.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 200
+    characters.
+    """
+
+
+class LineItemsUpdateTagsDelete(TypedDict, total=False):
+    key: Required[str]
+    """Tag key to delete"""
+
+
+class LineItemsUpdateTagsUpdate(TypedDict, total=False):
+    """A key-value tag pair for metadata"""
+
+    key: Required[str]
+    """Tag key.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 50
+    characters.
+    """
+
+    value: Required[str]
+    """Tag value.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 200
+    characters.
+    """
+
+
+class LineItemsUpdateTags(TypedDict, total=False):
+    create: Iterable[LineItemsUpdateTagsCreate]
+    """Tags to add"""
+
+    delete: Iterable[LineItemsUpdateTagsDelete]
+    """Tags to remove by key"""
+
+    update: Iterable[LineItemsUpdateTagsUpdate]
+    """Tags to update.
+
+    The key identifies the existing tag; the value is the new value.
+    """
+
+
+class LineItemsUpdate(TypedDict, total=False):
+    """Partial update for an existing line item. All fields except id are optional."""
 
     id: Required[str]
     """ID of the line item to update"""
 
-    op: Required[Literal["update"]]
-    """Operation type - update an existing line item"""
+    description: str
 
-    amount: str
-    """Deprecated: use price instead. Total amount in smallest currency unit."""
+    price: LineItemsUpdatePrice
 
-    price: LineItemsUpdateUpdateLineItemOperationPrice
-    """Price breakdown. Provide amount, or unit_price + quantity, or all three."""
+    tags: LineItemsUpdateTags
 
 
-class LineItemsUpdateDeleteLineItemOperation(TypedDict, total=False):
-    """Operation to delete a line item from an invoice"""
+class LineItems(TypedDict, total=False):
+    create: Iterable[LineItemsCreate]
+    """Line items to add to the invoice"""
 
-    id: Required[str]
-    """ID of the line item to delete"""
+    delete: Iterable[LineItemsDelete]
+    """Line items to remove from the invoice"""
 
-    op: Required[Literal["delete"]]
-    """Operation type - delete an existing line item"""
+    update: Iterable[LineItemsUpdate]
+    """Existing line items to update"""
 
 
-LineItemsUpdate: TypeAlias = Union[
-    LineItemsUpdateAddLineItemOperation, LineItemsUpdateUpdateLineItemOperation, LineItemsUpdateDeleteLineItemOperation
-]
+class TagsCreate(TypedDict, total=False):
+    """A key-value tag pair for metadata"""
+
+    key: Required[str]
+    """Tag key.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 50
+    characters.
+    """
+
+    value: Required[str]
+    """Tag value.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 200
+    characters.
+    """
+
+
+class TagsDelete(TypedDict, total=False):
+    key: Required[str]
+    """Tag key to delete"""
+
+
+class TagsUpdate(TypedDict, total=False):
+    """A key-value tag pair for metadata"""
+
+    key: Required[str]
+    """Tag key.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 50
+    characters.
+    """
+
+    value: Required[str]
+    """Tag value.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 200
+    characters.
+    """
+
+
+class Tags(TypedDict, total=False):
+    create: Iterable[TagsCreate]
+    """Tags to add"""
+
+    delete: Iterable[TagsDelete]
+    """Tags to remove by key"""
+
+    update: Iterable[TagsUpdate]
+    """Tags to update.
+
+    The key identifies the existing tag; the value is the new value.
+    """

@@ -10,7 +10,7 @@ __all__ = ["TransactionSearchAllocationsResponse", "Data", "DataTransaction", "D
 
 
 class DataTransaction(BaseModel):
-    """Reference to the parent transaction."""
+    """Reference to a transaction by encoded ID and external ID."""
 
     id: str
     """Encoded transaction ID."""
@@ -20,6 +20,8 @@ class DataTransaction(BaseModel):
 
 
 class DataUser(BaseModel):
+    """User reference in API responses: Fragment user id and optional external_id."""
+
     id: str
     """FRAGMENT generated ID of the user"""
 
@@ -43,12 +45,13 @@ class Data(BaseModel):
     """Posted timestamp of the parent transaction in ISO 8601 format."""
 
     transaction: DataTransaction
-    """Reference to the parent transaction."""
+    """Reference to a transaction by encoded ID and external ID."""
 
     type: Literal["invoice_payin", "invoice_payout"]
     """The type of allocation."""
 
     user: DataUser
+    """User reference in API responses: Fragment user id and optional external_id."""
 
 
 class TransactionSearchAllocationsResponse(BaseModel):

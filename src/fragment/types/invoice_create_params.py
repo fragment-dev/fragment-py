@@ -79,7 +79,7 @@ class LineItemTag(TypedDict, total=False):
 
 
 class LineItem(TypedDict, total=False):
-    """Line item data for creating within an invoice."""
+    """Data to create a line item."""
 
     description: Required[str]
     """Description of the line item"""
@@ -91,6 +91,7 @@ class LineItem(TypedDict, total=False):
     """The type of the line item"""
 
     user: Required[LineItemUser]
+    """Identifies a user by Fragment-generated id or external_id (request body)."""
 
     amount: str
     """Deprecated: use price instead. Total amount in smallest currency unit."""

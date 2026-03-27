@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.9.0 (2026-03-27)
+
+Full Changelog: [v0.8.0...v0.9.0](https://github.com/fragment-dev/fragment-py/compare/v0.8.0...v0.9.0)
+
+### Features
+
+* **api:** manual updates ([4cb5001](https://github.com/fragment-dev/fragment-py/commit/4cb5001313aabfb5b92bed651d3a3d2162f1d594))
+* **api:** update SDK from prod (89a0dba7c923e028ea6cbb4d124e77667865c970) ([c74a6b1](https://github.com/fragment-dev/fragment-py/commit/c74a6b1d92e4c19c82de869e3356607cf4cb03de))
+* **internal:** implement indices array format for query and form serialization ([c21d461](https://github.com/fragment-dev/fragment-py/commit/c21d46172f022fa2e842815baa8aed28341edb0b))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([1509cfd](https://github.com/fragment-dev/fragment-py/commit/1509cfddbf2fad689af700b0ff9fc4fa3c8b5380))
+* **internal:** update gitignore ([941310c](https://github.com/fragment-dev/fragment-py/commit/941310cf0c9efc9c17ab770a2f496e5daa396806))
+
 ## 0.8.0 (2026-03-20)
 
 Full Changelog: [v0.7.0...v0.8.0](https://github.com/fragment-dev/fragment-py/compare/v0.7.0...v0.8.0)

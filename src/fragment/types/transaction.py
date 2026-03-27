@@ -10,6 +10,8 @@ __all__ = ["Transaction", "Account", "Allocation", "AllocationUser", "Tag"]
 
 
 class Account(BaseModel):
+    """External account reference on transaction responses."""
+
     id: str
     """User-facing encoded account ID."""
 
@@ -18,6 +20,8 @@ class Account(BaseModel):
 
 
 class AllocationUser(BaseModel):
+    """User reference in API responses: Fragment user id and optional external_id."""
+
     id: str
     """FRAGMENT generated ID of the user"""
 
@@ -38,6 +42,7 @@ class Allocation(BaseModel):
     """The type of allocation."""
 
     user: AllocationUser
+    """User reference in API responses: Fragment user id and optional external_id."""
 
 
 class Tag(BaseModel):
@@ -57,6 +62,7 @@ class Transaction(BaseModel):
     """User-facing encoded transaction ID."""
 
     account: Account
+    """External account reference on transaction responses."""
 
     allocations: List[Allocation]
 

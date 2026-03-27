@@ -164,17 +164,81 @@ class TestInvoices:
     def test_method_update(self, client: Fragment) -> None:
         invoice = client.invoices.update(
             id="inv_1234567890",
-            line_items_update=[
-                {
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "op": "add",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=1,
+            current_invoice_version=3,
+        )
+        assert_matches_type(InvoiceUpdateResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_update_with_all_params(self, client: Fragment) -> None:
+        invoice = client.invoices.update(
+            id="inv_1234567890",
+            current_invoice_version=3,
+            line_items={
+                "create": [
+                    {
+                        "description": "Professional services for January 2026",
+                        "product_id": "prod_1234567890",
+                        "type": "payout",
+                        "user": {"id": "user_abc123"},
+                        "amount": "1000",
+                        "currency_code": "USD",
+                        "price": {
+                            "amount": "1000",
+                            "quantity": 2,
+                            "unit_price": "500",
+                        },
+                        "tags": [
+                            {
+                                "key": "region",
+                                "value": "us-east",
+                            }
+                        ],
+                    }
+                ],
+                "delete": [{"id": "id"}],
+                "update": [
+                    {
+                        "id": "li_1234567890",
+                        "description": "description",
+                        "price": {
+                            "quantity": 2,
+                            "unit_price": "500",
+                            "amount": "2000",
+                        },
+                        "tags": {
+                            "create": [
+                                {
+                                    "key": "region",
+                                    "value": "us-east",
+                                }
+                            ],
+                            "delete": [{"key": "key"}],
+                            "update": [
+                                {
+                                    "key": "region",
+                                    "value": "eu-west-1",
+                                }
+                            ],
+                        },
+                    }
+                ],
+            },
+            tags={
+                "create": [
+                    {
+                        "key": "region",
+                        "value": "us-east",
+                    }
+                ],
+                "delete": [{"key": "key"}],
+                "update": [
+                    {
+                        "key": "region",
+                        "value": "eu-west-1",
+                    }
+                ],
+            },
         )
         assert_matches_type(InvoiceUpdateResponse, invoice, path=["response"])
 
@@ -183,17 +247,7 @@ class TestInvoices:
     def test_raw_response_update(self, client: Fragment) -> None:
         response = client.invoices.with_raw_response.update(
             id="inv_1234567890",
-            line_items_update=[
-                {
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "op": "add",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=1,
+            current_invoice_version=3,
         )
 
         assert response.is_closed is True
@@ -206,17 +260,7 @@ class TestInvoices:
     def test_streaming_response_update(self, client: Fragment) -> None:
         with client.invoices.with_streaming_response.update(
             id="inv_1234567890",
-            line_items_update=[
-                {
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "op": "add",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=1,
+            current_invoice_version=3,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -232,17 +276,7 @@ class TestInvoices:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.invoices.with_raw_response.update(
                 id="",
-                line_items_update=[
-                    {
-                        "currency_code": "USD",
-                        "description": "Professional services for January 2026",
-                        "op": "add",
-                        "product_id": "prod_1234567890",
-                        "type": "payout",
-                        "user": {"id": "user_abc123"},
-                    }
-                ],
-                version=1,
+                current_invoice_version=3,
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -525,17 +559,81 @@ class TestAsyncInvoices:
     async def test_method_update(self, async_client: AsyncFragment) -> None:
         invoice = await async_client.invoices.update(
             id="inv_1234567890",
-            line_items_update=[
-                {
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "op": "add",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=1,
+            current_invoice_version=3,
+        )
+        assert_matches_type(InvoiceUpdateResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncFragment) -> None:
+        invoice = await async_client.invoices.update(
+            id="inv_1234567890",
+            current_invoice_version=3,
+            line_items={
+                "create": [
+                    {
+                        "description": "Professional services for January 2026",
+                        "product_id": "prod_1234567890",
+                        "type": "payout",
+                        "user": {"id": "user_abc123"},
+                        "amount": "1000",
+                        "currency_code": "USD",
+                        "price": {
+                            "amount": "1000",
+                            "quantity": 2,
+                            "unit_price": "500",
+                        },
+                        "tags": [
+                            {
+                                "key": "region",
+                                "value": "us-east",
+                            }
+                        ],
+                    }
+                ],
+                "delete": [{"id": "id"}],
+                "update": [
+                    {
+                        "id": "li_1234567890",
+                        "description": "description",
+                        "price": {
+                            "quantity": 2,
+                            "unit_price": "500",
+                            "amount": "2000",
+                        },
+                        "tags": {
+                            "create": [
+                                {
+                                    "key": "region",
+                                    "value": "us-east",
+                                }
+                            ],
+                            "delete": [{"key": "key"}],
+                            "update": [
+                                {
+                                    "key": "region",
+                                    "value": "eu-west-1",
+                                }
+                            ],
+                        },
+                    }
+                ],
+            },
+            tags={
+                "create": [
+                    {
+                        "key": "region",
+                        "value": "us-east",
+                    }
+                ],
+                "delete": [{"key": "key"}],
+                "update": [
+                    {
+                        "key": "region",
+                        "value": "eu-west-1",
+                    }
+                ],
+            },
         )
         assert_matches_type(InvoiceUpdateResponse, invoice, path=["response"])
 
@@ -544,17 +642,7 @@ class TestAsyncInvoices:
     async def test_raw_response_update(self, async_client: AsyncFragment) -> None:
         response = await async_client.invoices.with_raw_response.update(
             id="inv_1234567890",
-            line_items_update=[
-                {
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "op": "add",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=1,
+            current_invoice_version=3,
         )
 
         assert response.is_closed is True
@@ -567,17 +655,7 @@ class TestAsyncInvoices:
     async def test_streaming_response_update(self, async_client: AsyncFragment) -> None:
         async with async_client.invoices.with_streaming_response.update(
             id="inv_1234567890",
-            line_items_update=[
-                {
-                    "currency_code": "USD",
-                    "description": "Professional services for January 2026",
-                    "op": "add",
-                    "product_id": "prod_1234567890",
-                    "type": "payout",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=1,
+            current_invoice_version=3,
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -593,17 +671,7 @@ class TestAsyncInvoices:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.invoices.with_raw_response.update(
                 id="",
-                line_items_update=[
-                    {
-                        "currency_code": "USD",
-                        "description": "Professional services for January 2026",
-                        "op": "add",
-                        "product_id": "prod_1234567890",
-                        "type": "payout",
-                        "user": {"id": "user_abc123"},
-                    }
-                ],
-                version=1,
+                current_invoice_version=3,
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
