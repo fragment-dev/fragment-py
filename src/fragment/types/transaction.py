@@ -20,12 +20,12 @@ class Account(BaseModel):
 
 
 class AllocationUser(BaseModel):
-    """User reference in API responses: Fragment user id and optional external_id."""
+    """User reference in API responses: Fragment user id and external_id."""
 
     id: str
     """FRAGMENT generated ID of the user"""
 
-    external_id: Optional[str] = None
+    external_id: str
     """External ID of the user"""
 
 
@@ -42,7 +42,7 @@ class Allocation(BaseModel):
     """The type of allocation."""
 
     user: AllocationUser
-    """User reference in API responses: Fragment user id and optional external_id."""
+    """User reference in API responses: Fragment user id and external_id."""
 
 
 class Tag(BaseModel):
