@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import List
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -20,12 +20,12 @@ class DataTransaction(BaseModel):
 
 
 class DataUser(BaseModel):
-    """User reference in API responses: Fragment user id and optional external_id."""
+    """User reference in API responses: Fragment user id and external_id."""
 
     id: str
     """FRAGMENT generated ID of the user"""
 
-    external_id: Optional[str] = None
+    external_id: str
     """External ID of the user"""
 
 
@@ -51,7 +51,7 @@ class Data(BaseModel):
     """The type of allocation."""
 
     user: DataUser
-    """User reference in API responses: Fragment user id and optional external_id."""
+    """User reference in API responses: Fragment user id and external_id."""
 
 
 class TransactionSearchAllocationsResponse(BaseModel):
