@@ -20,10 +20,12 @@ __all__ = [
     "LineItemsUpdateTags",
     "LineItemsUpdateTagsCreate",
     "LineItemsUpdateTagsDelete",
+    "LineItemsUpdateTagsSet",
     "LineItemsUpdateTagsUpdate",
     "Tags",
     "TagsCreate",
     "TagsDelete",
+    "TagsSet",
     "TagsUpdate",
 ]
 
@@ -335,6 +337,24 @@ class LineItemsUpdateTagsDelete(TypedDict, total=False):
     """Tag key to delete"""
 
 
+class LineItemsUpdateTagsSet(TypedDict, total=False):
+    """A key-value tag pair for metadata"""
+
+    key: Required[str]
+    """Tag key.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 50
+    characters.
+    """
+
+    value: Required[str]
+    """Tag value.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 200
+    characters.
+    """
+
+
 class LineItemsUpdateTagsUpdate(TypedDict, total=False):
     """A key-value tag pair for metadata"""
 
@@ -355,15 +375,22 @@ class LineItemsUpdateTagsUpdate(TypedDict, total=False):
 
 class LineItemsUpdateTags(TypedDict, total=False):
     create: Iterable[LineItemsUpdateTagsCreate]
-    """Tags to add"""
+    """Tags to add. Prefer `set` unless you specifically want create-only validation."""
 
     delete: Iterable[LineItemsUpdateTagsDelete]
     """Tags to remove by key"""
 
+    set: Iterable[LineItemsUpdateTagsSet]
+    """
+    Tags to create or overwrite without requiring the caller to distinguish between
+    create and update.
+    """
+
     update: Iterable[LineItemsUpdateTagsUpdate]
     """Tags to update.
 
-    The key identifies the existing tag; the value is the new value.
+    The key identifies the existing tag; the value is the new value. Prefer `set`
+    unless you specifically want update-only validation.
     """
 
 
@@ -414,6 +441,24 @@ class TagsDelete(TypedDict, total=False):
     """Tag key to delete"""
 
 
+class TagsSet(TypedDict, total=False):
+    """A key-value tag pair for metadata"""
+
+    key: Required[str]
+    """Tag key.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 50
+    characters.
+    """
+
+    value: Required[str]
+    """Tag value.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 200
+    characters.
+    """
+
+
 class TagsUpdate(TypedDict, total=False):
     """A key-value tag pair for metadata"""
 
@@ -434,13 +479,20 @@ class TagsUpdate(TypedDict, total=False):
 
 class Tags(TypedDict, total=False):
     create: Iterable[TagsCreate]
-    """Tags to add"""
+    """Tags to add. Prefer `set` unless you specifically want create-only validation."""
 
     delete: Iterable[TagsDelete]
     """Tags to remove by key"""
 
+    set: Iterable[TagsSet]
+    """
+    Tags to create or overwrite without requiring the caller to distinguish between
+    create and update.
+    """
+
     update: Iterable[TagsUpdate]
     """Tags to update.
 
-    The key identifies the existing tag; the value is the new value.
+    The key identifies the existing tag; the value is the new value. Prefer `set`
+    unless you specifically want update-only validation.
     """

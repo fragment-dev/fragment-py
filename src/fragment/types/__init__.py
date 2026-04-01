@@ -40,14 +40,8 @@ from .external_account_create_params import ExternalAccountCreateParams as Exter
 from .external_account_list_response import ExternalAccountListResponse as ExternalAccountListResponse
 from .external_account_create_response import ExternalAccountCreateResponse as ExternalAccountCreateResponse
 from .transaction_list_history_response import TransactionListHistoryResponse as TransactionListHistoryResponse
-from .transaction_create_allocations_params import (
-    TransactionCreateAllocationsParams as TransactionCreateAllocationsParams,
-)
 from .transaction_search_allocations_params import (
     TransactionSearchAllocationsParams as TransactionSearchAllocationsParams,
-)
-from .transaction_create_allocations_response import (
-    TransactionCreateAllocationsResponse as TransactionCreateAllocationsResponse,
 )
 from .transaction_search_allocations_response import (
     TransactionSearchAllocationsResponse as TransactionSearchAllocationsResponse,

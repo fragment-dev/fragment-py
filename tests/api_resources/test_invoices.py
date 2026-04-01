@@ -214,10 +214,16 @@ class TestInvoices:
                                 }
                             ],
                             "delete": [{"key": "key"}],
-                            "update": [
+                            "set": [
                                 {
                                     "key": "region",
                                     "value": "eu-west-1",
+                                }
+                            ],
+                            "update": [
+                                {
+                                    "key": "region",
+                                    "value": "us-east",
                                 }
                             ],
                         },
@@ -232,10 +238,16 @@ class TestInvoices:
                     }
                 ],
                 "delete": [{"key": "key"}],
-                "update": [
+                "set": [
                     {
                         "key": "region",
                         "value": "eu-west-1",
+                    }
+                ],
+                "update": [
+                    {
+                        "key": "region",
+                        "value": "us-east",
                     }
                 ],
             },
@@ -610,10 +622,16 @@ class TestAsyncInvoices:
                                 }
                             ],
                             "delete": [{"key": "key"}],
-                            "update": [
+                            "set": [
                                 {
                                     "key": "region",
                                     "value": "eu-west-1",
+                                }
+                            ],
+                            "update": [
+                                {
+                                    "key": "region",
+                                    "value": "us-east",
                                 }
                             ],
                         },
@@ -628,10 +646,16 @@ class TestAsyncInvoices:
                     }
                 ],
                 "delete": [{"key": "key"}],
-                "update": [
+                "set": [
                     {
                         "key": "region",
                         "value": "eu-west-1",
+                    }
+                ],
+                "update": [
+                    {
+                        "key": "region",
+                        "value": "us-east",
                     }
                 ],
             },
