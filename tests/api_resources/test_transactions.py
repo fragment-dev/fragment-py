@@ -16,7 +16,6 @@ from fragment.types import (
     TransactionUpdateResponse,
     TransactionRetrieveResponse,
     TransactionListHistoryResponse,
-    TransactionCreateAllocationsResponse,
     TransactionSearchAllocationsResponse,
 )
 from fragment._utils import parse_datetime
@@ -207,10 +206,16 @@ class TestTransactions:
                     }
                 ],
                 "delete": [{"key": "key"}],
-                "update": [
+                "set": [
                     {
                         "key": "region",
                         "value": "eu-west-1",
+                    }
+                ],
+                "update": [
+                    {
+                        "key": "region",
+                        "value": "us-east",
                     }
                 ],
             },
@@ -290,88 +295,6 @@ class TestTransactions:
             assert_matches_type(TransactionListResponse, transaction, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_allocations(self, client: Fragment) -> None:
-        transaction = client.transactions.create_allocations(
-            transaction_ref="txn_abc123",
-            allocation_updates=[
-                {
-                    "amount": "1000",
-                    "invoice_id": "inv_abc123",
-                    "op": "add",
-                    "type": "invoice_payin",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=0,
-        )
-        assert_matches_type(TransactionCreateAllocationsResponse, transaction, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_create_allocations(self, client: Fragment) -> None:
-        response = client.transactions.with_raw_response.create_allocations(
-            transaction_ref="txn_abc123",
-            allocation_updates=[
-                {
-                    "amount": "1000",
-                    "invoice_id": "inv_abc123",
-                    "op": "add",
-                    "type": "invoice_payin",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=0,
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        transaction = response.parse()
-        assert_matches_type(TransactionCreateAllocationsResponse, transaction, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_create_allocations(self, client: Fragment) -> None:
-        with client.transactions.with_streaming_response.create_allocations(
-            transaction_ref="txn_abc123",
-            allocation_updates=[
-                {
-                    "amount": "1000",
-                    "invoice_id": "inv_abc123",
-                    "op": "add",
-                    "type": "invoice_payin",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=0,
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            transaction = response.parse()
-            assert_matches_type(TransactionCreateAllocationsResponse, transaction, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_path_params_create_allocations(self, client: Fragment) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction_ref` but received ''"):
-            client.transactions.with_raw_response.create_allocations(
-                transaction_ref="",
-                allocation_updates=[
-                    {
-                        "amount": "1000",
-                        "invoice_id": "inv_abc123",
-                        "op": "add",
-                        "type": "invoice_payin",
-                        "user": {"id": "user_abc123"},
-                    }
-                ],
-                version=0,
-            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -669,10 +592,16 @@ class TestAsyncTransactions:
                     }
                 ],
                 "delete": [{"key": "key"}],
-                "update": [
+                "set": [
                     {
                         "key": "region",
                         "value": "eu-west-1",
+                    }
+                ],
+                "update": [
+                    {
+                        "key": "region",
+                        "value": "us-east",
                     }
                 ],
             },
@@ -752,88 +681,6 @@ class TestAsyncTransactions:
             assert_matches_type(TransactionListResponse, transaction, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_allocations(self, async_client: AsyncFragment) -> None:
-        transaction = await async_client.transactions.create_allocations(
-            transaction_ref="txn_abc123",
-            allocation_updates=[
-                {
-                    "amount": "1000",
-                    "invoice_id": "inv_abc123",
-                    "op": "add",
-                    "type": "invoice_payin",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=0,
-        )
-        assert_matches_type(TransactionCreateAllocationsResponse, transaction, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_create_allocations(self, async_client: AsyncFragment) -> None:
-        response = await async_client.transactions.with_raw_response.create_allocations(
-            transaction_ref="txn_abc123",
-            allocation_updates=[
-                {
-                    "amount": "1000",
-                    "invoice_id": "inv_abc123",
-                    "op": "add",
-                    "type": "invoice_payin",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=0,
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        transaction = await response.parse()
-        assert_matches_type(TransactionCreateAllocationsResponse, transaction, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_create_allocations(self, async_client: AsyncFragment) -> None:
-        async with async_client.transactions.with_streaming_response.create_allocations(
-            transaction_ref="txn_abc123",
-            allocation_updates=[
-                {
-                    "amount": "1000",
-                    "invoice_id": "inv_abc123",
-                    "op": "add",
-                    "type": "invoice_payin",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=0,
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            transaction = await response.parse()
-            assert_matches_type(TransactionCreateAllocationsResponse, transaction, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_path_params_create_allocations(self, async_client: AsyncFragment) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction_ref` but received ''"):
-            await async_client.transactions.with_raw_response.create_allocations(
-                transaction_ref="",
-                allocation_updates=[
-                    {
-                        "amount": "1000",
-                        "invoice_id": "inv_abc123",
-                        "op": "add",
-                        "type": "invoice_payin",
-                        "user": {"id": "user_abc123"},
-                    }
-                ],
-                version=0,
-            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize

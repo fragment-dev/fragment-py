@@ -16,6 +16,7 @@ __all__ = [
     "Tags",
     "TagsCreate",
     "TagsDelete",
+    "TagsSet",
     "TagsUpdate",
 ]
 
@@ -97,6 +98,24 @@ class TagsDelete(TypedDict, total=False):
     """Tag key to delete"""
 
 
+class TagsSet(TypedDict, total=False):
+    """A key-value tag pair for metadata"""
+
+    key: Required[str]
+    """Tag key.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 50
+    characters.
+    """
+
+    value: Required[str]
+    """Tag value.
+
+    Must be a valid safe string (no special characters like #, /, :). Max 200
+    characters.
+    """
+
+
 class TagsUpdate(TypedDict, total=False):
     """A key-value tag pair for metadata"""
 
@@ -117,13 +136,20 @@ class TagsUpdate(TypedDict, total=False):
 
 class Tags(TypedDict, total=False):
     create: Iterable[TagsCreate]
-    """Tags to add"""
+    """Tags to add. Prefer `set` unless you specifically want create-only validation."""
 
     delete: Iterable[TagsDelete]
     """Tags to remove by key"""
 
+    set: Iterable[TagsSet]
+    """
+    Tags to create or overwrite without requiring the caller to distinguish between
+    create and update.
+    """
+
     update: Iterable[TagsUpdate]
     """Tags to update.
 
-    The key identifies the existing tag; the value is the new value.
+    The key identifies the existing tag; the value is the new value. Prefer `set`
+    unless you specifically want update-only validation.
     """
