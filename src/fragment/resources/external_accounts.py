@@ -55,12 +55,12 @@ class ExternalAccountsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExternalAccountCreateResponse:
         """
-        Creates a new external account
+        Creates a new external account.
 
         Args:
-          external_id: External ID for the account (user-provided, unique, mutable)
+          external_id: Unique user-provided external ID.
 
-          name: Human-readable name for the external account (mutable)
+          name: Human-readable name.
 
           extra_headers: Send extra headers
 
@@ -95,7 +95,7 @@ class ExternalAccountsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExternalAccountListResponse:
-        """Lists all external accounts for the workspace"""
+        """Lists all external accounts."""
         return self._get(
             "/external-accounts",
             options=make_request_options(
@@ -138,12 +138,12 @@ class AsyncExternalAccountsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExternalAccountCreateResponse:
         """
-        Creates a new external account
+        Creates a new external account.
 
         Args:
-          external_id: External ID for the account (user-provided, unique, mutable)
+          external_id: Unique user-provided external ID.
 
-          name: Human-readable name for the external account (mutable)
+          name: Human-readable name.
 
           extra_headers: Send extra headers
 
@@ -178,7 +178,7 @@ class AsyncExternalAccountsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExternalAccountListResponse:
-        """Lists all external accounts for the workspace"""
+        """Lists all external accounts."""
         return await self._get(
             "/external-accounts",
             options=make_request_options(

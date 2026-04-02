@@ -8,4 +8,4 @@ __all__ = ["ExternalAccountCreateResponse"]
 
 class ExternalAccountCreateResponse(BaseModel):
     data: ExternalAccount
-    """External account object"""
+    """External account object."""
