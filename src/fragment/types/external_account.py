@@ -6,13 +6,13 @@ __all__ = ["ExternalAccount"]
 
 
 class ExternalAccount(BaseModel):
-    """External account object"""
+    """External account object."""
 
     id: str
-    """Fragment-generated unique ID for the external account"""
+    """FRAGMENT generated unique ID."""
 
     external_id: str
-    """User-provided external ID"""
+    """Unique user-provided external ID."""
 
     name: str
-    """Human-readable name for the external account"""
+    """Human-readable name."""

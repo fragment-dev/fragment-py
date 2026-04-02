@@ -9,6 +9,6 @@ __all__ = ["ExternalAccountListResponse"]
 
 
 class ExternalAccountListResponse(BaseModel):
-    """List of external accounts"""
+    """List of external accounts."""
 
     data: List[ExternalAccount]
