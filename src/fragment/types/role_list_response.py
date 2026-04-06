@@ -12,3 +12,4 @@ class RoleListResponse(BaseModel):
     """List of roles"""
 
     data: List[Role]
+    """List of roles."""

@@ -63,17 +63,15 @@ class InvoicesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceCreateResponse:
-        """Creates a new invoice
+        """
+        Creates an invoice.
 
         Args:
-          invoice_id: Unique identifier for the invoice.
+          invoice_id: Unique ID for the invoice.
 
-        Make this the canonical ID from your system
-              for the transaction.
+          line_items: Line items to create with the invoice.
 
-          line_items: List of line items to create with the invoice
-
-          tags: Optional metadata tags for this invoice
+          tags: Tags for the invoice.
 
           extra_headers: Send extra headers
 
@@ -111,10 +109,10 @@ class InvoicesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceRetrieveResponse:
         """
-        Gets an invoice by ID with balance details
+        Fetches an invoice.
 
         Args:
-          id: Invoice ID
+          id: Unique identifier for the invoice.
 
           extra_headers: Send extra headers
 
@@ -149,13 +147,12 @@ class InvoicesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceUpdateResponse:
         """
-        Updates an invoice
+        Updates an invoice.
 
         Args:
-          id: Invoice ID
+          id: Unique identifier for the invoice.
 
-          current_invoice_version: The current version of the invoice. Must match the stored version for the update
-              to succeed (optimistic concurrency).
+          current_invoice_version: Current version of the invoice. Must match the stored version.
 
           extra_headers: Send extra headers
 
@@ -193,7 +190,7 @@ class InvoicesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceListResponse:
-        """Lists all invoices for the workspace"""
+        """Lists all invoices."""
         return self._get(
             "/invoices",
             options=make_request_options(
@@ -214,10 +211,10 @@ class InvoicesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceListHistoryResponse:
         """
-        Gets the version history of an invoice
+        Gets the version history of an invoice.
 
         Args:
-          id: Invoice ID
+          id: Unique identifier for the invoice.
 
           extra_headers: Send extra headers
 
@@ -250,10 +247,10 @@ class InvoicesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceSearchResponse:
         """
-        Searches invoices
+        Searches invoices.
 
         Args:
-          filter: Filter criteria for the search
+          filter: Filter criteria for the search.
 
           page_info: Pagination parameters
 
@@ -316,17 +313,15 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceCreateResponse:
-        """Creates a new invoice
+        """
+        Creates an invoice.
 
         Args:
-          invoice_id: Unique identifier for the invoice.
+          invoice_id: Unique ID for the invoice.
 
-        Make this the canonical ID from your system
-              for the transaction.
+          line_items: Line items to create with the invoice.
 
-          line_items: List of line items to create with the invoice
-
-          tags: Optional metadata tags for this invoice
+          tags: Tags for the invoice.
 
           extra_headers: Send extra headers
 
@@ -364,10 +359,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceRetrieveResponse:
         """
-        Gets an invoice by ID with balance details
+        Fetches an invoice.
 
         Args:
-          id: Invoice ID
+          id: Unique identifier for the invoice.
 
           extra_headers: Send extra headers
 
@@ -402,13 +397,12 @@ class AsyncInvoicesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceUpdateResponse:
         """
-        Updates an invoice
+        Updates an invoice.
 
         Args:
-          id: Invoice ID
+          id: Unique identifier for the invoice.
 
-          current_invoice_version: The current version of the invoice. Must match the stored version for the update
-              to succeed (optimistic concurrency).
+          current_invoice_version: Current version of the invoice. Must match the stored version.
 
           extra_headers: Send extra headers
 
@@ -446,7 +440,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceListResponse:
-        """Lists all invoices for the workspace"""
+        """Lists all invoices."""
         return await self._get(
             "/invoices",
             options=make_request_options(
@@ -467,10 +461,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceListHistoryResponse:
         """
-        Gets the version history of an invoice
+        Gets the version history of an invoice.
 
         Args:
-          id: Invoice ID
+          id: Unique identifier for the invoice.
 
           extra_headers: Send extra headers
 
@@ -503,10 +497,10 @@ class AsyncInvoicesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceSearchResponse:
         """
-        Searches invoices
+        Searches invoices.
 
         Args:
-          filter: Filter criteria for the search
+          filter: Filter criteria for the search.
 
           page_info: Pagination parameters
 

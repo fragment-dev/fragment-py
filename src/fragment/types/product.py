@@ -12,45 +12,45 @@ class PaidByRole(BaseModel):
     """Role reference in product API responses."""
 
     id: str
-    """The unique ID of the role"""
+    """FRAGMENT generated unique ID."""
 
     name: str
-    """The name of the role"""
+    """Name of the role."""
 
 
 class PaidToRole(BaseModel):
     """Role reference in product API responses."""
 
     id: str
-    """The unique ID of the role"""
+    """FRAGMENT generated unique ID."""
 
     name: str
-    """The name of the role"""
+    """Name of the role."""
 
 
 class Product(BaseModel):
-    """Product object"""
+    """Product object."""
 
     id: str
-    """Unique identifier for the product"""
+    """FRAGMENT generated unique ID."""
 
     code: str
-    """User-defined product identifier."""
+    """Product code."""
 
     created: datetime
-    """ISO 8601 timestamp when the product was created"""
+    """Timestamp when the product was created. Uses ISO 8601 format."""
 
     paid_by_roles: List[PaidByRole]
-    """User roles that can pay for this product"""
+    """Roles that can pay for the product."""
 
     paid_to_roles: List[PaidToRole]
-    """User roles that receive payment for this product"""
+    """Roles that can receive payment for the product."""
 
     update_version: float
-    """Version number for optimistic locking"""
+    """Current version of the product."""
 
     workspace_id: str
-    """Workspace ID this product belongs to"""
+    """Workspace ID of the product."""
 
     description: Optional[str] = None
-    """Description of the product"""
+    """Product description."""

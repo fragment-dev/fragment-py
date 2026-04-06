@@ -56,10 +56,10 @@ class RolesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RoleCreateResponse:
         """
-        Creates a new role
+        Creates a new role.
 
         Args:
-          role: Name of the role
+          role: Name of the role.
 
           extra_headers: Send extra headers
 
@@ -88,7 +88,7 @@ class RolesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RoleListResponse:
-        """Lists all roles for the workspace"""
+        """Lists all roles."""
         return self._get(
             "/roles",
             options=make_request_options(
@@ -132,10 +132,10 @@ class AsyncRolesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RoleCreateResponse:
         """
-        Creates a new role
+        Creates a new role.
 
         Args:
-          role: Name of the role
+          role: Name of the role.
 
           extra_headers: Send extra headers
 
@@ -164,7 +164,7 @@ class AsyncRolesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RoleListResponse:
-        """Lists all roles for the workspace"""
+        """Lists all roles."""
         return await self._get(
             "/roles",
             options=make_request_options(

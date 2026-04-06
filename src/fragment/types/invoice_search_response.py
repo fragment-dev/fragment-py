@@ -30,40 +30,67 @@ __all__ = [
 
 class DataInvoiceBalanceNet(BaseModel):
     actual: str
-    """Actual amount (represented as string)"""
+    """
+    Actual amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
     expected: str
-    """Expected amount (represented as string)"""
+    """
+    Expected amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
     remaining: str
-    """Remaining amount (expected - actual, represented as string)"""
+    """
+    Remaining amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
 
 class DataInvoiceBalancePayins(BaseModel):
     actual: str
-    """Actual amount (represented as string)"""
+    """
+    Actual amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
     expected: str
-    """Expected amount (represented as string)"""
+    """
+    Expected amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
     remaining: str
-    """Remaining amount (expected - actual, represented as string)"""
+    """
+    Remaining amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
 
 class DataInvoiceBalancePayouts(BaseModel):
     actual: str
-    """Actual amount (represented as string)"""
+    """
+    Actual amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
     expected: str
-    """Expected amount (represented as string)"""
+    """
+    Expected amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
     remaining: str
-    """Remaining amount (expected - actual, represented as string)"""
+    """
+    Remaining amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
 
 class DataInvoiceBalance(BaseModel):
     currency: str
-    """Currency code"""
+    """Currency code (ISO 4217 or crypto)."""
 
     net: DataInvoiceBalanceNet
 
@@ -76,40 +103,43 @@ class DataInvoicePaymentTransactionTag(BaseModel):
     """A key-value tag pair"""
 
     key: str
-    """Tag key"""
+    """Tag key."""
 
     value: str
-    """Tag value"""
+    """Tag value."""
 
 
 class DataInvoicePaymentTransaction(BaseModel):
-    """Reference to a transaction by encoded ID and external ID."""
+    """Transaction reference."""
 
     id: str
-    """Encoded transaction ID."""
+    """FRAGMENT generated unique ID."""
 
     external_id: str
-    """External transaction ID."""
+    """Unique user-provided external ID for the transaction."""
 
     tags: List[DataInvoicePaymentTransactionTag]
-    """Metadata tags from the parent transaction."""
+    """Tags from the parent transaction."""
 
 
 class DataInvoicePaymentUser(BaseModel):
-    """User reference in API responses: Fragment user id and external_id."""
+    """User reference."""
 
     id: str
-    """FRAGMENT generated ID of the user"""
+    """FRAGMENT generated unique ID."""
 
     external_id: str
-    """External ID of the user"""
+    """User-provided unique external ID."""
 
 
 class DataInvoicePayment(BaseModel):
-    """A payment allocated to this invoice."""
+    """A payment allocated to the invoice."""
 
     amount: str
-    """Amount allocated in smallest currency unit as stringified bigint."""
+    """
+    Amount allocated as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
     currency: Literal[
         "ADA",
@@ -292,57 +322,84 @@ class DataInvoicePayment(BaseModel):
         "LOGICAL",
         "CUSTOM",
     ]
-    """Currency code (ISO 4217 or crypto)"""
+    """Currency code (ISO 4217 or crypto)."""
 
     posted: datetime
-    """Posted timestamp of the parent transaction in ISO 8601 format."""
+    """Timestamp when the parent transaction was posted. Uses ISO 8601 format."""
 
     transaction: DataInvoicePaymentTransaction
-    """Reference to a transaction by encoded ID and external ID."""
+    """Transaction reference."""
 
     type: Literal["payin", "payout"]
-    """The type of the payment."""
+    """Type of the payment."""
 
     user: DataInvoicePaymentUser
-    """User reference in API responses: Fragment user id and external_id."""
+    """User reference."""
 
 
 class DataInvoiceUserBalanceNet(BaseModel):
     actual: str
-    """Actual amount (represented as string)"""
+    """
+    Actual amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
     expected: str
-    """Expected amount (represented as string)"""
+    """
+    Expected amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
     remaining: str
-    """Remaining amount (expected - actual, represented as string)"""
+    """
+    Remaining amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
 
 class DataInvoiceUserBalancePayins(BaseModel):
     actual: str
-    """Actual amount (represented as string)"""
+    """
+    Actual amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
     expected: str
-    """Expected amount (represented as string)"""
+    """
+    Expected amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
     remaining: str
-    """Remaining amount (expected - actual, represented as string)"""
+    """
+    Remaining amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
 
 class DataInvoiceUserBalancePayouts(BaseModel):
     actual: str
-    """Actual amount (represented as string)"""
+    """
+    Actual amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
     expected: str
-    """Expected amount (represented as string)"""
+    """
+    Expected amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
     remaining: str
-    """Remaining amount (expected - actual, represented as string)"""
+    """
+    Remaining amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
 
 class DataInvoiceUserBalance(BaseModel):
     currency: str
-    """Currency code"""
+    """Currency code (ISO 4217 or crypto)."""
 
     net: DataInvoiceUserBalanceNet
 
@@ -353,41 +410,41 @@ class DataInvoiceUserBalance(BaseModel):
 
 class DataInvoiceUser(BaseModel):
     id: str
-    """User/party ID"""
+    """User-provided unique external ID."""
 
     balances: List[DataInvoiceUserBalance]
-    """Per-currency balance breakdown for this user"""
+    """Per-currency balance breakdown for the user."""
 
 
 class DataInvoice(Invoice):
-    """Invoice with balance details"""
+    """Invoice with balance details."""
 
     balances: List[DataInvoiceBalance]
-    """Invoice-level balances by currency: payins, payouts, and net (payins - payouts)"""
+    """Invoice-level balances by currency."""
 
     payments: List[DataInvoicePayment]
-    """Transaction allocations (payments) associated with this invoice."""
+    """Payments allocated to the invoice."""
 
     users: List[DataInvoiceUser]
-    """Users/parties involved in the invoice"""
+    """Users involved in the invoice."""
 
 
 class DataPageInfo(BaseModel):
     """Pagination cursors."""
 
     next_cursor: Optional[str] = None
-    """Cursor to fetch the next page of results"""
+    """Cursor to fetch the next page of results."""
 
 
 class Data(BaseModel):
     invoices: List[DataInvoice]
-    """List of invoices matching the search criteria"""
+    """Invoices matching the search criteria."""
 
     page_info: DataPageInfo
     """Pagination cursors."""
 
 
 class InvoiceSearchResponse(BaseModel):
-    """Response body for searching invoices"""
+    """Search results for invoices."""
 
     data: Data

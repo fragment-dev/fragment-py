@@ -58,7 +58,7 @@ class ExternalAccountsResource(SyncAPIResource):
         Creates a new external account.
 
         Args:
-          external_id: Unique user-provided external ID.
+          external_id: User-provided unique external ID.
 
           name: Human-readable name.
 
@@ -141,7 +141,7 @@ class AsyncExternalAccountsResource(AsyncAPIResource):
         Creates a new external account.
 
         Args:
-          external_id: Unique user-provided external ID.
+          external_id: User-provided unique external ID.
 
           name: Human-readable name.
 

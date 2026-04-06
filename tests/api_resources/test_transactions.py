@@ -42,7 +42,7 @@ class TestTransactions:
             amount="-1000",
             currency="USD",
             external_id="bank_txn_123",
-            posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            posted=parse_datetime("2024-01-13T00:00:00Z"),
         )
         assert_matches_type(TransactionCreateResponse, transaction, path=["response"])
 
@@ -65,7 +65,7 @@ class TestTransactions:
             amount="-1000",
             currency="USD",
             external_id="bank_txn_123",
-            posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            posted=parse_datetime("2024-01-13T00:00:00Z"),
             tags=[
                 {
                     "key": "region",
@@ -91,7 +91,7 @@ class TestTransactions:
             amount="-1000",
             currency="USD",
             external_id="bank_txn_123",
-            posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            posted=parse_datetime("2024-01-13T00:00:00Z"),
         )
 
         assert response.is_closed is True
@@ -115,7 +115,7 @@ class TestTransactions:
             amount="-1000",
             currency="USD",
             external_id="bank_txn_123",
-            posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            posted=parse_datetime("2024-01-13T00:00:00Z"),
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -428,7 +428,7 @@ class TestAsyncTransactions:
             amount="-1000",
             currency="USD",
             external_id="bank_txn_123",
-            posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            posted=parse_datetime("2024-01-13T00:00:00Z"),
         )
         assert_matches_type(TransactionCreateResponse, transaction, path=["response"])
 
@@ -451,7 +451,7 @@ class TestAsyncTransactions:
             amount="-1000",
             currency="USD",
             external_id="bank_txn_123",
-            posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            posted=parse_datetime("2024-01-13T00:00:00Z"),
             tags=[
                 {
                     "key": "region",
@@ -477,7 +477,7 @@ class TestAsyncTransactions:
             amount="-1000",
             currency="USD",
             external_id="bank_txn_123",
-            posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            posted=parse_datetime("2024-01-13T00:00:00Z"),
         )
 
         assert response.is_closed is True
@@ -501,7 +501,7 @@ class TestAsyncTransactions:
             amount="-1000",
             currency="USD",
             external_id="bank_txn_123",
-            posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            posted=parse_datetime("2024-01-13T00:00:00Z"),
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

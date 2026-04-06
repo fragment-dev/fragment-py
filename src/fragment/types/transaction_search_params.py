@@ -10,17 +10,20 @@ __all__ = ["TransactionSearchParams", "Filter", "FilterAccount", "FilterAccountA
 
 class TransactionSearchParams(TypedDict, total=False):
     filter: Required[Filter]
-    """Filter criteria for searching transactions."""
+    """Filter for searching transactions."""
 
 
 class FilterAccountAny(TypedDict, total=False):
-    """Account reference. Provide id, external_id, or both."""
+    """External account for the transaction.
+
+    Identify it by `id`, `external_id`, or both.
+    """
 
     id: str
-    """User-facing encoded account ID."""
+    """FRAGMENT generated unique ID."""
 
     external_id: str
-    """External account reference ID."""
+    """Unique user-provided external ID for the external account."""
 
 
 class FilterAccount(TypedDict, total=False):
@@ -29,6 +32,6 @@ class FilterAccount(TypedDict, total=False):
 
 
 class Filter(TypedDict, total=False):
-    """Filter criteria for searching transactions."""
+    """Filter for searching transactions."""
 
     account: Required[FilterAccount]

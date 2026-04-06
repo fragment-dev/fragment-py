@@ -8,4 +8,4 @@ __all__ = ["InvoiceCreateResponse"]
 
 class InvoiceCreateResponse(BaseModel):
     data: Invoice
-    """Invoice object"""
+    """Invoice object."""

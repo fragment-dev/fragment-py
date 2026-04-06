@@ -9,4 +9,4 @@ __all__ = ["RoleCreateParams"]
 
 class RoleCreateParams(TypedDict, total=False):
     role: Required[str]
-    """Name of the role"""
+    """Name of the role."""

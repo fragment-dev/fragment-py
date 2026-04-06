@@ -9,6 +9,5 @@ __all__ = ["ProductListResponse"]
 
 
 class ProductListResponse(BaseModel):
-    """List of products"""
-
     data: List[Product]
+    """List of products."""

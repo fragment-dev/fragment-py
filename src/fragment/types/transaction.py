@@ -10,70 +10,74 @@ __all__ = ["Transaction", "Account", "Allocation", "AllocationUser", "Tag"]
 
 
 class Account(BaseModel):
-    """External account reference on transaction responses."""
+    """External account for the transaction."""
 
     id: str
-    """User-facing encoded account ID."""
+    """FRAGMENT generated unique ID."""
 
     external_id: str
-    """External account reference ID."""
+    """Unique user-provided external ID for the external account."""
 
 
 class AllocationUser(BaseModel):
-    """User reference in API responses: Fragment user id and external_id."""
+    """User reference."""
 
     id: str
-    """FRAGMENT generated ID of the user"""
+    """FRAGMENT generated unique ID."""
 
     external_id: str
-    """External ID of the user"""
+    """User-provided unique external ID."""
 
 
 class Allocation(BaseModel):
-    """Transaction allocation against an invoice."""
+    """An allocation linking a transaction to an invoice."""
 
     amount: str
-    """Allocated amount in smallest currency unit as stringified bigint."""
+    """
+    Allocated amount, as a positive string in the smallest unit of the currency (for
+    example, cents for USD).
+    """
 
     invoice_id: str
-    """The invoice this allocation is applied against."""
+    """Invoice the allocation is applied against."""
 
     type: Literal["invoice_payin", "invoice_payout"]
-    """The type of allocation."""
+    """Type of allocation."""
 
     user: AllocationUser
-    """User reference in API responses: Fragment user id and external_id."""
+    """User reference."""
 
 
 class Tag(BaseModel):
     """A key-value tag pair"""
 
     key: str
-    """Tag key"""
+    """Tag key."""
 
     value: str
-    """Tag value"""
+    """Tag value."""
 
 
 class Transaction(BaseModel):
     """Transaction object."""
 
     id: str
-    """User-facing encoded transaction ID."""
+    """FRAGMENT generated unique ID."""
 
     account: Account
-    """External account reference on transaction responses."""
+    """External account for the transaction."""
 
     allocations: List[Allocation]
+    """Allocations applied to the transaction."""
 
     amount: str
     """
-    Amount in smallest currency unit as stringified bigint (can be positive or
-    negative).
+    Transaction amount, as a string in the smallest unit of the currency (for
+    example, cents for USD). Can be positive or negative.
     """
 
     created: datetime
-    """Creation timestamp."""
+    """Timestamp when the transaction was created. Uses ISO 8601 format."""
 
     currency: Literal[
         "ADA",
@@ -256,22 +260,22 @@ class Transaction(BaseModel):
         "LOGICAL",
         "CUSTOM",
     ]
-    """Currency code (ISO 4217 or crypto)"""
+    """Currency code (ISO 4217 or crypto)."""
 
     external_id: str
-    """External idempotency key provided by the user."""
+    """Unique user-provided external ID for the transaction."""
 
     posted: datetime
-    """Posted timestamp in ISO 8601 format."""
+    """Timestamp when the transaction was posted. Uses ISO 8601 format."""
 
     tags: List[Tag]
-    """Metadata tags associated with this transaction."""
+    """Tags for the transaction."""
 
     unallocated_amount: str
-    """Read-only amount not yet allocated."""
+    """Amount not yet allocated, as a string."""
 
     version: int
-    """Current version of the transaction, used for optimistic concurrency control."""
+    """Current version of the transaction."""
 
     modified: Optional[datetime] = None
-    """Last modified timestamp."""
+    """Timestamp when the transaction was last modified. Uses ISO 8601 format."""

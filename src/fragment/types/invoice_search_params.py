@@ -10,7 +10,7 @@ __all__ = ["InvoiceSearchParams", "Filter", "FilterTags", "FilterTagsAll", "Filt
 
 class InvoiceSearchParams(TypedDict, total=False):
     filter: Required[Filter]
-    """Filter criteria for the search"""
+    """Filter criteria for the search."""
 
     page_info: Required[PageInfo]
     """Pagination parameters"""
@@ -60,7 +60,7 @@ class FilterTags(TypedDict, total=False):
 
 
 class Filter(TypedDict, total=False):
-    """Filter criteria for the search"""
+    """Filter criteria for the search."""
 
     status: Literal["open"]
     """Filter by invoice status.
@@ -80,7 +80,7 @@ class PageInfo(TypedDict, total=False):
     """Pagination parameters"""
 
     after: str
-    """Cursor for fetching the next page of results"""
+    """Cursor for fetching the next page of results."""
 
     limit: int
     """Number of results to return. Defaults to 20."""

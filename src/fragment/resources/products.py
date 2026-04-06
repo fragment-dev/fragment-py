@@ -62,18 +62,18 @@ class ProductsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductCreateResponse:
         """
-        Creates a new product
+        Creates a new product.
 
         Args:
-          code: Product code (unique identifier)
+          code: Unique product code.
 
-          description: Description of the product
+          description: Product description.
 
-          paid_by_roles: Roles that can pay for this product. Reference roles by id or name. At least one
-              of paid_by_roles or paid_to_roles must be provided.
+          paid_by_roles: Roles that can pay for the product. Reference roles by `id` or `name`. At least
+              one of `paid_by_roles` or `paid_to_roles` must be provided.
 
-          paid_to_roles: Roles that receive payment for this product. Reference roles by id or name. At
-              least one of paid_by_roles or paid_to_roles must be provided.
+          paid_to_roles: Roles that can receive payment for the product. Reference roles by `id` or
+              `name`. At least one of `paid_by_roles` or `paid_to_roles` must be provided.
 
           extra_headers: Send extra headers
 
@@ -111,11 +111,12 @@ class ProductsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductRetrieveResponse:
-        """
-        Gets a product by code
+        """Gets a product by code.
 
         Args:
-          code: Product code
+          code: Product code.
+
+        Must not include #, /, or :.
 
           extra_headers: Send extra headers
 
@@ -145,7 +146,7 @@ class ProductsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductListResponse:
-        """Lists all products for the workspace"""
+        """Lists all products."""
         return self._get(
             "/products",
             options=make_request_options(
@@ -192,18 +193,18 @@ class AsyncProductsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductCreateResponse:
         """
-        Creates a new product
+        Creates a new product.
 
         Args:
-          code: Product code (unique identifier)
+          code: Unique product code.
 
-          description: Description of the product
+          description: Product description.
 
-          paid_by_roles: Roles that can pay for this product. Reference roles by id or name. At least one
-              of paid_by_roles or paid_to_roles must be provided.
+          paid_by_roles: Roles that can pay for the product. Reference roles by `id` or `name`. At least
+              one of `paid_by_roles` or `paid_to_roles` must be provided.
 
-          paid_to_roles: Roles that receive payment for this product. Reference roles by id or name. At
-              least one of paid_by_roles or paid_to_roles must be provided.
+          paid_to_roles: Roles that can receive payment for the product. Reference roles by `id` or
+              `name`. At least one of `paid_by_roles` or `paid_to_roles` must be provided.
 
           extra_headers: Send extra headers
 
@@ -241,11 +242,12 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductRetrieveResponse:
-        """
-        Gets a product by code
+        """Gets a product by code.
 
         Args:
-          code: Product code
+          code: Product code.
+
+        Must not include #, /, or :.
 
           extra_headers: Send extra headers
 
@@ -275,7 +277,7 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductListResponse:
-        """Lists all products for the workspace"""
+        """Lists all products."""
         return await self._get(
             "/products",
             options=make_request_options(
