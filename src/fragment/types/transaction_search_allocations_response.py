@@ -16,7 +16,7 @@ class DataTransaction(BaseModel):
     """FRAGMENT generated unique ID."""
 
     external_id: str
-    """Unique user-provided external ID for the transaction."""
+    """User-provided unique ID."""
 
 
 class DataUser(BaseModel):
@@ -26,7 +26,7 @@ class DataUser(BaseModel):
     """FRAGMENT generated unique ID."""
 
     external_id: str
-    """User-provided unique external ID."""
+    """User-provided unique ID."""
 
 
 class Data(BaseModel):

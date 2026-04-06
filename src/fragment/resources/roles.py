@@ -56,7 +56,7 @@ class RolesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RoleCreateResponse:
         """
-        Creates a new role.
+        Creates a role.
 
         Args:
           role: Name of the role.
@@ -132,7 +132,7 @@ class AsyncRolesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RoleCreateResponse:
         """
-        Creates a new role.
+        Creates a role.
 
         Args:
           role: Name of the role.

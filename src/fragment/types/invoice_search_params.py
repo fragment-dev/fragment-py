@@ -13,7 +13,7 @@ class InvoiceSearchParams(TypedDict, total=False):
     """Filter criteria for the search."""
 
     page_info: Required[PageInfo]
-    """Pagination parameters"""
+    """Pagination parameters."""
 
 
 class FilterTagsAll(TypedDict, total=False):
@@ -77,7 +77,7 @@ class Filter(TypedDict, total=False):
 
 
 class PageInfo(TypedDict, total=False):
-    """Pagination parameters"""
+    """Pagination parameters."""
 
     after: str
     """Cursor for fetching the next page of results."""

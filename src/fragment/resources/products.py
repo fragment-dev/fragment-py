@@ -62,7 +62,7 @@ class ProductsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductCreateResponse:
         """
-        Creates a new product.
+        Creates a product.
 
         Args:
           code: Unique product code.
@@ -111,7 +111,7 @@ class ProductsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductRetrieveResponse:
-        """Gets a product by code.
+        """Retrieves a product by code.
 
         Args:
           code: Product code.
@@ -193,7 +193,7 @@ class AsyncProductsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductCreateResponse:
         """
-        Creates a new product.
+        Creates a product.
 
         Args:
           code: Unique product code.
@@ -242,7 +242,7 @@ class AsyncProductsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProductRetrieveResponse:
-        """Gets a product by code.
+        """Retrieves a product by code.
 
         Args:
           code: Product code.

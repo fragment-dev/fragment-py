@@ -221,7 +221,7 @@ class TransactionCreateParams(TypedDict, total=False):
     """Currency code (ISO 4217 or crypto)."""
 
     external_id: Required[str]
-    """Unique user-provided external ID for the transaction."""
+    """User-provided unique ID."""
 
     posted: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
     """Timestamp when the transaction was posted. Uses ISO 8601 format."""
@@ -240,7 +240,7 @@ class Account(TypedDict, total=False):
     """FRAGMENT generated unique ID."""
 
     external_id: str
-    """Unique user-provided external ID for the external account."""
+    """User-provided unique ID."""
 
 
 class AllocationUserID(TypedDict, total=False):
@@ -250,7 +250,7 @@ class AllocationUserID(TypedDict, total=False):
 
 class AllocationUserExternalID(TypedDict, total=False):
     external_id: Required[str]
-    """User-provided unique external ID."""
+    """User-provided unique ID."""
 
 
 AllocationUser: TypeAlias = Union[AllocationUserID, AllocationUserExternalID]
@@ -276,7 +276,7 @@ class Allocation(TypedDict, total=False):
 
 
 class Tag(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
     """Tag key.
