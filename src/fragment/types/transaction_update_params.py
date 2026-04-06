@@ -23,7 +23,7 @@ __all__ = [
 
 class TransactionUpdateParams(TypedDict, total=False):
     current_transaction_version: Required[int]
-    """Current transaction version for optimistic concurrency control."""
+    """Current version of the transaction. Must match the stored version."""
 
     allocations: Allocations
 
@@ -32,47 +32,53 @@ class TransactionUpdateParams(TypedDict, total=False):
 
 class AllocationsCreateUserID(TypedDict, total=False):
     id: Required[str]
-    """FRAGMENT generated ID of the user"""
+    """FRAGMENT generated unique ID."""
 
 
 class AllocationsCreateUserExternalID(TypedDict, total=False):
     external_id: Required[str]
-    """External ID of the user"""
+    """User-provided unique external ID."""
 
 
 AllocationsCreateUser: TypeAlias = Union[AllocationsCreateUserID, AllocationsCreateUserExternalID]
 
 
 class AllocationsCreate(TypedDict, total=False):
-    """Transaction allocation against an invoice."""
+    """An allocation linking a transaction to an invoice."""
 
     amount: Required[str]
-    """Amount to allocate in smallest currency unit as stringified bigint."""
+    """
+    Allocation amount, as a positive string in the smallest unit of the currency
+    (for example, cents for USD).
+    """
 
     invoice_id: Required[str]
-    """The invoice to allocate against."""
+    """Invoice to allocate against."""
 
     type: Required[Literal["invoice_payin", "invoice_payout"]]
-    """The type of allocation."""
+    """Type of allocation."""
 
     user: Required[AllocationsCreateUser]
-    """Identifies a user by Fragment-generated id or external_id (request body)."""
+    """Identifies a user by `id` or `external_id`."""
 
 
 class AllocationsUpdate(TypedDict, total=False):
     id: Required[str]
-    """The ID of the allocation to update."""
+    """Allocation to update."""
 
     amount: Required[str]
-    """New amount in smallest currency unit as stringified bigint."""
+    """
+    Updated allocation amount, as a positive string in the smallest unit of the
+    currency (for example, cents for USD).
+    """
 
 
 class Allocations(TypedDict, total=False):
     create: Iterable[AllocationsCreate]
-    """Allocations to add to the transaction"""
+    """Creates a new allocation."""
 
     update: Iterable[AllocationsUpdate]
-    """Existing allocations to update"""
+    """Updates an existing allocation."""
 
 
 class TagsCreate(TypedDict, total=False):
@@ -139,7 +145,7 @@ class Tags(TypedDict, total=False):
     """Tags to add. Prefer `set` unless you specifically want create-only validation."""
 
     delete: Iterable[TagsDelete]
-    """Tags to remove by key"""
+    """Tags to remove by key."""
 
     set: Iterable[TagsSet]
     """

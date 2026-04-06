@@ -11,7 +11,7 @@ __all__ = ["TransactionSearchAllocationsParams", "Filter", "FilterInvoiceID"]
 
 class TransactionSearchAllocationsParams(TypedDict, total=False):
     filter: Required[Filter]
-    """Filter criteria for searching transaction allocations."""
+    """Filter for searching transaction allocations."""
 
 
 class FilterInvoiceID(TypedDict, total=False):
@@ -20,6 +20,6 @@ class FilterInvoiceID(TypedDict, total=False):
 
 
 class Filter(TypedDict, total=False):
-    """Filter criteria for searching transaction allocations."""
+    """Filter for searching transaction allocations."""
 
     invoice_id: Required[FilterInvoiceID]

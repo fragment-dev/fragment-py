@@ -9,6 +9,5 @@ __all__ = ["InvoiceListHistoryResponse"]
 
 
 class InvoiceListHistoryResponse(BaseModel):
-    """Version history of an invoice"""
-
     data: List[Invoice]
+    """Version history of the invoice."""

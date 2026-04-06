@@ -9,6 +9,5 @@ __all__ = ["InvoiceListResponse"]
 
 
 class InvoiceListResponse(BaseModel):
-    """List of invoices"""
-
     data: List[Invoice]
+    """List of invoices."""

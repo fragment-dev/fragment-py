@@ -9,7 +9,7 @@ __all__ = ["ExternalAccountCreateParams"]
 
 class ExternalAccountCreateParams(TypedDict, total=False):
     external_id: Required[str]
-    """Unique user-provided external ID."""
+    """User-provided unique external ID."""
 
     name: Required[str]
     """Human-readable name."""

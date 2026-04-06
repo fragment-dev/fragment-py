@@ -18,34 +18,34 @@ __all__ = [
 
 class ProductCreateParams(TypedDict, total=False):
     code: Required[str]
-    """Product code (unique identifier)"""
+    """Unique product code."""
 
     description: str
-    """Description of the product"""
+    """Product description."""
 
     paid_by_roles: Iterable[PaidByRole]
-    """Roles that can pay for this product.
+    """Roles that can pay for the product.
 
-    Reference roles by id or name. At least one of paid_by_roles or paid_to_roles
-    must be provided.
+    Reference roles by `id` or `name`. At least one of `paid_by_roles` or
+    `paid_to_roles` must be provided.
     """
 
     paid_to_roles: Iterable[PaidToRole]
-    """Roles that receive payment for this product.
+    """Roles that can receive payment for the product.
 
-    Reference roles by id or name. At least one of paid_by_roles or paid_to_roles
-    must be provided.
+    Reference roles by `id` or `name`. At least one of `paid_by_roles` or
+    `paid_to_roles` must be provided.
     """
 
 
 class PaidByRoleID(TypedDict, total=False):
     id: Required[str]
-    """The unique ID of the role"""
+    """FRAGMENT generated unique ID."""
 
 
 class PaidByRoleName(TypedDict, total=False):
     name: Required[str]
-    """The name of the role"""
+    """Name of the role."""
 
 
 PaidByRole: TypeAlias = Union[PaidByRoleID, PaidByRoleName]
@@ -53,12 +53,12 @@ PaidByRole: TypeAlias = Union[PaidByRoleID, PaidByRoleName]
 
 class PaidToRoleID(TypedDict, total=False):
     id: Required[str]
-    """The unique ID of the role"""
+    """FRAGMENT generated unique ID."""
 
 
 class PaidToRoleName(TypedDict, total=False):
     name: Required[str]
-    """The name of the role"""
+    """Name of the role."""
 
 
 PaidToRole: TypeAlias = Union[PaidToRoleID, PaidToRoleName]

@@ -10,51 +10,53 @@ __all__ = ["TransactionSearchAllocationsResponse", "Data", "DataTransaction", "D
 
 
 class DataTransaction(BaseModel):
-    """Reference to a transaction by encoded ID and external ID."""
+    """Transaction reference."""
 
     id: str
-    """Encoded transaction ID."""
+    """FRAGMENT generated unique ID."""
 
     external_id: str
-    """External transaction ID."""
+    """Unique user-provided external ID for the transaction."""
 
 
 class DataUser(BaseModel):
-    """User reference in API responses: Fragment user id and external_id."""
+    """User reference."""
 
     id: str
-    """FRAGMENT generated ID of the user"""
+    """FRAGMENT generated unique ID."""
 
     external_id: str
-    """External ID of the user"""
+    """User-provided unique external ID."""
 
 
 class Data(BaseModel):
-    """A flattened allocation with a reference to its parent transaction."""
+    """An allocation with a reference to its parent transaction."""
 
     id: str
-    """Allocation ID."""
+    """FRAGMENT generated unique ID."""
 
     amount: str
-    """Allocated amount in smallest currency unit as stringified bigint."""
+    """
+    Allocated amount, as a positive string in the smallest unit of the currency (for
+    example, cents for USD).
+    """
 
     invoice_id: str
-    """The invoice this allocation is applied against."""
+    """Invoice the allocation is applied against."""
 
     posted: datetime
-    """Posted timestamp of the parent transaction in ISO 8601 format."""
+    """Timestamp when the parent transaction was posted. Uses ISO 8601 format."""
 
     transaction: DataTransaction
-    """Reference to a transaction by encoded ID and external ID."""
+    """Transaction reference."""
 
     type: Literal["invoice_payin", "invoice_payout"]
-    """The type of allocation."""
+    """Type of allocation."""
 
     user: DataUser
-    """User reference in API responses: Fragment user id and external_id."""
+    """User reference."""
 
 
 class TransactionSearchAllocationsResponse(BaseModel):
-    """Search results for transaction allocations."""
-
     data: List[Data]
+    """List of allocation search results."""

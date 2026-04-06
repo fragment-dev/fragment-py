@@ -9,6 +9,6 @@ __all__ = ["UserListResponse"]
 
 
 class UserListResponse(BaseModel):
-    """List of users"""
+    """List of users."""
 
     data: List[User]

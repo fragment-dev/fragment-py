@@ -6,10 +6,10 @@ __all__ = ["Role"]
 
 
 class Role(BaseModel):
-    """Role object"""
+    """Role object."""
 
     id: str
-    """Unique role ID"""
+    """FRAGMENT generated unique ID."""
 
     role: str
-    """Name of the role"""
+    """Name of the role."""

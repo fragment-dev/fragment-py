@@ -8,4 +8,4 @@ __all__ = ["UserCreateResponse"]
 
 class UserCreateResponse(BaseModel):
     data: User
-    """User object"""
+    """User object."""

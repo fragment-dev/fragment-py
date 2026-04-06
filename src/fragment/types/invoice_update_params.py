@@ -32,11 +32,7 @@ __all__ = [
 
 class InvoiceUpdateParams(TypedDict, total=False):
     current_invoice_version: Required[float]
-    """The current version of the invoice.
-
-    Must match the stored version for the update to succeed (optimistic
-    concurrency).
-    """
+    """Current version of the invoice. Must match the stored version."""
 
     line_items: LineItems
 
@@ -45,31 +41,34 @@ class InvoiceUpdateParams(TypedDict, total=False):
 
 class LineItemsCreateUserID(TypedDict, total=False):
     id: Required[str]
-    """FRAGMENT generated ID of the user"""
+    """FRAGMENT generated unique ID."""
 
 
 class LineItemsCreateUserExternalID(TypedDict, total=False):
     external_id: Required[str]
-    """External ID of the user"""
+    """User-provided unique external ID."""
 
 
 LineItemsCreateUser: TypeAlias = Union[LineItemsCreateUserID, LineItemsCreateUserExternalID]
 
 
 class LineItemsCreatePrice(TypedDict, total=False):
-    """Price breakdown. Provide amount, or unit_price + quantity, or all three."""
+    """Price breakdown. Provide amount, or unit_price and quantity, or all three."""
 
     amount: str
-    """Total amount in smallest currency unit.
-
-    Required if unit_price and quantity are not provided.
+    """
+    Total amount as a string in the smallest unit of the currency (for example,
+    cents for USD). Required if unit_price and quantity are not provided.
     """
 
     quantity: int
-    """Number of units for this line item."""
+    """Number of units for the line item."""
 
     unit_price: str
-    """Price per unit in smallest currency unit."""
+    """
+    Price per unit as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
 
 class LineItemsCreateTag(TypedDict, total=False):
@@ -94,19 +93,22 @@ class LineItemsCreate(TypedDict, total=False):
     """Data to create a line item."""
 
     description: Required[str]
-    """Description of the line item"""
+    """Description of the line item."""
 
     product_id: Required[str]
-    """ID of the product/catalog item"""
+    """Unique identifier for the product."""
 
     type: Required[Literal["payin", "payout"]]
-    """The type of the line item"""
+    """Type of the line item."""
 
     user: Required[LineItemsCreateUser]
-    """Identifies a user by Fragment-generated id or external_id (request body)."""
+    """Identifies a user by `id` or `external_id`."""
 
     amount: str
-    """Deprecated: use price instead. Total amount in smallest currency unit."""
+    """
+    Total amount as a string in the smallest unit of the currency (for example,
+    cents for USD). Deprecated, use price instead.
+    """
 
     currency_code: Literal[
         "ADA",
@@ -289,29 +291,35 @@ class LineItemsCreate(TypedDict, total=False):
         "LOGICAL",
         "CUSTOM",
     ]
-    """Currency code (ISO 4217 or crypto)"""
+    """Currency code (ISO 4217 or crypto)."""
 
     price: LineItemsCreatePrice
-    """Price breakdown. Provide amount, or unit_price + quantity, or all three."""
+    """Price breakdown. Provide amount, or unit_price and quantity, or all three."""
 
     tags: Iterable[LineItemsCreateTag]
-    """Optional metadata tags for this line item"""
+    """Tags for the line item."""
 
 
 class LineItemsDelete(TypedDict, total=False):
     id: Required[str]
-    """ID of the line item to delete"""
+    """Unique identifier for the line item to delete."""
 
 
 class LineItemsUpdatePrice(TypedDict, total=False):
     quantity: Required[int]
-    """Number of units for this line item."""
+    """Number of units for the line item."""
 
     unit_price: Required[str]
-    """Price per unit in smallest currency unit."""
+    """
+    Price per unit as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
     amount: str
-    """Total amount in smallest currency unit."""
+    """
+    Total amount as a string in the smallest unit of the currency (for example,
+    cents for USD).
+    """
 
 
 class LineItemsUpdateTagsCreate(TypedDict, total=False):
@@ -378,7 +386,7 @@ class LineItemsUpdateTags(TypedDict, total=False):
     """Tags to add. Prefer `set` unless you specifically want create-only validation."""
 
     delete: Iterable[LineItemsUpdateTagsDelete]
-    """Tags to remove by key"""
+    """Tags to remove by key."""
 
     set: Iterable[LineItemsUpdateTagsSet]
     """
@@ -395,10 +403,10 @@ class LineItemsUpdateTags(TypedDict, total=False):
 
 
 class LineItemsUpdate(TypedDict, total=False):
-    """Partial update for an existing line item. All fields except id are optional."""
+    """Updates an existing line item."""
 
     id: Required[str]
-    """ID of the line item to update"""
+    """Unique identifier for the line item to update."""
 
     description: str
 
@@ -409,13 +417,13 @@ class LineItemsUpdate(TypedDict, total=False):
 
 class LineItems(TypedDict, total=False):
     create: Iterable[LineItemsCreate]
-    """Line items to add to the invoice"""
+    """Line items to add to the invoice."""
 
     delete: Iterable[LineItemsDelete]
-    """Line items to remove from the invoice"""
+    """Line items to remove from the invoice."""
 
     update: Iterable[LineItemsUpdate]
-    """Existing line items to update"""
+    """Existing line items to update."""
 
 
 class TagsCreate(TypedDict, total=False):
@@ -482,7 +490,7 @@ class Tags(TypedDict, total=False):
     """Tags to add. Prefer `set` unless you specifically want create-only validation."""
 
     delete: Iterable[TagsDelete]
-    """Tags to remove by key"""
+    """Tags to remove by key."""
 
     set: Iterable[TagsSet]
     """

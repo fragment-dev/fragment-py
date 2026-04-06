@@ -6,13 +6,13 @@ __all__ = ["User"]
 
 
 class User(BaseModel):
-    """User object"""
+    """User object."""
 
     id: str
-    """Unique user ID"""
+    """FRAGMENT generated unique ID."""
 
     external_id: str
-    """External ID for the user"""
+    """User-provided unique external ID."""
 
     role: str
-    """Role of the user"""
+    """Name of the user's role."""

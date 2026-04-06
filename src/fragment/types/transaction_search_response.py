@@ -9,6 +9,5 @@ __all__ = ["TransactionSearchResponse"]
 
 
 class TransactionSearchResponse(BaseModel):
-    """Search results for transactions."""
-
     data: List[Transaction]
+    """List of transaction search results."""

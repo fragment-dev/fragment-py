@@ -9,6 +9,5 @@ __all__ = ["TransactionListHistoryResponse"]
 
 
 class TransactionListHistoryResponse(BaseModel):
-    """Version history of a transaction"""
-
     data: List[Transaction]
+    """List of transaction versions over time, ordered by version, oldest first."""

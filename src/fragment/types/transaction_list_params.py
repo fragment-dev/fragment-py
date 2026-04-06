@@ -9,15 +9,15 @@ __all__ = ["TransactionListParams"]
 
 class TransactionListParams(TypedDict, total=False):
     account: str
-    """Filter by account.
+    """Filter by account `id` or `external_id`.
 
-    Encoded account ID (ext_account_xxx) or external_id. If the account does not
-    exist, returns an empty list.
+    If the account does not exist, returns an empty list.
     """
 
     reconciliation_status: Literal["reconciled", "unreconciled"]
-    """Filter by reconciliation state.
+    """Filter by reconciliation status.
 
-    reconciled = unallocated_amount === 0; unreconciled = unallocated_amount !== 0.
-    Omit for all transactions.
+    `reconciled` returns transactions where unallocated_amount is 0. `unreconciled`
+    returns transactions where unallocated_amount is not 0. Omit for all
+    transactions.
     """
