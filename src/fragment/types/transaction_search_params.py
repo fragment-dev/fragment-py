@@ -23,7 +23,7 @@ class FilterAccountAny(TypedDict, total=False):
     """FRAGMENT generated unique ID."""
 
     external_id: str
-    """Unique user-provided external ID for the external account."""
+    """User-provided unique ID."""
 
 
 class FilterAccount(TypedDict, total=False):

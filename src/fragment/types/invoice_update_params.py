@@ -46,7 +46,7 @@ class LineItemsCreateUserID(TypedDict, total=False):
 
 class LineItemsCreateUserExternalID(TypedDict, total=False):
     external_id: Required[str]
-    """User-provided unique external ID."""
+    """User-provided unique ID."""
 
 
 LineItemsCreateUser: TypeAlias = Union[LineItemsCreateUserID, LineItemsCreateUserExternalID]
@@ -72,7 +72,7 @@ class LineItemsCreatePrice(TypedDict, total=False):
 
 
 class LineItemsCreateTag(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
     """Tag key.
@@ -323,7 +323,7 @@ class LineItemsUpdatePrice(TypedDict, total=False):
 
 
 class LineItemsUpdateTagsCreate(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
     """Tag key.
@@ -342,11 +342,11 @@ class LineItemsUpdateTagsCreate(TypedDict, total=False):
 
 class LineItemsUpdateTagsDelete(TypedDict, total=False):
     key: Required[str]
-    """Tag key to delete"""
+    """Tag key to delete."""
 
 
 class LineItemsUpdateTagsSet(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
     """Tag key.
@@ -364,7 +364,7 @@ class LineItemsUpdateTagsSet(TypedDict, total=False):
 
 
 class LineItemsUpdateTagsUpdate(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
     """Tag key.
@@ -403,7 +403,7 @@ class LineItemsUpdateTags(TypedDict, total=False):
 
 
 class LineItemsUpdate(TypedDict, total=False):
-    """Updates an existing line item."""
+    """Data for updating a line item."""
 
     id: Required[str]
     """Unique identifier for the line item to update."""
@@ -427,7 +427,7 @@ class LineItems(TypedDict, total=False):
 
 
 class TagsCreate(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
     """Tag key.
@@ -446,11 +446,11 @@ class TagsCreate(TypedDict, total=False):
 
 class TagsDelete(TypedDict, total=False):
     key: Required[str]
-    """Tag key to delete"""
+    """Tag key to delete."""
 
 
 class TagsSet(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
     """Tag key.
@@ -468,7 +468,7 @@ class TagsSet(TypedDict, total=False):
 
 
 class TagsUpdate(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
     """Tag key.

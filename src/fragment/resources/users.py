@@ -55,10 +55,10 @@ class UsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserCreateResponse:
         """
-        Creates a new user.
+        Creates a user.
 
         Args:
-          external_id: User-provided unique external ID.
+          external_id: User-provided unique ID.
 
           role: Name of the role to assign. Must match an existing role.
 
@@ -138,10 +138,10 @@ class AsyncUsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserCreateResponse:
         """
-        Creates a new user.
+        Creates a user.
 
         Args:
-          external_id: User-provided unique external ID.
+          external_id: User-provided unique ID.
 
           role: Name of the role to assign. Must match an existing role.
 

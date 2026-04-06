@@ -55,10 +55,10 @@ class ExternalAccountsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExternalAccountCreateResponse:
         """
-        Creates a new external account.
+        Creates an external account.
 
         Args:
-          external_id: User-provided unique external ID.
+          external_id: User-provided unique ID.
 
           name: Human-readable name.
 
@@ -138,10 +138,10 @@ class AsyncExternalAccountsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExternalAccountCreateResponse:
         """
-        Creates a new external account.
+        Creates an external account.
 
         Args:
-          external_id: User-provided unique external ID.
+          external_id: User-provided unique ID.
 
           name: Human-readable name.
 

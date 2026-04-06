@@ -35,7 +35,7 @@ class LineItemUserID(TypedDict, total=False):
 
 class LineItemUserExternalID(TypedDict, total=False):
     external_id: Required[str]
-    """User-provided unique external ID."""
+    """User-provided unique ID."""
 
 
 LineItemUser: TypeAlias = Union[LineItemUserID, LineItemUserExternalID]
@@ -61,7 +61,7 @@ class LineItemPrice(TypedDict, total=False):
 
 
 class LineItemTag(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
     """Tag key.
@@ -290,7 +290,7 @@ class LineItem(TypedDict, total=False):
 
 
 class Tag(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
     """Tag key.

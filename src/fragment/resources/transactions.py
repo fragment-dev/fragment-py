@@ -271,7 +271,7 @@ class TransactionsResource(SyncAPIResource):
 
           currency: Currency code (ISO 4217 or crypto).
 
-          external_id: Unique user-provided external ID for the transaction.
+          external_id: User-provided unique ID.
 
           posted: Timestamp when the transaction was posted. Uses ISO 8601 format.
 
@@ -317,7 +317,7 @@ class TransactionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionRetrieveResponse:
         """
-        Fetches a transaction by ID or external ID.
+        Retrieves a transaction by ID or external ID.
 
         Args:
           transaction_ref: Transaction `id` or `external_id`.
@@ -449,7 +449,7 @@ class TransactionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionListHistoryResponse:
         """
-        Gets the version history of a transaction.
+        Retrieves the version history of a transaction.
 
         Args:
           transaction_ref: Transaction `id` or `external_id`.
@@ -777,7 +777,7 @@ class AsyncTransactionsResource(AsyncAPIResource):
 
           currency: Currency code (ISO 4217 or crypto).
 
-          external_id: Unique user-provided external ID for the transaction.
+          external_id: User-provided unique ID.
 
           posted: Timestamp when the transaction was posted. Uses ISO 8601 format.
 
@@ -823,7 +823,7 @@ class AsyncTransactionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionRetrieveResponse:
         """
-        Fetches a transaction by ID or external ID.
+        Retrieves a transaction by ID or external ID.
 
         Args:
           transaction_ref: Transaction `id` or `external_id`.
@@ -955,7 +955,7 @@ class AsyncTransactionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionListHistoryResponse:
         """
-        Gets the version history of a transaction.
+        Retrieves the version history of a transaction.
 
         Args:
           transaction_ref: Transaction `id` or `external_id`.

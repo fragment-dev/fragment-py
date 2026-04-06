@@ -10,7 +10,7 @@ __all__ = ["Invoice", "Tag", "LineItem", "LineItemPrice", "LineItemTag"]
 
 
 class Tag(BaseModel):
-    """A key-value tag pair"""
+    """A key-value tag pair."""
 
     key: str
     """Tag key."""
@@ -39,7 +39,7 @@ class LineItemPrice(BaseModel):
 
 
 class LineItemTag(BaseModel):
-    """A key-value tag pair"""
+    """A key-value tag pair."""
 
     key: str
     """Tag key."""

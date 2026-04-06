@@ -12,7 +12,7 @@ class User(BaseModel):
     """FRAGMENT generated unique ID."""
 
     external_id: str
-    """User-provided unique external ID."""
+    """User-provided unique ID."""
 
     role: str
     """Name of the user's role."""

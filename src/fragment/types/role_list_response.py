@@ -9,7 +9,7 @@ __all__ = ["RoleListResponse"]
 
 
 class RoleListResponse(BaseModel):
-    """List of roles"""
+    """List of roles."""
 
     data: List[Role]
     """List of roles."""

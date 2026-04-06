@@ -12,7 +12,7 @@ class ExternalAccount(BaseModel):
     """FRAGMENT generated unique ID."""
 
     external_id: str
-    """User-provided unique external ID."""
+    """User-provided unique ID."""
 
     name: str
     """Human-readable name."""

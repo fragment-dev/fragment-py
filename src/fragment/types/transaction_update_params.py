@@ -37,7 +37,7 @@ class AllocationsCreateUserID(TypedDict, total=False):
 
 class AllocationsCreateUserExternalID(TypedDict, total=False):
     external_id: Required[str]
-    """User-provided unique external ID."""
+    """User-provided unique ID."""
 
 
 AllocationsCreateUser: TypeAlias = Union[AllocationsCreateUserID, AllocationsCreateUserExternalID]
@@ -75,14 +75,14 @@ class AllocationsUpdate(TypedDict, total=False):
 
 class Allocations(TypedDict, total=False):
     create: Iterable[AllocationsCreate]
-    """Creates a new allocation."""
+    """Allocations to create."""
 
     update: Iterable[AllocationsUpdate]
-    """Updates an existing allocation."""
+    """Allocations to update."""
 
 
 class TagsCreate(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
     """Tag key.
@@ -101,11 +101,11 @@ class TagsCreate(TypedDict, total=False):
 
 class TagsDelete(TypedDict, total=False):
     key: Required[str]
-    """Tag key to delete"""
+    """Tag key to delete."""
 
 
 class TagsSet(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
     """Tag key.
@@ -123,7 +123,7 @@ class TagsSet(TypedDict, total=False):
 
 
 class TagsUpdate(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
     """Tag key.

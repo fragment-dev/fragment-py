@@ -109,7 +109,7 @@ class InvoicesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceRetrieveResponse:
         """
-        Fetches an invoice.
+        Retrieves an invoice.
 
         Args:
           id: Unique identifier for the invoice.
@@ -211,7 +211,7 @@ class InvoicesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceListHistoryResponse:
         """
-        Gets the version history of an invoice.
+        Retrieves the version history of an invoice.
 
         Args:
           id: Unique identifier for the invoice.
@@ -252,7 +252,7 @@ class InvoicesResource(SyncAPIResource):
         Args:
           filter: Filter criteria for the search.
 
-          page_info: Pagination parameters
+          page_info: Pagination parameters.
 
           extra_headers: Send extra headers
 
@@ -359,7 +359,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceRetrieveResponse:
         """
-        Fetches an invoice.
+        Retrieves an invoice.
 
         Args:
           id: Unique identifier for the invoice.
@@ -461,7 +461,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> InvoiceListHistoryResponse:
         """
-        Gets the version history of an invoice.
+        Retrieves the version history of an invoice.
 
         Args:
           id: Unique identifier for the invoice.
@@ -502,7 +502,7 @@ class AsyncInvoicesResource(AsyncAPIResource):
         Args:
           filter: Filter criteria for the search.
 
-          page_info: Pagination parameters
+          page_info: Pagination parameters.
 
           extra_headers: Send extra headers
 

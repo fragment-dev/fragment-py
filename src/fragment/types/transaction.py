@@ -16,7 +16,7 @@ class Account(BaseModel):
     """FRAGMENT generated unique ID."""
 
     external_id: str
-    """Unique user-provided external ID for the external account."""
+    """User-provided unique ID."""
 
 
 class AllocationUser(BaseModel):
@@ -26,7 +26,7 @@ class AllocationUser(BaseModel):
     """FRAGMENT generated unique ID."""
 
     external_id: str
-    """User-provided unique external ID."""
+    """User-provided unique ID."""
 
 
 class Allocation(BaseModel):
@@ -49,7 +49,7 @@ class Allocation(BaseModel):
 
 
 class Tag(BaseModel):
-    """A key-value tag pair"""
+    """A key-value tag pair."""
 
     key: str
     """Tag key."""
@@ -263,7 +263,7 @@ class Transaction(BaseModel):
     """Currency code (ISO 4217 or crypto)."""
 
     external_id: str
-    """Unique user-provided external ID for the transaction."""
+    """User-provided unique ID."""
 
     posted: datetime
     """Timestamp when the transaction was posted. Uses ISO 8601 format."""

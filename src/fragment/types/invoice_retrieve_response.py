@@ -98,7 +98,7 @@ class DataBalance(BaseModel):
 
 
 class DataPaymentTransactionTag(BaseModel):
-    """A key-value tag pair"""
+    """A key-value tag pair."""
 
     key: str
     """Tag key."""
@@ -114,7 +114,7 @@ class DataPaymentTransaction(BaseModel):
     """FRAGMENT generated unique ID."""
 
     external_id: str
-    """Unique user-provided external ID for the transaction."""
+    """User-provided unique ID."""
 
     tags: List[DataPaymentTransactionTag]
     """Tags from the parent transaction."""
@@ -127,7 +127,7 @@ class DataPaymentUser(BaseModel):
     """FRAGMENT generated unique ID."""
 
     external_id: str
-    """User-provided unique external ID."""
+    """User-provided unique ID."""
 
 
 class DataPayment(BaseModel):
@@ -412,6 +412,9 @@ class DataUser(BaseModel):
 
     balances: List[DataUserBalance]
     """Per-currency balance breakdown for the user."""
+
+    external_id: str
+    """User-provided unique ID."""
 
 
 class Data(Invoice):
