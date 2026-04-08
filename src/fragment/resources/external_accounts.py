@@ -23,6 +23,8 @@ __all__ = ["ExternalAccountsResource", "AsyncExternalAccountsResource"]
 
 
 class ExternalAccountsResource(SyncAPIResource):
+    """External account management operations"""
+
     @cached_property
     def with_raw_response(self) -> ExternalAccountsResourceWithRawResponse:
         """
@@ -106,6 +108,8 @@ class ExternalAccountsResource(SyncAPIResource):
 
 
 class AsyncExternalAccountsResource(AsyncAPIResource):
+    """External account management operations"""
+
     @cached_property
     def with_raw_response(self) -> AsyncExternalAccountsResourceWithRawResponse:
         """

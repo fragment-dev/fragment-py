@@ -52,7 +52,7 @@ class LineItem(BaseModel):
     """Invoice line item."""
 
     id: str
-    """Unique invoice ID."""
+    """FRAGMENT generated unique ID."""
 
     amount: str
     """
