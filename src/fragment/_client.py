@@ -113,6 +113,7 @@ class Fragment(SyncAPIClient):
 
     @cached_property
     def external_accounts(self) -> ExternalAccountsResource:
+        """External account management operations"""
         from .resources.external_accounts import ExternalAccountsResource
 
         return ExternalAccountsResource(self)
@@ -147,6 +148,7 @@ class Fragment(SyncAPIClient):
 
     @cached_property
     def users(self) -> UsersResource:
+        """User management operations"""
         from .resources.users import UsersResource
 
         return UsersResource(self)
@@ -342,6 +344,7 @@ class AsyncFragment(AsyncAPIClient):
 
     @cached_property
     def external_accounts(self) -> AsyncExternalAccountsResource:
+        """External account management operations"""
         from .resources.external_accounts import AsyncExternalAccountsResource
 
         return AsyncExternalAccountsResource(self)
@@ -376,6 +379,7 @@ class AsyncFragment(AsyncAPIClient):
 
     @cached_property
     def users(self) -> AsyncUsersResource:
+        """User management operations"""
         from .resources.users import AsyncUsersResource
 
         return AsyncUsersResource(self)
@@ -518,6 +522,7 @@ class FragmentWithRawResponse:
 
     @cached_property
     def external_accounts(self) -> external_accounts.ExternalAccountsResourceWithRawResponse:
+        """External account management operations"""
         from .resources.external_accounts import ExternalAccountsResourceWithRawResponse
 
         return ExternalAccountsResourceWithRawResponse(self._client.external_accounts)
@@ -552,6 +557,7 @@ class FragmentWithRawResponse:
 
     @cached_property
     def users(self) -> users.UsersResourceWithRawResponse:
+        """User management operations"""
         from .resources.users import UsersResourceWithRawResponse
 
         return UsersResourceWithRawResponse(self._client.users)
@@ -565,6 +571,7 @@ class AsyncFragmentWithRawResponse:
 
     @cached_property
     def external_accounts(self) -> external_accounts.AsyncExternalAccountsResourceWithRawResponse:
+        """External account management operations"""
         from .resources.external_accounts import AsyncExternalAccountsResourceWithRawResponse
 
         return AsyncExternalAccountsResourceWithRawResponse(self._client.external_accounts)
@@ -599,6 +606,7 @@ class AsyncFragmentWithRawResponse:
 
     @cached_property
     def users(self) -> users.AsyncUsersResourceWithRawResponse:
+        """User management operations"""
         from .resources.users import AsyncUsersResourceWithRawResponse
 
         return AsyncUsersResourceWithRawResponse(self._client.users)
@@ -612,6 +620,7 @@ class FragmentWithStreamedResponse:
 
     @cached_property
     def external_accounts(self) -> external_accounts.ExternalAccountsResourceWithStreamingResponse:
+        """External account management operations"""
         from .resources.external_accounts import ExternalAccountsResourceWithStreamingResponse
 
         return ExternalAccountsResourceWithStreamingResponse(self._client.external_accounts)
@@ -646,6 +655,7 @@ class FragmentWithStreamedResponse:
 
     @cached_property
     def users(self) -> users.UsersResourceWithStreamingResponse:
+        """User management operations"""
         from .resources.users import UsersResourceWithStreamingResponse
 
         return UsersResourceWithStreamingResponse(self._client.users)
@@ -659,6 +669,7 @@ class AsyncFragmentWithStreamedResponse:
 
     @cached_property
     def external_accounts(self) -> external_accounts.AsyncExternalAccountsResourceWithStreamingResponse:
+        """External account management operations"""
         from .resources.external_accounts import AsyncExternalAccountsResourceWithStreamingResponse
 
         return AsyncExternalAccountsResourceWithStreamingResponse(self._client.external_accounts)
@@ -693,6 +704,7 @@ class AsyncFragmentWithStreamedResponse:
 
     @cached_property
     def users(self) -> users.AsyncUsersResourceWithStreamingResponse:
+        """User management operations"""
         from .resources.users import AsyncUsersResourceWithStreamingResponse
 
         return AsyncUsersResourceWithStreamingResponse(self._client.users)
