@@ -62,7 +62,7 @@ class ExternalAccountsResource(SyncAPIResource):
         Args:
           external_id: User-provided unique ID.
 
-          name: Human-readable name.
+          name: Name of the account.
 
           extra_headers: Send extra headers
 
@@ -147,7 +147,7 @@ class AsyncExternalAccountsResource(AsyncAPIResource):
         Args:
           external_id: User-provided unique ID.
 
-          name: Human-readable name.
+          name: Name of the account.
 
           extra_headers: Send extra headers
 

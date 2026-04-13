@@ -29,74 +29,74 @@ __all__ = [
 
 
 class DataInvoiceBalanceNet(BaseModel):
+    """Net balance breakdown."""
+
     actual: str
-    """
-    Actual amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
-    """
+    """Actual amount as a string in the smallest currency unit, such as cents for USD."""
 
     expected: str
     """
-    Expected amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Expected amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
     remaining: str
     """
-    Remaining amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Remaining amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
 
 class DataInvoiceBalancePayins(BaseModel):
+    """Payins balance breakdown."""
+
     actual: str
-    """
-    Actual amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
-    """
+    """Actual amount as a string in the smallest currency unit, such as cents for USD."""
 
     expected: str
     """
-    Expected amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Expected amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
     remaining: str
     """
-    Remaining amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Remaining amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
 
 class DataInvoiceBalancePayouts(BaseModel):
+    """Payouts balance breakdown."""
+
     actual: str
-    """
-    Actual amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
-    """
+    """Actual amount as a string in the smallest currency unit, such as cents for USD."""
 
     expected: str
     """
-    Expected amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Expected amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
     remaining: str
     """
-    Remaining amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Remaining amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
 
 class DataInvoiceBalance(BaseModel):
     currency: str
-    """Currency code (ISO 4217 or crypto)."""
+    """ISO 4217 or crypto currency code."""
 
     net: DataInvoiceBalanceNet
+    """Net balance breakdown."""
 
     payins: DataInvoiceBalancePayins
+    """Payins balance breakdown."""
 
     payouts: DataInvoiceBalancePayouts
+    """Payouts balance breakdown."""
 
 
 class DataInvoicePaymentTransactionTag(BaseModel):
@@ -110,7 +110,7 @@ class DataInvoicePaymentTransactionTag(BaseModel):
 
 
 class DataInvoicePaymentTransaction(BaseModel):
-    """Transaction reference."""
+    """Transaction the payment is applied to."""
 
     id: str
     """FRAGMENT generated unique ID."""
@@ -123,7 +123,7 @@ class DataInvoicePaymentTransaction(BaseModel):
 
 
 class DataInvoicePaymentUser(BaseModel):
-    """User reference."""
+    """User associated with the payment."""
 
     id: str
     """FRAGMENT generated unique ID."""
@@ -137,8 +137,8 @@ class DataInvoicePayment(BaseModel):
 
     amount: str
     """
-    Amount allocated as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Amount allocated as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
     currency: Literal[
@@ -322,90 +322,90 @@ class DataInvoicePayment(BaseModel):
         "LOGICAL",
         "CUSTOM",
     ]
-    """Currency code (ISO 4217 or crypto)."""
+    """ISO 4217 or crypto currency code."""
 
     posted: datetime
     """Timestamp when the parent transaction was posted. Uses ISO 8601 format."""
 
     transaction: DataInvoicePaymentTransaction
-    """Transaction reference."""
+    """Transaction the payment is applied to."""
 
     type: Literal["payin", "payout"]
     """Type of the payment."""
 
     user: DataInvoicePaymentUser
-    """User reference."""
+    """User associated with the payment."""
 
 
 class DataInvoiceUserBalanceNet(BaseModel):
+    """Net balance breakdown."""
+
     actual: str
-    """
-    Actual amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
-    """
+    """Actual amount as a string in the smallest currency unit, such as cents for USD."""
 
     expected: str
     """
-    Expected amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Expected amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
     remaining: str
     """
-    Remaining amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Remaining amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
 
 class DataInvoiceUserBalancePayins(BaseModel):
+    """Payins balance breakdown."""
+
     actual: str
-    """
-    Actual amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
-    """
+    """Actual amount as a string in the smallest currency unit, such as cents for USD."""
 
     expected: str
     """
-    Expected amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Expected amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
     remaining: str
     """
-    Remaining amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Remaining amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
 
 class DataInvoiceUserBalancePayouts(BaseModel):
+    """Payouts balance breakdown."""
+
     actual: str
-    """
-    Actual amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
-    """
+    """Actual amount as a string in the smallest currency unit, such as cents for USD."""
 
     expected: str
     """
-    Expected amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Expected amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
     remaining: str
     """
-    Remaining amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Remaining amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
 
 class DataInvoiceUserBalance(BaseModel):
     currency: str
-    """Currency code (ISO 4217 or crypto)."""
+    """ISO 4217 or crypto currency code."""
 
     net: DataInvoiceUserBalanceNet
+    """Net balance breakdown."""
 
     payins: DataInvoiceUserBalancePayins
+    """Payins balance breakdown."""
 
     payouts: DataInvoiceUserBalancePayouts
+    """Payouts balance breakdown."""
 
 
 class DataInvoiceUser(BaseModel):
@@ -440,6 +440,8 @@ class DataPageInfo(BaseModel):
 
 
 class Data(BaseModel):
+    """Search results for invoices."""
+
     invoices: List[DataInvoice]
     """Invoices matching the search criteria."""
 
@@ -451,3 +453,4 @@ class InvoiceSearchResponse(BaseModel):
     """Search results for invoices."""
 
     data: Data
+    """Search results for invoices."""

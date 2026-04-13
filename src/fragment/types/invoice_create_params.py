@@ -45,9 +45,9 @@ class LineItemPrice(TypedDict, total=False):
     """Price breakdown. Provide amount, or unit_price and quantity, or all three."""
 
     amount: str
-    """
-    Total amount as a string in the smallest unit of the currency (for example,
-    cents for USD). Required if unit_price and quantity are not provided.
+    """Total amount as a string in the smallest currency unit, such as cents for USD.
+
+    Required if unit_price and quantity are not provided.
     """
 
     quantity: int
@@ -55,8 +55,7 @@ class LineItemPrice(TypedDict, total=False):
 
     unit_price: str
     """
-    Price per unit as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Price per unit as a string in the smallest currency unit, such as cents for USD.
     """
 
 
@@ -64,18 +63,10 @@ class LineItemTag(TypedDict, total=False):
     """A key-value tag pair for metadata."""
 
     key: Required[str]
-    """Tag key.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 50
-    characters.
-    """
+    """Tag key. Must not contain #, /, or :. Max 50 characters."""
 
     value: Required[str]
-    """Tag value.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 200
-    characters.
-    """
+    """Tag value. Must not contain #, /, or :. Max 200 characters."""
 
 
 class LineItem(TypedDict, total=False):
@@ -94,9 +85,9 @@ class LineItem(TypedDict, total=False):
     """Identifies a user by `id` or `external_id`."""
 
     amount: str
-    """
-    Total amount as a string in the smallest unit of the currency (for example,
-    cents for USD). Deprecated, use price instead.
+    """Total amount as a string in the smallest currency unit, such as cents for USD.
+
+    Deprecated, use price instead.
     """
 
     currency_code: Literal[
@@ -280,7 +271,7 @@ class LineItem(TypedDict, total=False):
         "LOGICAL",
         "CUSTOM",
     ]
-    """Currency code (ISO 4217 or crypto)."""
+    """ISO 4217 or crypto currency code."""
 
     price: LineItemPrice
     """Price breakdown. Provide amount, or unit_price and quantity, or all three."""
@@ -293,15 +284,7 @@ class Tag(TypedDict, total=False):
     """A key-value tag pair for metadata."""
 
     key: Required[str]
-    """Tag key.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 50
-    characters.
-    """
+    """Tag key. Must not contain #, /, or :. Max 50 characters."""
 
     value: Required[str]
-    """Tag value.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 200
-    characters.
-    """
+    """Tag value. Must not contain #, /, or :. Max 200 characters."""

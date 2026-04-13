@@ -31,8 +31,8 @@ class TransactionCreateParams(TypedDict, total=False):
 
     amount: Required[str]
     """
-    Transaction amount, as a string in the smallest unit of the currency (for
-    example, cents for USD). Can be positive or negative.
+    Transaction amount, as a string in the smallest currency unit, such as cents for
+    USD. Can be positive or negative.
     """
 
     currency: Required[
@@ -218,7 +218,7 @@ class TransactionCreateParams(TypedDict, total=False):
             "CUSTOM",
         ]
     ]
-    """Currency code (ISO 4217 or crypto)."""
+    """ISO 4217 or crypto currency code."""
 
     external_id: Required[str]
     """User-provided unique ID."""
@@ -261,8 +261,8 @@ class Allocation(TypedDict, total=False):
 
     amount: Required[str]
     """
-    Allocation amount, as a positive string in the smallest unit of the currency
-    (for example, cents for USD).
+    Allocation amount, as a positive string in the smallest currency unit, such as
+    cents for USD.
     """
 
     invoice_id: Required[str]
@@ -279,15 +279,7 @@ class Tag(TypedDict, total=False):
     """A key-value tag pair for metadata."""
 
     key: Required[str]
-    """Tag key.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 50
-    characters.
-    """
+    """Tag key. Must not contain #, /, or :. Max 50 characters."""
 
     value: Required[str]
-    """Tag value.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 200
-    characters.
-    """
+    """Tag value. Must not contain #, /, or :. Max 200 characters."""

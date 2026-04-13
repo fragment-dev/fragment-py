@@ -20,7 +20,7 @@ class Account(BaseModel):
 
 
 class AllocationUser(BaseModel):
-    """User reference."""
+    """User associated with the allocation."""
 
     id: str
     """FRAGMENT generated unique ID."""
@@ -34,8 +34,8 @@ class Allocation(BaseModel):
 
     amount: str
     """
-    Allocated amount, as a positive string in the smallest unit of the currency (for
-    example, cents for USD).
+    Allocated amount, as a positive string in the smallest currency unit, such as
+    cents for USD.
     """
 
     invoice_id: str
@@ -45,7 +45,7 @@ class Allocation(BaseModel):
     """Type of allocation."""
 
     user: AllocationUser
-    """User reference."""
+    """User associated with the allocation."""
 
 
 class Tag(BaseModel):
@@ -72,8 +72,8 @@ class Transaction(BaseModel):
 
     amount: str
     """
-    Transaction amount, as a string in the smallest unit of the currency (for
-    example, cents for USD). Can be positive or negative.
+    Transaction amount, as a string in the smallest currency unit, such as cents for
+    USD. Can be positive or negative.
     """
 
     created: datetime
@@ -260,7 +260,7 @@ class Transaction(BaseModel):
         "LOGICAL",
         "CUSTOM",
     ]
-    """Currency code (ISO 4217 or crypto)."""
+    """ISO 4217 or crypto currency code."""
 
     external_id: str
     """User-provided unique ID."""

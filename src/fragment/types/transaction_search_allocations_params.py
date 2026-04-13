@@ -15,11 +15,14 @@ class TransactionSearchAllocationsParams(TypedDict, total=False):
 
 
 class FilterInvoiceID(TypedDict, total=False):
+    """Invoice ID filter."""
+
     any: Required[SequenceNotStr[str]]
-    """Match allocations where invoice_id is any of these values (OR)."""
+    """Match allocations where invoice_id is any of these values, using OR logic."""
 
 
 class Filter(TypedDict, total=False):
     """Filter for searching transaction allocations."""
 
     invoice_id: Required[FilterInvoiceID]
+    """Invoice ID filter."""

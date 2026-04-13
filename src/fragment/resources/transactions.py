@@ -266,10 +266,10 @@ class TransactionsResource(SyncAPIResource):
 
           allocations: Allocations for the transaction. An empty array indicates unreconciled funds.
 
-          amount: Transaction amount, as a string in the smallest unit of the currency (for
-              example, cents for USD). Can be positive or negative.
+          amount: Transaction amount, as a string in the smallest currency unit, such as cents for
+              USD. Can be positive or negative.
 
-          currency: Currency code (ISO 4217 or crypto).
+          currency: ISO 4217 or crypto currency code.
 
           external_id: User-provided unique ID.
 
@@ -361,6 +361,10 @@ class TransactionsResource(SyncAPIResource):
           transaction_ref: Transaction `id` or `external_id`.
 
           current_transaction_version: Current version of the transaction. Must match the stored version.
+
+          allocations: Allocation updates.
+
+          tags: Tag updates.
 
           extra_headers: Send extra headers
 
@@ -476,6 +480,7 @@ class TransactionsResource(SyncAPIResource):
         self,
         *,
         filter: transaction_search_params.Filter,
+        page_info: transaction_search_params.PageInfo | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -489,6 +494,8 @@ class TransactionsResource(SyncAPIResource):
         Args:
           filter: Filter for searching transactions.
 
+          page_info: Pagination parameters.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -499,7 +506,13 @@ class TransactionsResource(SyncAPIResource):
         """
         return self._post(
             "/transactions/search",
-            body=maybe_transform({"filter": filter}, transaction_search_params.TransactionSearchParams),
+            body=maybe_transform(
+                {
+                    "filter": filter,
+                    "page_info": page_info,
+                },
+                transaction_search_params.TransactionSearchParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -772,10 +785,10 @@ class AsyncTransactionsResource(AsyncAPIResource):
 
           allocations: Allocations for the transaction. An empty array indicates unreconciled funds.
 
-          amount: Transaction amount, as a string in the smallest unit of the currency (for
-              example, cents for USD). Can be positive or negative.
+          amount: Transaction amount, as a string in the smallest currency unit, such as cents for
+              USD. Can be positive or negative.
 
-          currency: Currency code (ISO 4217 or crypto).
+          currency: ISO 4217 or crypto currency code.
 
           external_id: User-provided unique ID.
 
@@ -867,6 +880,10 @@ class AsyncTransactionsResource(AsyncAPIResource):
           transaction_ref: Transaction `id` or `external_id`.
 
           current_transaction_version: Current version of the transaction. Must match the stored version.
+
+          allocations: Allocation updates.
+
+          tags: Tag updates.
 
           extra_headers: Send extra headers
 
@@ -982,6 +999,7 @@ class AsyncTransactionsResource(AsyncAPIResource):
         self,
         *,
         filter: transaction_search_params.Filter,
+        page_info: transaction_search_params.PageInfo | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -995,6 +1013,8 @@ class AsyncTransactionsResource(AsyncAPIResource):
         Args:
           filter: Filter for searching transactions.
 
+          page_info: Pagination parameters.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1005,7 +1025,13 @@ class AsyncTransactionsResource(AsyncAPIResource):
         """
         return await self._post(
             "/transactions/search",
-            body=await async_maybe_transform({"filter": filter}, transaction_search_params.TransactionSearchParams),
+            body=await async_maybe_transform(
+                {
+                    "filter": filter,
+                    "page_info": page_info,
+                },
+                transaction_search_params.TransactionSearchParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

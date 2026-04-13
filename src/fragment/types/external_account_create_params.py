@@ -12,4 +12,4 @@ class ExternalAccountCreateParams(TypedDict, total=False):
     """User-provided unique ID."""
 
     name: Required[str]
-    """Human-readable name."""
+    """Name of the account."""
