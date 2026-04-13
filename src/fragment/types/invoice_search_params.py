@@ -12,7 +12,7 @@ class InvoiceSearchParams(TypedDict, total=False):
     filter: Required[Filter]
     """Filter criteria for the search."""
 
-    page_info: Required[PageInfo]
+    page_info: PageInfo
     """Pagination parameters."""
 
 
@@ -53,10 +53,10 @@ class FilterTags(TypedDict, total=False):
     """
 
     all: Iterable[FilterTagsAll]
-    """Returns invoices matching every specified tag (AND)."""
+    """Returns invoices matching every specified tag, using AND logic."""
 
     any: Iterable[FilterTagsAny]
-    """Returns invoices matching at least one of the specified tags (OR)."""
+    """Returns invoices matching at least one of the specified tags, using OR logic."""
 
 
 class Filter(TypedDict, total=False):

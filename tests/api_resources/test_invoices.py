@@ -60,16 +60,16 @@ class TestInvoices:
                     },
                     "tags": [
                         {
-                            "key": "region",
-                            "value": "us-east",
+                            "key": "department",
+                            "value": "engineering",
                         }
                     ],
                 }
             ],
             tags=[
                 {
-                    "key": "region",
-                    "value": "us-east",
+                    "key": "department",
+                    "value": "engineering",
                 }
             ],
         )
@@ -190,8 +190,8 @@ class TestInvoices:
                         },
                         "tags": [
                             {
-                                "key": "region",
-                                "value": "us-east",
+                                "key": "department",
+                                "value": "engineering",
                             }
                         ],
                     }
@@ -209,21 +209,21 @@ class TestInvoices:
                         "tags": {
                             "create": [
                                 {
-                                    "key": "region",
-                                    "value": "us-east",
+                                    "key": "department",
+                                    "value": "engineering",
                                 }
                             ],
                             "delete": [{"key": "key"}],
                             "set": [
                                 {
-                                    "key": "region",
-                                    "value": "eu-west-1",
+                                    "key": "department",
+                                    "value": "engineering",
                                 }
                             ],
                             "update": [
                                 {
-                                    "key": "region",
-                                    "value": "us-east",
+                                    "key": "department",
+                                    "value": "engineering",
                                 }
                             ],
                         },
@@ -233,21 +233,21 @@ class TestInvoices:
             tags={
                 "create": [
                     {
-                        "key": "region",
-                        "value": "us-east",
+                        "key": "department",
+                        "value": "engineering",
                     }
                 ],
                 "delete": [{"key": "key"}],
                 "set": [
                     {
-                        "key": "region",
-                        "value": "eu-west-1",
+                        "key": "department",
+                        "value": "engineering",
                     }
                 ],
                 "update": [
                     {
-                        "key": "region",
-                        "value": "us-east",
+                        "key": "department",
+                        "value": "engineering",
                     }
                 ],
             },
@@ -366,7 +366,6 @@ class TestInvoices:
     def test_method_search(self, client: Fragment) -> None:
         invoice = client.invoices.search(
             filter={},
-            page_info={},
         )
         assert_matches_type(InvoiceSearchResponse, invoice, path=["response"])
 
@@ -379,14 +378,14 @@ class TestInvoices:
                 "tags": {
                     "all": [
                         {
-                            "key": "env",
-                            "value": "prod",
+                            "key": "department",
+                            "value": "engineering",
                         }
                     ],
                     "any": [
                         {
-                            "key": "region",
-                            "value": "us-*",
+                            "key": "department",
+                            "value": "eng*",
                         }
                     ],
                 },
@@ -403,7 +402,6 @@ class TestInvoices:
     def test_raw_response_search(self, client: Fragment) -> None:
         response = client.invoices.with_raw_response.search(
             filter={},
-            page_info={},
         )
 
         assert response.is_closed is True
@@ -416,7 +414,6 @@ class TestInvoices:
     def test_streaming_response_search(self, client: Fragment) -> None:
         with client.invoices.with_streaming_response.search(
             filter={},
-            page_info={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -468,16 +465,16 @@ class TestAsyncInvoices:
                     },
                     "tags": [
                         {
-                            "key": "region",
-                            "value": "us-east",
+                            "key": "department",
+                            "value": "engineering",
                         }
                     ],
                 }
             ],
             tags=[
                 {
-                    "key": "region",
-                    "value": "us-east",
+                    "key": "department",
+                    "value": "engineering",
                 }
             ],
         )
@@ -598,8 +595,8 @@ class TestAsyncInvoices:
                         },
                         "tags": [
                             {
-                                "key": "region",
-                                "value": "us-east",
+                                "key": "department",
+                                "value": "engineering",
                             }
                         ],
                     }
@@ -617,21 +614,21 @@ class TestAsyncInvoices:
                         "tags": {
                             "create": [
                                 {
-                                    "key": "region",
-                                    "value": "us-east",
+                                    "key": "department",
+                                    "value": "engineering",
                                 }
                             ],
                             "delete": [{"key": "key"}],
                             "set": [
                                 {
-                                    "key": "region",
-                                    "value": "eu-west-1",
+                                    "key": "department",
+                                    "value": "engineering",
                                 }
                             ],
                             "update": [
                                 {
-                                    "key": "region",
-                                    "value": "us-east",
+                                    "key": "department",
+                                    "value": "engineering",
                                 }
                             ],
                         },
@@ -641,21 +638,21 @@ class TestAsyncInvoices:
             tags={
                 "create": [
                     {
-                        "key": "region",
-                        "value": "us-east",
+                        "key": "department",
+                        "value": "engineering",
                     }
                 ],
                 "delete": [{"key": "key"}],
                 "set": [
                     {
-                        "key": "region",
-                        "value": "eu-west-1",
+                        "key": "department",
+                        "value": "engineering",
                     }
                 ],
                 "update": [
                     {
-                        "key": "region",
-                        "value": "us-east",
+                        "key": "department",
+                        "value": "engineering",
                     }
                 ],
             },
@@ -774,7 +771,6 @@ class TestAsyncInvoices:
     async def test_method_search(self, async_client: AsyncFragment) -> None:
         invoice = await async_client.invoices.search(
             filter={},
-            page_info={},
         )
         assert_matches_type(InvoiceSearchResponse, invoice, path=["response"])
 
@@ -787,14 +783,14 @@ class TestAsyncInvoices:
                 "tags": {
                     "all": [
                         {
-                            "key": "env",
-                            "value": "prod",
+                            "key": "department",
+                            "value": "engineering",
                         }
                     ],
                     "any": [
                         {
-                            "key": "region",
-                            "value": "us-*",
+                            "key": "department",
+                            "value": "eng*",
                         }
                     ],
                 },
@@ -811,7 +807,6 @@ class TestAsyncInvoices:
     async def test_raw_response_search(self, async_client: AsyncFragment) -> None:
         response = await async_client.invoices.with_raw_response.search(
             filter={},
-            page_info={},
         )
 
         assert response.is_closed is True
@@ -824,7 +819,6 @@ class TestAsyncInvoices:
     async def test_streaming_response_search(self, async_client: AsyncFragment) -> None:
         async with async_client.invoices.with_streaming_response.search(
             filter={},
-            page_info={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

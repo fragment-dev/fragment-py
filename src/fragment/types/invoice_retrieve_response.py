@@ -27,74 +27,74 @@ __all__ = [
 
 
 class DataBalanceNet(BaseModel):
+    """Net balance breakdown."""
+
     actual: str
-    """
-    Actual amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
-    """
+    """Actual amount as a string in the smallest currency unit, such as cents for USD."""
 
     expected: str
     """
-    Expected amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Expected amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
     remaining: str
     """
-    Remaining amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Remaining amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
 
 class DataBalancePayins(BaseModel):
+    """Payins balance breakdown."""
+
     actual: str
-    """
-    Actual amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
-    """
+    """Actual amount as a string in the smallest currency unit, such as cents for USD."""
 
     expected: str
     """
-    Expected amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Expected amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
     remaining: str
     """
-    Remaining amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Remaining amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
 
 class DataBalancePayouts(BaseModel):
+    """Payouts balance breakdown."""
+
     actual: str
-    """
-    Actual amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
-    """
+    """Actual amount as a string in the smallest currency unit, such as cents for USD."""
 
     expected: str
     """
-    Expected amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Expected amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
     remaining: str
     """
-    Remaining amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Remaining amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
 
 class DataBalance(BaseModel):
     currency: str
-    """Currency code (ISO 4217 or crypto)."""
+    """ISO 4217 or crypto currency code."""
 
     net: DataBalanceNet
+    """Net balance breakdown."""
 
     payins: DataBalancePayins
+    """Payins balance breakdown."""
 
     payouts: DataBalancePayouts
+    """Payouts balance breakdown."""
 
 
 class DataPaymentTransactionTag(BaseModel):
@@ -108,7 +108,7 @@ class DataPaymentTransactionTag(BaseModel):
 
 
 class DataPaymentTransaction(BaseModel):
-    """Transaction reference."""
+    """Transaction the payment is applied to."""
 
     id: str
     """FRAGMENT generated unique ID."""
@@ -121,7 +121,7 @@ class DataPaymentTransaction(BaseModel):
 
 
 class DataPaymentUser(BaseModel):
-    """User reference."""
+    """User associated with the payment."""
 
     id: str
     """FRAGMENT generated unique ID."""
@@ -135,8 +135,8 @@ class DataPayment(BaseModel):
 
     amount: str
     """
-    Amount allocated as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Amount allocated as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
     currency: Literal[
@@ -320,90 +320,90 @@ class DataPayment(BaseModel):
         "LOGICAL",
         "CUSTOM",
     ]
-    """Currency code (ISO 4217 or crypto)."""
+    """ISO 4217 or crypto currency code."""
 
     posted: datetime
     """Timestamp when the parent transaction was posted. Uses ISO 8601 format."""
 
     transaction: DataPaymentTransaction
-    """Transaction reference."""
+    """Transaction the payment is applied to."""
 
     type: Literal["payin", "payout"]
     """Type of the payment."""
 
     user: DataPaymentUser
-    """User reference."""
+    """User associated with the payment."""
 
 
 class DataUserBalanceNet(BaseModel):
+    """Net balance breakdown."""
+
     actual: str
-    """
-    Actual amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
-    """
+    """Actual amount as a string in the smallest currency unit, such as cents for USD."""
 
     expected: str
     """
-    Expected amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Expected amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
     remaining: str
     """
-    Remaining amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Remaining amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
 
 class DataUserBalancePayins(BaseModel):
+    """Payins balance breakdown."""
+
     actual: str
-    """
-    Actual amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
-    """
+    """Actual amount as a string in the smallest currency unit, such as cents for USD."""
 
     expected: str
     """
-    Expected amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Expected amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
     remaining: str
     """
-    Remaining amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Remaining amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
 
 class DataUserBalancePayouts(BaseModel):
+    """Payouts balance breakdown."""
+
     actual: str
-    """
-    Actual amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
-    """
+    """Actual amount as a string in the smallest currency unit, such as cents for USD."""
 
     expected: str
     """
-    Expected amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Expected amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
     remaining: str
     """
-    Remaining amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
+    Remaining amount as a string in the smallest currency unit, such as cents for
+    USD.
     """
 
 
 class DataUserBalance(BaseModel):
     currency: str
-    """Currency code (ISO 4217 or crypto)."""
+    """ISO 4217 or crypto currency code."""
 
     net: DataUserBalanceNet
+    """Net balance breakdown."""
 
     payins: DataUserBalancePayins
+    """Payins balance breakdown."""
 
     payouts: DataUserBalancePayouts
+    """Payouts balance breakdown."""
 
 
 class DataUser(BaseModel):

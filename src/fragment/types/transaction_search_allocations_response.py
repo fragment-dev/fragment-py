@@ -10,7 +10,7 @@ __all__ = ["TransactionSearchAllocationsResponse", "Data", "DataTransaction", "D
 
 
 class DataTransaction(BaseModel):
-    """Transaction reference."""
+    """Transaction the allocation is applied to."""
 
     id: str
     """FRAGMENT generated unique ID."""
@@ -20,7 +20,7 @@ class DataTransaction(BaseModel):
 
 
 class DataUser(BaseModel):
-    """User reference."""
+    """User associated with the allocation."""
 
     id: str
     """FRAGMENT generated unique ID."""
@@ -37,8 +37,8 @@ class Data(BaseModel):
 
     amount: str
     """
-    Allocated amount, as a positive string in the smallest unit of the currency (for
-    example, cents for USD).
+    Allocated amount, as a positive string in the smallest currency unit, such as
+    cents for USD.
     """
 
     invoice_id: str
@@ -48,13 +48,13 @@ class Data(BaseModel):
     """Timestamp when the parent transaction was posted. Uses ISO 8601 format."""
 
     transaction: DataTransaction
-    """Transaction reference."""
+    """Transaction the allocation is applied to."""
 
     type: Literal["invoice_payin", "invoice_payout"]
     """Type of allocation."""
 
     user: DataUser
-    """User reference."""
+    """User associated with the allocation."""
 
 
 class TransactionSearchAllocationsResponse(BaseModel):

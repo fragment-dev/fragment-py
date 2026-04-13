@@ -68,8 +68,8 @@ class TestTransactions:
             posted=parse_datetime("2024-01-13T00:00:00Z"),
             tags=[
                 {
-                    "key": "region",
-                    "value": "us-east",
+                    "key": "department",
+                    "value": "engineering",
                 }
             ],
         )
@@ -201,21 +201,21 @@ class TestTransactions:
             tags={
                 "create": [
                     {
-                        "key": "region",
-                        "value": "us-east",
+                        "key": "department",
+                        "value": "engineering",
                     }
                 ],
                 "delete": [{"key": "key"}],
                 "set": [
                     {
-                        "key": "region",
-                        "value": "eu-west-1",
+                        "key": "department",
+                        "value": "engineering",
                     }
                 ],
                 "update": [
                     {
-                        "key": "region",
-                        "value": "us-east",
+                        "key": "department",
+                        "value": "engineering",
                     }
                 ],
             },
@@ -342,7 +342,42 @@ class TestTransactions:
     @parametrize
     def test_method_search(self, client: Fragment) -> None:
         transaction = client.transactions.search(
-            filter={"account": {"any": [{}]}},
+            filter={},
+        )
+        assert_matches_type(TransactionSearchResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_search_with_all_params(self, client: Fragment) -> None:
+        transaction = client.transactions.search(
+            filter={
+                "account": {
+                    "any": [
+                        {
+                            "id": "ext_account_YWJjMTIz",
+                            "external_id": "acct_external_123",
+                        }
+                    ]
+                },
+                "tags": {
+                    "all": [
+                        {
+                            "key": "department",
+                            "value": "engineering",
+                        }
+                    ],
+                    "any": [
+                        {
+                            "key": "department",
+                            "value": "eng*",
+                        }
+                    ],
+                },
+            },
+            page_info={
+                "after": "after",
+                "limit": 20,
+            },
         )
         assert_matches_type(TransactionSearchResponse, transaction, path=["response"])
 
@@ -350,7 +385,7 @@ class TestTransactions:
     @parametrize
     def test_raw_response_search(self, client: Fragment) -> None:
         response = client.transactions.with_raw_response.search(
-            filter={"account": {"any": [{}]}},
+            filter={},
         )
 
         assert response.is_closed is True
@@ -362,7 +397,7 @@ class TestTransactions:
     @parametrize
     def test_streaming_response_search(self, client: Fragment) -> None:
         with client.transactions.with_streaming_response.search(
-            filter={"account": {"any": [{}]}},
+            filter={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -454,8 +489,8 @@ class TestAsyncTransactions:
             posted=parse_datetime("2024-01-13T00:00:00Z"),
             tags=[
                 {
-                    "key": "region",
-                    "value": "us-east",
+                    "key": "department",
+                    "value": "engineering",
                 }
             ],
         )
@@ -587,21 +622,21 @@ class TestAsyncTransactions:
             tags={
                 "create": [
                     {
-                        "key": "region",
-                        "value": "us-east",
+                        "key": "department",
+                        "value": "engineering",
                     }
                 ],
                 "delete": [{"key": "key"}],
                 "set": [
                     {
-                        "key": "region",
-                        "value": "eu-west-1",
+                        "key": "department",
+                        "value": "engineering",
                     }
                 ],
                 "update": [
                     {
-                        "key": "region",
-                        "value": "us-east",
+                        "key": "department",
+                        "value": "engineering",
                     }
                 ],
             },
@@ -728,7 +763,42 @@ class TestAsyncTransactions:
     @parametrize
     async def test_method_search(self, async_client: AsyncFragment) -> None:
         transaction = await async_client.transactions.search(
-            filter={"account": {"any": [{}]}},
+            filter={},
+        )
+        assert_matches_type(TransactionSearchResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_search_with_all_params(self, async_client: AsyncFragment) -> None:
+        transaction = await async_client.transactions.search(
+            filter={
+                "account": {
+                    "any": [
+                        {
+                            "id": "ext_account_YWJjMTIz",
+                            "external_id": "acct_external_123",
+                        }
+                    ]
+                },
+                "tags": {
+                    "all": [
+                        {
+                            "key": "department",
+                            "value": "engineering",
+                        }
+                    ],
+                    "any": [
+                        {
+                            "key": "department",
+                            "value": "eng*",
+                        }
+                    ],
+                },
+            },
+            page_info={
+                "after": "after",
+                "limit": 20,
+            },
         )
         assert_matches_type(TransactionSearchResponse, transaction, path=["response"])
 
@@ -736,7 +806,7 @@ class TestAsyncTransactions:
     @parametrize
     async def test_raw_response_search(self, async_client: AsyncFragment) -> None:
         response = await async_client.transactions.with_raw_response.search(
-            filter={"account": {"any": [{}]}},
+            filter={},
         )
 
         assert response.is_closed is True
@@ -748,7 +818,7 @@ class TestAsyncTransactions:
     @parametrize
     async def test_streaming_response_search(self, async_client: AsyncFragment) -> None:
         async with async_client.transactions.with_streaming_response.search(
-            filter={"account": {"any": [{}]}},
+            filter={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

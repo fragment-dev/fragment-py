@@ -15,4 +15,4 @@ class ExternalAccount(BaseModel):
     """User-provided unique ID."""
 
     name: str
-    """Human-readable name."""
+    """Name of the account."""

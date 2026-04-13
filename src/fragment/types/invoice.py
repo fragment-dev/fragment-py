@@ -23,19 +23,13 @@ class LineItemPrice(BaseModel):
     """Price breakdown."""
 
     amount: str
-    """
-    Total amount as a string in the smallest unit of the currency (for example,
-    cents for USD).
-    """
+    """Total amount as a string in the smallest currency unit, such as cents for USD."""
 
     quantity: int
     """Number of units."""
 
     unit_price: str
-    """
-    Unit price as a string in the smallest unit of the currency (for example, cents
-    for USD).
-    """
+    """Unit price as a string in the smallest currency unit, such as cents for USD."""
 
 
 class LineItemTag(BaseModel):
@@ -55,9 +49,9 @@ class LineItem(BaseModel):
     """FRAGMENT generated unique ID."""
 
     amount: str
-    """
-    Total amount as a string in the smallest unit of the currency (for example,
-    cents for USD). Deprecated, use price.amount instead.
+    """Total amount as a string in the smallest currency unit, such as cents for USD.
+
+    Deprecated, use price.amount instead.
     """
 
     currency_code: Literal[
@@ -241,7 +235,7 @@ class LineItem(BaseModel):
         "LOGICAL",
         "CUSTOM",
     ]
-    """Currency code (ISO 4217 or crypto)."""
+    """ISO 4217 or crypto currency code."""
 
     description: str
     """Description of the line item."""

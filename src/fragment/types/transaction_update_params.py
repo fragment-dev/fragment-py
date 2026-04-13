@@ -26,8 +26,10 @@ class TransactionUpdateParams(TypedDict, total=False):
     """Current version of the transaction. Must match the stored version."""
 
     allocations: Allocations
+    """Allocation updates."""
 
     tags: Tags
+    """Tag updates."""
 
 
 class AllocationsCreateUserID(TypedDict, total=False):
@@ -48,8 +50,8 @@ class AllocationsCreate(TypedDict, total=False):
 
     amount: Required[str]
     """
-    Allocation amount, as a positive string in the smallest unit of the currency
-    (for example, cents for USD).
+    Allocation amount, as a positive string in the smallest currency unit, such as
+    cents for USD.
     """
 
     invoice_id: Required[str]
@@ -68,12 +70,14 @@ class AllocationsUpdate(TypedDict, total=False):
 
     amount: Required[str]
     """
-    Updated allocation amount, as a positive string in the smallest unit of the
-    currency (for example, cents for USD).
+    Updated allocation amount, as a positive string in the smallest currency unit,
+    such as cents for USD.
     """
 
 
 class Allocations(TypedDict, total=False):
+    """Allocation updates."""
+
     create: Iterable[AllocationsCreate]
     """Allocations to create."""
 
@@ -85,18 +89,10 @@ class TagsCreate(TypedDict, total=False):
     """A key-value tag pair for metadata."""
 
     key: Required[str]
-    """Tag key.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 50
-    characters.
-    """
+    """Tag key. Must not contain #, /, or :. Max 50 characters."""
 
     value: Required[str]
-    """Tag value.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 200
-    characters.
-    """
+    """Tag value. Must not contain #, /, or :. Max 200 characters."""
 
 
 class TagsDelete(TypedDict, total=False):
@@ -108,54 +104,33 @@ class TagsSet(TypedDict, total=False):
     """A key-value tag pair for metadata."""
 
     key: Required[str]
-    """Tag key.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 50
-    characters.
-    """
+    """Tag key. Must not contain #, /, or :. Max 50 characters."""
 
     value: Required[str]
-    """Tag value.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 200
-    characters.
-    """
+    """Tag value. Must not contain #, /, or :. Max 200 characters."""
 
 
 class TagsUpdate(TypedDict, total=False):
     """A key-value tag pair for metadata."""
 
     key: Required[str]
-    """Tag key.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 50
-    characters.
-    """
+    """Tag key. Must not contain #, /, or :. Max 50 characters."""
 
     value: Required[str]
-    """Tag value.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 200
-    characters.
-    """
+    """Tag value. Must not contain #, /, or :. Max 200 characters."""
 
 
 class Tags(TypedDict, total=False):
+    """Tag updates."""
+
     create: Iterable[TagsCreate]
-    """Tags to add. Prefer `set` unless you specifically want create-only validation."""
+    """Tags to create. The tag key must not already exist."""
 
     delete: Iterable[TagsDelete]
-    """Tags to remove by key."""
+    """Tags to remove."""
 
     set: Iterable[TagsSet]
-    """
-    Tags to create or overwrite without requiring the caller to distinguish between
-    create and update.
-    """
+    """Tags to set. Creates a new tag or updates an existing tag."""
 
     update: Iterable[TagsUpdate]
-    """Tags to update.
-
-    The key identifies the existing tag; the value is the new value. Prefer `set`
-    unless you specifically want update-only validation.
-    """
+    """Tags to update. The tag key must already exist."""

@@ -12,3 +12,4 @@ class UserListResponse(BaseModel):
     """List of users."""
 
     data: List[User]
+    """List of users."""
