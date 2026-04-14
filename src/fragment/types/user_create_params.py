@@ -9,7 +9,7 @@ __all__ = ["UserCreateParams"]
 
 class UserCreateParams(TypedDict, total=False):
     external_id: Required[str]
-    """External ID for the user"""
+    """User-provided unique ID."""
 
     role: Required[str]
-    """Role of the user"""
+    """Name of the role to assign. Must match an existing role."""

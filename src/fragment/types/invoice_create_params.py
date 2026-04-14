@@ -19,82 +19,76 @@ __all__ = [
 
 class InvoiceCreateParams(TypedDict, total=False):
     invoice_id: Required[str]
-    """Unique identifier for the invoice.
-
-    Make this the canonical ID from your system for the transaction.
-    """
+    """Unique ID for the invoice."""
 
     line_items: Required[Iterable[LineItem]]
-    """List of line items to create with the invoice"""
+    """Line items to create with the invoice."""
 
     tags: Iterable[Tag]
-    """Optional metadata tags for this invoice"""
+    """Tags for the invoice."""
 
 
 class LineItemUserID(TypedDict, total=False):
     id: Required[str]
-    """FRAGMENT generated ID of the user"""
+    """FRAGMENT generated unique ID."""
 
 
 class LineItemUserExternalID(TypedDict, total=False):
     external_id: Required[str]
-    """External ID of the user"""
+    """User-provided unique ID."""
 
 
 LineItemUser: TypeAlias = Union[LineItemUserID, LineItemUserExternalID]
 
 
 class LineItemPrice(TypedDict, total=False):
-    """Price breakdown. Provide amount, or unit_price + quantity, or all three."""
+    """Price breakdown. Provide amount, or unit_price and quantity, or all three."""
 
     amount: str
-    """Total amount in smallest currency unit.
+    """Total amount as a string in the smallest currency unit, such as cents for USD.
 
     Required if unit_price and quantity are not provided.
     """
 
     quantity: int
-    """Number of units for this line item."""
+    """Number of units for the line item."""
 
     unit_price: str
-    """Price per unit in smallest currency unit."""
+    """
+    Price per unit as a string in the smallest currency unit, such as cents for USD.
+    """
 
 
 class LineItemTag(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
-    """Tag key.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 50
-    characters.
-    """
+    """Tag key. Must not contain #, /, or :. Max 50 characters."""
 
     value: Required[str]
-    """Tag value.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 200
-    characters.
-    """
+    """Tag value. Must not contain #, /, or :. Max 200 characters."""
 
 
 class LineItem(TypedDict, total=False):
     """Data to create a line item."""
 
     description: Required[str]
-    """Description of the line item"""
+    """Description of the line item."""
 
     product_id: Required[str]
-    """ID of the product/catalog item"""
+    """Unique identifier for the product."""
 
     type: Required[Literal["payin", "payout"]]
-    """The type of the line item"""
+    """Type of the line item."""
 
     user: Required[LineItemUser]
-    """Identifies a user by Fragment-generated id or external_id (request body)."""
+    """Identifies a user by `id` or `external_id`."""
 
     amount: str
-    """Deprecated: use price instead. Total amount in smallest currency unit."""
+    """Total amount as a string in the smallest currency unit, such as cents for USD.
+
+    Deprecated, use price instead.
+    """
 
     currency_code: Literal[
         "ADA",
@@ -277,28 +271,20 @@ class LineItem(TypedDict, total=False):
         "LOGICAL",
         "CUSTOM",
     ]
-    """Currency code (ISO 4217 or crypto)"""
+    """ISO 4217 or crypto currency code."""
 
     price: LineItemPrice
-    """Price breakdown. Provide amount, or unit_price + quantity, or all three."""
+    """Price breakdown. Provide amount, or unit_price and quantity, or all three."""
 
     tags: Iterable[LineItemTag]
-    """Optional metadata tags for this line item"""
+    """Tags for the line item."""
 
 
 class Tag(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
-    """Tag key.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 50
-    characters.
-    """
+    """Tag key. Must not contain #, /, or :. Max 50 characters."""
 
     value: Required[str]
-    """Tag value.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 200
-    characters.
-    """
+    """Tag value. Must not contain #, /, or :. Max 200 characters."""

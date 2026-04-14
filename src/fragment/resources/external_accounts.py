@@ -23,6 +23,8 @@ __all__ = ["ExternalAccountsResource", "AsyncExternalAccountsResource"]
 
 
 class ExternalAccountsResource(SyncAPIResource):
+    """External account management operations"""
+
     @cached_property
     def with_raw_response(self) -> ExternalAccountsResourceWithRawResponse:
         """
@@ -55,12 +57,12 @@ class ExternalAccountsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExternalAccountCreateResponse:
         """
-        Creates a new external account
+        Creates an external account.
 
         Args:
-          external_id: External ID for the account (user-provided, unique, mutable)
+          external_id: User-provided unique ID.
 
-          name: Human-readable name for the external account (mutable)
+          name: Name of the account.
 
           extra_headers: Send extra headers
 
@@ -95,7 +97,7 @@ class ExternalAccountsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExternalAccountListResponse:
-        """Lists all external accounts for the workspace"""
+        """Lists all external accounts."""
         return self._get(
             "/external-accounts",
             options=make_request_options(
@@ -106,6 +108,8 @@ class ExternalAccountsResource(SyncAPIResource):
 
 
 class AsyncExternalAccountsResource(AsyncAPIResource):
+    """External account management operations"""
+
     @cached_property
     def with_raw_response(self) -> AsyncExternalAccountsResourceWithRawResponse:
         """
@@ -138,12 +142,12 @@ class AsyncExternalAccountsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExternalAccountCreateResponse:
         """
-        Creates a new external account
+        Creates an external account.
 
         Args:
-          external_id: External ID for the account (user-provided, unique, mutable)
+          external_id: User-provided unique ID.
 
-          name: Human-readable name for the external account (mutable)
+          name: Name of the account.
 
           extra_headers: Send extra headers
 
@@ -178,7 +182,7 @@ class AsyncExternalAccountsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ExternalAccountListResponse:
-        """Lists all external accounts for the workspace"""
+        """Lists all external accounts."""
         return await self._get(
             "/external-accounts",
             options=make_request_options(

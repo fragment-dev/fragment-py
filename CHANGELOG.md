@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.10.0 (2026-04-13)
+
+Full Changelog: [v0.9.0...v0.10.0](https://github.com/fragment-dev/fragment-py/compare/v0.9.0...v0.10.0)
+
+### Features
+
+* **api:** update SDK from prod (511af1bcd4001be60c589fed1d05a5814e416679) ([e2ce984](https://github.com/fragment-dev/fragment-py/commit/e2ce984d3cadaf39400d35ae5d35d464027dca54))
+* **api:** update SDK from prod (523b1fdd6cc6b5732ccdad5095c21f69fe1f7489) ([ea85617](https://github.com/fragment-dev/fragment-py/commit/ea85617c004e54e4a27abf4c8a5e585d17256d7c))
+* **api:** update SDK from prod (5cede0854eb141955854b7a9d3eb0e07a9588e3c) ([67481e4](https://github.com/fragment-dev/fragment-py/commit/67481e45971c9e704986c425b42b4a9938b45746))
+* **api:** update SDK from prod (729db28098a20ebc22e879a2cd1c6ad860f9ce4c) ([1d1b5d0](https://github.com/fragment-dev/fragment-py/commit/1d1b5d0b74975f2505475ca8167176680eff0655))
+* **api:** update SDK from prod (8051461980fb65468797d0b82dfa42dee9014004) ([25512da](https://github.com/fragment-dev/fragment-py/commit/25512da8089db4f3be50174a77373390fa29c52c))
+* **api:** update SDK from prod (a5eb093078fe5947a299bccafd30a0c7f2e90790) ([fc27b30](https://github.com/fragment-dev/fragment-py/commit/fc27b304c5dae27cb485853ad80c55b3c1392df0))
+* **api:** update SDK from prod (b3080493fb6bb118abdd03644b9ef6f59d417a3c) ([cd9337f](https://github.com/fragment-dev/fragment-py/commit/cd9337fbe43c0c5e6ed9ec1ef4c6db5bbf270403))
+* **api:** update SDK from prod (b8f6f1940acd3d10fc17aaeb59cd75281f3c6436) ([dca29fc](https://github.com/fragment-dev/fragment-py/commit/dca29fcd235fe6c110efcdf9042fe012d06ce17e))
+* **api:** update SDK from prod (d8f41b559592a1a8c68c0c40fdb773aa6e53795e) ([9bd565e](https://github.com/fragment-dev/fragment-py/commit/9bd565e3cee12d961291d7b4641195045097f7c9))
+* **api:** update SDK from prod (e1ebb9e4d62034855202a8ff99690880c072d953) ([4de3417](https://github.com/fragment-dev/fragment-py/commit/4de3417d2e14d337dc6bbd9f809c4bc6f624015b))
+
+
+### Bug Fixes
+
+* **client:** preserve hardcoded query params when merging with user params ([dd8e3f1](https://github.com/fragment-dev/fragment-py/commit/dd8e3f1966650b7cb4043f377c4fcf9b30e188ba))
+* ensure file data are only sent as 1 parameter ([b244d50](https://github.com/fragment-dev/fragment-py/commit/b244d5004f5f7fb0ba13745581e47e4bb84a67e4))
+
 ## 0.9.0 (2026-03-27)
 
 Full Changelog: [v0.8.0...v0.9.0](https://github.com/fragment-dev/fragment-py/compare/v0.8.0...v0.9.0)

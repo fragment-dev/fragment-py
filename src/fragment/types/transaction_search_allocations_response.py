@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import List
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -10,51 +10,53 @@ __all__ = ["TransactionSearchAllocationsResponse", "Data", "DataTransaction", "D
 
 
 class DataTransaction(BaseModel):
-    """Reference to a transaction by encoded ID and external ID."""
+    """Transaction the allocation is applied to."""
 
     id: str
-    """Encoded transaction ID."""
+    """FRAGMENT generated unique ID."""
 
     external_id: str
-    """External transaction ID."""
+    """User-provided unique ID."""
 
 
 class DataUser(BaseModel):
-    """User reference in API responses: Fragment user id and optional external_id."""
+    """User associated with the allocation."""
 
     id: str
-    """FRAGMENT generated ID of the user"""
+    """FRAGMENT generated unique ID."""
 
-    external_id: Optional[str] = None
-    """External ID of the user"""
+    external_id: str
+    """User-provided unique ID."""
 
 
 class Data(BaseModel):
-    """A flattened allocation with a reference to its parent transaction."""
+    """An allocation with a reference to its parent transaction."""
 
     id: str
-    """Allocation ID."""
+    """FRAGMENT generated unique ID."""
 
     amount: str
-    """Amount to allocate in smallest currency unit as stringified bigint."""
+    """
+    Allocated amount, as a positive string in the smallest currency unit, such as
+    cents for USD.
+    """
 
     invoice_id: str
-    """The invoice to allocate against."""
+    """Invoice the allocation is applied against."""
 
     posted: datetime
-    """Posted timestamp of the parent transaction in ISO 8601 format."""
+    """Timestamp when the parent transaction was posted. Uses ISO 8601 format."""
 
     transaction: DataTransaction
-    """Reference to a transaction by encoded ID and external ID."""
+    """Transaction the allocation is applied to."""
 
     type: Literal["invoice_payin", "invoice_payout"]
-    """The type of allocation."""
+    """Type of allocation."""
 
     user: DataUser
-    """User reference in API responses: Fragment user id and optional external_id."""
+    """User associated with the allocation."""
 
 
 class TransactionSearchAllocationsResponse(BaseModel):
-    """Search results for transaction allocations."""
-
     data: List[Data]
+    """List of allocation search results."""

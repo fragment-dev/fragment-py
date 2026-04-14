@@ -20,91 +20,88 @@ __all__ = [
     "LineItemsUpdateTags",
     "LineItemsUpdateTagsCreate",
     "LineItemsUpdateTagsDelete",
+    "LineItemsUpdateTagsSet",
     "LineItemsUpdateTagsUpdate",
     "Tags",
     "TagsCreate",
     "TagsDelete",
+    "TagsSet",
     "TagsUpdate",
 ]
 
 
 class InvoiceUpdateParams(TypedDict, total=False):
     current_invoice_version: Required[float]
-    """The current version of the invoice.
-
-    Must match the stored version for the update to succeed (optimistic
-    concurrency).
-    """
+    """Current version of the invoice. Must match the stored version."""
 
     line_items: LineItems
+    """Line item updates."""
 
     tags: Tags
+    """Tag updates."""
 
 
 class LineItemsCreateUserID(TypedDict, total=False):
     id: Required[str]
-    """FRAGMENT generated ID of the user"""
+    """FRAGMENT generated unique ID."""
 
 
 class LineItemsCreateUserExternalID(TypedDict, total=False):
     external_id: Required[str]
-    """External ID of the user"""
+    """User-provided unique ID."""
 
 
 LineItemsCreateUser: TypeAlias = Union[LineItemsCreateUserID, LineItemsCreateUserExternalID]
 
 
 class LineItemsCreatePrice(TypedDict, total=False):
-    """Price breakdown. Provide amount, or unit_price + quantity, or all three."""
+    """Price breakdown. Provide amount, or unit_price and quantity, or all three."""
 
     amount: str
-    """Total amount in smallest currency unit.
+    """Total amount as a string in the smallest currency unit, such as cents for USD.
 
     Required if unit_price and quantity are not provided.
     """
 
     quantity: int
-    """Number of units for this line item."""
+    """Number of units for the line item."""
 
     unit_price: str
-    """Price per unit in smallest currency unit."""
+    """
+    Price per unit as a string in the smallest currency unit, such as cents for USD.
+    """
 
 
 class LineItemsCreateTag(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
-    """Tag key.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 50
-    characters.
-    """
+    """Tag key. Must not contain #, /, or :. Max 50 characters."""
 
     value: Required[str]
-    """Tag value.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 200
-    characters.
-    """
+    """Tag value. Must not contain #, /, or :. Max 200 characters."""
 
 
 class LineItemsCreate(TypedDict, total=False):
     """Data to create a line item."""
 
     description: Required[str]
-    """Description of the line item"""
+    """Description of the line item."""
 
     product_id: Required[str]
-    """ID of the product/catalog item"""
+    """Unique identifier for the product."""
 
     type: Required[Literal["payin", "payout"]]
-    """The type of the line item"""
+    """Type of the line item."""
 
     user: Required[LineItemsCreateUser]
-    """Identifies a user by Fragment-generated id or external_id (request body)."""
+    """Identifies a user by `id` or `external_id`."""
 
     amount: str
-    """Deprecated: use price instead. Total amount in smallest currency unit."""
+    """Total amount as a string in the smallest currency unit, such as cents for USD.
+
+    Deprecated, use price instead.
+    """
 
     currency_code: Literal[
         "ADA",
@@ -287,160 +284,157 @@ class LineItemsCreate(TypedDict, total=False):
         "LOGICAL",
         "CUSTOM",
     ]
-    """Currency code (ISO 4217 or crypto)"""
+    """ISO 4217 or crypto currency code."""
 
     price: LineItemsCreatePrice
-    """Price breakdown. Provide amount, or unit_price + quantity, or all three."""
+    """Price breakdown. Provide amount, or unit_price and quantity, or all three."""
 
     tags: Iterable[LineItemsCreateTag]
-    """Optional metadata tags for this line item"""
+    """Tags for the line item."""
 
 
 class LineItemsDelete(TypedDict, total=False):
     id: Required[str]
-    """ID of the line item to delete"""
+    """Unique identifier for the line item to delete."""
 
 
 class LineItemsUpdatePrice(TypedDict, total=False):
     quantity: Required[int]
-    """Number of units for this line item."""
+    """Number of units for the line item."""
 
     unit_price: Required[str]
-    """Price per unit in smallest currency unit."""
+    """
+    Price per unit as a string in the smallest currency unit, such as cents for USD.
+    """
 
     amount: str
-    """Total amount in smallest currency unit."""
+    """Total amount as a string in the smallest currency unit, such as cents for USD."""
 
 
 class LineItemsUpdateTagsCreate(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
-    """Tag key.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 50
-    characters.
-    """
+    """Tag key. Must not contain #, /, or :. Max 50 characters."""
 
     value: Required[str]
-    """Tag value.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 200
-    characters.
-    """
+    """Tag value. Must not contain #, /, or :. Max 200 characters."""
 
 
 class LineItemsUpdateTagsDelete(TypedDict, total=False):
     key: Required[str]
-    """Tag key to delete"""
+    """Tag key to delete."""
+
+
+class LineItemsUpdateTagsSet(TypedDict, total=False):
+    """A key-value tag pair for metadata."""
+
+    key: Required[str]
+    """Tag key. Must not contain #, /, or :. Max 50 characters."""
+
+    value: Required[str]
+    """Tag value. Must not contain #, /, or :. Max 200 characters."""
 
 
 class LineItemsUpdateTagsUpdate(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
-    """Tag key.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 50
-    characters.
-    """
+    """Tag key. Must not contain #, /, or :. Max 50 characters."""
 
     value: Required[str]
-    """Tag value.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 200
-    characters.
-    """
+    """Tag value. Must not contain #, /, or :. Max 200 characters."""
 
 
 class LineItemsUpdateTags(TypedDict, total=False):
+    """Tag updates."""
+
     create: Iterable[LineItemsUpdateTagsCreate]
-    """Tags to add"""
+    """Tags to create. The tag key must not already exist."""
 
     delete: Iterable[LineItemsUpdateTagsDelete]
-    """Tags to remove by key"""
+    """Tags to remove."""
+
+    set: Iterable[LineItemsUpdateTagsSet]
+    """Tags to set. Creates a new tag or updates an existing tag."""
 
     update: Iterable[LineItemsUpdateTagsUpdate]
-    """Tags to update.
-
-    The key identifies the existing tag; the value is the new value.
-    """
+    """Tags to update. The tag key must already exist."""
 
 
 class LineItemsUpdate(TypedDict, total=False):
-    """Partial update for an existing line item. All fields except id are optional."""
+    """Data for updating a line item."""
 
     id: Required[str]
-    """ID of the line item to update"""
+    """Unique identifier for the line item to update."""
 
     description: str
 
     price: LineItemsUpdatePrice
 
     tags: LineItemsUpdateTags
+    """Tag updates."""
 
 
 class LineItems(TypedDict, total=False):
+    """Line item updates."""
+
     create: Iterable[LineItemsCreate]
-    """Line items to add to the invoice"""
+    """Line items to add to the invoice."""
 
     delete: Iterable[LineItemsDelete]
-    """Line items to remove from the invoice"""
+    """Line items to remove from the invoice."""
 
     update: Iterable[LineItemsUpdate]
-    """Existing line items to update"""
+    """Existing line items to update."""
 
 
 class TagsCreate(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
-    """Tag key.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 50
-    characters.
-    """
+    """Tag key. Must not contain #, /, or :. Max 50 characters."""
 
     value: Required[str]
-    """Tag value.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 200
-    characters.
-    """
+    """Tag value. Must not contain #, /, or :. Max 200 characters."""
 
 
 class TagsDelete(TypedDict, total=False):
     key: Required[str]
-    """Tag key to delete"""
+    """Tag key to delete."""
+
+
+class TagsSet(TypedDict, total=False):
+    """A key-value tag pair for metadata."""
+
+    key: Required[str]
+    """Tag key. Must not contain #, /, or :. Max 50 characters."""
+
+    value: Required[str]
+    """Tag value. Must not contain #, /, or :. Max 200 characters."""
 
 
 class TagsUpdate(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
-    """Tag key.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 50
-    characters.
-    """
+    """Tag key. Must not contain #, /, or :. Max 50 characters."""
 
     value: Required[str]
-    """Tag value.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 200
-    characters.
-    """
+    """Tag value. Must not contain #, /, or :. Max 200 characters."""
 
 
 class Tags(TypedDict, total=False):
+    """Tag updates."""
+
     create: Iterable[TagsCreate]
-    """Tags to add"""
+    """Tags to create. The tag key must not already exist."""
 
     delete: Iterable[TagsDelete]
-    """Tags to remove by key"""
+    """Tags to remove."""
+
+    set: Iterable[TagsSet]
+    """Tags to set. Creates a new tag or updates an existing tag."""
 
     update: Iterable[TagsUpdate]
-    """Tags to update.
-
-    The key identifies the existing tag; the value is the new value.
-    """
+    """Tags to update. The tag key must already exist."""

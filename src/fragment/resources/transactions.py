@@ -12,7 +12,7 @@ from ..types import (
     transaction_list_params,
     transaction_create_params,
     transaction_search_params,
-    transaction_create_allocations_params,
+    transaction_update_params,
     transaction_search_allocations_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
@@ -29,9 +29,9 @@ from .._base_client import make_request_options
 from ..types.transaction_list_response import TransactionListResponse
 from ..types.transaction_create_response import TransactionCreateResponse
 from ..types.transaction_search_response import TransactionSearchResponse
+from ..types.transaction_update_response import TransactionUpdateResponse
 from ..types.transaction_retrieve_response import TransactionRetrieveResponse
 from ..types.transaction_list_history_response import TransactionListHistoryResponse
-from ..types.transaction_create_allocations_response import TransactionCreateAllocationsResponse
 from ..types.transaction_search_allocations_response import TransactionSearchAllocationsResponse
 
 __all__ = ["TransactionsResource", "AsyncTransactionsResource"]
@@ -256,24 +256,26 @@ class TransactionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionCreateResponse:
-        """
-        Syncs a transaction, optionally with allocations
+        """Creates a transaction.
 
         Args:
-          account: Account reference. Provide id, external_id, or both.
+          account: External account for the transaction.
 
-          allocations: Allocation entries for this transaction. Empty indicates unreconciled funds.
+        Identify it by `id`, `external_id`, or
+              both.
 
-          amount: Amount in smallest currency unit as stringified bigint (can be positive or
-              negative).
+          allocations: Allocations for the transaction. An empty array indicates unreconciled funds.
 
-          currency: Currency code (ISO 4217 or crypto)
+          amount: Transaction amount, as a string in the smallest currency unit, such as cents for
+              USD. Can be positive or negative.
 
-          external_id: External transaction ID used for idempotent sync.
+          currency: ISO 4217 or crypto currency code.
 
-          posted: Posted timestamp in ISO 8601 format.
+          external_id: User-provided unique ID.
 
-          tags: Optional metadata tags for this transaction
+          posted: Timestamp when the transaction was posted. Uses ISO 8601 format.
+
+          tags: Tags for the transaction.
 
           extra_headers: Send extra headers
 
@@ -315,11 +317,10 @@ class TransactionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionRetrieveResponse:
         """
-        Gets a transaction by ID or external ID
+        Retrieves a transaction by ID or external ID.
 
         Args:
-          transaction_ref: Transaction reference. Accepts either an encoded Fragment ID (txn_xxx) or an
-              external ID.
+          transaction_ref: Transaction `id` or `external_id`.
 
           extra_headers: Send extra headers
 
@@ -339,6 +340,58 @@ class TransactionsResource(SyncAPIResource):
             cast_to=TransactionRetrieveResponse,
         )
 
+    def update(
+        self,
+        transaction_ref: str,
+        *,
+        current_transaction_version: int,
+        allocations: transaction_update_params.Allocations | Omit = omit,
+        tags: transaction_update_params.Tags | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TransactionUpdateResponse:
+        """
+        Updates a transaction.
+
+        Args:
+          transaction_ref: Transaction `id` or `external_id`.
+
+          current_transaction_version: Current version of the transaction. Must match the stored version.
+
+          allocations: Allocation updates.
+
+          tags: Tag updates.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not transaction_ref:
+            raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
+        return self._patch(
+            path_template("/transactions/{transaction_ref}", transaction_ref=transaction_ref),
+            body=maybe_transform(
+                {
+                    "current_transaction_version": current_transaction_version,
+                    "allocations": allocations,
+                    "tags": tags,
+                },
+                transaction_update_params.TransactionUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TransactionUpdateResponse,
+        )
+
     def list(
         self,
         *,
@@ -351,16 +404,16 @@ class TransactionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionListResponse:
-        """Lists all transactions for the workspace
+        """
+        Lists all transactions.
 
         Args:
-          account: Filter by account.
+          account: Filter by account `id` or `external_id`. If the account does not exist, returns
+              an empty list.
 
-        Encoded account ID (ext_account_xxx) or external_id. If the
-              account does not exist, returns an empty list.
-
-          reconciliation_status: Filter by reconciliation state. reconciled = unallocated_amount === 0;
-              unreconciled = unallocated_amount !== 0. Omit for all transactions.
+          reconciliation_status: Filter by reconciliation status. `reconciled` returns transactions where
+              unallocated_amount is 0. `unreconciled` returns transactions where
+              unallocated_amount is not 0. Omit for all transactions.
 
           extra_headers: Send extra headers
 
@@ -388,55 +441,6 @@ class TransactionsResource(SyncAPIResource):
             cast_to=TransactionListResponse,
         )
 
-    def create_allocations(
-        self,
-        transaction_ref: str,
-        *,
-        allocation_updates: Iterable[transaction_create_allocations_params.AllocationUpdate],
-        version: int,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TransactionCreateAllocationsResponse:
-        """
-        Updates allocations on an existing transaction
-
-        Args:
-          transaction_ref: Transaction reference. Accepts either an encoded Fragment ID (txn_xxx) or an
-              external ID.
-
-          allocation_updates: Allocation operations to apply
-
-          version: Current transaction version for optimistic concurrency control
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not transaction_ref:
-            raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
-        return self._post(
-            path_template("/transactions/{transaction_ref}/allocations", transaction_ref=transaction_ref),
-            body=maybe_transform(
-                {
-                    "allocation_updates": allocation_updates,
-                    "version": version,
-                },
-                transaction_create_allocations_params.TransactionCreateAllocationsParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=TransactionCreateAllocationsResponse,
-        )
-
     def list_history(
         self,
         transaction_ref: str,
@@ -449,11 +453,10 @@ class TransactionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionListHistoryResponse:
         """
-        Gets the version history of a transaction
+        Retrieves the version history of a transaction.
 
         Args:
-          transaction_ref: Transaction reference. Accepts either an encoded Fragment ID (txn_xxx) or an
-              external ID.
+          transaction_ref: Transaction `id` or `external_id`.
 
           extra_headers: Send extra headers
 
@@ -477,6 +480,7 @@ class TransactionsResource(SyncAPIResource):
         self,
         *,
         filter: transaction_search_params.Filter,
+        page_info: transaction_search_params.PageInfo | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -485,10 +489,12 @@ class TransactionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionSearchResponse:
         """
-        Searches transactions by filter criteria
+        Searches transactions.
 
         Args:
-          filter: Filter criteria for searching transactions.
+          filter: Filter for searching transactions.
+
+          page_info: Pagination parameters.
 
           extra_headers: Send extra headers
 
@@ -500,7 +506,13 @@ class TransactionsResource(SyncAPIResource):
         """
         return self._post(
             "/transactions/search",
-            body=maybe_transform({"filter": filter}, transaction_search_params.TransactionSearchParams),
+            body=maybe_transform(
+                {
+                    "filter": filter,
+                    "page_info": page_info,
+                },
+                transaction_search_params.TransactionSearchParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -519,10 +531,10 @@ class TransactionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionSearchAllocationsResponse:
         """
-        Searches transaction allocations by filter criteria
+        Searches transaction allocations.
 
         Args:
-          filter: Filter criteria for searching transaction allocations.
+          filter: Filter for searching transaction allocations.
 
           extra_headers: Send extra headers
 
@@ -763,24 +775,26 @@ class AsyncTransactionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionCreateResponse:
-        """
-        Syncs a transaction, optionally with allocations
+        """Creates a transaction.
 
         Args:
-          account: Account reference. Provide id, external_id, or both.
+          account: External account for the transaction.
 
-          allocations: Allocation entries for this transaction. Empty indicates unreconciled funds.
+        Identify it by `id`, `external_id`, or
+              both.
 
-          amount: Amount in smallest currency unit as stringified bigint (can be positive or
-              negative).
+          allocations: Allocations for the transaction. An empty array indicates unreconciled funds.
 
-          currency: Currency code (ISO 4217 or crypto)
+          amount: Transaction amount, as a string in the smallest currency unit, such as cents for
+              USD. Can be positive or negative.
 
-          external_id: External transaction ID used for idempotent sync.
+          currency: ISO 4217 or crypto currency code.
 
-          posted: Posted timestamp in ISO 8601 format.
+          external_id: User-provided unique ID.
 
-          tags: Optional metadata tags for this transaction
+          posted: Timestamp when the transaction was posted. Uses ISO 8601 format.
+
+          tags: Tags for the transaction.
 
           extra_headers: Send extra headers
 
@@ -822,11 +836,10 @@ class AsyncTransactionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionRetrieveResponse:
         """
-        Gets a transaction by ID or external ID
+        Retrieves a transaction by ID or external ID.
 
         Args:
-          transaction_ref: Transaction reference. Accepts either an encoded Fragment ID (txn_xxx) or an
-              external ID.
+          transaction_ref: Transaction `id` or `external_id`.
 
           extra_headers: Send extra headers
 
@@ -846,6 +859,58 @@ class AsyncTransactionsResource(AsyncAPIResource):
             cast_to=TransactionRetrieveResponse,
         )
 
+    async def update(
+        self,
+        transaction_ref: str,
+        *,
+        current_transaction_version: int,
+        allocations: transaction_update_params.Allocations | Omit = omit,
+        tags: transaction_update_params.Tags | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TransactionUpdateResponse:
+        """
+        Updates a transaction.
+
+        Args:
+          transaction_ref: Transaction `id` or `external_id`.
+
+          current_transaction_version: Current version of the transaction. Must match the stored version.
+
+          allocations: Allocation updates.
+
+          tags: Tag updates.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not transaction_ref:
+            raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
+        return await self._patch(
+            path_template("/transactions/{transaction_ref}", transaction_ref=transaction_ref),
+            body=await async_maybe_transform(
+                {
+                    "current_transaction_version": current_transaction_version,
+                    "allocations": allocations,
+                    "tags": tags,
+                },
+                transaction_update_params.TransactionUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=TransactionUpdateResponse,
+        )
+
     async def list(
         self,
         *,
@@ -858,16 +923,16 @@ class AsyncTransactionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionListResponse:
-        """Lists all transactions for the workspace
+        """
+        Lists all transactions.
 
         Args:
-          account: Filter by account.
+          account: Filter by account `id` or `external_id`. If the account does not exist, returns
+              an empty list.
 
-        Encoded account ID (ext_account_xxx) or external_id. If the
-              account does not exist, returns an empty list.
-
-          reconciliation_status: Filter by reconciliation state. reconciled = unallocated_amount === 0;
-              unreconciled = unallocated_amount !== 0. Omit for all transactions.
+          reconciliation_status: Filter by reconciliation status. `reconciled` returns transactions where
+              unallocated_amount is 0. `unreconciled` returns transactions where
+              unallocated_amount is not 0. Omit for all transactions.
 
           extra_headers: Send extra headers
 
@@ -895,55 +960,6 @@ class AsyncTransactionsResource(AsyncAPIResource):
             cast_to=TransactionListResponse,
         )
 
-    async def create_allocations(
-        self,
-        transaction_ref: str,
-        *,
-        allocation_updates: Iterable[transaction_create_allocations_params.AllocationUpdate],
-        version: int,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TransactionCreateAllocationsResponse:
-        """
-        Updates allocations on an existing transaction
-
-        Args:
-          transaction_ref: Transaction reference. Accepts either an encoded Fragment ID (txn_xxx) or an
-              external ID.
-
-          allocation_updates: Allocation operations to apply
-
-          version: Current transaction version for optimistic concurrency control
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not transaction_ref:
-            raise ValueError(f"Expected a non-empty value for `transaction_ref` but received {transaction_ref!r}")
-        return await self._post(
-            path_template("/transactions/{transaction_ref}/allocations", transaction_ref=transaction_ref),
-            body=await async_maybe_transform(
-                {
-                    "allocation_updates": allocation_updates,
-                    "version": version,
-                },
-                transaction_create_allocations_params.TransactionCreateAllocationsParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=TransactionCreateAllocationsResponse,
-        )
-
     async def list_history(
         self,
         transaction_ref: str,
@@ -956,11 +972,10 @@ class AsyncTransactionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionListHistoryResponse:
         """
-        Gets the version history of a transaction
+        Retrieves the version history of a transaction.
 
         Args:
-          transaction_ref: Transaction reference. Accepts either an encoded Fragment ID (txn_xxx) or an
-              external ID.
+          transaction_ref: Transaction `id` or `external_id`.
 
           extra_headers: Send extra headers
 
@@ -984,6 +999,7 @@ class AsyncTransactionsResource(AsyncAPIResource):
         self,
         *,
         filter: transaction_search_params.Filter,
+        page_info: transaction_search_params.PageInfo | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -992,10 +1008,12 @@ class AsyncTransactionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionSearchResponse:
         """
-        Searches transactions by filter criteria
+        Searches transactions.
 
         Args:
-          filter: Filter criteria for searching transactions.
+          filter: Filter for searching transactions.
+
+          page_info: Pagination parameters.
 
           extra_headers: Send extra headers
 
@@ -1007,7 +1025,13 @@ class AsyncTransactionsResource(AsyncAPIResource):
         """
         return await self._post(
             "/transactions/search",
-            body=await async_maybe_transform({"filter": filter}, transaction_search_params.TransactionSearchParams),
+            body=await async_maybe_transform(
+                {
+                    "filter": filter,
+                    "page_info": page_info,
+                },
+                transaction_search_params.TransactionSearchParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -1026,10 +1050,10 @@ class AsyncTransactionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TransactionSearchAllocationsResponse:
         """
-        Searches transaction allocations by filter criteria
+        Searches transaction allocations.
 
         Args:
-          filter: Filter criteria for searching transaction allocations.
+          filter: Filter for searching transaction allocations.
 
           extra_headers: Send extra headers
 
@@ -1061,11 +1085,11 @@ class TransactionsResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             transactions.retrieve,
         )
+        self.update = to_raw_response_wrapper(
+            transactions.update,
+        )
         self.list = to_raw_response_wrapper(
             transactions.list,
-        )
-        self.create_allocations = to_raw_response_wrapper(
-            transactions.create_allocations,
         )
         self.list_history = to_raw_response_wrapper(
             transactions.list_history,
@@ -1088,11 +1112,11 @@ class AsyncTransactionsResourceWithRawResponse:
         self.retrieve = async_to_raw_response_wrapper(
             transactions.retrieve,
         )
+        self.update = async_to_raw_response_wrapper(
+            transactions.update,
+        )
         self.list = async_to_raw_response_wrapper(
             transactions.list,
-        )
-        self.create_allocations = async_to_raw_response_wrapper(
-            transactions.create_allocations,
         )
         self.list_history = async_to_raw_response_wrapper(
             transactions.list_history,
@@ -1115,11 +1139,11 @@ class TransactionsResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             transactions.retrieve,
         )
+        self.update = to_streamed_response_wrapper(
+            transactions.update,
+        )
         self.list = to_streamed_response_wrapper(
             transactions.list,
-        )
-        self.create_allocations = to_streamed_response_wrapper(
-            transactions.create_allocations,
         )
         self.list_history = to_streamed_response_wrapper(
             transactions.list_history,
@@ -1142,11 +1166,11 @@ class AsyncTransactionsResourceWithStreamingResponse:
         self.retrieve = async_to_streamed_response_wrapper(
             transactions.retrieve,
         )
+        self.update = async_to_streamed_response_wrapper(
+            transactions.update,
+        )
         self.list = async_to_streamed_response_wrapper(
             transactions.list,
-        )
-        self.create_allocations = async_to_streamed_response_wrapper(
-            transactions.create_allocations,
         )
         self.list_history = async_to_streamed_response_wrapper(
             transactions.list_history,

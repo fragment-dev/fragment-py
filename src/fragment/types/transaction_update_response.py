@@ -3,9 +3,9 @@
 from .._models import BaseModel
 from .transaction import Transaction
 
-__all__ = ["TransactionCreateAllocationsResponse"]
+__all__ = ["TransactionUpdateResponse"]
 
 
-class TransactionCreateAllocationsResponse(BaseModel):
+class TransactionUpdateResponse(BaseModel):
     data: Transaction
     """Transaction object."""

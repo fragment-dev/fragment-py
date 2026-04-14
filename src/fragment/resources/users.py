@@ -23,6 +23,8 @@ __all__ = ["UsersResource", "AsyncUsersResource"]
 
 
 class UsersResource(SyncAPIResource):
+    """User management operations"""
+
     @cached_property
     def with_raw_response(self) -> UsersResourceWithRawResponse:
         """
@@ -55,12 +57,12 @@ class UsersResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserCreateResponse:
         """
-        Creates a new user
+        Creates a user.
 
         Args:
-          external_id: External ID for the user
+          external_id: User-provided unique ID.
 
-          role: Role of the user
+          role: Name of the role to assign. Must match an existing role.
 
           extra_headers: Send extra headers
 
@@ -95,7 +97,7 @@ class UsersResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListResponse:
-        """Lists all users for the workspace"""
+        """Lists all users."""
         return self._get(
             "/users",
             options=make_request_options(
@@ -106,6 +108,8 @@ class UsersResource(SyncAPIResource):
 
 
 class AsyncUsersResource(AsyncAPIResource):
+    """User management operations"""
+
     @cached_property
     def with_raw_response(self) -> AsyncUsersResourceWithRawResponse:
         """
@@ -138,12 +142,12 @@ class AsyncUsersResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserCreateResponse:
         """
-        Creates a new user
+        Creates a user.
 
         Args:
-          external_id: External ID for the user
+          external_id: User-provided unique ID.
 
-          role: Role of the user
+          role: Name of the role to assign. Must match an existing role.
 
           extra_headers: Send extra headers
 
@@ -178,7 +182,7 @@ class AsyncUsersResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> UserListResponse:
-        """Lists all users for the workspace"""
+        """Lists all users."""
         return await self._get(
             "/users",
             options=make_request_options(

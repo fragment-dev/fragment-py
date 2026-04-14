@@ -9,6 +9,5 @@ __all__ = ["TransactionListResponse"]
 
 
 class TransactionListResponse(BaseModel):
-    """List of transactions"""
-
     data: List[Transaction]
+    """List of transaction objects matching the filter criteria."""

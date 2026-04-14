@@ -13,9 +13,9 @@ from fragment.types import (
     TransactionListResponse,
     TransactionCreateResponse,
     TransactionSearchResponse,
+    TransactionUpdateResponse,
     TransactionRetrieveResponse,
     TransactionListHistoryResponse,
-    TransactionCreateAllocationsResponse,
     TransactionSearchAllocationsResponse,
 )
 from fragment._utils import parse_datetime
@@ -42,7 +42,7 @@ class TestTransactions:
             amount="-1000",
             currency="USD",
             external_id="bank_txn_123",
-            posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            posted=parse_datetime("2024-01-13T00:00:00Z"),
         )
         assert_matches_type(TransactionCreateResponse, transaction, path=["response"])
 
@@ -65,11 +65,11 @@ class TestTransactions:
             amount="-1000",
             currency="USD",
             external_id="bank_txn_123",
-            posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            posted=parse_datetime("2024-01-13T00:00:00Z"),
             tags=[
                 {
-                    "key": "region",
-                    "value": "us-east",
+                    "key": "department",
+                    "value": "engineering",
                 }
             ],
         )
@@ -91,7 +91,7 @@ class TestTransactions:
             amount="-1000",
             currency="USD",
             external_id="bank_txn_123",
-            posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            posted=parse_datetime("2024-01-13T00:00:00Z"),
         )
 
         assert response.is_closed is True
@@ -115,7 +115,7 @@ class TestTransactions:
             amount="-1000",
             currency="USD",
             external_id="bank_txn_123",
-            posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            posted=parse_datetime("2024-01-13T00:00:00Z"),
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -169,6 +169,98 @@ class TestTransactions:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_update(self, client: Fragment) -> None:
+        transaction = client.transactions.update(
+            transaction_ref="txn_abc123",
+            current_transaction_version=0,
+        )
+        assert_matches_type(TransactionUpdateResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_update_with_all_params(self, client: Fragment) -> None:
+        transaction = client.transactions.update(
+            transaction_ref="txn_abc123",
+            current_transaction_version=0,
+            allocations={
+                "create": [
+                    {
+                        "amount": "1000",
+                        "invoice_id": "inv_abc123",
+                        "type": "invoice_payin",
+                        "user": {"id": "user_abc123"},
+                    }
+                ],
+                "update": [
+                    {
+                        "id": "alloc_abc123",
+                        "amount": "2000",
+                    }
+                ],
+            },
+            tags={
+                "create": [
+                    {
+                        "key": "department",
+                        "value": "engineering",
+                    }
+                ],
+                "delete": [{"key": "key"}],
+                "set": [
+                    {
+                        "key": "department",
+                        "value": "engineering",
+                    }
+                ],
+                "update": [
+                    {
+                        "key": "department",
+                        "value": "engineering",
+                    }
+                ],
+            },
+        )
+        assert_matches_type(TransactionUpdateResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_update(self, client: Fragment) -> None:
+        response = client.transactions.with_raw_response.update(
+            transaction_ref="txn_abc123",
+            current_transaction_version=0,
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        transaction = response.parse()
+        assert_matches_type(TransactionUpdateResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_update(self, client: Fragment) -> None:
+        with client.transactions.with_streaming_response.update(
+            transaction_ref="txn_abc123",
+            current_transaction_version=0,
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            transaction = response.parse()
+            assert_matches_type(TransactionUpdateResponse, transaction, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_update(self, client: Fragment) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction_ref` but received ''"):
+            client.transactions.with_raw_response.update(
+                transaction_ref="",
+                current_transaction_version=0,
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_list(self, client: Fragment) -> None:
         transaction = client.transactions.list()
         assert_matches_type(TransactionListResponse, transaction, path=["response"])
@@ -203,88 +295,6 @@ class TestTransactions:
             assert_matches_type(TransactionListResponse, transaction, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_create_allocations(self, client: Fragment) -> None:
-        transaction = client.transactions.create_allocations(
-            transaction_ref="txn_abc123",
-            allocation_updates=[
-                {
-                    "amount": "1000",
-                    "invoice_id": "inv_abc123",
-                    "op": "add",
-                    "type": "invoice_payin",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=0,
-        )
-        assert_matches_type(TransactionCreateAllocationsResponse, transaction, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_create_allocations(self, client: Fragment) -> None:
-        response = client.transactions.with_raw_response.create_allocations(
-            transaction_ref="txn_abc123",
-            allocation_updates=[
-                {
-                    "amount": "1000",
-                    "invoice_id": "inv_abc123",
-                    "op": "add",
-                    "type": "invoice_payin",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=0,
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        transaction = response.parse()
-        assert_matches_type(TransactionCreateAllocationsResponse, transaction, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_create_allocations(self, client: Fragment) -> None:
-        with client.transactions.with_streaming_response.create_allocations(
-            transaction_ref="txn_abc123",
-            allocation_updates=[
-                {
-                    "amount": "1000",
-                    "invoice_id": "inv_abc123",
-                    "op": "add",
-                    "type": "invoice_payin",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=0,
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            transaction = response.parse()
-            assert_matches_type(TransactionCreateAllocationsResponse, transaction, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_path_params_create_allocations(self, client: Fragment) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction_ref` but received ''"):
-            client.transactions.with_raw_response.create_allocations(
-                transaction_ref="",
-                allocation_updates=[
-                    {
-                        "amount": "1000",
-                        "invoice_id": "inv_abc123",
-                        "op": "add",
-                        "type": "invoice_payin",
-                        "user": {"id": "user_abc123"},
-                    }
-                ],
-                version=0,
-            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -332,7 +342,42 @@ class TestTransactions:
     @parametrize
     def test_method_search(self, client: Fragment) -> None:
         transaction = client.transactions.search(
-            filter={"account": {"any": [{}]}},
+            filter={},
+        )
+        assert_matches_type(TransactionSearchResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_search_with_all_params(self, client: Fragment) -> None:
+        transaction = client.transactions.search(
+            filter={
+                "account": {
+                    "any": [
+                        {
+                            "id": "ext_account_YWJjMTIz",
+                            "external_id": "acct_external_123",
+                        }
+                    ]
+                },
+                "tags": {
+                    "all": [
+                        {
+                            "key": "department",
+                            "value": "engineering",
+                        }
+                    ],
+                    "any": [
+                        {
+                            "key": "department",
+                            "value": "eng*",
+                        }
+                    ],
+                },
+            },
+            page_info={
+                "after": "after",
+                "limit": 20,
+            },
         )
         assert_matches_type(TransactionSearchResponse, transaction, path=["response"])
 
@@ -340,7 +385,7 @@ class TestTransactions:
     @parametrize
     def test_raw_response_search(self, client: Fragment) -> None:
         response = client.transactions.with_raw_response.search(
-            filter={"account": {"any": [{}]}},
+            filter={},
         )
 
         assert response.is_closed is True
@@ -352,7 +397,7 @@ class TestTransactions:
     @parametrize
     def test_streaming_response_search(self, client: Fragment) -> None:
         with client.transactions.with_streaming_response.search(
-            filter={"account": {"any": [{}]}},
+            filter={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -418,7 +463,7 @@ class TestAsyncTransactions:
             amount="-1000",
             currency="USD",
             external_id="bank_txn_123",
-            posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            posted=parse_datetime("2024-01-13T00:00:00Z"),
         )
         assert_matches_type(TransactionCreateResponse, transaction, path=["response"])
 
@@ -441,11 +486,11 @@ class TestAsyncTransactions:
             amount="-1000",
             currency="USD",
             external_id="bank_txn_123",
-            posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            posted=parse_datetime("2024-01-13T00:00:00Z"),
             tags=[
                 {
-                    "key": "region",
-                    "value": "us-east",
+                    "key": "department",
+                    "value": "engineering",
                 }
             ],
         )
@@ -467,7 +512,7 @@ class TestAsyncTransactions:
             amount="-1000",
             currency="USD",
             external_id="bank_txn_123",
-            posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            posted=parse_datetime("2024-01-13T00:00:00Z"),
         )
 
         assert response.is_closed is True
@@ -491,7 +536,7 @@ class TestAsyncTransactions:
             amount="-1000",
             currency="USD",
             external_id="bank_txn_123",
-            posted=parse_datetime("2026-02-12T00:00:00.000Z"),
+            posted=parse_datetime("2024-01-13T00:00:00Z"),
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -545,6 +590,98 @@ class TestAsyncTransactions:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_update(self, async_client: AsyncFragment) -> None:
+        transaction = await async_client.transactions.update(
+            transaction_ref="txn_abc123",
+            current_transaction_version=0,
+        )
+        assert_matches_type(TransactionUpdateResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncFragment) -> None:
+        transaction = await async_client.transactions.update(
+            transaction_ref="txn_abc123",
+            current_transaction_version=0,
+            allocations={
+                "create": [
+                    {
+                        "amount": "1000",
+                        "invoice_id": "inv_abc123",
+                        "type": "invoice_payin",
+                        "user": {"id": "user_abc123"},
+                    }
+                ],
+                "update": [
+                    {
+                        "id": "alloc_abc123",
+                        "amount": "2000",
+                    }
+                ],
+            },
+            tags={
+                "create": [
+                    {
+                        "key": "department",
+                        "value": "engineering",
+                    }
+                ],
+                "delete": [{"key": "key"}],
+                "set": [
+                    {
+                        "key": "department",
+                        "value": "engineering",
+                    }
+                ],
+                "update": [
+                    {
+                        "key": "department",
+                        "value": "engineering",
+                    }
+                ],
+            },
+        )
+        assert_matches_type(TransactionUpdateResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_update(self, async_client: AsyncFragment) -> None:
+        response = await async_client.transactions.with_raw_response.update(
+            transaction_ref="txn_abc123",
+            current_transaction_version=0,
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        transaction = await response.parse()
+        assert_matches_type(TransactionUpdateResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_update(self, async_client: AsyncFragment) -> None:
+        async with async_client.transactions.with_streaming_response.update(
+            transaction_ref="txn_abc123",
+            current_transaction_version=0,
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            transaction = await response.parse()
+            assert_matches_type(TransactionUpdateResponse, transaction, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_update(self, async_client: AsyncFragment) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction_ref` but received ''"):
+            await async_client.transactions.with_raw_response.update(
+                transaction_ref="",
+                current_transaction_version=0,
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_method_list(self, async_client: AsyncFragment) -> None:
         transaction = await async_client.transactions.list()
         assert_matches_type(TransactionListResponse, transaction, path=["response"])
@@ -579,88 +716,6 @@ class TestAsyncTransactions:
             assert_matches_type(TransactionListResponse, transaction, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_allocations(self, async_client: AsyncFragment) -> None:
-        transaction = await async_client.transactions.create_allocations(
-            transaction_ref="txn_abc123",
-            allocation_updates=[
-                {
-                    "amount": "1000",
-                    "invoice_id": "inv_abc123",
-                    "op": "add",
-                    "type": "invoice_payin",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=0,
-        )
-        assert_matches_type(TransactionCreateAllocationsResponse, transaction, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_create_allocations(self, async_client: AsyncFragment) -> None:
-        response = await async_client.transactions.with_raw_response.create_allocations(
-            transaction_ref="txn_abc123",
-            allocation_updates=[
-                {
-                    "amount": "1000",
-                    "invoice_id": "inv_abc123",
-                    "op": "add",
-                    "type": "invoice_payin",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=0,
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        transaction = await response.parse()
-        assert_matches_type(TransactionCreateAllocationsResponse, transaction, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_create_allocations(self, async_client: AsyncFragment) -> None:
-        async with async_client.transactions.with_streaming_response.create_allocations(
-            transaction_ref="txn_abc123",
-            allocation_updates=[
-                {
-                    "amount": "1000",
-                    "invoice_id": "inv_abc123",
-                    "op": "add",
-                    "type": "invoice_payin",
-                    "user": {"id": "user_abc123"},
-                }
-            ],
-            version=0,
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            transaction = await response.parse()
-            assert_matches_type(TransactionCreateAllocationsResponse, transaction, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_path_params_create_allocations(self, async_client: AsyncFragment) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `transaction_ref` but received ''"):
-            await async_client.transactions.with_raw_response.create_allocations(
-                transaction_ref="",
-                allocation_updates=[
-                    {
-                        "amount": "1000",
-                        "invoice_id": "inv_abc123",
-                        "op": "add",
-                        "type": "invoice_payin",
-                        "user": {"id": "user_abc123"},
-                    }
-                ],
-                version=0,
-            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -708,7 +763,42 @@ class TestAsyncTransactions:
     @parametrize
     async def test_method_search(self, async_client: AsyncFragment) -> None:
         transaction = await async_client.transactions.search(
-            filter={"account": {"any": [{}]}},
+            filter={},
+        )
+        assert_matches_type(TransactionSearchResponse, transaction, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_search_with_all_params(self, async_client: AsyncFragment) -> None:
+        transaction = await async_client.transactions.search(
+            filter={
+                "account": {
+                    "any": [
+                        {
+                            "id": "ext_account_YWJjMTIz",
+                            "external_id": "acct_external_123",
+                        }
+                    ]
+                },
+                "tags": {
+                    "all": [
+                        {
+                            "key": "department",
+                            "value": "engineering",
+                        }
+                    ],
+                    "any": [
+                        {
+                            "key": "department",
+                            "value": "eng*",
+                        }
+                    ],
+                },
+            },
+            page_info={
+                "after": "after",
+                "limit": 20,
+            },
         )
         assert_matches_type(TransactionSearchResponse, transaction, path=["response"])
 
@@ -716,7 +806,7 @@ class TestAsyncTransactions:
     @parametrize
     async def test_raw_response_search(self, async_client: AsyncFragment) -> None:
         response = await async_client.transactions.with_raw_response.search(
-            filter={"account": {"any": [{}]}},
+            filter={},
         )
 
         assert response.is_closed is True
@@ -728,7 +818,7 @@ class TestAsyncTransactions:
     @parametrize
     async def test_streaming_response_search(self, async_client: AsyncFragment) -> None:
         async with async_client.transactions.with_streaming_response.search(
-            filter={"account": {"any": [{}]}},
+            filter={},
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

@@ -21,15 +21,18 @@ __all__ = [
 
 class TransactionCreateParams(TypedDict, total=False):
     account: Required[Account]
-    """Account reference. Provide id, external_id, or both."""
+    """External account for the transaction.
+
+    Identify it by `id`, `external_id`, or both.
+    """
 
     allocations: Required[Iterable[Allocation]]
-    """Allocation entries for this transaction. Empty indicates unreconciled funds."""
+    """Allocations for the transaction. An empty array indicates unreconciled funds."""
 
     amount: Required[str]
     """
-    Amount in smallest currency unit as stringified bigint (can be positive or
-    negative).
+    Transaction amount, as a string in the smallest currency unit, such as cents for
+    USD. Can be positive or negative.
     """
 
     currency: Required[
@@ -215,70 +218,68 @@ class TransactionCreateParams(TypedDict, total=False):
             "CUSTOM",
         ]
     ]
-    """Currency code (ISO 4217 or crypto)"""
+    """ISO 4217 or crypto currency code."""
 
     external_id: Required[str]
-    """External transaction ID used for idempotent sync."""
+    """User-provided unique ID."""
 
     posted: Required[Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]]
-    """Posted timestamp in ISO 8601 format."""
+    """Timestamp when the transaction was posted. Uses ISO 8601 format."""
 
     tags: Iterable[Tag]
-    """Optional metadata tags for this transaction"""
+    """Tags for the transaction."""
 
 
 class Account(TypedDict, total=False):
-    """Account reference. Provide id, external_id, or both."""
+    """External account for the transaction.
+
+    Identify it by `id`, `external_id`, or both.
+    """
 
     id: str
-    """User-facing encoded account ID."""
+    """FRAGMENT generated unique ID."""
 
     external_id: str
-    """External account reference ID."""
+    """User-provided unique ID."""
 
 
 class AllocationUserID(TypedDict, total=False):
     id: Required[str]
-    """FRAGMENT generated ID of the user"""
+    """FRAGMENT generated unique ID."""
 
 
 class AllocationUserExternalID(TypedDict, total=False):
     external_id: Required[str]
-    """External ID of the user"""
+    """User-provided unique ID."""
 
 
 AllocationUser: TypeAlias = Union[AllocationUserID, AllocationUserExternalID]
 
 
 class Allocation(TypedDict, total=False):
-    """Transaction allocation against an invoice."""
+    """An allocation linking a transaction to an invoice."""
 
     amount: Required[str]
-    """Amount to allocate in smallest currency unit as stringified bigint."""
+    """
+    Allocation amount, as a positive string in the smallest currency unit, such as
+    cents for USD.
+    """
 
     invoice_id: Required[str]
-    """The invoice to allocate against."""
+    """Invoice to allocate against."""
 
     type: Required[Literal["invoice_payin", "invoice_payout"]]
-    """The type of allocation."""
+    """Type of allocation."""
 
     user: Required[AllocationUser]
-    """Identifies a user by Fragment-generated id or external_id (request body)."""
+    """Identifies a user by `id` or `external_id`."""
 
 
 class Tag(TypedDict, total=False):
-    """A key-value tag pair for metadata"""
+    """A key-value tag pair for metadata."""
 
     key: Required[str]
-    """Tag key.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 50
-    characters.
-    """
+    """Tag key. Must not contain #, /, or :. Max 50 characters."""
 
     value: Required[str]
-    """Tag value.
-
-    Must be a valid safe string (no special characters like #, /, :). Max 200
-    characters.
-    """
+    """Tag value. Must not contain #, /, or :. Max 200 characters."""

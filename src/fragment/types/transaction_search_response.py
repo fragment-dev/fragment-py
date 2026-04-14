@@ -1,110 +1,34 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
-from typing_extensions import Literal, TypeAlias
+from typing import List, Optional
 
 from .._models import BaseModel
 from .transaction import Transaction
 
-__all__ = [
-    "TransactionSearchResponse",
-    "Data",
-    "DataDiff",
-    "DataDiffAddAllocationDiffEntry",
-    "DataDiffAddAllocationDiffEntryItem",
-    "DataDiffAddAllocationDiffEntryItemUser",
-    "DataDiffDeleteAllocationDiffEntry",
-    "DataDiffDeleteAllocationDiffEntryItem",
-    "DataDiffDeleteAllocationDiffEntryItemUser",
-]
+__all__ = ["TransactionSearchResponse", "DataV2", "DataV2PageInfo"]
 
 
-class DataDiffAddAllocationDiffEntryItemUser(BaseModel):
-    """User reference in API responses: Fragment user id and optional external_id."""
+class DataV2PageInfo(BaseModel):
+    """Pagination cursors."""
 
-    id: str
-    """FRAGMENT generated ID of the user"""
-
-    external_id: Optional[str] = None
-    """External ID of the user"""
+    next_cursor: Optional[str] = None
+    """Cursor to fetch the next page of results."""
 
 
-class DataDiffAddAllocationDiffEntryItem(BaseModel):
-    """Transaction allocation against an invoice."""
+class DataV2(BaseModel):
+    page_info: DataV2PageInfo
+    """Pagination cursors."""
 
-    amount: str
-    """Amount to allocate in smallest currency unit as stringified bigint."""
-
-    invoice_id: str
-    """The invoice to allocate against."""
-
-    type: Literal["invoice_payin", "invoice_payout"]
-    """The type of allocation."""
-
-    user: DataDiffAddAllocationDiffEntryItemUser
-    """User reference in API responses: Fragment user id and optional external_id."""
-
-
-class DataDiffAddAllocationDiffEntry(BaseModel):
-    item: DataDiffAddAllocationDiffEntryItem
-    """Transaction allocation against an invoice."""
-
-    op: Literal["add"]
-    """An allocation was added"""
-
-
-class DataDiffDeleteAllocationDiffEntryItemUser(BaseModel):
-    """User reference in API responses: Fragment user id and optional external_id."""
-
-    id: str
-    """FRAGMENT generated ID of the user"""
-
-    external_id: Optional[str] = None
-    """External ID of the user"""
-
-
-class DataDiffDeleteAllocationDiffEntryItem(BaseModel):
-    """Transaction allocation against an invoice."""
-
-    amount: str
-    """Amount to allocate in smallest currency unit as stringified bigint."""
-
-    invoice_id: str
-    """The invoice to allocate against."""
-
-    type: Literal["invoice_payin", "invoice_payout"]
-    """The type of allocation."""
-
-    user: DataDiffDeleteAllocationDiffEntryItemUser
-    """User reference in API responses: Fragment user id and optional external_id."""
-
-
-class DataDiffDeleteAllocationDiffEntry(BaseModel):
-    item: DataDiffDeleteAllocationDiffEntryItem
-    """Transaction allocation against an invoice."""
-
-    op: Literal["delete"]
-    """An allocation was deleted"""
-
-
-DataDiff: TypeAlias = Union[DataDiffAddAllocationDiffEntry, DataDiffDeleteAllocationDiffEntry]
-
-
-class Data(Transaction):
-    """A versioned snapshot of a transaction"""
-
-    diff: Optional[List[DataDiff]] = None
-    """Allocation changes applied in this version.
-
-    Absent on version 1 (initial creation). Each entry describes an allocation that
-    was added or deleted.
-    """
-
-    version: Optional[int] = None  # type: ignore
-    """Version number of this transaction snapshot."""
+    transactions: List[Transaction]
+    """Transactions matching the search criteria."""
 
 
 class TransactionSearchResponse(BaseModel):
-    """Search results for transactions."""
+    data: List[Transaction]
+    """Deprecated.
 
-    data: List[Data]
+    Use `data_v2.transactions` instead. Returns the full unpaginated list of
+    matching transactions.
+    """
+
+    data_v2: DataV2

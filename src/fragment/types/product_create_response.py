@@ -8,4 +8,4 @@ __all__ = ["ProductCreateResponse"]
 
 class ProductCreateResponse(BaseModel):
     data: Product
-    """Product object"""
+    """Product object."""

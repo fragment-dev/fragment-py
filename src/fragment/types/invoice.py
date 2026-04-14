@@ -10,48 +10,48 @@ __all__ = ["Invoice", "Tag", "LineItem", "LineItemPrice", "LineItemTag"]
 
 
 class Tag(BaseModel):
-    """A key-value tag pair"""
+    """A key-value tag pair."""
 
     key: str
-    """Tag key"""
+    """Tag key."""
 
     value: str
-    """Tag value"""
+    """Tag value."""
 
 
 class LineItemPrice(BaseModel):
-    """Price breakdown containing amount, unit price, and quantity"""
+    """Price breakdown."""
 
     amount: str
-    """Total amount in smallest currency unit (represented as string for bigint)"""
+    """Total amount as a string in the smallest currency unit, such as cents for USD."""
 
     quantity: int
-    """Quantity of units for this line item"""
+    """Number of units."""
 
     unit_price: str
-    """Unit price in smallest currency unit (represented as string for bigint)"""
+    """Unit price as a string in the smallest currency unit, such as cents for USD."""
 
 
 class LineItemTag(BaseModel):
-    """A key-value tag pair"""
+    """A key-value tag pair."""
 
     key: str
-    """Tag key"""
+    """Tag key."""
 
     value: str
-    """Tag value"""
+    """Tag value."""
 
 
 class LineItem(BaseModel):
-    """Invoice line item object"""
+    """Invoice line item."""
 
     id: str
-    """Unique identifier for the line item"""
+    """FRAGMENT generated unique ID."""
 
     amount: str
-    """Deprecated: use price.amount instead.
+    """Total amount as a string in the smallest currency unit, such as cents for USD.
 
-    Total amount in smallest currency unit (represented as string for bigint)
+    Deprecated, use price.amount instead.
     """
 
     currency_code: Literal[
@@ -235,53 +235,50 @@ class LineItem(BaseModel):
         "LOGICAL",
         "CUSTOM",
     ]
-    """Currency code (ISO 4217 or crypto)"""
+    """ISO 4217 or crypto currency code."""
 
     description: str
-    """Description of the line item"""
+    """Description of the line item."""
 
     price: LineItemPrice
-    """Price breakdown containing amount, unit price, and quantity"""
+    """Price breakdown."""
 
     product_id: str
-    """ID of the product/catalog item"""
+    """Unique identifier for the product."""
 
     tags: List[LineItemTag]
-    """Metadata tags for this line item"""
+    """Tags for the line item."""
 
     type: Literal["payin", "payout"]
-    """The type of the line item"""
+    """Type of the line item."""
 
     user_id: str
-    """External ID of the user associated with this line item"""
+    """User-provided unique external ID."""
 
 
 class Invoice(BaseModel):
-    """Invoice object"""
+    """Invoice object."""
 
     id: str
-    """Unique identifier for the invoice"""
+    """Unique invoice ID."""
 
     created: datetime
-    """ISO 8601 timestamp when the invoice was created"""
+    """Timestamp when the invoice was created. Uses ISO 8601 format."""
 
     status: Literal["active"]
-    """The status of the invoice"""
+    """Status of the invoice. Deprecated."""
 
     tags: List[Tag]
-    """Metadata tags for this invoice"""
+    """Tags for the invoice."""
 
     version: float
-    """The current version of the invoice.
-
-    Pass this value when updating to ensure thread safety.
-    """
+    """Current version of the invoice."""
 
     workspace_id: str
-    """Workspace ID this invoice belongs to"""
+    """Workspace the invoice belongs to."""
 
     line_items: Optional[List[LineItem]] = None
-    """List of line items associated with this invoice"""
+    """Line items for the invoice."""
 
     modified: Optional[datetime] = None
-    """ISO 8601 timestamp when the invoice was last modified"""
+    """Timestamp when the invoice was last modified. Uses ISO 8601 format."""
