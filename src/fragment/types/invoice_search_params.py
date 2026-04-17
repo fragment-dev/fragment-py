@@ -2,10 +2,27 @@
 
 from __future__ import annotations
 
-from typing import Iterable
-from typing_extensions import Literal, Required, TypedDict
+from typing import Union, Iterable
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-__all__ = ["InvoiceSearchParams", "Filter", "FilterTags", "FilterTagsAll", "FilterTagsAny", "PageInfo"]
+__all__ = [
+    "InvoiceSearchParams",
+    "Filter",
+    "FilterTags",
+    "FilterTagsAll",
+    "FilterTagsAny",
+    "FilterTransactionTags",
+    "FilterTransactionTagsAll",
+    "FilterTransactionTagsAny",
+    "FilterUsers",
+    "FilterUsersAll",
+    "FilterUsersAllID",
+    "FilterUsersAllExternalID",
+    "FilterUsersAny",
+    "FilterUsersAnyID",
+    "FilterUsersAnyExternalID",
+    "PageInfo",
+]
 
 
 class InvoiceSearchParams(TypedDict, total=False):
@@ -59,6 +76,94 @@ class FilterTags(TypedDict, total=False):
     """Returns invoices matching at least one of the specified tags, using OR logic."""
 
 
+class FilterTransactionTagsAll(TypedDict, total=False):
+    """A tag filter."""
+
+    key: Required[str]
+    """Tag key to filter on. Must be an exact match; wildcards are not supported."""
+
+    value: Required[str]
+    """Tag value pattern to filter on.
+
+    Supports wildcards: `*` matches any characters, `?` matches a single character.
+    Use `\\**` or `\\??` to match literal asterisks or question marks. Use `*` to match
+    any value for the given key.
+    """
+
+
+class FilterTransactionTagsAny(TypedDict, total=False):
+    """A tag filter."""
+
+    key: Required[str]
+    """Tag key to filter on. Must be an exact match; wildcards are not supported."""
+
+    value: Required[str]
+    """Tag value pattern to filter on.
+
+    Supports wildcards: `*` matches any characters, `?` matches a single character.
+    Use `\\**` or `\\??` to match literal asterisks or question marks. Use `*` to match
+    any value for the given key.
+    """
+
+
+class FilterTransactionTags(TypedDict, total=False):
+    """Filter invoices by tags on transactions allocated to them.
+
+    Returns invoices that have at least one allocated transaction matching the specified tags.
+    """
+
+    all: Iterable[FilterTransactionTagsAll]
+    """Returns transactions matching every specified tag, using AND logic."""
+
+    any: Iterable[FilterTransactionTagsAny]
+    """
+    Returns transactions matching at least one of the specified tags, using OR
+    logic.
+    """
+
+
+class FilterUsersAllID(TypedDict, total=False):
+    id: Required[str]
+    """FRAGMENT generated unique ID."""
+
+
+class FilterUsersAllExternalID(TypedDict, total=False):
+    external_id: Required[str]
+    """User-provided unique ID."""
+
+
+FilterUsersAll: TypeAlias = Union[FilterUsersAllID, FilterUsersAllExternalID]
+
+
+class FilterUsersAnyID(TypedDict, total=False):
+    id: Required[str]
+    """FRAGMENT generated unique ID."""
+
+
+class FilterUsersAnyExternalID(TypedDict, total=False):
+    external_id: Required[str]
+    """User-provided unique ID."""
+
+
+FilterUsersAny: TypeAlias = Union[FilterUsersAnyID, FilterUsersAnyExternalID]
+
+
+class FilterUsers(TypedDict, total=False):
+    """Line item user filter criteria.
+
+    When both `any` and `all` are provided, results must match every entry in `all` AND at least one entry in `any`.
+    """
+
+    all: Iterable[FilterUsersAll]
+    """Returns invoices matching every specified line item user, using AND logic."""
+
+    any: Iterable[FilterUsersAny]
+    """
+    Returns invoices matching at least one of the specified line item users, using
+    OR logic.
+    """
+
+
 class Filter(TypedDict, total=False):
     """Filter criteria for the search."""
 
@@ -70,6 +175,20 @@ class Filter(TypedDict, total=False):
 
     tags: FilterTags
     """Tag-based filter criteria.
+
+    When both `any` and `all` are provided, results must match every entry in `all`
+    AND at least one entry in `any`.
+    """
+
+    transaction_tags: FilterTransactionTags
+    """Filter invoices by tags on transactions allocated to them.
+
+    Returns invoices that have at least one allocated transaction matching the
+    specified tags.
+    """
+
+    users: FilterUsers
+    """Line item user filter criteria.
 
     When both `any` and `all` are provided, results must match every entry in `all`
     AND at least one entry in `any`.
