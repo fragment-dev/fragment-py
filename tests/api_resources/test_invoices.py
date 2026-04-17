@@ -389,6 +389,24 @@ class TestInvoices:
                         }
                     ],
                 },
+                "transaction_tags": {
+                    "all": [
+                        {
+                            "key": "department",
+                            "value": "engineering",
+                        }
+                    ],
+                    "any": [
+                        {
+                            "key": "department",
+                            "value": "eng*",
+                        }
+                    ],
+                },
+                "users": {
+                    "all": [{"id": "user_abc123"}],
+                    "any": [{"id": "user_abc123"}],
+                },
             },
             page_info={
                 "after": "after",
@@ -793,6 +811,24 @@ class TestAsyncInvoices:
                             "value": "eng*",
                         }
                     ],
+                },
+                "transaction_tags": {
+                    "all": [
+                        {
+                            "key": "department",
+                            "value": "engineering",
+                        }
+                    ],
+                    "any": [
+                        {
+                            "key": "department",
+                            "value": "eng*",
+                        }
+                    ],
+                },
+                "users": {
+                    "all": [{"id": "user_abc123"}],
+                    "any": [{"id": "user_abc123"}],
                 },
             },
             page_info={
