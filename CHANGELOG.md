@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.11.0 (2026-04-17)
+
+Full Changelog: [v0.10.0...v0.11.0](https://github.com/fragment-dev/fragment-py/compare/v0.10.0...v0.11.0)
+
+### Features
+
+* **api:** update SDK from prod (cbc5ff452aab999dd415fd13c02110d44ee3958b) ([264b7e2](https://github.com/fragment-dev/fragment-py/commit/264b7e2c3d67b59022c274e2d00389118c94494f))
+
+
+### Performance Improvements
+
+* **client:** optimize file structure copying in multipart requests ([7d74e8a](https://github.com/fragment-dev/fragment-py/commit/7d74e8a48e5e1c98905c12c0a785d8121612f889))
+
 ## 0.10.0 (2026-04-13)
 
 Full Changelog: [v0.9.0...v0.10.0](https://github.com/fragment-dev/fragment-py/compare/v0.9.0...v0.10.0)
