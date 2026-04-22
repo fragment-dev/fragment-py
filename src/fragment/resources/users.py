@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+from typing import Iterable
+
 import httpx
 
 from ..types import user_create_params
-from .._types import Body, Query, Headers, NotGiven, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -49,6 +51,7 @@ class UsersResource(SyncAPIResource):
         *,
         external_id: str,
         role: str,
+        tags: Iterable[user_create_params.Tag] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -64,6 +67,8 @@ class UsersResource(SyncAPIResource):
 
           role: Name of the role to assign. Must match an existing role.
 
+          tags: Tags for the user.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -78,6 +83,7 @@ class UsersResource(SyncAPIResource):
                 {
                     "external_id": external_id,
                     "role": role,
+                    "tags": tags,
                 },
                 user_create_params.UserCreateParams,
             ),
@@ -134,6 +140,7 @@ class AsyncUsersResource(AsyncAPIResource):
         *,
         external_id: str,
         role: str,
+        tags: Iterable[user_create_params.Tag] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -149,6 +156,8 @@ class AsyncUsersResource(AsyncAPIResource):
 
           role: Name of the role to assign. Must match an existing role.
 
+          tags: Tags for the user.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -163,6 +172,7 @@ class AsyncUsersResource(AsyncAPIResource):
                 {
                     "external_id": external_id,
                     "role": role,
+                    "tags": tags,
                 },
                 user_create_params.UserCreateParams,
             ),

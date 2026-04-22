@@ -28,6 +28,21 @@ class TestUsers:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_create_with_all_params(self, client: Fragment) -> None:
+        user = client.users.create(
+            external_id="user_ext_123",
+            role="admin",
+            tags=[
+                {
+                    "key": "department",
+                    "value": "engineering",
+                }
+            ],
+        )
+        assert_matches_type(UserCreateResponse, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_raw_response_create(self, client: Fragment) -> None:
         response = client.users.with_raw_response.create(
             external_id="user_ext_123",
@@ -94,6 +109,21 @@ class TestAsyncUsers:
         user = await async_client.users.create(
             external_id="user_ext_123",
             role="admin",
+        )
+        assert_matches_type(UserCreateResponse, user, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncFragment) -> None:
+        user = await async_client.users.create(
+            external_id="user_ext_123",
+            role="admin",
+            tags=[
+                {
+                    "key": "department",
+                    "value": "engineering",
+                }
+            ],
         )
         assert_matches_type(UserCreateResponse, user, path=["response"])
 
