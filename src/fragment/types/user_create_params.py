@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+from typing import Iterable
 from typing_extensions import Required, TypedDict
 
-__all__ = ["UserCreateParams"]
+__all__ = ["UserCreateParams", "Tag"]
 
 
 class UserCreateParams(TypedDict, total=False):
@@ -13,3 +14,16 @@ class UserCreateParams(TypedDict, total=False):
 
     role: Required[str]
     """Name of the role to assign. Must match an existing role."""
+
+    tags: Iterable[Tag]
+    """Tags for the user."""
+
+
+class Tag(TypedDict, total=False):
+    """A key-value tag pair for metadata."""
+
+    key: Required[str]
+    """Tag key. Must not contain #, /, or :. Max 50 characters."""
+
+    value: Required[str]
+    """Tag value. Must not contain #, /, or :. Max 200 characters."""
