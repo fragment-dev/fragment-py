@@ -111,23 +111,10 @@ from fragment import Fragment
 
 client = Fragment()
 
-invoice = client.invoices.update(
-    id="inv_1234567890",
-    current_invoice_version=3,
-    line_items={
-        "update": [
-            {
-                "id": "li_1234567890",
-                "price": {
-                    "quantity": 2,
-                    "unit_price": "500",
-                    "amount": "2000",
-                },
-            }
-        ]
-    },
+response = client.experimental.payment_flows.search(
+    page_info={},
 )
-print(invoice.line_items)
+print(response.page_info)
 ```
 
 ## Handling errors

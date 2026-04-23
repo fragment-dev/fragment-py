@@ -32,13 +32,14 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import roles, users, invoices, products, transactions, external_accounts
+    from .resources import roles, users, invoices, products, experimental, transactions, external_accounts
     from .resources.roles import RolesResource, AsyncRolesResource
     from .resources.users import UsersResource, AsyncUsersResource
     from .resources.invoices import InvoicesResource, AsyncInvoicesResource
     from .resources.products import ProductsResource, AsyncProductsResource
     from .resources.transactions import TransactionsResource, AsyncTransactionsResource
     from .resources.external_accounts import ExternalAccountsResource, AsyncExternalAccountsResource
+    from .resources.experimental.experimental import ExperimentalResource, AsyncExperimentalResource
 
 __all__ = [
     "Timeout",
@@ -110,6 +111,12 @@ class Fragment(SyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+    @cached_property
+    def experimental(self) -> ExperimentalResource:
+        from .resources.experimental import ExperimentalResource
+
+        return ExperimentalResource(self)
 
     @cached_property
     def external_accounts(self) -> ExternalAccountsResource:
@@ -343,6 +350,12 @@ class AsyncFragment(AsyncAPIClient):
         )
 
     @cached_property
+    def experimental(self) -> AsyncExperimentalResource:
+        from .resources.experimental import AsyncExperimentalResource
+
+        return AsyncExperimentalResource(self)
+
+    @cached_property
     def external_accounts(self) -> AsyncExternalAccountsResource:
         """External account management operations"""
         from .resources.external_accounts import AsyncExternalAccountsResource
@@ -521,6 +534,12 @@ class FragmentWithRawResponse:
         self._client = client
 
     @cached_property
+    def experimental(self) -> experimental.ExperimentalResourceWithRawResponse:
+        from .resources.experimental import ExperimentalResourceWithRawResponse
+
+        return ExperimentalResourceWithRawResponse(self._client.experimental)
+
+    @cached_property
     def external_accounts(self) -> external_accounts.ExternalAccountsResourceWithRawResponse:
         """External account management operations"""
         from .resources.external_accounts import ExternalAccountsResourceWithRawResponse
@@ -568,6 +587,12 @@ class AsyncFragmentWithRawResponse:
 
     def __init__(self, client: AsyncFragment) -> None:
         self._client = client
+
+    @cached_property
+    def experimental(self) -> experimental.AsyncExperimentalResourceWithRawResponse:
+        from .resources.experimental import AsyncExperimentalResourceWithRawResponse
+
+        return AsyncExperimentalResourceWithRawResponse(self._client.experimental)
 
     @cached_property
     def external_accounts(self) -> external_accounts.AsyncExternalAccountsResourceWithRawResponse:
@@ -619,6 +644,12 @@ class FragmentWithStreamedResponse:
         self._client = client
 
     @cached_property
+    def experimental(self) -> experimental.ExperimentalResourceWithStreamingResponse:
+        from .resources.experimental import ExperimentalResourceWithStreamingResponse
+
+        return ExperimentalResourceWithStreamingResponse(self._client.experimental)
+
+    @cached_property
     def external_accounts(self) -> external_accounts.ExternalAccountsResourceWithStreamingResponse:
         """External account management operations"""
         from .resources.external_accounts import ExternalAccountsResourceWithStreamingResponse
@@ -666,6 +697,12 @@ class AsyncFragmentWithStreamedResponse:
 
     def __init__(self, client: AsyncFragment) -> None:
         self._client = client
+
+    @cached_property
+    def experimental(self) -> experimental.AsyncExperimentalResourceWithStreamingResponse:
+        from .resources.experimental import AsyncExperimentalResourceWithStreamingResponse
+
+        return AsyncExperimentalResourceWithStreamingResponse(self._client.experimental)
 
     @cached_property
     def external_accounts(self) -> external_accounts.AsyncExternalAccountsResourceWithStreamingResponse:
