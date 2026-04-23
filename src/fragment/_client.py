@@ -99,7 +99,7 @@ class Fragment(SyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("FRAGMENT_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.us-west-2.fragment.dev"
+            base_url = f"https://api.us-west-2.fragment.dev/billing"
 
         super().__init__(
             version=__version__,
@@ -336,7 +336,7 @@ class AsyncFragment(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("FRAGMENT_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.us-west-2.fragment.dev"
+            base_url = f"https://api.us-west-2.fragment.dev/billing"
 
         super().__init__(
             version=__version__,

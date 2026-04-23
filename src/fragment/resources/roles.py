@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import typing_extensions
+
 import httpx
 
 from ..types import role_create_params
@@ -44,6 +46,7 @@ class RolesResource(SyncAPIResource):
         """
         return RolesResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     def create(
         self,
         *,
@@ -55,11 +58,12 @@ class RolesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RoleCreateResponse:
-        """
-        Creates a role.
+        """Creates a role.
+
+        Deprecated, use user tags instead.
 
         Args:
-          role: Name of the role.
+          role: Name of the role. Deprecated, use user tags instead.
 
           extra_headers: Send extra headers
 
@@ -78,6 +82,7 @@ class RolesResource(SyncAPIResource):
             cast_to=RoleCreateResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def list(
         self,
         *,
@@ -88,7 +93,7 @@ class RolesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RoleListResponse:
-        """Lists all roles."""
+        """Lists all roles. Deprecated, use user tags instead."""
         return self._get(
             "/roles",
             options=make_request_options(
@@ -120,6 +125,7 @@ class AsyncRolesResource(AsyncAPIResource):
         """
         return AsyncRolesResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     async def create(
         self,
         *,
@@ -131,11 +137,12 @@ class AsyncRolesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RoleCreateResponse:
-        """
-        Creates a role.
+        """Creates a role.
+
+        Deprecated, use user tags instead.
 
         Args:
-          role: Name of the role.
+          role: Name of the role. Deprecated, use user tags instead.
 
           extra_headers: Send extra headers
 
@@ -154,6 +161,7 @@ class AsyncRolesResource(AsyncAPIResource):
             cast_to=RoleCreateResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def list(
         self,
         *,
@@ -164,7 +172,7 @@ class AsyncRolesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RoleListResponse:
-        """Lists all roles."""
+        """Lists all roles. Deprecated, use user tags instead."""
         return await self._get(
             "/roles",
             options=make_request_options(
@@ -178,11 +186,15 @@ class RolesResourceWithRawResponse:
     def __init__(self, roles: RolesResource) -> None:
         self._roles = roles
 
-        self.create = to_raw_response_wrapper(
-            roles.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                roles.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = to_raw_response_wrapper(
-            roles.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                roles.list,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -190,11 +202,15 @@ class AsyncRolesResourceWithRawResponse:
     def __init__(self, roles: AsyncRolesResource) -> None:
         self._roles = roles
 
-        self.create = async_to_raw_response_wrapper(
-            roles.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                roles.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = async_to_raw_response_wrapper(
-            roles.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                roles.list,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -202,11 +218,15 @@ class RolesResourceWithStreamingResponse:
     def __init__(self, roles: RolesResource) -> None:
         self._roles = roles
 
-        self.create = to_streamed_response_wrapper(
-            roles.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                roles.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = to_streamed_response_wrapper(
-            roles.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                roles.list,  # pyright: ignore[reportDeprecated],
+            )
         )
 
 
@@ -214,9 +234,13 @@ class AsyncRolesResourceWithStreamingResponse:
     def __init__(self, roles: AsyncRolesResource) -> None:
         self._roles = roles
 
-        self.create = async_to_streamed_response_wrapper(
-            roles.create,
+        self.create = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                roles.create,  # pyright: ignore[reportDeprecated],
+            )
         )
-        self.list = async_to_streamed_response_wrapper(
-            roles.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                roles.list,  # pyright: ignore[reportDeprecated],
+            )
         )

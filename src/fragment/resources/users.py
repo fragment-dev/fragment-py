@@ -50,7 +50,7 @@ class UsersResource(SyncAPIResource):
         self,
         *,
         external_id: str,
-        role: str,
+        role: str | Omit = omit,
         tags: Iterable[user_create_params.Tag] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -65,7 +65,7 @@ class UsersResource(SyncAPIResource):
         Args:
           external_id: User-provided unique ID.
 
-          role: Name of the role to assign. Must match an existing role.
+          role: Name of the role to assign. Deprecated, use tags instead.
 
           tags: Tags for the user.
 
@@ -139,7 +139,7 @@ class AsyncUsersResource(AsyncAPIResource):
         self,
         *,
         external_id: str,
-        role: str,
+        role: str | Omit = omit,
         tags: Iterable[user_create_params.Tag] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -154,7 +154,7 @@ class AsyncUsersResource(AsyncAPIResource):
         Args:
           external_id: User-provided unique ID.
 
-          role: Name of the role to assign. Must match an existing role.
+          role: Name of the role to assign. Deprecated, use tags instead.
 
           tags: Tags for the user.
 

@@ -8,4 +8,4 @@ __all__ = ["RoleCreateResponse"]
 
 class RoleCreateResponse(BaseModel):
     data: Role
-    """Role object."""
+    """Role object. Deprecated, use user tags instead."""

@@ -27,7 +27,7 @@ class User(BaseModel):
     """User-provided unique ID."""
 
     role: str
-    """Name of the user's role."""
+    """Name of the user's role. Deprecated, use tags instead."""
 
     tags: List[Tag]
     """Tags for the user."""
