@@ -1,3 +1,37 @@
+# Experimental
+
+## PaymentFlows
+
+Types:
+
+```python
+from fragment.types.experimental import (
+    PaymentFlow,
+    PaymentFlowCreateResponse,
+    PaymentFlowRetrieveResponse,
+    PaymentFlowSearchResponse,
+)
+```
+
+Methods:
+
+- <code title="post /payment-flows">client.experimental.payment_flows.<a href="./src/fragment/resources/experimental/payment_flows.py">create</a>(\*\*<a href="src/fragment/types/experimental/payment_flow_create_params.py">params</a>) -> <a href="./src/fragment/types/experimental/payment_flow_create_response.py">PaymentFlowCreateResponse</a></code>
+- <code title="get /payment-flows/{payment_flow_ref}">client.experimental.payment_flows.<a href="./src/fragment/resources/experimental/payment_flows.py">retrieve</a>(payment_flow_ref) -> <a href="./src/fragment/types/experimental/payment_flow_retrieve_response.py">PaymentFlowRetrieveResponse</a></code>
+- <code title="post /payment-flows/search">client.experimental.payment_flows.<a href="./src/fragment/resources/experimental/payment_flows.py">search</a>(\*\*<a href="src/fragment/types/experimental/payment_flow_search_params.py">params</a>) -> <a href="./src/fragment/types/experimental/payment_flow_search_response.py">PaymentFlowSearchResponse</a></code>
+
+## Payments
+
+Types:
+
+```python
+from fragment.types.experimental import Payment, PaymentRetrieveResponse, PaymentSearchResponse
+```
+
+Methods:
+
+- <code title="get /payments/{payment_ref}">client.experimental.payments.<a href="./src/fragment/resources/experimental/payments.py">retrieve</a>(payment_ref) -> <a href="./src/fragment/types/experimental/payment_retrieve_response.py">PaymentRetrieveResponse</a></code>
+- <code title="post /payments/search">client.experimental.payments.<a href="./src/fragment/resources/experimental/payments.py">search</a>(\*\*<a href="src/fragment/types/experimental/payment_search_params.py">params</a>) -> <a href="./src/fragment/types/experimental/payment_search_response.py">PaymentSearchResponse</a></code>
+
 # ExternalAccounts
 
 Types:

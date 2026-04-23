@@ -32,6 +32,14 @@ from .products import (
     ProductsResourceWithStreamingResponse,
     AsyncProductsResourceWithStreamingResponse,
 )
+from .experimental import (
+    ExperimentalResource,
+    AsyncExperimentalResource,
+    ExperimentalResourceWithRawResponse,
+    AsyncExperimentalResourceWithRawResponse,
+    ExperimentalResourceWithStreamingResponse,
+    AsyncExperimentalResourceWithStreamingResponse,
+)
 from .transactions import (
     TransactionsResource,
     AsyncTransactionsResource,
@@ -50,6 +58,12 @@ from .external_accounts import (
 )
 
 __all__ = [
+    "ExperimentalResource",
+    "AsyncExperimentalResource",
+    "ExperimentalResourceWithRawResponse",
+    "AsyncExperimentalResourceWithRawResponse",
+    "ExperimentalResourceWithStreamingResponse",
+    "AsyncExperimentalResourceWithStreamingResponse",
     "ExternalAccountsResource",
     "AsyncExternalAccountsResource",
     "ExternalAccountsResourceWithRawResponse",
