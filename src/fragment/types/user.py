@@ -1,8 +1,20 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import List
+
 from .._models import BaseModel
 
-__all__ = ["User"]
+__all__ = ["User", "Tag"]
+
+
+class Tag(BaseModel):
+    """A key-value tag pair."""
+
+    key: str
+    """Tag key."""
+
+    value: str
+    """Tag value."""
 
 
 class User(BaseModel):
@@ -15,4 +27,7 @@ class User(BaseModel):
     """User-provided unique ID."""
 
     role: str
-    """Name of the user's role."""
+    """Name of the user's role. Deprecated, use tags instead."""
+
+    tags: List[Tag]
+    """Tags for the user."""

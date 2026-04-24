@@ -6,10 +6,10 @@ __all__ = ["Role"]
 
 
 class Role(BaseModel):
-    """Role object."""
+    """Role object. Deprecated, use user tags instead."""
 
     id: str
-    """FRAGMENT generated unique ID."""
+    """FRAGMENT generated unique ID. Deprecated."""
 
     role: str
-    """Name of the role."""
+    """Name of the role. Deprecated, use user tags instead."""
