@@ -24,17 +24,16 @@ class ProductCreateParams(TypedDict, total=False):
     """Product description."""
 
     paid_by_roles: Iterable[PaidByRole]
-    """Roles that can pay for the product.
+    """Deprecated.
 
-    Reference roles by `id` or `name`. At least one of `paid_by_roles` or
-    `paid_to_roles` must be provided.
+    Roles that can pay for the product. Reference roles by `id` or `name`.
     """
 
     paid_to_roles: Iterable[PaidToRole]
-    """Roles that can receive payment for the product.
+    """Deprecated.
 
-    Reference roles by `id` or `name`. At least one of `paid_by_roles` or
-    `paid_to_roles` must be provided.
+    Roles that can receive payment for the product. Reference roles by `id` or
+    `name`.
     """
 
 

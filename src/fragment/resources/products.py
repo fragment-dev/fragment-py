@@ -69,11 +69,11 @@ class ProductsResource(SyncAPIResource):
 
           description: Product description.
 
-          paid_by_roles: Roles that can pay for the product. Reference roles by `id` or `name`. At least
-              one of `paid_by_roles` or `paid_to_roles` must be provided.
+          paid_by_roles: Deprecated. Roles that can pay for the product. Reference roles by `id` or
+              `name`.
 
-          paid_to_roles: Roles that can receive payment for the product. Reference roles by `id` or
-              `name`. At least one of `paid_by_roles` or `paid_to_roles` must be provided.
+          paid_to_roles: Deprecated. Roles that can receive payment for the product. Reference roles by
+              `id` or `name`.
 
           extra_headers: Send extra headers
 
@@ -200,11 +200,11 @@ class AsyncProductsResource(AsyncAPIResource):
 
           description: Product description.
 
-          paid_by_roles: Roles that can pay for the product. Reference roles by `id` or `name`. At least
-              one of `paid_by_roles` or `paid_to_roles` must be provided.
+          paid_by_roles: Deprecated. Roles that can pay for the product. Reference roles by `id` or
+              `name`.
 
-          paid_to_roles: Roles that can receive payment for the product. Reference roles by `id` or
-              `name`. At least one of `paid_by_roles` or `paid_to_roles` must be provided.
+          paid_to_roles: Deprecated. Roles that can receive payment for the product. Reference roles by
+              `id` or `name`.
 
           extra_headers: Send extra headers
 
