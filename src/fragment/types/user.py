@@ -26,8 +26,5 @@ class User(BaseModel):
     external_id: str
     """User-provided unique ID."""
 
-    role: str
-    """Name of the user's role. Deprecated, use tags instead."""
-
     tags: List[Tag]
     """Tags for the user."""

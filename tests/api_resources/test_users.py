@@ -30,7 +30,6 @@ class TestUsers:
     def test_method_create_with_all_params(self, client: Fragment) -> None:
         user = client.users.create(
             external_id="user_ext_123",
-            role="admin",
             tags=[
                 {
                     "key": "department",
@@ -113,7 +112,6 @@ class TestAsyncUsers:
     async def test_method_create_with_all_params(self, async_client: AsyncFragment) -> None:
         user = await async_client.users.create(
             external_id="user_ext_123",
-            role="admin",
             tags=[
                 {
                     "key": "department",

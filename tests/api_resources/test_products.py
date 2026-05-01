@@ -31,8 +31,6 @@ class TestProducts:
         product = client.products.create(
             code="PROD_001",
             description="Premium subscription service",
-            paid_by_roles=[{"name": "buyer"}],
-            paid_to_roles=[{"name": "seller"}],
         )
         assert_matches_type(ProductCreateResponse, product, path=["response"])
 
@@ -152,8 +150,6 @@ class TestAsyncProducts:
         product = await async_client.products.create(
             code="PROD_001",
             description="Premium subscription service",
-            paid_by_roles=[{"name": "buyer"}],
-            paid_to_roles=[{"name": "seller"}],
         )
         assert_matches_type(ProductCreateResponse, product, path=["response"])
 
