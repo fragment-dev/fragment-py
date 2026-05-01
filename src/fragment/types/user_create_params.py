@@ -12,9 +12,6 @@ class UserCreateParams(TypedDict, total=False):
     external_id: Required[str]
     """User-provided unique ID."""
 
-    role: str
-    """Name of the role to assign. Deprecated, use tags instead."""
-
     tags: Iterable[Tag]
     """Tags for the user."""
 
