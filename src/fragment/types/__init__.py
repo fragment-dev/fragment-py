@@ -2,17 +2,13 @@
 
 from __future__ import annotations
 
-from .role import Role as Role
 from .user import User as User
 from .invoice import Invoice as Invoice
 from .product import Product as Product
 from .transaction import Transaction as Transaction
 from .external_account import ExternalAccount as ExternalAccount
-from .role_create_params import RoleCreateParams as RoleCreateParams
-from .role_list_response import RoleListResponse as RoleListResponse
 from .user_create_params import UserCreateParams as UserCreateParams
 from .user_list_response import UserListResponse as UserListResponse
-from .role_create_response import RoleCreateResponse as RoleCreateResponse
 from .user_create_response import UserCreateResponse as UserCreateResponse
 from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
 from .invoice_list_response import InvoiceListResponse as InvoiceListResponse
