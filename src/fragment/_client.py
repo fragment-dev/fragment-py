@@ -36,8 +36,7 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import roles, users, invoices, products, experimental, transactions, external_accounts
-    from .resources.roles import RolesResource, AsyncRolesResource
+    from .resources import users, invoices, products, experimental, transactions, external_accounts
     from .resources.users import UsersResource, AsyncUsersResource
     from .resources.invoices import InvoicesResource, AsyncInvoicesResource
     from .resources.products import ProductsResource, AsyncProductsResource
@@ -151,13 +150,6 @@ class Fragment(SyncAPIClient):
         from .resources.products import ProductsResource
 
         return ProductsResource(self)
-
-    @cached_property
-    def roles(self) -> RolesResource:
-        """Role management operations"""
-        from .resources.roles import RolesResource
-
-        return RolesResource(self)
 
     @cached_property
     def transactions(self) -> TransactionsResource:
@@ -399,13 +391,6 @@ class AsyncFragment(AsyncAPIClient):
         return AsyncProductsResource(self)
 
     @cached_property
-    def roles(self) -> AsyncRolesResource:
-        """Role management operations"""
-        from .resources.roles import AsyncRolesResource
-
-        return AsyncRolesResource(self)
-
-    @cached_property
     def transactions(self) -> AsyncTransactionsResource:
         """Transaction sync operations"""
         from .resources.transactions import AsyncTransactionsResource
@@ -583,13 +568,6 @@ class FragmentWithRawResponse:
         return ProductsResourceWithRawResponse(self._client.products)
 
     @cached_property
-    def roles(self) -> roles.RolesResourceWithRawResponse:
-        """Role management operations"""
-        from .resources.roles import RolesResourceWithRawResponse
-
-        return RolesResourceWithRawResponse(self._client.roles)
-
-    @cached_property
     def transactions(self) -> transactions.TransactionsResourceWithRawResponse:
         """Transaction sync operations"""
         from .resources.transactions import TransactionsResourceWithRawResponse
@@ -636,13 +614,6 @@ class AsyncFragmentWithRawResponse:
         from .resources.products import AsyncProductsResourceWithRawResponse
 
         return AsyncProductsResourceWithRawResponse(self._client.products)
-
-    @cached_property
-    def roles(self) -> roles.AsyncRolesResourceWithRawResponse:
-        """Role management operations"""
-        from .resources.roles import AsyncRolesResourceWithRawResponse
-
-        return AsyncRolesResourceWithRawResponse(self._client.roles)
 
     @cached_property
     def transactions(self) -> transactions.AsyncTransactionsResourceWithRawResponse:
@@ -693,13 +664,6 @@ class FragmentWithStreamedResponse:
         return ProductsResourceWithStreamingResponse(self._client.products)
 
     @cached_property
-    def roles(self) -> roles.RolesResourceWithStreamingResponse:
-        """Role management operations"""
-        from .resources.roles import RolesResourceWithStreamingResponse
-
-        return RolesResourceWithStreamingResponse(self._client.roles)
-
-    @cached_property
     def transactions(self) -> transactions.TransactionsResourceWithStreamingResponse:
         """Transaction sync operations"""
         from .resources.transactions import TransactionsResourceWithStreamingResponse
@@ -746,13 +710,6 @@ class AsyncFragmentWithStreamedResponse:
         from .resources.products import AsyncProductsResourceWithStreamingResponse
 
         return AsyncProductsResourceWithStreamingResponse(self._client.products)
-
-    @cached_property
-    def roles(self) -> roles.AsyncRolesResourceWithStreamingResponse:
-        """Role management operations"""
-        from .resources.roles import AsyncRolesResourceWithStreamingResponse
-
-        return AsyncRolesResourceWithStreamingResponse(self._client.roles)
 
     @cached_property
     def transactions(self) -> transactions.AsyncTransactionsResourceWithStreamingResponse:
