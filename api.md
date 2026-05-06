@@ -125,10 +125,11 @@ Methods:
 Types:
 
 ```python
-from fragment.types import User, UserCreateResponse, UserListResponse
+from fragment.types import User, UserCreateResponse, UserUpdateResponse, UserListResponse
 ```
 
 Methods:
 
 - <code title="post /users">client.users.<a href="./src/fragment/resources/users.py">create</a>(\*\*<a href="src/fragment/types/user_create_params.py">params</a>) -> <a href="./src/fragment/types/user_create_response.py">UserCreateResponse</a></code>
+- <code title="patch /users/{user_ref}">client.users.<a href="./src/fragment/resources/users.py">update</a>(user_ref, \*\*<a href="src/fragment/types/user_update_params.py">params</a>) -> <a href="./src/fragment/types/user_update_response.py">UserUpdateResponse</a></code>
 - <code title="get /users">client.users.<a href="./src/fragment/resources/users.py">list</a>() -> <a href="./src/fragment/types/user_list_response.py">UserListResponse</a></code>
