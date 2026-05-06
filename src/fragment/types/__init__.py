@@ -9,7 +9,9 @@ from .transaction import Transaction as Transaction
 from .external_account import ExternalAccount as ExternalAccount
 from .user_create_params import UserCreateParams as UserCreateParams
 from .user_list_response import UserListResponse as UserListResponse
+from .user_update_params import UserUpdateParams as UserUpdateParams
 from .user_create_response import UserCreateResponse as UserCreateResponse
+from .user_update_response import UserUpdateResponse as UserUpdateResponse
 from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
 from .invoice_list_response import InvoiceListResponse as InvoiceListResponse
 from .invoice_search_params import InvoiceSearchParams as InvoiceSearchParams
