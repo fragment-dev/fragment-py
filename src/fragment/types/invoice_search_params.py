@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 from typing import Union, Iterable
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from datetime import datetime
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = [
     "InvoiceSearchParams",
     "Filter",
+    "FilterCreated",
     "FilterTags",
     "FilterTagsAll",
     "FilterTagsAny",
@@ -31,6 +35,19 @@ class InvoiceSearchParams(TypedDict, total=False):
 
     page_info: PageInfo
     """Pagination parameters."""
+
+
+class FilterCreated(TypedDict, total=False):
+    """Filter by invoice creation timestamp.
+
+    When both `after` and `before` are provided, results must fall in the range.
+    """
+
+    after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Returns invoices created at or after the timestamp. ISO 8601 datetime."""
+
+    before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Returns invoices created at or before the timestamp. ISO 8601 datetime."""
 
 
 class FilterTagsAll(TypedDict, total=False):
@@ -166,6 +183,12 @@ class FilterUsers(TypedDict, total=False):
 
 class Filter(TypedDict, total=False):
     """Filter criteria for the search."""
+
+    created: FilterCreated
+    """Filter by invoice creation timestamp.
+
+    When both `after` and `before` are provided, results must fall in the range.
+    """
 
     status: Literal["open"]
     """Filter by invoice status.

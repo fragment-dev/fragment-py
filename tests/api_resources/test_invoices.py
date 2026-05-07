@@ -17,6 +17,7 @@ from fragment.types import (
     InvoiceRetrieveResponse,
     InvoiceListHistoryResponse,
 )
+from fragment._utils import parse_datetime
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -374,6 +375,10 @@ class TestInvoices:
     def test_method_search_with_all_params(self, client: Fragment) -> None:
         invoice = client.invoices.search(
             filter={
+                "created": {
+                    "after": parse_datetime("2026-01-01T00:00:00Z"),
+                    "before": parse_datetime("2026-02-01T00:00:00Z"),
+                },
                 "status": "open",
                 "tags": {
                     "all": [
@@ -797,6 +802,10 @@ class TestAsyncInvoices:
     async def test_method_search_with_all_params(self, async_client: AsyncFragment) -> None:
         invoice = await async_client.invoices.search(
             filter={
+                "created": {
+                    "after": parse_datetime("2026-01-01T00:00:00Z"),
+                    "before": parse_datetime("2026-02-01T00:00:00Z"),
+                },
                 "status": "open",
                 "tags": {
                     "all": [
