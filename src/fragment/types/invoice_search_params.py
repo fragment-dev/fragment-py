@@ -18,6 +18,11 @@ __all__ = [
     "FilterTransactionTags",
     "FilterTransactionTagsAll",
     "FilterTransactionTagsAny",
+    "FilterUserTagAndBalance",
+    "FilterUserTagAndBalanceNetRemainingBalance",
+    "FilterUserTagAndBalanceUserTags",
+    "FilterUserTagAndBalanceUserTagsAll",
+    "FilterUserTagAndBalanceUserTagsAny",
     "FilterUsers",
     "FilterUsersAll",
     "FilterUsersAllID",
@@ -139,6 +144,111 @@ class FilterTransactionTags(TypedDict, total=False):
     """
 
 
+class FilterUserTagAndBalanceNetRemainingBalance(TypedDict, total=False):
+    """Numeric comparator for the per-user net remaining balance on the invoice.
+
+    Multiple keys combine with AND logic.
+    """
+
+    eq: str
+    """Equal to.
+
+    Decimal integer string in the smallest currency unit, such as cents for USD.
+    """
+
+    gt: str
+    """Strictly greater than.
+
+    Decimal integer string in the smallest currency unit, such as cents for USD.
+    """
+
+    gte: str
+    """Greater than or equal to.
+
+    Decimal integer string in the smallest currency unit, such as cents for USD.
+    """
+
+    lt: str
+    """Strictly less than.
+
+    Decimal integer string in the smallest currency unit, such as cents for USD.
+    """
+
+    lte: str
+    """Less than or equal to.
+
+    Decimal integer string in the smallest currency unit, such as cents for USD.
+    """
+
+    ne: str
+    """Not equal to.
+
+    Decimal integer string in the smallest currency unit, such as cents for USD.
+    """
+
+
+class FilterUserTagAndBalanceUserTagsAll(TypedDict, total=False):
+    """A tag filter."""
+
+    key: Required[str]
+    """Tag key to filter on. Must be an exact match; wildcards are not supported."""
+
+    value: Required[str]
+    """Tag value pattern to filter on.
+
+    Supports wildcards: `*` matches any characters, `?` matches a single character.
+    Use `\\**` or `\\??` to match literal asterisks or question marks. Use `*` to match
+    any value for the given key.
+    """
+
+
+class FilterUserTagAndBalanceUserTagsAny(TypedDict, total=False):
+    """A tag filter."""
+
+    key: Required[str]
+    """Tag key to filter on. Must be an exact match; wildcards are not supported."""
+
+    value: Required[str]
+    """Tag value pattern to filter on.
+
+    Supports wildcards: `*` matches any characters, `?` matches a single character.
+    Use `\\**` or `\\??` to match literal asterisks or question marks. Use `*` to match
+    any value for the given key.
+    """
+
+
+class FilterUserTagAndBalanceUserTags(TypedDict, total=False):
+    """Tag-based filter criteria.
+
+    When both `any` and `all` are provided, results must match every entry in `all` AND at least one entry in `any`.
+    """
+
+    all: Iterable[FilterUserTagAndBalanceUserTagsAll]
+    """Returns users matching every specified tag, using AND logic."""
+
+    any: Iterable[FilterUserTagAndBalanceUserTagsAny]
+    """Returns users matching at least one of the specified tags, using OR logic."""
+
+
+class FilterUserTagAndBalance(TypedDict, total=False):
+    """
+    Returns invoices where at least one line item user, optionally restricted to users matching `user_tags`, has a per-invoice net remaining balance satisfying `net_remaining_balance` on any currency. Pagination is disabled when this filter is set; any `page_info` provided in the request is ignored.
+    """
+
+    net_remaining_balance: Required[FilterUserTagAndBalanceNetRemainingBalance]
+    """Numeric comparator for the per-user net remaining balance on the invoice.
+
+    Multiple keys combine with AND logic.
+    """
+
+    user_tags: FilterUserTagAndBalanceUserTags
+    """Tag-based filter criteria.
+
+    When both `any` and `all` are provided, results must match every entry in `all`
+    AND at least one entry in `any`.
+    """
+
+
 class FilterUsersAllID(TypedDict, total=False):
     id: Required[str]
     """FRAGMENT generated unique ID."""
@@ -193,7 +303,9 @@ class Filter(TypedDict, total=False):
     status: Literal["open"]
     """Filter by invoice status.
 
-    `open` returns invoices with non-zero clearing account balances.
+    `open` returns invoices with non-zero clearing account balances. Pagination is
+    disabled when this filter is set; any `page_info` provided in the request is
+    ignored.
     """
 
     tags: FilterTags
@@ -208,6 +320,14 @@ class Filter(TypedDict, total=False):
 
     Returns invoices that have at least one allocated transaction matching the
     specified tags.
+    """
+
+    user_tag_and_balance: FilterUserTagAndBalance
+    """
+    Returns invoices where at least one line item user, optionally restricted to
+    users matching `user_tags`, has a per-invoice net remaining balance satisfying
+    `net_remaining_balance` on any currency. Pagination is disabled when this filter
+    is set; any `page_info` provided in the request is ignored.
     """
 
     users: FilterUsers
