@@ -16,6 +16,7 @@ from fragment.types import (
     InvoiceUpdateResponse,
     InvoiceRetrieveResponse,
     InvoiceListHistoryResponse,
+    InvoiceCreateBatchGetResponse,
 )
 from fragment._utils import parse_datetime
 
@@ -322,6 +323,40 @@ class TestInvoices:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_create_batch_get(self, client: Fragment) -> None:
+        invoice = client.invoices.create_batch_get(
+            ids=["string"],
+        )
+        assert_matches_type(InvoiceCreateBatchGetResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create_batch_get(self, client: Fragment) -> None:
+        response = client.invoices.with_raw_response.create_batch_get(
+            ids=["string"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = response.parse()
+        assert_matches_type(InvoiceCreateBatchGetResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create_batch_get(self, client: Fragment) -> None:
+        with client.invoices.with_streaming_response.create_batch_get(
+            ids=["string"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = response.parse()
+            assert_matches_type(InvoiceCreateBatchGetResponse, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_list_history(self, client: Fragment) -> None:
         invoice = client.invoices.list_history(
             "inv_1234567890",
@@ -407,6 +442,30 @@ class TestInvoices:
                             "value": "eng*",
                         }
                     ],
+                },
+                "user_tag_and_balance": {
+                    "net_remaining_balance": {
+                        "eq": "eq",
+                        "gt": "0",
+                        "gte": "gte",
+                        "lt": "lt",
+                        "lte": "lte",
+                        "ne": "ne",
+                    },
+                    "user_tags": {
+                        "all": [
+                            {
+                                "key": "department",
+                                "value": "engineering",
+                            }
+                        ],
+                        "any": [
+                            {
+                                "key": "department",
+                                "value": "eng*",
+                            }
+                        ],
+                    },
                 },
                 "users": {
                     "all": [{"id": "user_abc123"}],
@@ -749,6 +808,40 @@ class TestAsyncInvoices:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_create_batch_get(self, async_client: AsyncFragment) -> None:
+        invoice = await async_client.invoices.create_batch_get(
+            ids=["string"],
+        )
+        assert_matches_type(InvoiceCreateBatchGetResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_create_batch_get(self, async_client: AsyncFragment) -> None:
+        response = await async_client.invoices.with_raw_response.create_batch_get(
+            ids=["string"],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        invoice = await response.parse()
+        assert_matches_type(InvoiceCreateBatchGetResponse, invoice, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_create_batch_get(self, async_client: AsyncFragment) -> None:
+        async with async_client.invoices.with_streaming_response.create_batch_get(
+            ids=["string"],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            invoice = await response.parse()
+            assert_matches_type(InvoiceCreateBatchGetResponse, invoice, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_method_list_history(self, async_client: AsyncFragment) -> None:
         invoice = await async_client.invoices.list_history(
             "inv_1234567890",
@@ -834,6 +927,30 @@ class TestAsyncInvoices:
                             "value": "eng*",
                         }
                     ],
+                },
+                "user_tag_and_balance": {
+                    "net_remaining_balance": {
+                        "eq": "eq",
+                        "gt": "0",
+                        "gte": "gte",
+                        "lt": "lt",
+                        "lte": "lte",
+                        "ne": "ne",
+                    },
+                    "user_tags": {
+                        "all": [
+                            {
+                                "key": "department",
+                                "value": "engineering",
+                            }
+                        ],
+                        "any": [
+                            {
+                                "key": "department",
+                                "value": "eng*",
+                            }
+                        ],
+                    },
                 },
                 "users": {
                     "all": [{"id": "user_abc123"}],
