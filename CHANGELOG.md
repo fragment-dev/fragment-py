@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.13.0 (2026-05-09)
+
+Full Changelog: [v0.12.0...v0.13.0](https://github.com/fragment-dev/fragment-py/compare/v0.12.0...v0.13.0)
+
+### Features
+
+* **api:** update SDK from prod (0d21d5e0241765ab00b0717afa6a1280095c6f48) ([fd0958e](https://github.com/fragment-dev/fragment-py/commit/fd0958e83c8afaf42ddd6dbbdc68eedf3c58fcc8))
+* **api:** update SDK from prod (17bbf460799f7618f1944ae357e4f938f5ee938b) ([b0d6b3b](https://github.com/fragment-dev/fragment-py/commit/b0d6b3be7c24fd6da86a1563517f554b92bfe69e))
+* **api:** update SDK from prod (4795160449221a9c539ee8c984b67abf7788eb4a) ([0056564](https://github.com/fragment-dev/fragment-py/commit/0056564b44e7e73f01a75d20f59c0bb994b2778b))
+* **api:** update SDK from prod (4b2fefcc88c5abaff3f807215871667cc45f02a6) ([668e134](https://github.com/fragment-dev/fragment-py/commit/668e1344683bf834c820894e61d9f980df1145ff))
+* **api:** update SDK from prod (c004456fd46659f5e324046a0f48c3a17080674d) ([e0291a5](https://github.com/fragment-dev/fragment-py/commit/e0291a5bbb883b0d9a47db9c0a89ba743beccd5f))
+* **api:** update SDK from prod (ef6408ab1de5e08aa5572eea668bd66c501901af) ([c18d511](https://github.com/fragment-dev/fragment-py/commit/c18d5115c3dab83bf6dfa8a858ed832a1ed631d8))
+* support setting headers via env ([dbb363f](https://github.com/fragment-dev/fragment-py/commit/dbb363f61706ae9660e60a0842e697ca2162c1d7))
+
+
+### Bug Fixes
+
+* **client:** add missing f-string prefix in file type error message ([e634d92](https://github.com/fragment-dev/fragment-py/commit/e634d9238d39c8013f35925538d51d59983c1936))
+* use correct field name format for multipart file arrays ([53f1ce8](https://github.com/fragment-dev/fragment-py/commit/53f1ce8d97db700acdf5be6e4a867963f4ca60b9))
+
+
+### Chores
+
+* **internal:** reformat pyproject.toml ([c760a6f](https://github.com/fragment-dev/fragment-py/commit/c760a6fc1d2d3419a28c9d26d791be1131e1c457))
+
 ## 0.12.0 (2026-04-23)
 
 Full Changelog: [v0.11.0...v0.12.0](https://github.com/fragment-dev/fragment-py/compare/v0.11.0...v0.12.0)
