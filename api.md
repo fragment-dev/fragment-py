@@ -60,6 +60,7 @@ from fragment.types import (
     InvoiceRetrieveResponse,
     InvoiceUpdateResponse,
     InvoiceListResponse,
+    InvoiceCreateBatchGetResponse,
     InvoiceListHistoryResponse,
     InvoiceSearchResponse,
 )
@@ -71,6 +72,7 @@ Methods:
 - <code title="get /invoices/{id}">client.invoices.<a href="./src/fragment/resources/invoices.py">retrieve</a>(id) -> <a href="./src/fragment/types/invoice_retrieve_response.py">InvoiceRetrieveResponse</a></code>
 - <code title="patch /invoices/{id}">client.invoices.<a href="./src/fragment/resources/invoices.py">update</a>(id, \*\*<a href="src/fragment/types/invoice_update_params.py">params</a>) -> <a href="./src/fragment/types/invoice_update_response.py">InvoiceUpdateResponse</a></code>
 - <code title="get /invoices">client.invoices.<a href="./src/fragment/resources/invoices.py">list</a>() -> <a href="./src/fragment/types/invoice_list_response.py">InvoiceListResponse</a></code>
+- <code title="post /invoices/batch-get">client.invoices.<a href="./src/fragment/resources/invoices.py">create_batch_get</a>(\*\*<a href="src/fragment/types/invoice_create_batch_get_params.py">params</a>) -> <a href="./src/fragment/types/invoice_create_batch_get_response.py">InvoiceCreateBatchGetResponse</a></code>
 - <code title="get /invoices/{id}/history">client.invoices.<a href="./src/fragment/resources/invoices.py">list_history</a>(id) -> <a href="./src/fragment/types/invoice_list_history_response.py">InvoiceListHistoryResponse</a></code>
 - <code title="post /invoices/search">client.invoices.<a href="./src/fragment/resources/invoices.py">search</a>(\*\*<a href="src/fragment/types/invoice_search_params.py">params</a>) -> <a href="./src/fragment/types/invoice_search_response.py">InvoiceSearchResponse</a></code>
 
@@ -92,19 +94,6 @@ Methods:
 - <code title="post /products">client.products.<a href="./src/fragment/resources/products.py">create</a>(\*\*<a href="src/fragment/types/product_create_params.py">params</a>) -> <a href="./src/fragment/types/product_create_response.py">ProductCreateResponse</a></code>
 - <code title="get /products/{code}">client.products.<a href="./src/fragment/resources/products.py">retrieve</a>(code) -> <a href="./src/fragment/types/product_retrieve_response.py">ProductRetrieveResponse</a></code>
 - <code title="get /products">client.products.<a href="./src/fragment/resources/products.py">list</a>() -> <a href="./src/fragment/types/product_list_response.py">ProductListResponse</a></code>
-
-# Roles
-
-Types:
-
-```python
-from fragment.types import Role, RoleCreateResponse, RoleListResponse
-```
-
-Methods:
-
-- <code title="post /roles">client.roles.<a href="./src/fragment/resources/roles.py">create</a>(\*\*<a href="src/fragment/types/role_create_params.py">params</a>) -> <a href="./src/fragment/types/role_create_response.py">RoleCreateResponse</a></code>
-- <code title="get /roles">client.roles.<a href="./src/fragment/resources/roles.py">list</a>() -> <a href="./src/fragment/types/role_list_response.py">RoleListResponse</a></code>
 
 # Transactions
 
@@ -138,10 +127,11 @@ Methods:
 Types:
 
 ```python
-from fragment.types import User, UserCreateResponse, UserListResponse
+from fragment.types import User, UserCreateResponse, UserUpdateResponse, UserListResponse
 ```
 
 Methods:
 
 - <code title="post /users">client.users.<a href="./src/fragment/resources/users.py">create</a>(\*\*<a href="src/fragment/types/user_create_params.py">params</a>) -> <a href="./src/fragment/types/user_create_response.py">UserCreateResponse</a></code>
+- <code title="patch /users/{user_ref}">client.users.<a href="./src/fragment/resources/users.py">update</a>(user_ref, \*\*<a href="src/fragment/types/user_update_params.py">params</a>) -> <a href="./src/fragment/types/user_update_response.py">UserUpdateResponse</a></code>
 - <code title="get /users">client.users.<a href="./src/fragment/resources/users.py">list</a>() -> <a href="./src/fragment/types/user_list_response.py">UserListResponse</a></code>

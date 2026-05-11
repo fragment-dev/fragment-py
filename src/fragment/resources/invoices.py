@@ -6,8 +6,8 @@ from typing import Iterable
 
 import httpx
 
-from ..types import invoice_create_params, invoice_search_params, invoice_update_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..types import invoice_create_params, invoice_search_params, invoice_update_params, invoice_create_batch_get_params
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -24,6 +24,7 @@ from ..types.invoice_search_response import InvoiceSearchResponse
 from ..types.invoice_update_response import InvoiceUpdateResponse
 from ..types.invoice_retrieve_response import InvoiceRetrieveResponse
 from ..types.invoice_list_history_response import InvoiceListHistoryResponse
+from ..types.invoice_create_batch_get_response import InvoiceCreateBatchGetResponse
 
 __all__ = ["InvoicesResource", "AsyncInvoicesResource"]
 
@@ -201,6 +202,41 @@ class InvoicesResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=InvoiceListResponse,
+        )
+
+    def create_batch_get(
+        self,
+        *,
+        ids: SequenceNotStr[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceCreateBatchGetResponse:
+        """Retrieves multiple invoices.
+
+        Args:
+          ids: Invoice ids to retrieve.
+
+        Up to 200 per request.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/invoices/batch-get",
+            body=maybe_transform({"ids": ids}, invoice_create_batch_get_params.InvoiceCreateBatchGetParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceCreateBatchGetResponse,
         )
 
     def list_history(
@@ -457,6 +493,41 @@ class AsyncInvoicesResource(AsyncAPIResource):
             cast_to=InvoiceListResponse,
         )
 
+    async def create_batch_get(
+        self,
+        *,
+        ids: SequenceNotStr[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InvoiceCreateBatchGetResponse:
+        """Retrieves multiple invoices.
+
+        Args:
+          ids: Invoice ids to retrieve.
+
+        Up to 200 per request.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/invoices/batch-get",
+            body=await async_maybe_transform({"ids": ids}, invoice_create_batch_get_params.InvoiceCreateBatchGetParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InvoiceCreateBatchGetResponse,
+        )
+
     async def list_history(
         self,
         id: str,
@@ -552,6 +623,9 @@ class InvoicesResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             invoices.list,
         )
+        self.create_batch_get = to_raw_response_wrapper(
+            invoices.create_batch_get,
+        )
         self.list_history = to_raw_response_wrapper(
             invoices.list_history,
         )
@@ -575,6 +649,9 @@ class AsyncInvoicesResourceWithRawResponse:
         )
         self.list = async_to_raw_response_wrapper(
             invoices.list,
+        )
+        self.create_batch_get = async_to_raw_response_wrapper(
+            invoices.create_batch_get,
         )
         self.list_history = async_to_raw_response_wrapper(
             invoices.list_history,
@@ -600,6 +677,9 @@ class InvoicesResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             invoices.list,
         )
+        self.create_batch_get = to_streamed_response_wrapper(
+            invoices.create_batch_get,
+        )
         self.list_history = to_streamed_response_wrapper(
             invoices.list_history,
         )
@@ -623,6 +703,9 @@ class AsyncInvoicesResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             invoices.list,
+        )
+        self.create_batch_get = async_to_streamed_response_wrapper(
+            invoices.create_batch_get,
         )
         self.list_history = async_to_streamed_response_wrapper(
             invoices.list_history,

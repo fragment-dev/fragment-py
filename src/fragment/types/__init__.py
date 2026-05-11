@@ -2,18 +2,16 @@
 
 from __future__ import annotations
 
-from .role import Role as Role
 from .user import User as User
 from .invoice import Invoice as Invoice
 from .product import Product as Product
 from .transaction import Transaction as Transaction
 from .external_account import ExternalAccount as ExternalAccount
-from .role_create_params import RoleCreateParams as RoleCreateParams
-from .role_list_response import RoleListResponse as RoleListResponse
 from .user_create_params import UserCreateParams as UserCreateParams
 from .user_list_response import UserListResponse as UserListResponse
-from .role_create_response import RoleCreateResponse as RoleCreateResponse
+from .user_update_params import UserUpdateParams as UserUpdateParams
 from .user_create_response import UserCreateResponse as UserCreateResponse
+from .user_update_response import UserUpdateResponse as UserUpdateResponse
 from .invoice_create_params import InvoiceCreateParams as InvoiceCreateParams
 from .invoice_list_response import InvoiceListResponse as InvoiceListResponse
 from .invoice_search_params import InvoiceSearchParams as InvoiceSearchParams
@@ -38,7 +36,9 @@ from .invoice_list_history_response import InvoiceListHistoryResponse as Invoice
 from .transaction_retrieve_response import TransactionRetrieveResponse as TransactionRetrieveResponse
 from .external_account_create_params import ExternalAccountCreateParams as ExternalAccountCreateParams
 from .external_account_list_response import ExternalAccountListResponse as ExternalAccountListResponse
+from .invoice_create_batch_get_params import InvoiceCreateBatchGetParams as InvoiceCreateBatchGetParams
 from .external_account_create_response import ExternalAccountCreateResponse as ExternalAccountCreateResponse
+from .invoice_create_batch_get_response import InvoiceCreateBatchGetResponse as InvoiceCreateBatchGetResponse
 from .transaction_list_history_response import TransactionListHistoryResponse as TransactionListHistoryResponse
 from .transaction_search_allocations_params import (
     TransactionSearchAllocationsParams as TransactionSearchAllocationsParams,

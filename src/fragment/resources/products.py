@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing import Iterable
-
 import httpx
 
 from ..types import product_create_params
@@ -52,8 +50,6 @@ class ProductsResource(SyncAPIResource):
         *,
         code: str,
         description: str | Omit = omit,
-        paid_by_roles: Iterable[product_create_params.PaidByRole] | Omit = omit,
-        paid_to_roles: Iterable[product_create_params.PaidToRole] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -69,12 +65,6 @@ class ProductsResource(SyncAPIResource):
 
           description: Product description.
 
-          paid_by_roles: Roles that can pay for the product. Reference roles by `id` or `name`. At least
-              one of `paid_by_roles` or `paid_to_roles` must be provided.
-
-          paid_to_roles: Roles that can receive payment for the product. Reference roles by `id` or
-              `name`. At least one of `paid_by_roles` or `paid_to_roles` must be provided.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -89,8 +79,6 @@ class ProductsResource(SyncAPIResource):
                 {
                     "code": code,
                     "description": description,
-                    "paid_by_roles": paid_by_roles,
-                    "paid_to_roles": paid_to_roles,
                 },
                 product_create_params.ProductCreateParams,
             ),
@@ -183,8 +171,6 @@ class AsyncProductsResource(AsyncAPIResource):
         *,
         code: str,
         description: str | Omit = omit,
-        paid_by_roles: Iterable[product_create_params.PaidByRole] | Omit = omit,
-        paid_to_roles: Iterable[product_create_params.PaidToRole] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -200,12 +186,6 @@ class AsyncProductsResource(AsyncAPIResource):
 
           description: Product description.
 
-          paid_by_roles: Roles that can pay for the product. Reference roles by `id` or `name`. At least
-              one of `paid_by_roles` or `paid_to_roles` must be provided.
-
-          paid_to_roles: Roles that can receive payment for the product. Reference roles by `id` or
-              `name`. At least one of `paid_by_roles` or `paid_to_roles` must be provided.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -220,8 +200,6 @@ class AsyncProductsResource(AsyncAPIResource):
                 {
                     "code": code,
                     "description": description,
-                    "paid_by_roles": paid_by_roles,
-                    "paid_to_roles": paid_to_roles,
                 },
                 product_create_params.ProductCreateParams,
             ),

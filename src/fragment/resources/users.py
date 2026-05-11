@@ -6,9 +6,9 @@ from typing import Iterable
 
 import httpx
 
-from ..types import user_create_params
+from ..types import user_create_params, user_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -20,6 +20,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.user_list_response import UserListResponse
 from ..types.user_create_response import UserCreateResponse
+from ..types.user_update_response import UserUpdateResponse
 
 __all__ = ["UsersResource", "AsyncUsersResource"]
 
@@ -50,7 +51,6 @@ class UsersResource(SyncAPIResource):
         self,
         *,
         external_id: str,
-        role: str | Omit = omit,
         tags: Iterable[user_create_params.Tag] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -64,8 +64,6 @@ class UsersResource(SyncAPIResource):
 
         Args:
           external_id: User-provided unique ID.
-
-          role: Name of the role to assign. Deprecated, use tags instead.
 
           tags: Tags for the user.
 
@@ -82,7 +80,6 @@ class UsersResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "external_id": external_id,
-                    "role": role,
                     "tags": tags,
                 },
                 user_create_params.UserCreateParams,
@@ -91,6 +88,45 @@ class UsersResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UserCreateResponse,
+        )
+
+    def update(
+        self,
+        user_ref: str,
+        *,
+        tags: user_update_params.Tags,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UserUpdateResponse:
+        """
+        Updates a user.
+
+        Args:
+          user_ref: User `id` or `external_id`.
+
+          tags: Tag updates.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not user_ref:
+            raise ValueError(f"Expected a non-empty value for `user_ref` but received {user_ref!r}")
+        return self._patch(
+            path_template("/users/{user_ref}", user_ref=user_ref),
+            body=maybe_transform({"tags": tags}, user_update_params.UserUpdateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserUpdateResponse,
         )
 
     def list(
@@ -139,7 +175,6 @@ class AsyncUsersResource(AsyncAPIResource):
         self,
         *,
         external_id: str,
-        role: str | Omit = omit,
         tags: Iterable[user_create_params.Tag] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -153,8 +188,6 @@ class AsyncUsersResource(AsyncAPIResource):
 
         Args:
           external_id: User-provided unique ID.
-
-          role: Name of the role to assign. Deprecated, use tags instead.
 
           tags: Tags for the user.
 
@@ -171,7 +204,6 @@ class AsyncUsersResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "external_id": external_id,
-                    "role": role,
                     "tags": tags,
                 },
                 user_create_params.UserCreateParams,
@@ -180,6 +212,45 @@ class AsyncUsersResource(AsyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=UserCreateResponse,
+        )
+
+    async def update(
+        self,
+        user_ref: str,
+        *,
+        tags: user_update_params.Tags,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> UserUpdateResponse:
+        """
+        Updates a user.
+
+        Args:
+          user_ref: User `id` or `external_id`.
+
+          tags: Tag updates.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not user_ref:
+            raise ValueError(f"Expected a non-empty value for `user_ref` but received {user_ref!r}")
+        return await self._patch(
+            path_template("/users/{user_ref}", user_ref=user_ref),
+            body=await async_maybe_transform({"tags": tags}, user_update_params.UserUpdateParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=UserUpdateResponse,
         )
 
     async def list(
@@ -209,6 +280,9 @@ class UsersResourceWithRawResponse:
         self.create = to_raw_response_wrapper(
             users.create,
         )
+        self.update = to_raw_response_wrapper(
+            users.update,
+        )
         self.list = to_raw_response_wrapper(
             users.list,
         )
@@ -220,6 +294,9 @@ class AsyncUsersResourceWithRawResponse:
 
         self.create = async_to_raw_response_wrapper(
             users.create,
+        )
+        self.update = async_to_raw_response_wrapper(
+            users.update,
         )
         self.list = async_to_raw_response_wrapper(
             users.list,
@@ -233,6 +310,9 @@ class UsersResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             users.create,
         )
+        self.update = to_streamed_response_wrapper(
+            users.update,
+        )
         self.list = to_streamed_response_wrapper(
             users.list,
         )
@@ -244,6 +324,9 @@ class AsyncUsersResourceWithStreamingResponse:
 
         self.create = async_to_streamed_response_wrapper(
             users.create,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            users.update,
         )
         self.list = async_to_streamed_response_wrapper(
             users.list,

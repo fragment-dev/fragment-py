@@ -1,31 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Optional
 from datetime import datetime
 
 from .._models import BaseModel
 
-__all__ = ["Product", "PaidByRole", "PaidToRole"]
-
-
-class PaidByRole(BaseModel):
-    """Role reference in product API responses."""
-
-    id: str
-    """FRAGMENT generated unique ID."""
-
-    name: str
-    """Name of the role."""
-
-
-class PaidToRole(BaseModel):
-    """Role reference in product API responses."""
-
-    id: str
-    """FRAGMENT generated unique ID."""
-
-    name: str
-    """Name of the role."""
+__all__ = ["Product"]
 
 
 class Product(BaseModel):
@@ -39,12 +19,6 @@ class Product(BaseModel):
 
     created: datetime
     """Timestamp when the product was created. Uses ISO 8601 format."""
-
-    paid_by_roles: List[PaidByRole]
-    """Roles that can pay for the product."""
-
-    paid_to_roles: List[PaidToRole]
-    """Roles that can receive payment for the product."""
 
     update_version: float
     """Current version of the product."""
