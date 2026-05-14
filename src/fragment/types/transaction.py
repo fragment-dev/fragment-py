@@ -34,8 +34,8 @@ class Allocation(BaseModel):
 
     amount: str
     """
-    Allocated amount, as a positive string in the smallest currency unit, such as
-    cents for USD.
+    Allocated amount, as a non-negative string in the smallest currency unit, such
+    as cents for USD.
     """
 
     invoice_id: str
@@ -73,7 +73,7 @@ class Transaction(BaseModel):
     amount: str
     """
     Transaction amount, as a string in the smallest currency unit, such as cents for
-    USD. Can be positive or negative.
+    USD.
     """
 
     created: datetime
