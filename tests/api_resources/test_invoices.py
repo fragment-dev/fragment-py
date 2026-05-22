@@ -465,6 +465,12 @@ class TestInvoices:
                                 "value": "eng*",
                             }
                         ],
+                        "not_any": [
+                            {
+                                "key": "department",
+                                "value": "eng*",
+                            }
+                        ],
                     },
                 },
                 "users": {
@@ -945,6 +951,12 @@ class TestAsyncInvoices:
                             }
                         ],
                         "any": [
+                            {
+                                "key": "department",
+                                "value": "eng*",
+                            }
+                        ],
+                        "not_any": [
                             {
                                 "key": "department",
                                 "value": "eng*",
