@@ -23,6 +23,7 @@ __all__ = [
     "FilterUserTagAndBalanceUserTags",
     "FilterUserTagAndBalanceUserTagsAll",
     "FilterUserTagAndBalanceUserTagsAny",
+    "FilterUserTagAndBalanceUserTagsNotAny",
     "FilterUsers",
     "FilterUsersAll",
     "FilterUsersAllID",
@@ -217,6 +218,21 @@ class FilterUserTagAndBalanceUserTagsAny(TypedDict, total=False):
     """
 
 
+class FilterUserTagAndBalanceUserTagsNotAny(TypedDict, total=False):
+    """A tag filter."""
+
+    key: Required[str]
+    """Tag key to filter on. Must be an exact match; wildcards are not supported."""
+
+    value: Required[str]
+    """Tag value pattern to filter on.
+
+    Supports wildcards: `*` matches any characters, `?` matches a single character.
+    Use `\\**` or `\\??` to match literal asterisks or question marks. Use `*` to match
+    any value for the given key.
+    """
+
+
 class FilterUserTagAndBalanceUserTags(TypedDict, total=False):
     """Tag-based filter criteria.
 
@@ -228,6 +244,9 @@ class FilterUserTagAndBalanceUserTags(TypedDict, total=False):
 
     any: Iterable[FilterUserTagAndBalanceUserTagsAny]
     """Returns users matching at least one of the specified tags, using OR logic."""
+
+    not_any: Iterable[FilterUserTagAndBalanceUserTagsNotAny]
+    """Returns users that do not match any of the specified tags."""
 
 
 class FilterUserTagAndBalance(TypedDict, total=False):
