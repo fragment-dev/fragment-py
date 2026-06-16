@@ -12,6 +12,7 @@ __all__ = [
     "InvoiceSearchParams",
     "Filter",
     "FilterCreated",
+    "FilterModified",
     "FilterTags",
     "FilterTagsAll",
     "FilterTagsAny",
@@ -54,6 +55,19 @@ class FilterCreated(TypedDict, total=False):
 
     before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Returns invoices created at or before the timestamp. ISO 8601 datetime."""
+
+
+class FilterModified(TypedDict, total=False):
+    """Filter by invoice last modified timestamp.
+
+    When both `after` and `before` are provided, results must fall in the range.
+    """
+
+    after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Returns invoices last modified at or after the timestamp. ISO 8601 datetime."""
+
+    before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Returns invoices last modified at or before the timestamp. ISO 8601 datetime."""
 
 
 class FilterTagsAll(TypedDict, total=False):
@@ -315,6 +329,12 @@ class Filter(TypedDict, total=False):
 
     created: FilterCreated
     """Filter by invoice creation timestamp.
+
+    When both `after` and `before` are provided, results must fall in the range.
+    """
+
+    modified: FilterModified
+    """Filter by invoice last modified timestamp.
 
     When both `after` and `before` are provided, results must fall in the range.
     """
