@@ -359,6 +359,7 @@ class TestTransactions:
                         }
                     ]
                 },
+                "reconciliation_status": "unreconciled",
                 "tags": {
                     "all": [
                         {
@@ -780,6 +781,7 @@ class TestAsyncTransactions:
                         }
                     ]
                 },
+                "reconciliation_status": "unreconciled",
                 "tags": {
                     "all": [
                         {

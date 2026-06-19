@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 __all__ = [
     "TransactionSearchParams",
@@ -42,7 +42,10 @@ class FilterAccount(TypedDict, total=False):
     """Account filter."""
 
     any: Required[Iterable[FilterAccountAny]]
-    """Match transactions belonging to any of these accounts, using OR logic."""
+    """Match transactions belonging to any of these accounts, using OR logic.
+
+    Provide at most 100 accounts.
+    """
 
 
 class FilterTagsAll(TypedDict, total=False):
@@ -96,6 +99,16 @@ class Filter(TypedDict, total=False):
 
     account: FilterAccount
     """Account filter."""
+
+    reconciliation_status: Literal["reconciled", "unreconciled"]
+    """Filter by reconciliation status.
+
+    `reconciled` returns transactions where unallocated_amount is 0. `unreconciled`
+    returns transactions where unallocated_amount is not 0. Omit for all
+    transactions. Because the status is applied after the search, a page can return
+    fewer results than the requested limit while a next cursor is still present.
+    Paginate until the next cursor is absent.
+    """
 
     tags: FilterTags
     """Tag-based filter criteria.
