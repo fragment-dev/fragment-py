@@ -50,8 +50,8 @@ class AllocationsCreate(TypedDict, total=False):
 
     amount: Required[str]
     """
-    Allocation amount, as a positive string in the smallest currency unit, such as
-    cents for USD.
+    Allocation amount, as a non-negative string in the smallest currency unit, such
+    as cents for USD.
     """
 
     invoice_id: Required[str]
@@ -70,8 +70,8 @@ class AllocationsUpdate(TypedDict, total=False):
 
     amount: Required[str]
     """
-    Updated allocation amount, as a positive string in the smallest currency unit,
-    such as cents for USD.
+    Updated allocation amount, as a non-negative string in the smallest currency
+    unit, such as cents for USD.
     """
 
 

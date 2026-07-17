@@ -12,6 +12,7 @@ __all__ = [
     "InvoiceSearchParams",
     "Filter",
     "FilterCreated",
+    "FilterModified",
     "FilterTags",
     "FilterTagsAll",
     "FilterTagsAny",
@@ -23,6 +24,7 @@ __all__ = [
     "FilterUserTagAndBalanceUserTags",
     "FilterUserTagAndBalanceUserTagsAll",
     "FilterUserTagAndBalanceUserTagsAny",
+    "FilterUserTagAndBalanceUserTagsNotAny",
     "FilterUsers",
     "FilterUsersAll",
     "FilterUsersAllID",
@@ -53,6 +55,19 @@ class FilterCreated(TypedDict, total=False):
 
     before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Returns invoices created at or before the timestamp. ISO 8601 datetime."""
+
+
+class FilterModified(TypedDict, total=False):
+    """Filter by invoice last modified timestamp.
+
+    When both `after` and `before` are provided, results must fall in the range.
+    """
+
+    after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Returns invoices last modified at or after the timestamp. ISO 8601 datetime."""
+
+    before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
+    """Returns invoices last modified at or before the timestamp. ISO 8601 datetime."""
 
 
 class FilterTagsAll(TypedDict, total=False):
@@ -217,6 +232,21 @@ class FilterUserTagAndBalanceUserTagsAny(TypedDict, total=False):
     """
 
 
+class FilterUserTagAndBalanceUserTagsNotAny(TypedDict, total=False):
+    """A tag filter."""
+
+    key: Required[str]
+    """Tag key to filter on. Must be an exact match; wildcards are not supported."""
+
+    value: Required[str]
+    """Tag value pattern to filter on.
+
+    Supports wildcards: `*` matches any characters, `?` matches a single character.
+    Use `\\**` or `\\??` to match literal asterisks or question marks. Use `*` to match
+    any value for the given key.
+    """
+
+
 class FilterUserTagAndBalanceUserTags(TypedDict, total=False):
     """Tag-based filter criteria.
 
@@ -228,6 +258,9 @@ class FilterUserTagAndBalanceUserTags(TypedDict, total=False):
 
     any: Iterable[FilterUserTagAndBalanceUserTagsAny]
     """Returns users matching at least one of the specified tags, using OR logic."""
+
+    not_any: Iterable[FilterUserTagAndBalanceUserTagsNotAny]
+    """Returns users that do not match any of the specified tags."""
 
 
 class FilterUserTagAndBalance(TypedDict, total=False):
@@ -296,6 +329,12 @@ class Filter(TypedDict, total=False):
 
     created: FilterCreated
     """Filter by invoice creation timestamp.
+
+    When both `after` and `before` are provided, results must fall in the range.
+    """
+
+    modified: FilterModified
+    """Filter by invoice last modified timestamp.
 
     When both `after` and `before` are provided, results must fall in the range.
     """

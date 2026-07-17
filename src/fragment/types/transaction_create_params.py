@@ -32,7 +32,7 @@ class TransactionCreateParams(TypedDict, total=False):
     amount: Required[str]
     """
     Transaction amount, as a string in the smallest currency unit, such as cents for
-    USD. Can be positive or negative.
+    USD.
     """
 
     currency: Required[
@@ -261,8 +261,8 @@ class Allocation(TypedDict, total=False):
 
     amount: Required[str]
     """
-    Allocation amount, as a positive string in the smallest currency unit, such as
-    cents for USD.
+    Allocation amount, as a non-negative string in the smallest currency unit, such
+    as cents for USD.
     """
 
     invoice_id: Required[str]

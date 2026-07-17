@@ -267,7 +267,7 @@ class TransactionsResource(SyncAPIResource):
           allocations: Allocations for the transaction. An empty array indicates unreconciled funds.
 
           amount: Transaction amount, as a string in the smallest currency unit, such as cents for
-              USD. Can be positive or negative.
+              USD.
 
           currency: ISO 4217 or crypto currency code.
 
@@ -786,7 +786,7 @@ class AsyncTransactionsResource(AsyncAPIResource):
           allocations: Allocations for the transaction. An empty array indicates unreconciled funds.
 
           amount: Transaction amount, as a string in the smallest currency unit, such as cents for
-              USD. Can be positive or negative.
+              USD.
 
           currency: ISO 4217 or crypto currency code.
 

@@ -414,6 +414,10 @@ class TestInvoices:
                     "after": parse_datetime("2026-01-01T00:00:00Z"),
                     "before": parse_datetime("2026-02-01T00:00:00Z"),
                 },
+                "modified": {
+                    "after": parse_datetime("2026-01-01T00:00:00Z"),
+                    "before": parse_datetime("2026-02-01T00:00:00Z"),
+                },
                 "status": "open",
                 "tags": {
                     "all": [
@@ -460,6 +464,12 @@ class TestInvoices:
                             }
                         ],
                         "any": [
+                            {
+                                "key": "department",
+                                "value": "eng*",
+                            }
+                        ],
+                        "not_any": [
                             {
                                 "key": "department",
                                 "value": "eng*",
@@ -899,6 +909,10 @@ class TestAsyncInvoices:
                     "after": parse_datetime("2026-01-01T00:00:00Z"),
                     "before": parse_datetime("2026-02-01T00:00:00Z"),
                 },
+                "modified": {
+                    "after": parse_datetime("2026-01-01T00:00:00Z"),
+                    "before": parse_datetime("2026-02-01T00:00:00Z"),
+                },
                 "status": "open",
                 "tags": {
                     "all": [
@@ -945,6 +959,12 @@ class TestAsyncInvoices:
                             }
                         ],
                         "any": [
+                            {
+                                "key": "department",
+                                "value": "eng*",
+                            }
+                        ],
+                        "not_any": [
                             {
                                 "key": "department",
                                 "value": "eng*",
