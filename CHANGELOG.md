@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.14.0 (2026-07-17)
+
+Full Changelog: [v0.13.0...v0.14.0](https://github.com/fragment-dev/fragment-py/compare/v0.13.0...v0.14.0)
+
+### Features
+
+* **api:** update SDK from prod (201d13fc6454e4ee9e9a53d3bc9e0b5020480d43) ([1fbd49a](https://github.com/fragment-dev/fragment-py/commit/1fbd49aac9497d1592426ecda0230aa248b9da9e))
+* **api:** update SDK from prod (376fc6d9bc88e2b5a067720bc99571c3c336ba96) ([d11c235](https://github.com/fragment-dev/fragment-py/commit/d11c235af5129995b4e44fecd349e7c3d8635813))
+* **api:** update SDK from prod (5b480c85c495e2ff9421fdcaaeceaeb1072d0a48) ([2582c32](https://github.com/fragment-dev/fragment-py/commit/2582c32dad1a0edb0a2fe8c4468e3e2485ce7b5c))
+* **api:** update SDK from prod (702a2898835986a88a6021a9a0eae7bed78938cf) ([8daae09](https://github.com/fragment-dev/fragment-py/commit/8daae095e12080e95b503e6b418329a828560cd5))
+* **internal/types:** support eagerly validating pydantic iterators ([13e8c55](https://github.com/fragment-dev/fragment-py/commit/13e8c55b6e417f723ea8673f23b72fdfebeefb0a))
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([fd6e9c0](https://github.com/fragment-dev/fragment-py/commit/fd6e9c0674f27a6fd939974def1bd0d07b606046))
+
+
+### Bug Fixes
+
+* **internal:** resolve build failures ([f073394](https://github.com/fragment-dev/fragment-py/commit/f073394e1992a5e082914b98ef155c47bc666e46))
+
 ## 0.13.0 (2026-05-09)
 
 Full Changelog: [v0.12.0...v0.13.0](https://github.com/fragment-dev/fragment-py/compare/v0.12.0...v0.13.0)
